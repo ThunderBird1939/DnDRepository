@@ -1,5 +1,5 @@
 import { character } from "../data/character.js";
-import { getSpellById, loadSpellsForClass } from "./spellLookup.js";
+import { getSpellById, loadSpellsForClass } from "../engine/lookups/spellLookup.js";
 import { openSpellDetail } from "./spellDetailModal.js";
 
 export async function renderAlwaysPreparedSpells() {

@@ -1,5 +1,5 @@
 import { openSpellDetail } from "./spellDetailModal.js";
-import { getSpellById } from "./spellLookup.js"; 
+import { getSpellById } from "../engine/lookups/spellLookup.js"; 
 
 /* =========================
    Helper UI builders (TOP LEVEL)

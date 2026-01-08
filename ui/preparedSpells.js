@@ -5,7 +5,7 @@ import {
   spellIdFromTitle,
   spellLevelFromTags,
   isCantripFromTags
-} from "./spellPrepRules.js";
+} from "../engine/rules/spellPrepRules.js";
 
 export async function renderPreparedSpells() {
   const container = document.getElementById("preparedSpells");

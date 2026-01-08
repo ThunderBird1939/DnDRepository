@@ -4,7 +4,7 @@ import {
   spellLevelFromTags,
   isCantripFromTags,
   spellIdFromTitle
-} from "./spellPrepRules.js";
+} from "../engine/rules/spellPrepRules.js";
 import { openSpellDetail } from "./spellDetailModal.js";
 
 /**
