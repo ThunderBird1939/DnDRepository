@@ -355,13 +355,16 @@ async function openSubclassModal(pending) {
 /* =========================
    Combat & Attacks
 ========================= */
-function updateCombat() {
+async function updateCombat() {
   const acEl = document.getElementById("armorClass");
   const initEl = document.getElementById("initiative");
   if (!acEl || !initEl) return;
 
   // 🔑 AC comes from the engine now
-  acEl.textContent = calculateArmorClass(character);
+  const ac = await calculateArmorClass(character);
+  character.combat.armorClass = ac;
+  acEl.textContent = ac;
+
 
   const dex = abilityMod(getAbilityScore("dex"));
   initEl.textContent = fmtSigned(dex);
@@ -441,10 +444,10 @@ function updateHitPoints() {
   const input = document.getElementById(stat);
   if (!input) return;
 
-  input.addEventListener("input", () => {
+  input.addEventListener("input", async () => {
     character.abilities[stat] = Number(input.value || 10);
     recalcAllAbilities();
-    updateCombat();
+    await updateCombat();
     renderAttacks();
     updateHitPoints();
     renderPreparedSpells();
@@ -468,7 +471,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   populateRaceDropdown();
   syncDetailButtons();
 
-  document.getElementById("raceSelect")?.addEventListener("change", e => {
+  document.getElementById("raceSelect")?.addEventListener("change", async e => {
     const race = races.find(r => r.id == e.target.value);
     if (!race) return;
 
@@ -476,7 +479,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     renderRaceDetails(race);
     updateRaceBonusDisplay();
     recalcAllAbilities();
-    updateCombat();
+    await updateCombat();
     renderAttacks();
     updateHitPoints();
     updateProfBonusUI();
@@ -504,6 +507,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     updateHitPoints();
     renderSavingThrows();
     updateProfBonusUI();
+    await updateCombat();
 
     window.dispatchEvent(new Event("class-updated"));
     window.dispatchEvent(new Event("features-updated"));
@@ -529,6 +533,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     updateHitPoints();
     updateProfBonusUI();
     renderSavingThrows();
+    await updateCombat();
 
     window.dispatchEvent(new Event("class-updated"));
     window.dispatchEvent(new Event("features-updated"));
@@ -574,7 +579,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   /* ===== Initial Render ===== */
   recalcAllAbilities();
   updateRaceBonusDisplay();
-  updateCombat();
+  await updateCombat();
   renderSkills();
   runPendingChoiceFlow();
   updateHitPoints();
