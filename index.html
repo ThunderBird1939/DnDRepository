@@ -214,51 +214,33 @@
       <label>Spent <input id="hitDiceSpent" type="number" value="0"/></label>
     </section>
 
-    <!-- ================= Combat ================= -->
+ 
+    <!-- ================= Combat & Equipment ================= -->
     <section class="panel">
       <h2>Combat</h2>
 
-      <label>Base AC <input id="baseAc" type="number" value="10"/></label>
+      <div class="equipment-block">
+        <label>
+          Armor
+          <select id="armorSelect">
+            <option value="">— Unarmored —</option>
+          </select>
+        </label>
+
+        <label style="margin-left: 12px;">
+          <input type="checkbox" id="shieldToggle" />
+          Shield (+2 AC)
+        </label>
+      </div>
+
       <p>Armor Class: <strong id="armorClass">10</strong></p>
       <p>Initiative: <strong id="initiative">+0</strong></p>
-      <label>Speed <input id="speed" type="number" value="30"/></label>
+
+      <label>
+        Speed
+        <input id="speed" type="number" value="30" />
+      </label>
     </section>
-
-  </section>
-  <section class="panel">
-    <h2>Combat</h2>
-
-    <label>
-      Armor
-      <select id="armorSelect">
-        <option value="">— Unarmored —</option>
-      </select>
-    </label>
-
-    <label>
-      <input type="checkbox" id="shieldToggle" />
-      Shield
-    </label>
-
-    <p>Armor Class: <strong id="armorClass">10</strong></p>
-    <p>Initiative: <strong id="initiative">+0</strong></p>
-
-    <label>Speed <input id="speed" type="number" value="30"/></label>
-  </section>
-<!-- ================= Equipment ================= -->
-<div class="equipment-block">
-  <label>
-    Armor
-    <select id="armorSelect">
-      <option value="">— Unarmored —</option>
-    </select>
-  </label>
-
-  <label style="margin-left: 12px;">
-    <input type="checkbox" id="shieldToggle" />
-    Shield (+2 AC)
-  </label>
-</div>
 
   <!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
   <section id="detailView" class="detail-view" hidden></section>
