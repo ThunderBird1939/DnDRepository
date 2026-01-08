@@ -19,19 +19,32 @@ export async function calculateArmorClass(character) {
     ? armorData.find(a => a.id === armorId)
     : null;
 
+  character.combat ??= {};
+  character.combat.armorPenalty = false;
+
   /* =========================
      ARMOR
   ========================= */
   if (armor) {
     ac = armor.baseAC;
 
-    if (armor.dexBonus === "full") {
+    const profs = character.proficiencies?.armor || [];
+
+    if (
+      (armor.category !== "shield" && !profs.includes(armor.category)) ||
+      (armor.category === "shield" && !profs.includes("shield"))
+    ) {
+      character.combat.armorPenalty = true;
+    }
+
+    // Heavy armor: no Dex bonus
+    if (armor.category === "heavy") {
+      // Dex explicitly ignored
+    } else if (armor.dexBonus === "full") {
       ac += dexMod;
     } else if (armor.dexBonus === "max2") {
       ac += Math.min(2, dexMod);
     }
-  } else {
-    ac = 10 + dexMod;
   }
 
   /* =========================
