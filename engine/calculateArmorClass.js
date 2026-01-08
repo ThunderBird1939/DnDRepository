@@ -1,4 +1,4 @@
-import { loadArmor } from "../data/armorLoader.js";
+import { loadArmor } from "../ui/armorLoader.js";
 
 /**
  * Calculates final Armor Class for a character
