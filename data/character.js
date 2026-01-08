@@ -114,6 +114,25 @@ infusions: {
   known: new Set(),
   active: new Set()
 },
+  /* =========================
+     EQUIPMENT
+  ========================= */
+  equipment: {
+    armor: null,   // armor id from armor.json (e.g. "chain-mail")
+    shield: false  // boolean for now (magic shields later)
+  },
+
+  /* =========================
+     ARMOR CLASS MODIFIERS
+     (Defense style, magic, etc.)
+  ========================= */
+  acModifiers: [],
+  
+  /* =========================
+     ARMOR CLASS OVERRIDE
+     (Mage Armor, Unarmored Defense)
+  ========================= */
+  acOverride: null,
 
   /* =========================
      COMBAT
