@@ -1,9 +1,11 @@
-import armorData from "../data/armor.json";
+import { loadArmor } from "../data/armorLoader.js";
 
 /**
  * Calculates final Armor Class for a character
  */
-export function calculateArmorClass(character) {
+export async function calculateArmorClass(character) {
+  const armorData = await loadArmor();
+
   const dexMod = Math.floor(
     ((character.abilities?.dex ?? 10) - 10) / 2
   );
@@ -28,9 +30,7 @@ export function calculateArmorClass(character) {
     } else if (armor.dexBonus === "max2") {
       ac += Math.min(2, dexMod);
     }
-    // "none" → no Dex
   } else {
-    // Unarmored
     ac = 10 + dexMod;
   }
 
@@ -39,13 +39,11 @@ export function calculateArmorClass(character) {
   ========================= */
   if (hasShield) {
     const shield = armorData.find(a => a.category === "shield");
-    if (shield) {
-      ac += shield.acBonus;
-    }
+    if (shield) ac += shield.acBonus;
   }
 
   /* =========================
-     MODIFIERS (future-proof)
+     MODIFIERS
   ========================= */
   (character.acModifiers || []).forEach(mod => {
     ac += mod;
