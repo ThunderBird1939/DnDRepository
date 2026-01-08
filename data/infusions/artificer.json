@@ -1,0 +1,74 @@
+[
+  {
+    "id": "enhanced-defense",
+    "name": "Enhanced Defense",
+    "type": "item",
+    "description": "A suit of armor or a shield gains a +1 bonus to AC while infused."
+  },
+  {
+    "id": "enhanced-weapon",
+    "name": "Enhanced Weapon",
+    "type": "item",
+    "description": "A simple or martial weapon gains a +1 bonus to attack and damage rolls."
+  },
+  {
+    "id": "repeating-shot",
+    "name": "Repeating Shot",
+    "type": "weapon",
+    "description": "A ranged weapon ignores the Loading property and produces its own ammunition. It gains a +1 bonus to attack and damage rolls."
+  },
+  {
+    "id": "returning-weapon",
+    "name": "Returning Weapon",
+    "type": "weapon",
+    "description": "A thrown weapon returns to the wielder’s hand immediately after being used to make a ranged attack."
+  },
+  {
+    "id": "replicate-magic-item",
+    "name": "Replicate Magic Item",
+    "type": "choice",
+    "description": "You replicate the effects of a common magic item of your choice."
+  },
+  {
+    "id": "mind-sharpener",
+    "name": "Mind Sharpener",
+    "type": "wondrous",
+    "description": "The wearer can succeed on a failed Constitution saving throw to maintain concentration, a limited number of times per day."
+  },
+  {
+    "id": "enhanced-arcane-focus",
+    "name": "Enhanced Arcane Focus",
+    "type": "focus",
+    "description": "An arcane focus grants a +1 bonus to spell attack rolls."
+  },
+  {
+    "id": "boots-of-the-winding-path",
+    "name": "Boots of the Winding Path",
+    "type": "wondrous",
+    "description": "As a bonus action, the wearer can teleport up to 15 feet to an unoccupied space they previously occupied."
+  },
+  {
+    "id": "homunculus-servant",
+    "name": "Homunculus Servant",
+    "type": "companion",
+    "description": "You create a magical construct companion that obeys your commands."
+  },
+  {
+    "id": "radiant-weapon",
+    "name": "Radiant Weapon",
+    "type": "weapon",
+    "description": "The weapon sheds light and can blind creatures when it hits."
+  },
+  {
+    "id": "resistant-armor",
+    "name": "Resistant Armor",
+    "type": "armor",
+    "description": "The wearer gains resistance to one damage type of your choice."
+  },
+  {
+    "id": "spell-refueling-ring",
+    "name": "Spell-Refueling Ring",
+    "type": "ring",
+    "description": "The wearer can recover a spell slot of 3rd level or lower once per day."
+  }
+]

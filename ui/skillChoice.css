@@ -1,0 +1,77 @@
+/* =========================
+   Skill Choice Panel
+========================= */
+
+#skillChoice {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+
+  border: 2px solid #444;
+  border-radius: 8px;
+  background-color: #1e1e1e;
+
+  max-width: 420px;
+}
+
+#skillChoice h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #e0c97f; /* parchment gold */
+}
+
+#skillChoice p {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* =========================
+   Skill Options
+========================= */
+
+#skillChoiceOptions {
+  margin-bottom: 1rem;
+}
+
+#skillChoiceOptions label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.25rem 0;
+  cursor: pointer;
+
+  color: #eee;
+}
+
+#skillChoiceOptions input[type="checkbox"] {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* =========================
+   Confirm Button
+========================= */
+
+#confirmSkills {
+  padding: 0.5rem 1rem;
+
+  border-radius: 6px;
+  border: none;
+
+  background-color: #5a8dee;
+  color: white;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+#confirmSkills:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+#confirmSkills:hover:not(:disabled) {
+  background-color: #3f73d8;
+}

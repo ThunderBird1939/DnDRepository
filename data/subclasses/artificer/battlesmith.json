@@ -1,0 +1,64 @@
+{
+  "id": "battle-smith",
+  "name": "Battle Smith",
+  "classId": "artificer",
+  "source": "TCE",
+  "description": "Battle Smiths blend martial prowess with arcane engineering.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "battle-ready",
+        "name": "Battle Ready",
+        "type": "passive",
+        "description": "You can use Intelligence instead of Strength or Dexterity for attacks with magic weapons."
+      },
+      {
+        "id": "steel-defender",
+        "name": "Steel Defender",
+        "type": "system",
+        "description": "You create a loyal construct companion that fights alongside you."
+      },
+      {
+        "id": "battle-smith-spells",
+        "name": "Battle Smith Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific artificer levels.",
+        "spells": {
+          "3": ["heroism", "shield"],
+          "5": ["branding-smite", "warding-bond"],
+          "9": ["aura-of-vitality", "conjure-barrage"],
+          "13": ["aura-of-purity", "fire-shield"],
+          "17": ["banishing-smite", "mass-cure-wounds"]
+        }
+      }
+    ],
+
+    "5": [
+      {
+        "id": "extra-attack",
+        "name": "Extra Attack",
+        "type": "passive",
+        "description": "You can attack twice when you take the Attack action."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "arcane-jolt",
+        "name": "Arcane Jolt",
+        "type": "passive",
+        "description": "You can empower attacks with additional damage or healing."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "improved-defender",
+        "name": "Improved Defender",
+        "type": "passive",
+        "description": "Your Steel Defender becomes more powerful."
+      }
+    ]
+  }
+}

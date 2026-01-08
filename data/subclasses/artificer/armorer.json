@@ -1,0 +1,64 @@
+{
+  "id": "armorer",
+  "name": "Armorer",
+  "classId": "artificer",
+  "source": "TCE",
+  "description": "Armorers modify arcane armor to protect allies or strike with stealth and precision.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "arcane-armor",
+        "name": "Arcane Armor",
+        "type": "passive",
+        "description": "You gain a magical suit of armor that replaces missing limbs and integrates weapons."
+      },
+      {
+        "id": "armor-model",
+        "name": "Armor Model",
+        "type": "choice",
+        "description": "You choose between the Guardian or Infiltrator armor model."
+      },
+      {
+        "id": "armorer-spells",
+        "name": "Armorer Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific artificer levels.",
+        "spells": {
+          "3": ["magic-missile", "thunderwave"],
+          "5": ["mirror-image", "shatter"],
+          "9": ["hypnotic-pattern", "lightning-bolt"],
+          "13": ["fire-shield", "greater-invisibility"],
+          "17": ["passwall", "wall-of-force"]
+        }
+      }
+    ],
+
+    "5": [
+      {
+        "id": "extra-attack",
+        "name": "Extra Attack",
+        "type": "passive",
+        "description": "You can attack twice, instead of once, when you take the Attack action."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "armor-modifications",
+        "name": "Armor Modifications",
+        "type": "passive",
+        "description": "You can infuse your armor with additional magical effects."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "perfected-armor",
+        "name": "Perfected Armor",
+        "type": "passive",
+        "description": "Your armor gains additional powerful effects based on its model."
+      }
+    ]
+  }
+}

@@ -1,0 +1,4041 @@
+[
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Absorb Elements",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level abjuration",
+			"rule",
+			"property | Casting Time | 1 reaction, which you take when you take acid, cold, fire, lightning, or thunder damage",
+			"property | Range | Self",
+			"property | Components | S",
+			"property | Duration | 1 round",
+			"rule",
+			"text | The spell captures some of the incoming energy, lessening its effect on you and storing it for your next melee attack. You have resistance to the triggering damage type until the start of your next turn. Also, the first time you hit with a melee attack on your next turn, the target takes an extra 1d6 damage of the triggering type, and the spell ends.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 2nd level or higher, the extra damage increases by 1d6 for each slot level above 1st."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"1st level",
+			"Abjuration",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Acid Splash",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Conjuration cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You hurl a bubble of acid. Choose one creature you can see within range, or choose two creatures you can see within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage.",
+			"text | This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Conjuration",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Aid",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a tiny strip of white cloth)",
+			"property | Duration | 8 hours",
+			"rule",
+			"text | Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range. Each target's hit point maximum and current hit points increase by 5 for the duration.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 3rd level or higher, a target's hit points increase by an additional 5 for each slot level above 2nd."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Abjuration",
+			"Cleric",
+			"Paladin",
+			"Artificer",
+			"Bard",
+			"Ranger"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Air Bubble",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level conjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | S",
+			"property | Duration | 24 hours",
+			"rule",
+			"text | You create a spectral globe around the head of a willing creature you can see within range. The globe is filled with fresh air that lasts until the spell ends. If the creature has more than one head, the globe of air appears around only one of its heads (which is all the creature needs to avoid suffocation, assuming that all its heads share the same respiratory system).",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 3rd level or higher, you can create two additional globes of fresh air for each slot level above 2nd."
+		],
+		"tags": [
+			"spell",
+			"AAG",
+			"2nd level",
+			"Conjuration",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Alarm",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level abjuration (ritual)",
+			"rule",
+			"property | Casting Time | 1 minute",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a tiny bell and a piece of fine silver wire)",
+			"property | Duration | 8 hours",
+			"rule",
+			"text | You set an alarm against unwanted intrusion. Choose a door, a window, or an area within range that is no larger than a 20-foot cube. Until the spell ends, an alarm alerts you whenever a Tiny or larger creature touches or enters the warded area. When you cast the spell, you can designate creatures that won't set off the alarm. You also choose whether the alarm is mental or audible.",
+			"text | A mental alarm alerts you with a ping in your mind if you are within 1 mile of the warded area. This ping awakens you if you are sleeping.",
+			"text | An audible alarm produces the sound of a hand bell for 10 seconds within 60 feet."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Abjuration",
+			"Ranger",
+			"Wizard",
+			"Artificer",
+			"ritual"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Alter Self",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | You assume a different form. When you cast the spell, choose one of the following options, the effects of which last for the duration of the spell. While the spell lasts, you can end one option as an action to gain the benefits of a different one.",
+			"description | Aquatic Adaptation | You adapt your body to an aquatic environment, sprouting gills and growing webbing between your fingers. You can breathe underwater and gain a swimming speed equal to your walking speed.",
+			"description | Change Appearance | You transform your appearance. You decide what you look like, including your height, weight, facial features, sound of your voice, hair length, coloration, and distinguishing characteristics, if any. You can make yourself appear as a member of another race, though none of your statistics change. You also can't appear as a creature of a different size than you, and your basic shape stays the same; if you're bipedal, you can't use this spell to become quadrupedal, for instance. At any time for the duration of the spell, you can use your action to change your appearance in this way again.",
+			"description | Natural Weapons | You grow claws, fangs, spines, horns, or a different natural weapon of your choice. Your unarmed strikes deal 1d6 bludgeoning, piercing, or slashing damage, as appropriate to the natural weapon you chose, and you are proficient with your unarmed strikes. Finally, the natural weapon is magic and you have a +1 bonus to the attack and damage rolls you make using it."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Animate Objects",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 5th-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 120 feet",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | Objects come to life at your command. Choose up to ten nonmagical objects within range that are not being worn or carried. Medium targets count as two objects, Large targets count as four objects, Huge targets count as eight objects. You can't animate any object larger than Huge. Each target animates and becomes a creature under your control until the spell ends or until reduced to 0 hit points.",
+			"text | As a bonus action, you can mentally command any creature you made with this spell if the creature is within 500 feet of you (if you control multiple creatures, you can command any or all of them at the same time, issuing the same command to each one). You decide what action the creature will take and where it will move during its next turn, or you can issue a general command, such as to guard a particular chamber or corridor. If you issue no commands, the creature only defends itself against hostile creatures. Once given an order, the creature continues to follow it until its task is complete.",
+			"text | <b>Animated Object Statistics</b>",
+			"text | Size｜HP｜AC｜Attack｜Str｜Dex",
+			"text | Tiny｜20｜18｜+8 to hit, 1d4 + 4 damage｜4｜18",
+			"text | Small｜25｜16｜+6 to hit, 1d8 + 2 damage｜6｜14",
+			"text | Medium｜40｜13｜+5 to hit, 2d6 + 1 damage｜10｜12",
+			"text | Large｜50｜10｜+6 to hit, 2d10 + 2 damage｜14｜10",
+			"text | Huge｜80｜10｜+8 to hit, 2d12 + 4 damage｜18｜6",
+			"text | An animated object is a construct with AC, hit points, attacks, Strength, and Dexterity determined by its size. Its Constitution is 10 and its Intelligence and Wisdom are 3, and its Charisma is 1. Its speed is 30 feet; if the object lacks legs or other appendages it can use for locomotion, it instead has a flying speed of 30 feet and can hover. If the object is securely attached to a surface or a larger object, such as a chain bolted to a wall, its speed is 0. It has blindsight with a radius of 30 feet and is blind beyond that distance. When the animated object drops to 0 hit points, it reverts to its original object form, and any remaining damage carries over to its original object form.",
+			"text | If you command an object to attack, it can make a single melee attack against a creature within 5 feet of it. It makes a slam attack with an attack bonus and bludgeoning damage determined by its size. The DM might rule that a specific object inflicts slashing or piercing damage based on its form.",
+			"section | At higher levels",
+			"text | If you cast this spell using a spell slot of 6th level or higher, you can animate two additional objects for each slot level above 5th."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"5th level",
+			"Transmutation",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Arcane Eye",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level divination",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a bit of bat fur)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | You create an invisible, magical eye within range that hovers in the air for the duration.",
+			"text | You mentally receive visual information from the eye, which has normal vision and darkvision out to 30 feet. The eye can look in every direction.",
+			"text | As an action, you can move the eye up to 30 feet in any direction. There is no limit to how far away from you the eye can move, but it can't enter another plane of existence. A solid barrier blocks the eye's movement, but the eye can pass through an opening as small as 1 inch in diameter."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Divination",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Arcane Lock",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (gold dust worth at least 25 gp, which the spell consumes)",
+			"property | Duration | Until dispelled",
+			"rule",
+			"text | You touch a closed door, window, gate, chest, or other entryway, and it becomes locked for the duration. You and the creatures you designate when you cast this spell can open the object normally. You can also set a password that, when spoken within 5 feet of the object, suppresses this spell for 1 minute. Otherwise, it is impassable until it is broken or the spell is dispelled or suppressed. Casting knock on the object suppresses arcane lock for 10 minutes.",
+			"text | While affected by this spell, the object is more difficult to break or force open; the DC to break it or pick any locks on it increases by 10."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Abjuration",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Ashardalon's Stride",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 bonus action",
+			"property | Range | Self",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | The billowing flames of a dragon blast from your feet, granting you explosive speed. For the duration, your speed increases by 20 feet and moving doesn't provoke opportunity attacks.",
+			"text | When you move within 5 feet of a creature or an object that isn't being worn or carried, it takes 1d6 fire damage from your trail of heat. A creature or object can take this damage only once during a turn.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, increase your speed by 5 feet for each spell slot level above 3rd. The spell deals an additional 1d6 fire damage for each slot level above 3rd."
+		],
+		"tags": [
+			"spell",
+			"FTD",
+			"3rd level",
+			"Transmutation",
+			"Artificer",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Bigby's Hand",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 5th-level evocation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 120 feet",
+			"property | Components | V, S, M (an eggshell and a snakeskin glove)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | You create a Large hand of shimmering, translucent force in an unoccupied space that you can see within range. The hand lasts for the spell's duration, and it moves at your command, mimicking the movements of your own hand.",
+			"text | The hand is an object that has AC 20 and hit points equal to your hit point maximum. If it drops to 0 hit points, the spell ends. It has a Strength of 26 (+8) and a Dexterity of 10 (+0). The hand doesn't fill its space.",
+			"text | When you cast the spell and as a bonus action on your subsequent turns, you can move the hand up to 60 feet and then cause one of the following effects with it.",
+			"description | Clenched Fist | The hand strikes one creature or object within 5 feet of it. Make a melee spell attack for the hand using your game statistics. On a hit, the target takes 4d8 force damage.",
+			"description | Forceful Hand | The hand attempts to push a creature within 5 feet of it in a direction you choose. Make a check with the hand's Strength contested by the Strength (Athletics) check of the target. If the target is Medium or smaller, you have advantage on the check. If you succeed, the hand pushes the target up to 5 feet plus a number of feet equal to five times your spellcasting ability modifier. The hand moves with the target to remain within 5 feet of it.",
+			"description | Grasping Hand | The hand attempts to grapple a Huge or smaller creature within 5 feet of it. You use the hand's Strength score to resolve the grapple. If the target is Medium or smaller, you have advantage on the check. While the hand is grappling the target, you can use a bonus action to have the hand crush it. When you do so, the target takes bludgeoning damage equal to 2d6 + your spellcasting ability modifier.",
+			"description | Interposing Hand | The hand interposes itself between you and a creature you choose until you give the hand a different command. The hand moves to stay between you and the target, providing you with half cover against the target. The target can't move through the hand's space if its Strength score is less than or equal to the hand's Strength score. If its Strength score is higher than the hand's Strength score, the target can move toward you through the hand's space, but that space is difficult terrain for the target.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 6th level or higher, the damage from the clenched fist option increases by 2d8 and the damage from the grasping hand increases by 2d6 for each slot level above 5th."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"5th level",
+			"Evocation",
+			"Wizard",
+			"Artificer",
+			"Sorcerer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Blink",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self",
+			"property | Components | V, S",
+			"property | Duration | 1 minute",
+			"rule",
+			"text | Roll a d20 at the end of each of your turns for the duration of the spell. On a roll of 11 or higher, you vanish from your current plane of existence and appear in the Ethereal Plane (the spell fails and the casting is wasted if you were already on that plane). At the start of your next turn, and when the spell ends if you are on the Ethereal Plane, you return to an unoccupied space of your choice that you can see within 10 feet of the space you vanished from. If no unoccupied space is available within that range, you appear in the nearest unoccupied space (chosen at random if more than one space is equally near). You can dismiss this spell as an action.",
+			"text | While on the Ethereal Plane, you can see and hear the plane you originated from, which is cast in shades of gray, and you can't see anything there more than 60 feet away. You can only affect and be affected by other creatures on the Ethereal Plane. Creatures that aren't there can't perceive you or interact with you, unless they have the ability to do so."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Transmutation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Blur",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level illusion",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self",
+			"property | Components | V",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | Your body becomes blurred, shifting and wavering to all who can see you. For the duration, any creature has disadvantage on attack rolls against you. An attacker is immune to this effect if it doesn't rely on sight, as with blindsight, or can see through illusions, as with truesight."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Illusion",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Booming Blade",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self (5-foot radius)",
+			"property | Components | S, M (a melee weapon worth at least 1 sp)",
+			"property | Duration | 1 round",
+			"rule",
+			"text | You brandish the weapon used in the spell's casting and make a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack's normal effects and then becomes sheathed in booming energy until the start of your next turn. If the target willingly moves 5 feet or more before then, the target takes 1d8 thunder damage, and the spell ends.",
+			"text | This spell's damage increases when you reach certain levels. At 5th level, the melee attack deals an extra 1d8 thunder damage to the target on a hit, and the damage the target takes for moving increases to 2d8. Both damage rolls increase by 1d8 at 11th level (2d8 and 3d8) and again at 17th level (3d8 and 4d8)."
+		],
+		"tags": [
+			"spell",
+			"TCE",
+			"Cantrips",
+			"Evocation",
+			"Artificer",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Catapult",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | Choose one object weighing 1 to 5 pounds within range that isn't being worn or carried. The object flies in a straight line up to 90 feet in a direction you choose before falling to the ground, stopping early if it impacts against a solid surface. If the object would strike a creature, that creature must make a Dexterity saving throw. On a failed save, the object strikes the target and stops moving. When the object strikes something, the object and what it strikes each take 3d8 bludgeoning damage.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 2nd level or higher, the maximum weight of objects that you can target with this spell increases by 5 pounds, and the damage increases by 1d8, for each slot level above 1st."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"1st level",
+			"Transmutation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Catnap",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level enchantment",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | S, M (a pinch of sand)",
+			"property | Duration | 10 minutes",
+			"rule",
+			"text | You make a calming gesture, and up to three willing creatures of your choice that you can see within range fall unconscious for the spell's duration. The spell ends on a target early if it takes damage or someone uses an action to shake or slap it awake. If a target remains unconscious for the full duration, that target gains the benefit of a short rest, and it can't be affected by this spell again until it finishes a long rest.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, you can target one additional willing creature for each slot level above 3rd."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"3rd level",
+			"Enchantment",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Continual Flame",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level evocation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (ruby dust worth 50 gp, which the spell consumes)",
+			"property | Duration | Until dispelled",
+			"rule",
+			"text | A flame, equivalent in brightness to a torch, springs forth from an object that you touch. The effect looks like a regular flame, but it creates no heat and doesn't use oxygen. A continual flame can be covered or hidden but not smothered or quenched."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Evocation",
+			"Cleric",
+			"Wizard",
+			"Artificer",
+			"Druid"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Create Bonfire",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Conjuration cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | You create a bonfire on ground that you can see within range. Until the spell ends, the magic bonfire fills a 5-foot cube. Any creature in the bonfire's space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it moves into the bonfire's space for the first time on a turn or ends its turn there.",
+			"text | The bonfire ignites flammable objects in its area that aren't being worn or carried.",
+			"text | The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"Cantrips",
+			"Conjuration",
+			"Druid",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Create Food and Water",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level conjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You create 45 pounds of food and 30 gallons of water on the ground or in containers within range, enough to sustain up to fifteen humanoids or five steeds for 24 hours. The food is bland but nourishing, and spoils if uneaten after 24 hours. The water is clean and doesn't go bad."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Conjuration",
+			"Cleric",
+			"Paladin",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Create Spelljamming Helm",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 5th-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (a crystal rod worth at least 5,000 gp, which the spell consumes)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | Holding the rod used in the casting of the spell, you touch a Large or smaller chair that is unoccupied. The rod disappears, and the chair is transformed into a spelljamming helm."
+		],
+		"tags": [
+			"spell",
+			"AAG",
+			"5th level",
+			"Transmutation",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Creation",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 5th-level illusion",
+			"rule",
+			"property | Casting Time | 1 minute",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a tiny piece of matter of the same type of the item you plan to create)",
+			"property | Duration | Special",
+			"rule",
+			"text | You pull wisps of shadow material from the Shadowfell to create a nonliving object of vegetable matter within range: soft goods, rope, wood, or something similar. You can also use this spell to create mineral objects such as stone, crystal, or metal. The object created must be no larger than a 5-foot cube, and the object must be of a form and material that you have seen before.",
+			"text | The duration depends on the object's material. If the object is composed of multiple materials, use the shortest duration.",
+			"text | <b>Creation</b>",
+			"text | Material｜Duration",
+			"text | Vegetable matter｜1 day",
+			"text | Stone or crystal｜12 hours",
+			"text | Precious metals｜1 hour",
+			"text | Gems｜10 minutes",
+			"text | Adamantine or mithral｜1 minute",
+			"text | Using any material created by this spell as another spell's material component causes that spell to fail.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 6th level or higher, the cube increases by 5 feet for each slot level above 5th."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"5th level",
+			"Illusion",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Cure Wounds",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level evocation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Evocation",
+			"Bard",
+			"Cleric",
+			"Druid",
+			"Paladin",
+			"Ranger",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Dancing Lights",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 120 feet",
+			"property | Components | V, S, M (a bit of phosphorus or wychwood, or a glowworm)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. You can also combine the four lights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius.",
+			"text | As a bonus action on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell's range."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Evocation",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Darkvision",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (either a pinch of dried carrot or an agate)",
+			"property | Duration | 8 hours",
+			"rule",
+			"text | You touch a willing creature to grant it the ability to see in the dark. For the duration, that creature has darkvision out to a range of 60 feet."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Detect Magic",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level divination (ritual)",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 10 minutes",
+			"rule",
+			"text | For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any.",
+			"text | The spell can penetrate most barriers, but it is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Divination",
+			"Bard",
+			"Cleric",
+			"Druid",
+			"Paladin",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration",
+			"ritual"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Disguise Self",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level illusion",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self",
+			"property | Components | V, S",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | You make yourself—including your clothing, armor, weapons, and other belongings on your person—look different until the spell ends or until you use your action to dismiss it. You can seem 1 foot shorter or taller and can appear thin, fat, or in between. You can't change your body type, so you must adopt a form that has the same basic arrangement of limbs. Otherwise, the extent of the illusion is up to you.",
+			"text | The changes wrought by this spell fail to hold up to physical inspection. For example, if you use this spell to add a hat to your outfit, objects pass through the hat, and anyone who touches it would feel nothing or would feel your head and hair. If you use this spell to appear thinner than you are, the hand of someone who reaches out to touch you would bump into you while it was seemingly still in midair.",
+			"text | To discern that you are disguised, a creature can use its action to inspect your appearance and must succeed on an Intelligence (Investigation) check against your spell save DC."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Illusion",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Dispel Magic",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 120 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | Choose one creature, object, or magical effect within range. Any spell of 3rd level or lower on the target ends. For each spell of 4th level or higher on the target, make an ability check using your spellcasting ability. The DC equals 10 + the spell's level. On a successful check, the spell ends.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, you automatically end the effects of a spell on the target if the spell's level is equal to or less than the level of the spell slot you used."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Abjuration",
+			"Bard",
+			"Cleric",
+			"Druid",
+			"Paladin",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Elemental Bane",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 90 feet",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | Choose one creature you can see within range, and choose one of the following damage types: acid, cold, fire, lightning, or thunder. The target must succeed on a Constitution saving throw or be affected by the spell for its duration. The first time each turn the affected target takes damage of the chosen type, the target takes an extra 2d6 damage of that type. Moreover, the target loses any resistance to that damage type until the spell ends.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 5th level or higher, you can target one additional creature for each slot level above 4th. The creatures must be within 30 feet of each other when you target them."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"4th level",
+			"Transmutation",
+			"Druid",
+			"Warlock",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Elemental Weapon",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | A nonmagical weapon you touch becomes a magic weapon. Choose one of the following damage types: acid, cold, fire, lightning, or thunder. For the duration, the weapon has a +1 bonus to attack rolls and deals an extra 1d4 damage of the chosen type when it hits.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 5th or 6th level, the bonus to attack rolls increases to +2 and the extra damage increases to 2d4. When you use a spell slot of 7th level or higher, the bonus increases to +3 and the extra damage increases to 3d4."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Transmutation",
+			"Paladin",
+			"Artificer",
+			"Druid",
+			"Ranger",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Enhance Ability",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (fur or a feather from a beast)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | You touch a creature and bestow upon it a magical enhancement. Choose one of the following effects; the target gains that effect until the spell ends.",
+			"description | Bear's Endurance | The target has advantage on Constitution checks. It also gains 2d6 temporary hit points, which are lost when the spell ends.",
+			"description | Bull's Strength | The target has advantage on Strength checks, and his or her carrying capacity doubles.",
+			"description | Cat's Grace | The target has advantage on Dexterity checks. It also doesn't take damage from falling 20 feet or less if it isn't incapacitated.",
+			"description | Eagle's Splendor | The target has advantage on Charisma checks.",
+			"description | Fox's Cunning | The target has advantage on Intelligence checks.",
+			"description | Owl's Wisdom | The target has advantage on Wisdom checks.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 3rd level or higher, you can target one additional creature for each slot level above 2nd."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Bard",
+			"Cleric",
+			"Druid",
+			"Sorcerer",
+			"Artificer",
+			"Ranger",
+			"Wizard",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Enlarge/Reduce",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a pinch of powdered iron)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | You cause a creature or an object you can see within range to grow larger or smaller for the duration. Choose either a creature or an object that is neither worn nor carried. If the target is unwilling, it can make a Constitution saving throw. On a success, the spell has no effect.",
+			"text | If the target is a creature, everything it is wearing and carrying changes size with it. Any item dropped by an affected creature returns to normal size at once.",
+			"description | Enlarge | The target's size doubles in all dimensions, and its weight is multiplied by eight. This growth increases its size by one category—from Medium to Large, for example. If there isn't enough room for the target to double its size, the creature or object attains the maximum possible size in the space available. Until the spell ends, the target also has advantage on Strength checks and Strength saving throws. The target's weapons also grow to match its new size. While these weapons are enlarged, the target's attacks with them deal 1d4 extra damage.",
+			"description | Reduce | The target's size is halved in all dimensions, and its weight is reduced to one-eighth of normal. This reduction decreases its size by one category—from Medium to Small, for example. Until the spell ends, the target also has disadvantage on Strength checks and Strength saving throws. The target's weapons also shrink to match its new size. While these weapons are reduced, the target's attacks with them deal 1d4 less damage (this can't reduce the damage below 1)."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"Bard",
+			"Druid",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Expeditious Retreat",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level transmutation",
+			"rule",
+			"property | Casting Time | 1 bonus action",
+			"property | Range | Self",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 10 minutes",
+			"rule",
+			"text | This spell allows you to move at an incredible pace. When you cast this spell, and then as a bonus action on each of your turns until the spell ends, you can take the Dash action."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Transmutation",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Fabricate",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level transmutation",
+			"rule",
+			"property | Casting Time | 10 minutes",
+			"property | Range | 120 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You convert raw materials into products of the same material. For example, you can fabricate a wooden bridge from a clump of trees, a rope from a patch of hemp, and clothes from flax or wool.",
+			"text | Choose raw materials that you can see within range. You can fabricate a Large or smaller object (contained within a 10-foot cube, or eight connected 5-foot cubes), given a sufficient quantity of raw material. If you are working with metal, stone, or another mineral substance, however, the fabricated object can be no larger than Medium (contained within a single 5-foot cube). The quality of objects made by the spell is commensurate with the quality of the raw materials.",
+			"text | Creatures or magic items can't be created or transmuted by this spell. You also can't use it to create items that ordinarily require a high degree of craftsmanship, such as jewelry, weapons, glass, or armor, unless you have proficiency with the type of artisan's tools used to craft such objects."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Transmutation",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Faerie Fire",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level evocation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | Each object in a 20-foot cube within range is outlined in blue, green, or violet light (your choice). Any creature in the area when the spell is cast is also outlined in light if it fails a Dexterity saving throw. For the duration, objects and affected creatures shed dim light in a 10-foot radius.",
+			"text | Any attack roll against an affected creature or object has advantage if the attacker can see it, and the affected creature or object can't benefit from being invisible."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Evocation",
+			"Bard",
+			"Druid",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "False Life",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level necromancy",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self",
+			"property | Components | V, S, M (a small amount of alcohol or distilled spirits)",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | Bolstering yourself with a necromantic facsimile of life, you gain 1d4 + 4 temporary hit points for the duration.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 2nd level or higher, you gain 5 additional temporary hit points for each slot level above 1st."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Necromancy",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Feather Fall",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level transmutation",
+			"rule",
+			"property | Casting Time | 1 reaction, which you take when you or a creature within 60 feet of you falls",
+			"property | Range | 60 feet",
+			"property | Components | V, M (a small feather or a piece of down)",
+			"property | Duration | 1 minute",
+			"rule",
+			"text | Choose up to five falling creatures within range. A falling creature's rate of descent slows to 60 feet per round until the spell ends. If the creature lands before the spell ends, it takes no falling damage and can land on its feet, and the spell ends for that creature."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Transmutation",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Fire Bolt",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 120 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.",
+			"text | This spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10)."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Evocation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Flame Arrows",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | You touch a quiver containing arrows or bolts. When a target is hit by a ranged weapon attack using a piece of ammunition drawn from the quiver, the target takes an extra 1d6 fire damage. The spell's magic ends on a piece of ammunition when it hits or misses, and the spell ends when twelve pieces of ammunition have been drawn from the quiver.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, the number of pieces of ammunition you can affect with this spell increases by two for each slot level above 3rd."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"3rd level",
+			"Transmutation",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Fly",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (a wing feather from any bird)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 10 minutes",
+			"rule",
+			"text | You touch a willing creature. The target gains a flying speed of 60 feet for the duration. When the spell ends, the target falls if it is still aloft, unless it can stop the fall.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, you can target one additional creature for each slot level above 3rd."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Transmutation",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Freedom of Movement",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (a leather strap, bound around the arm or a similar appendage)",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | You touch a willing creature. For the duration, the target's movement is unaffected by difficult terrain, and spells and other magical effects can neither reduce the target's speed nor cause the target to be paralyzed or restrained.",
+			"text | The target can also spend 5 feet of movement to automatically escape from nonmagical restraints, such as manacles or a creature that has it grappled. Finally, being underwater imposes no penalties on the target's movement or attacks."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Abjuration",
+			"Bard",
+			"Cleric",
+			"Druid",
+			"Ranger",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Frostbite",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.",
+			"text | The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"Cantrips",
+			"Evocation",
+			"Druid",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Glyph of Warding",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level abjuration",
+			"rule",
+			"property | Casting Time | 1 hour",
+			"property | Range | Touch",
+			"property | Components | V, S, M (incense and powdered diamond worth at least 200 gp, which the spell consumes)",
+			"property | Duration | Until dispelled or triggered",
+			"rule",
+			"text | When you cast this spell, you inscribe a glyph that later unleashes a magical effect. You inscribe it either on a surface (such as a table or a section of floor or wall) or within an object that can be closed (such as a book, a scroll, or a treasure chest) to conceal the glyph. The glyph can cover an area no larger than 10 feet in diameter. If the surface or object is moved more than 10 feet from where you cast this spell, the glyph is broken, and the spell ends without being triggered.",
+			"text | The glyph is nearly invisible and requires a successful Intelligence (Investigation) check against your spell save DC to be found.",
+			"text | You decide what triggers the glyph when you cast the spell. For glyphs inscribed on a surface, the most typical triggers include touching or standing on the glyph, removing another object covering the glyph, approaching within a certain distance of the glyph, or manipulating the object on which the glyph is inscribed. For glyphs inscribed within an object, the most common triggers include opening that object, approaching within a certain distance of the object, or seeing or reading the glyph. Once a glyph is triggered, this spell ends.",
+			"text | You can further refine the trigger so the spell activates only under certain circumstances or according to physical characteristics (such as height or weight), creature kind (for example, the ward could be set to affect aberrations or drow), or alignment. You can also set conditions for creatures that don't trigger the glyph, such as those who say a certain password.",
+			"text | When you inscribe the glyph, choose explosive runes or a spell glyph.",
+			"description | Explosive Runes | When triggered, the glyph erupts with magical energy in a 20-foot-radius sphere centered on the glyph. The sphere spreads around corners. Each creature in the area must make a Dexterity saving throw. A creature takes 5d8 acid, cold, fire, lightning, or thunder damage on a failed saving throw (your choice when you create the glyph), or half as much damage on a successful one.",
+			"description | Spell Glyph | You can store a prepared spell of 3rd level or lower in the glyph by casting it as part of creating the glyph. The spell must target a single creature or an area. The spell being stored has no immediate effect when cast in this way. When the glyph is triggered, the stored spell is cast. If the spell has a target, it targets the creature that triggered the glyph. If the spell affects an area, the area is centered on that creature. If the spell summons hostile creatures or creates harmful objects or traps, they appear as close as possible to the intruder and attack it. If the spell requires concentration, it lasts until the end of its full duration.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, the damage of an explosive runes glyph increases by 1d8 for each slot level above 3rd. If you create a spell glyph, you can store any spell of up to the same level as the slot you use for the glyph of warding."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Abjuration",
+			"Bard",
+			"Cleric",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Grease",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level conjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S, M (a bit of pork rind or butter)",
+			"property | Duration | 1 minute",
+			"rule",
+			"text | Slick grease covers the ground in a 10-foot square centered on a point within range and turns it into difficult terrain for the duration.",
+			"text | When the grease appears, each creature standing in its area must succeed on a Dexterity saving throw or fall prone. A creature that enters the area or ends its turn there must also succeed on a Dexterity saving throw or fall prone."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Conjuration",
+			"Wizard",
+			"Artificer",
+			"Sorcerer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Greater Restoration",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 5th-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (diamond dust worth at least 100 gp, which the spell consumes)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You imbue a creature you touch with positive energy to undo a debilitating effect. You can reduce the target's exhaustion level by one, or end one of the following effects on the target:",
+			"bullet | One effect that charmed or petrified the target",
+			"bullet | One curse, including the target's attunement to a cursed magic item",
+			"bullet | Any reduction to one of the target's ability scores",
+			"bullet | One effect reducing the target's hit point maximum"
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"5th level",
+			"Abjuration",
+			"Bard",
+			"Cleric",
+			"Druid",
+			"Artificer",
+			"Ranger"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Green-Flame Blade",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self (5-foot radius)",
+			"property | Components | S, M (a melee weapon worth at least 1 sp)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You brandish the weapon used in the spell's casting and make a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack's normal effects, and you can cause green fire to leap from the target to a different creature of your choice that you can see within 5 feet of it. The second creature takes fire damage equal to your spellcasting ability modifier.",
+			"text | This spell's damage increases when you reach certain levels. At 5th level, the melee attack deals an extra 1d8 fire damage to the target on a hit, and the fire damage to the second creature increases to 1d8 + your spellcasting ability modifier. Both damage rolls increase by 1d8 at 11th level (2d8 and 2d8) and 17th level (3d8 and 3d8)."
+		],
+		"tags": [
+			"spell",
+			"TCE",
+			"Cantrips",
+			"Evocation",
+			"Artificer",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Guidance",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Divination cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | You touch one willing creature. Once before the spell ends, the target can roll a d4 and add the number rolled to one ability check of its choice. It can roll the die before or after making the ability check. The spell then ends."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Divination",
+			"Cleric",
+			"Druid",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Haste",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a shaving of licorice root)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | Choose a willing creature that you can see within range. Until the spell ends, the target's speed is doubled, it gains a +2 bonus to AC, it has advantage on Dexterity saving throws, and it gains an additional action on each of its turns. That action can be used only to take the Attack (one weapon attack only), Dash, Disengage, Hide, or Use an Object action.",
+			"text | When the spell ends, the target can't move or take actions until after its next turn, as a wave of lethargy sweeps over it."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Transmutation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Heat Metal",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S, M (a piece of iron and a flame)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | Choose a manufactured metal object, such as a metal weapon or a suit of heavy or medium metal armor, that you can see within range. You cause the object to glow red-hot. Any creature in physical contact with the object takes 2d8 fire damage when you cast the spell. Until the spell ends, you can use a bonus action on each of your subsequent turns to cause this damage again.",
+			"text | If a creature is holding or wearing the object and takes the damage from it, the creature must succeed on a Constitution saving throw or drop the object if it can. If it doesn't drop the object, it has disadvantage on attack rolls and ability checks until the start of your next turn.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Bard",
+			"Druid",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Identify",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level divination (ritual)",
+			"rule",
+			"property | Casting Time | 1 minute",
+			"property | Range | Touch",
+			"property | Components | V, S, M (a pearl worth at least 100 gp and an owl feather)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You choose one object that you must touch throughout the casting of the spell. If it is a magic item or some other magic-imbued object, you learn its properties and how to use them, whether it requires attunement to use, and how many charges it has, if any. You learn whether any spells are affecting the item and what they are. If the item was created by a spell, you learn which spell created it.",
+			"text | If you instead touch a creature throughout the casting, you learn what spells, if any, are currently affecting it."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Divination",
+			"Bard",
+			"Wizard",
+			"Artificer",
+			"ritual"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Intellect Fortress",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | For the duration, you or one willing creature you can see within range has resistance to psychic damage, as well as advantage on Intelligence, Wisdom, and Charisma saving throws.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, you can target one additional creature for each slot level above 3rd. The creatures must be within 30 feet of each other when you target them."
+		],
+		"tags": [
+			"spell",
+			"TCE",
+			"3rd level",
+			"Abjuration",
+			"Artificer",
+			"Bard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Invisibility",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level illusion",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (an eyelash encased in gum arabic)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | A creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it is on the target's person. The spell ends for a target that attacks or casts a spell.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 3rd level or higher, you can target one additional creature for each slot level above 2nd."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Illusion",
+			"Bard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Jump",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (a grasshopper's hind leg)",
+			"property | Duration | 1 minute",
+			"rule",
+			"text | You touch a creature. The creature's jump distance is tripled until the spell ends."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Transmutation",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Kinetic Jaunt",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 bonus action",
+			"property | Range | Self",
+			"property | Components | S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | You magically empower your movement with dance-like steps, giving yourself the following benefits for the duration.",
+			"bullet | Your walking speed increases by 10 feet.",
+			"bullet | You don't provoke opportunity attacks.",
+			"bullet | You can move through the space of another creature, and it doesn't count as difficult terrain. If you end your turn in another creature's space, you are shunted to the last unoccupied space you occupied, and you take 1d8 force damage."
+		],
+		"tags": [
+			"spell",
+			"SCC",
+			"2nd level",
+			"Transmutation",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Leomund's Secret Chest",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level conjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (an exquisite chest, 3 feet by 2 feet by 2 feet, constructed from rare materials worth at least 5,000 gp, and a Tiny replica made from the same materials worth at least 50 gp)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You hide a chest, and all its contents, on the Ethereal Plane. You must touch the chest and the miniature replica that serves as a material component for the spell. The chest can contain up to 12 cubic feet of nonliving material (3 feet by 2 feet by 2 feet).",
+			"text | While the chest remains on the Ethereal Plane, you can use an action and touch the replica to recall the chest. It appears in an unoccupied space on the ground within 5 feet of you. You can send the chest back to the Ethereal Plane by using an action and touching both the chest and the replica.",
+			"text | After 60 days, there is a cumulative 5 percent chance per day that the spell's effect ends. This effect ends if you cast this spell again, if the smaller replica chest is destroyed, or if you choose to end the spell as an action. If the spell ends and the larger chest is on the Ethereal Plane, it is irretrievably lost."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Conjuration",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Lesser Restoration",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You touch a creature and can end either one disease or one condition afflicting it. The condition can be blinded, deafened, paralyzed, or poisoned."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Abjuration",
+			"Bard",
+			"Cleric",
+			"Druid",
+			"Paladin",
+			"Ranger",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Levitate",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S, M (either a small leather loop or a piece of golden wire bent into a cup shape with a long shank on one end)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 10 minutes",
+			"rule",
+			"text | One creature or loose object of your choice that you can see within range rises vertically, up to 20 feet, and remains suspended there for the duration. The spell can levitate a target that weighs up to 500 pounds. An unwilling creature that succeeds on a Constitution saving throw is unaffected.",
+			"text | The target can move only by pushing or pulling against a fixed object or surface within reach (such as a wall or a ceiling), which allows it to move as if it were climbing. You can change the target's altitude by up to 20 feet in either direction on your turn. If you are the target, you can move up or down as part of your move. Otherwise, you can use your action to move the target, which must remain within the spell's range.",
+			"text | When the spell ends, the target floats gently to the ground if it is still aloft."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Light",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, M (a firefly or phosphorescent moss)",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The light can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.",
+			"text | If you target an object held or worn by a hostile creature, that creature must succeed on a Dexterity saving throw to avoid the spell."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Evocation",
+			"Bard",
+			"Cleric",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Lightning Lure",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self (15-foot radius)",
+			"property | Components | V",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You create a lash of lightning energy that strikes at one creature of your choice that you can see within 15 feet of you. The target must succeed on a Strength saving throw or be pulled up to 10 feet in a straight line toward you and then take 1d8 lightning damage if it is within 5 feet of you.",
+			"text | This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
+		],
+		"tags": [
+			"spell",
+			"TCE",
+			"Cantrips",
+			"Evocation",
+			"Artificer",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Longstrider",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (a pinch of dirt)",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | You touch a creature. The target's speed increases by 10 feet until the spell ends.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Transmutation",
+			"Bard",
+			"Druid",
+			"Ranger",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Mage Hand",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Conjuration cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S",
+			"property | Duration | 1 minute",
+			"rule",
+			"text | A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.",
+			"text | You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.",
+			"text | The hand can't attack, activate magic items, or carry more than 10 pounds."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Conjuration",
+			"Bard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Magic Mouth",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level illusion (ritual)",
+			"rule",
+			"property | Casting Time | 1 minute",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a small bit of honeycomb and jade dust worth at least 10 gp, which the spell consumes)",
+			"property | Duration | Until dispelled",
+			"rule",
+			"text | You implant a message within an object in range, a message that is uttered when a trigger condition is met. Choose an object that you can see and that isn't being worn or carried by another creature. Then speak the message, which must be 25 words or less, though it can be delivered over as long as 10 minutes. Finally, determine the circumstance that will trigger the spell to deliver your message.",
+			"text | When that circumstance occurs, a magical mouth appears on the object and recites the message in your voice and at the same volume you spoke. If the object you chose has a mouth or something that looks like a mouth (for example, the mouth of a statue), the magical mouth appears there so that the words appear to come from the object's mouth. When you cast this spell, you can have the spell end after it delivers its message, or it can remain and repeat its message whenever the trigger occurs.",
+			"text | The triggering circumstance can be as general or as detailed as you like, though it must be based on visual or audible conditions that occur within 30 feet of the object. For example, you could instruct the mouth to speak when any creature moves within 30 feet of the object or when a silver bell rings within 30 feet of it."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Illusion",
+			"Bard",
+			"Wizard",
+			"Artificer",
+			"ritual"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Magic Stone",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Transmutation cantrip",
+			"rule",
+			"property | Casting Time | 1 bonus action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | 1 minute",
+			"rule",
+			"text | You touch one to three pebbles and imbue them with magic. You or someone else can make a ranged spell attack with one of the pebbles by throwing it or hurling it with a sling. If thrown, a pebble has a range of 60 feet. If someone else attacks with a pebble, that attacker adds your spellcasting ability modifier, not the attacker's, to the attack roll. On a hit, the target takes bludgeoning damage equal to 1d6 + your spellcasting ability modifier. Whether the attack hits or misses, the spell then ends on the stone.",
+			"text | If you cast this spell again, the spell ends on any pebbles still affected by your previous casting."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"Cantrips",
+			"Transmutation",
+			"Druid",
+			"Warlock",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Magic Weapon",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 bonus action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | You touch a nonmagical weapon. Until the spell ends, that weapon becomes a magic weapon with a +1 bonus to attack rolls and damage rolls.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, the bonus increases to +2. When you use a spell slot of 6th level or higher, the bonus increases to +3."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Paladin",
+			"Wizard",
+			"Artificer",
+			"Ranger",
+			"Sorcerer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Mending",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Transmutation cantrip",
+			"rule",
+			"property | Casting Time | 1 minute",
+			"property | Range | Touch",
+			"property | Components | V, S, M (two lodestones)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | This spell repairs a single break or tear in an object you touch, such as broken chain link, two halves of a broken key, a torn cloak, or a leaking wineskin. As long as the break or tear is no larger than 1 foot in any dimension, you mend it, leaving no trace of the former damage.",
+			"text | This spell can physically repair a magic item or construct, but the spell can't restore magic to such an object."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Transmutation",
+			"Bard",
+			"Cleric",
+			"Druid",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Message",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Transmutation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 120 feet",
+			"property | Components | V, S, M (a short piece of copper wire)",
+			"property | Duration | 1 round",
+			"rule",
+			"text | You point your finger toward a creature within range and whisper a message. The target (and only the target) hears the message and can reply in a whisper that only you can hear.",
+			"text | You can cast this spell through solid objects if you are familiar with the target and know it is beyond the barrier. Magical silence, 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood blocks the spell. The spell doesn't have to follow a straight line and can travel freely around corners or through openings."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Transmutation",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Mordenkainen's Faithful Hound",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level conjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a tiny silver whistle, a piece of bone, and a thread)",
+			"property | Duration | 8 hours",
+			"rule",
+			"text | You conjure a phantom watchdog in an unoccupied space that you can see within range, where it remains for the duration, until you dismiss it as an action, or until you move more than 100 feet away from it.",
+			"text | The hound is invisible to all creatures except you and can't be harmed. When a Small or larger creature comes within 30 feet of it without first speaking the password that you specify when you cast this spell, the hound starts barking loudly. The hound sees invisible creatures and can see into the Ethereal Plane. It ignores illusions.",
+			"text | At the start of each of your turns, the hound attempts to bite one creature within 5 feet of it that is hostile to you. The hound's attack bonus is equal to your spellcasting ability modifier + your proficiency bonus. On a hit, it deals 4d8 piercing damage."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Conjuration",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Mordenkainen's Private Sanctum",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level abjuration",
+			"rule",
+			"property | Casting Time | 10 minutes",
+			"property | Range | 120 feet",
+			"property | Components | V, S, M (a thin sheet of lead, a piece of opaque glass, a wad of cotton or cloth, and powdered chrysolite)",
+			"property | Duration | 24 hours",
+			"rule",
+			"text | You make an area within range magically secure. The area is a cube that can be as small as 5 feet to as large as 100 feet on each side. The spell lasts for the duration or until you use an action to dismiss it.",
+			"text | When you cast the spell, you decide what sort of security the spell provides, choosing any or all of the following properties:",
+			"bullet | Sound can't pass through the barrier at the edge of the warded area.",
+			"bullet | The barrier of the warded area appears dark and foggy, preventing vision (including darkvision) through it.",
+			"bullet | Sensors created by divination spells can't appear inside the protected area or pass through the barrier at its perimeter.",
+			"bullet | Creatures in the area can't be targeted by divination spells.",
+			"bullet | Nothing can teleport into or out of the warded area.",
+			"bullet | Planar travel is blocked within the warded area.",
+			"text | Casting this spell on the same spot every day for a year makes this effect permanent.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 5th level or higher, you can increase the size of the cube by 100 feet for each slot level beyond 4th. Thus you could protect a cube that can be up to 200 feet on one side by using a spell slot of 5th level."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Abjuration",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Otiluke's Resilient Sphere",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level evocation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a hemispherical piece of clear crystal and a matching hemispherical piece of gum arabic)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | A sphere of shimmering force encloses a creature or object of Large size or smaller within range. An unwilling creature must make a Dexterity saving throw. On a failed save, the creature is enclosed for the duration.",
+			"text | Nothing—not physical objects, energy, or other spell effects—can pass through the barrier, in or out, though a creature in the sphere can breathe there. The sphere is immune to all damage, and a creature or object inside can't be damaged by attacks or effects originating from outside, nor can a creature inside the sphere damage anything outside it.",
+			"text | The sphere is weightless and just large enough to contain the creature or object inside. An enclosed creature can use its action to push against the sphere's walls and thus roll the sphere at up to half the creature's speed. Similarly, the globe can be picked up and moved by other creatures.",
+			"text | A disintegrate spell targeting the globe destroys it without harming anything inside it."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Evocation",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Poison Spray",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Conjuration cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 10 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You extend your hand toward a creature you can see within range and project a puff of noxious gas from your palm. The creature must succeed on a Constitution saving throw or take 1d12 poison damage.",
+			"text | This spell's damage increases by 1d12 when you reach 5th level (2d12), 11th level (3d12), and 17th level (4d12)."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Conjuration",
+			"Druid",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Prestidigitation",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Transmutation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 10 feet",
+			"property | Components | V, S",
+			"property | Duration | Up to 1 hour",
+			"rule",
+			"text | This spell is a minor magical trick that novice spellcasters use for practice. You create one of the following magical effects within range:",
+			"bullet | You create an instantaneous, harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, or an odd odor.",
+			"bullet | You instantaneously light or snuff out a candle, a torch, or a small campfire.",
+			"bullet | You instantaneously clean or soil an object no larger than 1 cubic foot.",
+			"bullet | You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour.",
+			"bullet | You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour.",
+			"bullet | You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.",
+			"text | If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Transmutation",
+			"Bard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Protection from Energy",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | For the duration, the willing creature you touch has resistance to one damage type of your choice: acid, cold, fire, lightning, or thunder."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Abjuration",
+			"Cleric",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Protection from Poison",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | You touch a creature. If it is poisoned, you neutralize the poison. If more than one poison afflicts the target, you neutralize one poison that you know is present, or you neutralize one at random.",
+			"text | For the duration, the target has advantage on saving throws against being poisoned, and it has resistance to poison damage."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Abjuration",
+			"Cleric",
+			"Druid",
+			"Paladin",
+			"Ranger",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Purify Food and Drink",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level transmutation (ritual)",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 10 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | All nonmagical food and drink within a 5-foot-radius sphere centered on a point of your choice within range is purified and rendered free of poison and disease."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Transmutation",
+			"Cleric",
+			"Druid",
+			"Paladin",
+			"Artificer",
+			"ritual"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Pyrotechnics",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | Choose an area of nonmagical flame that you can see and that fits within a 5-foot cube within range. You can extinguish the fire in that area, and you create either fireworks or smoke when you do so.",
+			"description | Fireworks | The target explodes with a dazzling display of colors. Each creature within 10 feet of the target must succeed on a Constitution saving throw or become blinded until the end of your next turn.",
+			"description | Smoke | Thick black smoke spreads out from the target in a 20-foot radius, moving around corners. The area of the smoke is heavily obscured. The smoke persists for 1 minute or until a strong wind disperses it."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"2nd level",
+			"Transmutation",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Ray of Frost",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | A frigid beam of blue-white light streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, it takes 1d8 cold damage, and its speed is reduced by 10 feet until the start of your next turn.",
+			"text | The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Evocation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Resistance",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Abjuration cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (a miniature cloak)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | You touch one willing creature. Once before the spell ends, the target can roll a d4 and add the number rolled to one saving throw of its choice. It can roll the die before or after making the saving throw. The spell then ends."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Abjuration",
+			"Cleric",
+			"Druid",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Revivify",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level necromancy",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (diamonds worth 300 gp, which the spell consumes)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You touch a creature that has died within the last minute. That creature returns to life with 1 hit point. This spell can't return to life a creature that has died of old age, nor can it restore any missing body parts."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Necromancy",
+			"Cleric",
+			"Paladin",
+			"Artificer",
+			"Druid",
+			"Ranger"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Rope Trick",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (powdered corn extract and a twisted loop of parchment)",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | You touch a length of rope that is up to 60 feet long. One end of the rope then rises into the air until the whole rope hangs perpendicular to the ground. At the upper end of the rope, an invisible entrance opens to an extradimensional space that lasts until the spell ends.",
+			"text | The extradimensional space can be reached by climbing to the top of the rope. The space can hold as many as eight Medium or smaller creatures. The rope can be pulled into the space, making the rope disappear from view outside the space.",
+			"text | Attacks and spells can't cross through the entrance into or out of the extradimensional space, but those inside can see out of it as if through a 3-foot-by-5-foot window centered on the rope.",
+			"text | Anything inside the extradimensional space drops out when the spell ends."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Sanctuary",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level abjuration",
+			"rule",
+			"property | Casting Time | 1 bonus action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a small silver mirror)",
+			"property | Duration | 1 minute",
+			"rule",
+			"text | You ward a creature within range against attack. Until the spell ends, any creature who targets the warded creature with an attack or a harmful spell must first make a Wisdom saving throw. On a failed save, the creature must choose a new target or lose the attack or spell. This spell doesn't protect the warded creature from area effects, such as the explosion of a fireball.",
+			"text | If the warded creature makes an attack, casts a spell that affects an enemy, or deals damage to another creature, this spell ends."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"1st level",
+			"Abjuration",
+			"Cleric",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "See Invisibility",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level divination",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self",
+			"property | Components | V, S, M (a pinch of talc and a small sprinkling of powdered silver)",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | For the duration, you see invisible creatures and objects as if they were visible, and you can see into the Ethereal Plane. Ethereal creatures and objects appear ghostly and translucent."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Divination",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Shocking Grasp",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | Lightning springs from your hand to deliver a shock to a creature you try to touch. Make a melee spell attack against the target. You have advantage on the attack roll if the target is wearing armor made of metal. On a hit, the target takes 1d8 lightning damage, and it can't take reactions until the start of its next turn.",
+			"text | The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Evocation",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Skill Empowerment",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 5th-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | Your magic deepens a creature's understanding of its own talent. You touch one willing creature and give it expertise in one skill of your choice; until the spell ends, the creature doubles its proficiency bonus for ability checks it makes that use the chosen skill.",
+			"text | You must choose a skill in which the target is proficient and that isn't already benefiting from an effect, such as Expertise, that doubles its proficiency bonus."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"5th level",
+			"Transmutation",
+			"Bard",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Skywrite",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation (ritual)",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Sight",
+			"property | Components | V, S",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | You cause up to ten words to form in a part of the sky you can see. The words appear to be made of cloud and remain in place for the spell's duration. The words dissipate when the spell ends. A strong wind can disperse the clouds and end the spell early."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"2nd level",
+			"Transmutation",
+			"Bard",
+			"Druid",
+			"Wizard",
+			"Artificer",
+			"concentration",
+			"ritual"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Snare",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level abjuration",
+			"rule",
+			"property | Casting Time | 1 minute",
+			"property | Range | Touch",
+			"property | Components | S, M (25 feet of rope, which the spell consumes)",
+			"property | Duration | 8 hours",
+			"rule",
+			"text | As you cast this spell, you use the rope to create a circle with a 5-foot radius on the ground or the floor. When you finish casting, the rope disappears and the circle becomes a magic trap.",
+			"text | This trap is nearly invisible, requiring a successful Intelligence (Investigation) check against your spell save DC to be discerned.",
+			"text | The trap triggers when a Small, Medium, or Large creature moves onto the ground or the floor in the spell's radius. That creature must succeed on a Dexterity saving throw or be magically hoisted into the air, leaving it hanging upside down 3 feet above the ground or the floor. The creature is restrained there until the spell ends.",
+			"text | A restrained creature can make a Dexterity saving throw at the end of each of its turns, ending the effect on itself on a success. Alternatively, the creature or someone else who can reach it can use an action to make an Intelligence (Arcana) check against your spell save DC. On a success, the restrained effect ends.",
+			"text | After the trap is triggered, the spell ends when no creature is restrained by it."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"1st level",
+			"Abjuration",
+			"Druid",
+			"Ranger",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Spare the Dying",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Necromancy cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You touch a living creature that has 0 hit points. The creature becomes stable. This spell has no effect on undead or constructs."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Necromancy",
+			"Cleric",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Spider Climb",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (a drop of bitumen and a spider)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | Until the spell ends, one willing creature you touch gains the ability to move up, down, and across vertical surfaces and upside down along ceilings, while leaving its hands free. The target also gains a climbing speed equal to its walking speed."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Transmutation",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Stone Shape",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (soft clay, which must be worked into roughly the desired shape of the stone object)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You touch a stone object of Medium size or smaller or a section of stone no more than 5 feet in any dimension and form it into any shape that suits your purpose. So, for example, you could shape a large rock into a weapon, idol, or coffer, or make a small passage through a wall, as long as the wall is less than 5 feet thick. You could also shape a stone door or its frame to seal the door shut. The object you create can have up to two hinges and a latch, but finer mechanical detail isn't possible."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Transmutation",
+			"Cleric",
+			"Druid",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Stoneskin",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level abjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Touch",
+			"property | Components | V, S, M (diamond dust worth 100 gp, which the spell consumes)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | This spell turns the flesh of a willing creature you touch as hard as stone. Until the spell ends, the target has resistance to nonmagical bludgeoning, piercing, and slashing damage."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"4th level",
+			"Abjuration",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Summon Construct",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 4th-level conjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 90 feet",
+			"property | Components | V, S, M (an ornate stone and metal lockbox worth at least 400 gp)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | You call forth the spirit of a construct. It manifests in an unoccupied space that you can see within range. This corporeal form uses the Construct Spirit stat block. When you cast the spell, choose a material: Clay, Metal, or Stone. The creature resembles a golem or a modron (your choice) made of the chosen material, which determines certain traits in its stat block. The creature disappears when it drops to 0 hit points or when the spell ends.",
+			"text | The creature is an ally to you and your companions. In combat, the creature shares your initiative count, but it takes its turn immediately after yours. It obeys your verbal commands (no action required by you). If you don't issue any, it takes the Dodge action and uses its move to avoid danger.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, use the higher level wherever the spell's level appears in the stat block."
+		],
+		"tags": [
+			"spell",
+			"TCE",
+			"4th level",
+			"Conjuration",
+			"Artificer",
+			"Wizard",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Sword Burst",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Conjuration cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self (5-foot radius)",
+			"property | Components | V",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You create a momentary circle of spectral blades that sweep around you. All other creatures within 5 feet of you must succeed on a Dexterity saving throw or take 1d6 force damage.",
+			"text | This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		],
+		"tags": [
+			"spell",
+			"TCE",
+			"Cantrips",
+			"Conjuration",
+			"Artificer",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Sorcerer",
+			"Warlock",
+			"Wizard"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Tasha's Caustic Brew",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 1st-level evocation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | Self (30-foot line)",
+			"property | Components | V, S, M (a bit of rotten food)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 minute",
+			"rule",
+			"text | A stream of acid emanates from you in a line 30 feet long and 5 feet wide in a direction you choose. Each creature in the line must succeed on a Dexterity saving throw or be covered in acid for the spell's duration or until a creature uses its action to scrape or wash the acid off itself or another creature. A creature covered in the acid takes 2d4 acid damage at start of each of its turns.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 2d4 for each slot level above 1st."
+		],
+		"tags": [
+			"spell",
+			"TCE",
+			"1st level",
+			"Evocation",
+			"Artificer",
+			"Sorcerer",
+			"Wizard",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Thorn Whip",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Transmutation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (the stem of a plant with thorns)",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You create a long, vine-like whip covered in thorns that lashes out at your command toward a creature in range. Make a melee spell attack against the target. If the attack hits, the creature takes 1d6 piercing damage, and if the creature is Large or smaller, you pull the creature up to 10 feet closer to you.",
+			"text | This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"Cantrips",
+			"Transmutation",
+			"Druid",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Thunderclap",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Evocation cantrip",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 5 feet",
+			"property | Components | S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You create a burst of thunderous sound that can be heard up to 100 feet away. Each creature within range, other than you, must make a Constitution saving throw or take 1d6 thunder damage.",
+			"text | The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"Cantrips",
+			"Evocation",
+			"Bard",
+			"Druid",
+			"Sorcerer",
+			"Warlock",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Tiny Servant",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation",
+			"rule",
+			"property | Casting Time | 1 minute",
+			"property | Range | Touch",
+			"property | Components | V, S",
+			"property | Duration | 8 hours",
+			"rule",
+			"text | You touch one Tiny, nonmagical object that isn't attached to another object or a surface and isn't being carried by another creature. The target animates and sprouts little arms and legs, becoming a creature under your control until the spell ends or the creature drops to 0 hit points. See the stat block for its statistics.",
+			"text | As a bonus action, you can mentally command the creature if it is within 120 feet of you. (If you control multiple creatures with this spell, you can command any or all of them at the same time, issuing the same command to each one.) You decide what action the creature will take and where it will move during its next turn, or you can issue a simple, general command, such as to fetch a key, stand watch, or stack some books. If you issue no commands, the servant does nothing other than defend itself against hostile creatures. Once given an order, the servant continues to follow that order until its task is complete.",
+			"text | When the creature drops to 0 hit points, it reverts to its original form, and any remaining damage carries over to that form.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 4th level or higher, you can animate two additional objects for each slot level above 3rd."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"3rd level",
+			"Transmutation",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Transmute Rock",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 5th-level transmutation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 120 feet",
+			"property | Components | V, S, M (clay and water)",
+			"property | Duration | Until dispelled",
+			"rule",
+			"text | You choose an area of stone or mud that you can see that fits within a 40-foot cube and is within range, and choose one of the following effects.",
+			"description | Transmute Rock to Mud | Nonmagical rock of any sort in the area becomes an equal volume of thick, flowing mud that remains for the spell's duration.",
+			"text | The ground in the spell's area becomes muddy enough that creatures can sink into it. Each foot that a creature moves through the mud costs 4 feet of movement, and any creature on the ground when you cast the spell must make a Strength saving throw. A creature must also make the saving throw when it moves into the area for the first time on a turn or ends its turn there. On a failed save, a creature sinks into the mud and is restrained, though it can use an action to end the restrained condition on itself by pulling itself free of the mud.",
+			"text | If you cast the spell on a ceiling, the mud falls. Any creature under the mud when it falls must make a Dexterity saving throw. A creature takes 4d8 bludgeoning damage on a failed save, or half as much damage on a successful one.",
+			"description | Transmute Mud to Rock | Nonmagical mud or quicksand in the area no more than 10 feet deep transforms into soft stone for the spell's duration. Any creature in the mud when it transforms must make a Dexterity saving throw. On a successful save, a creature is shunted safely to the surface in an unoccupied space. On a failed save, a creature becomes restrained by the rock. A restrained creature, or another creature within reach, can use an action to try to break the rock by succeeding on a DC 20 Strength check or by dealing damage to it. The rock has AC 15 and 25 hit points, and it is immune to poison and psychic damage."
+		],
+		"tags": [
+			"spell",
+			"XGE",
+			"5th level",
+			"Transmutation",
+			"Druid",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Vortex Warp",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level conjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 90 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | You magically twist space around another creature you can see within range. The target must succeed on a Constitution saving throw (the target can choose to fail), or the target is teleported to an unoccupied space of your choice that you can see within range. The chosen space must be on a surface or in a liquid that can support the target without the target having to squeeze.",
+			"section | At higher levels",
+			"text | When you cast this spell using a spell slot of 3rd level or higher, the range of the spell increases by 30 feet for each slot level above 2nd."
+		],
+		"tags": [
+			"spell",
+			"SCC",
+			"2nd level",
+			"Conjuration",
+			"Sorcerer",
+			"Wizard",
+			"Artificer"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Wall of Stone",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 5th-level evocation",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 120 feet",
+			"property | Components | V, S, M (a small block of granite)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 10 minutes",
+			"rule",
+			"text | A nonmagical wall of solid stone springs into existence at a point you choose within range. The wall is 6 inches thick and is composed of ten 10-foot-by-10-foot panels. Each panel must be contiguous with at least one other panel. Alternatively, you can create 10-foot-by-20-foot panels that are only 3 inches thick.",
+			"text | If the wall cuts through a creature's space when it appears, the creature is pushed to one side of the wall (your choice). If a creature would be surrounded on all sides by the wall (or the wall and another solid surface), that creature can make a Dexterity saving throw. On a success, it can use its reaction to move up to its speed so that it is no longer enclosed by the wall.",
+			"text | The wall can have any shape you desire, though it can't occupy the same space as a creature or object. The wall doesn't need to be vertical or rest on any firm foundation. It must, however, merge with and be solidly supported by existing stone. Thus, you can use this spell to bridge a chasm or create a ramp.",
+			"text | If you create a span greater than 20 feet in length, you must halve the size of each panel to create supports. You can crudely shape the wall to create crenellations, battlements, and so on.",
+			"text | The wall is an object made of stone that can be damaged and thus breached. Each panel has AC 15 and 30 hit points per inch of thickness. Reducing a panel to 0 hit points destroys it and might cause connected panels to collapse at the DM's discretion.",
+			"text | If you maintain your concentration on this spell for its whole duration, the wall becomes permanent and can't be dispelled. Otherwise, the wall disappears when the spell ends."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"5th level",
+			"Evocation",
+			"Druid",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Water Breathing",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation (ritual)",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a short reed or piece of straw)",
+			"property | Duration | 24 hours",
+			"rule",
+			"text | This spell grants up to ten willing creatures you can see within range the ability to breathe underwater until the spell ends. Affected creatures also retain their normal mode of respiration."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Transmutation",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"ritual"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Water Walk",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 3rd-level transmutation (ritual)",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 30 feet",
+			"property | Components | V, S, M (a piece of cork)",
+			"property | Duration | 1 hour",
+			"rule",
+			"text | This spell grants the ability to move across any liquid surface—such as water, acid, mud, snow, quicksand, or lava—as if it were harmless solid ground (creatures crossing molten lava can still take damage from the heat). Up to ten willing creatures you can see within range gain this ability for the duration.",
+			"text | If you target a creature submerged in a liquid, the spell carries the target to the surface of the liquid at a rate of 60 feet per round."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"3rd level",
+			"Transmutation",
+			"Cleric",
+			"Druid",
+			"Ranger",
+			"Sorcerer",
+			"Artificer",
+			"ritual"
+		]
+	},
+	{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Web",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | 2nd-level conjuration",
+			"rule",
+			"property | Casting Time | 1 action",
+			"property | Range | 60 feet",
+			"property | Components | V, S, M (a bit of spiderweb)",
+			"property | Duration | <a href=\"conditionsdiseases.html#concentration_phb\"  onmouseover=\"Renderer.hover.pHandleLinkMouseOver(event, this)\" onmouseleave=\"Renderer.hover.handleLinkMouseLeave(event, this)\" onmousemove=\"Renderer.hover.handleLinkMouseMove(event, this)\" onclick=\"Renderer.hover.handleLinkClick(event, this)\" onwheel=\"Renderer.hover.handleLinkWheel(event, this)\" ondragstart=\"Renderer.hover.handleLinkDragStart(event, this)\" data-vet-page=\"conditionsdiseases.html\" data-vet-source=\"PHB\" data-vet-hash=\"concentration_phb\" ontouchstart=\"Renderer.hover.handleTouchStart(event, this)\" >Concentration</a>, up to 1 hour",
+			"rule",
+			"text | You conjure a mass of thick, sticky webbing at a point of your choice within range. The webs fill a 20-foot cube from that point for the duration. The webs are difficult terrain and lightly obscure their area.",
+			"text | If the webs aren't anchored between two solid masses (such as walls or trees) or layered across a floor, wall, or ceiling, the conjured web collapses on itself, and the spell ends at the start of your next turn. Webs layered over a flat surface have a depth of 5 feet.",
+			"text | Each creature that starts its turn in the webs or that enters them during its turn must make a Dexterity saving throw. On a failed save, the creature is restrained as long as it remains in the webs or until it breaks free.",
+			"text | A creature restrained by the webs can use its action to make a Strength check against your spell save DC. If it succeeds, it is no longer restrained.",
+			"text | The webs are flammable. Any 5-foot cube of webs exposed to fire burns away in 1 round, dealing 2d4 fire damage to any creature that starts its turn in the fire."
+		],
+		"tags": [
+			"spell",
+			"PHB",
+			"2nd level",
+			"Conjuration",
+			"Sorcerer",
+			"Wizard",
+			"Artificer",
+			"concentration"
+		]
+	},
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Healing Word",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 1st-level evocation",
+      "rule",
+      "property | Casting Time | 1 bonus action",
+      "property | Range | 60 feet",
+      "property | Components | V",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A creature of your choice that you can see within range regains hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "1st level",
+      "Evocation",
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Ray of Sickness",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 1st-level conjuration",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 60 feet",
+      "property | Components | V, S",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A ray of sickening greenish energy lashes out toward a creature within range. Make a ranged spell attack. On a hit, the target takes 2d8 poison damage and must make a Constitution saving throw or be poisoned until the end of your next turn."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "1st level",
+      "Conjuration",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Poison"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Flaming Sphere",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 2nd-level conjuration",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 60 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | A 5-foot-diameter sphere of fire appears in an unoccupied space. Any creature that ends its turn within 5 feet of the sphere must make a Dexterity saving throw or take 2d6 fire damage. You can move the sphere up to 30 feet as a bonus action."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "2nd level",
+      "Conjuration",
+      "Druid",
+      "Wizard",
+      "Artificer",
+      "Fire",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Melf’s Acid Arrow",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 2nd-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 90 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A shimmering green arrow streaks toward a target. Make a ranged spell attack. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes and deals half the initial damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "2nd level",
+      "Evocation",
+      "Wizard",
+      "Artificer",
+      "Acid"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Gaseous Form",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 3rd-level transmutation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Touch",
+      "property | Components | V, S, M",
+      "property | Duration | Concentration, up to 1 hour",
+      "rule",
+      "text | You transform a willing creature into a misty cloud. While in this form, the target has resistance to nonmagical damage, advantage on Strength, Dexterity, and Constitution saving throws, and can move through small openings."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "3rd level",
+      "Transmutation",
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard",
+      "Artificer",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Mass Healing Word",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 3rd-level evocation",
+      "rule",
+      "property | Casting Time | 1 bonus action",
+      "property | Range | 60 feet",
+      "property | Components | V",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | As you call out words of restoration, up to six creatures of your choice regain hit points equal to 1d4 + your spellcasting ability modifier."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "3rd level",
+      "Evocation",
+      "Bard",
+      "Cleric",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Blight",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 4th-level necromancy",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 30 feet",
+      "property | Components | V, S",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | Necromantic energy washes over a creature, dealing 8d8 necrotic damage to plants or forcing a Constitution save from other creatures to halve the damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "4th level",
+      "Necromancy",
+      "Druid",
+      "Warlock",
+      "Artificer",
+      "Necrotic"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Death Ward",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 4th-level abjuration",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Touch",
+      "property | Components | V, S",
+      "property | Duration | 8 hours",
+      "rule",
+      "text | You touch a creature and grant it protection from death. The first time the target would drop to 0 hit points, it instead drops to 1 hit point."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "4th level",
+      "Abjuration",
+      "Cleric",
+      "Paladin",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Cloudkill",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 5th-level conjuration",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 120 feet",
+      "property | Components | V, S",
+      "property | Duration | Concentration, up to 10 minutes",
+      "rule",
+      "text | You create a 20-foot-radius cloud of poisonous fog. Creatures that start their turn in the cloud must make a Constitution saving throw, taking 5d8 poison damage on a failure."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "5th level",
+      "Conjuration",
+      "Druid",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Poison",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Raise Dead",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 5th-level necromancy",
+      "rule",
+      "property | Casting Time | 1 hour",
+      "property | Range | Touch",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | You return a dead creature to life, provided it has been dead no longer than 10 days. The creature returns with penalties that fade over time."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "5th level",
+      "Necromancy",
+      "Bard",
+      "Cleric",
+      "Paladin",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Magic Missile",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 1st-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 120 feet",
+      "property | Components | V, S",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 force damage to its target."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "1st level",
+      "Evocation",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Force"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Thunderwave",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 1st-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self (15-foot cube)",
+      "property | Components | V, S",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A wave of thunderous force sweeps out from you. Each creature in a 15-foot cube must make a Constitution saving throw or take 2d8 thunder damage and be pushed 10 feet away."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "1st level",
+      "Evocation",
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Thunder"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Mirror Image",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 2nd-level illusion",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self",
+      "property | Components | V, S",
+      "property | Duration | 1 minute",
+      "rule",
+      "text | Three illusory duplicates of yourself appear. Each time a creature targets you with an attack, roll a d20 to determine whether the attack instead targets one of your duplicates."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "2nd level",
+      "Illusion",
+      "Sorcerer",
+      "Wizard",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Shatter",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 2nd-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 60 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A sudden loud ringing noise erupts from a point of your choice. Each creature in a 10-foot-radius sphere must make a Constitution saving throw or take 3d8 thunder damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "2nd level",
+      "Evocation",
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard",
+      "Artificer",
+      "Thunder"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Hypnotic Pattern",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 3rd-level illusion",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 120 feet",
+      "property | Components | S, M",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | You create a twisting pattern of colors that charms creatures in a 30-foot cube. Affected creatures are incapacitated and have a speed of 0."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "3rd level",
+      "Illusion",
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard",
+      "Artificer",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Lightning Bolt",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 3rd-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self (100-foot line)",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A stroke of lightning forming a line 100 feet long blasts out from you. Each creature in the line must make a Dexterity saving throw, taking 8d6 lightning damage on a failed save."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "3rd level",
+      "Evocation",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Lightning"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Fire Shield",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 4th-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self",
+      "property | Components | V, S, M",
+      "property | Duration | 10 minutes",
+      "rule",
+      "text | Thin flames wreath your body. You gain resistance to cold or fire damage, and creatures that hit you with melee attacks take fire or cold damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "4th level",
+      "Evocation",
+      "Druid",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Fire",
+      "Cold"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Greater Invisibility",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 4th-level illusion",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Touch",
+      "property | Components | V, S",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | You or a creature you touch becomes invisible even while attacking or casting spells."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "4th level",
+      "Illusion",
+      "Bard",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Passwall",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 5th-level transmutation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 30 feet",
+      "property | Components | V, S, M",
+      "property | Duration | 1 hour",
+      "rule",
+      "text | A passage appears at a point of your choice that you can see on a wooden, plaster, or stone surface, creating an opening you can move through."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "5th level",
+      "Transmutation",
+      "Wizard",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Wall of Force",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 5th-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 120 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Concentration, up to 10 minutes",
+      "rule",
+      "text | An invisible wall of force springs into existence at a point you choose. The wall is immune to damage and blocks physical movement."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "5th level",
+      "Evocation",
+      "Wizard",
+      "Artificer",
+      "Force",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Shield",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 1st-level abjuration",
+      "rule",
+      "property | Casting Time | 1 reaction, which you take when you are hit by an attack or targeted by the magic missile spell",
+      "property | Range | Self",
+      "property | Components | V, S",
+      "property | Duration | 1 round",
+      "rule",
+      "text | An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "1st level",
+      "Abjuration",
+      "Sorcerer",
+      "Wizard",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Thunderwave",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 1st-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self (15-foot cube)",
+      "property | Components | V, S",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A wave of thunderous force sweeps out from you. Each creature in a 15-foot cube must make a Constitution saving throw or take 2d8 thunder damage and be pushed 10 feet away."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "1st level",
+      "Evocation",
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Thunder"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Scorching Ray",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 2nd-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 120 feet",
+      "property | Components | V, S",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | You create three rays of fire and hurl them at targets within range. Make a ranged spell attack for each ray. On a hit, a ray deals 2d6 fire damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "2nd level",
+      "Evocation",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Fire"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Shatter",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 2nd-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 60 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A sudden loud ringing noise erupts from a point of your choice. Each creature in a 10-foot-radius sphere must make a Constitution saving throw or take 3d8 thunder damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "2nd level",
+      "Evocation",
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard",
+      "Artificer",
+      "Thunder"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Fireball",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 3rd-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 150 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A bright streak flashes from your pointing finger to a point you choose, where it blossoms into an explosion of flame. Creatures in a 20-foot-radius sphere take 8d6 fire damage on a failed Dexterity saving throw."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "3rd level",
+      "Evocation",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Fire"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Wind Wall",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 3rd-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 120 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | A wall of strong wind rises from the ground. The wall deflects arrows, bolts, and other ordinary projectiles, and extinguishes small flying creatures."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "3rd level",
+      "Evocation",
+      "Druid",
+      "Ranger",
+      "Artificer",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Ice Storm",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 4th-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 300 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A hail of rock-hard ice pounds to the ground in a 20-foot-radius, 40-foot-high cylinder. Creatures in the area take bludgeoning and cold damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "4th level",
+      "Evocation",
+      "Druid",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Cold"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Wall of Fire",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 4th-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 120 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | You create a wall of fire on a solid surface. Creatures within range take fire damage, and the wall deals damage to creatures that pass through it."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "4th level",
+      "Evocation",
+      "Druid",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Fire",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Cone of Cold",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 5th-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self (60-foot cone)",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A blast of cold air erupts from your hands. Each creature in a 60-foot cone takes 8d8 cold damage on a failed Constitution saving throw."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "5th level",
+      "Evocation",
+      "Druid",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Cold"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Wall of Force",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 5th-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 120 feet",
+      "property | Components | V, S, M",
+      "property | Duration | Concentration, up to 10 minutes",
+      "rule",
+      "text | An invisible wall of force springs into existence at a point you choose. The wall is immune to damage and blocks physical movement."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "5th level",
+      "Evocation",
+      "Wizard",
+      "Artificer",
+      "Force",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Heroism",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 1st-level enchantment",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Touch",
+      "property | Components | V, S",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | A willing creature you touch is imbued with bravery. Until the spell ends, the creature is immune to being frightened and gains temporary hit points equal to your spellcasting ability modifier at the start of each of its turns."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "1st level",
+      "Enchantment",
+      "Bard",
+      "Paladin",
+      "Artificer",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Shield",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 1st-level abjuration",
+      "rule",
+      "property | Casting Time | 1 reaction, which you take when you are hit by an attack or targeted by the magic missile spell",
+      "property | Range | Self",
+      "property | Components | V, S",
+      "property | Duration | 1 round",
+      "rule",
+      "text | An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "1st level",
+      "Abjuration",
+      "Sorcerer",
+      "Wizard",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Branding Smite",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 2nd-level evocation",
+      "rule",
+      "property | Casting Time | 1 bonus action",
+      "property | Range | Self",
+      "property | Components | V",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | The next time you hit a creature with a weapon attack before this spell ends, the weapon gleams with astral radiance as you strike. The attack deals an extra 2d6 radiant damage, and the target sheds dim light and can’t become invisible."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "2nd level",
+      "Evocation",
+      "Paladin",
+      "Artificer",
+      "Radiant",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Warding Bond",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 2nd-level abjuration",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Touch",
+      "property | Components | V, S, M",
+      "property | Duration | 1 hour",
+      "rule",
+      "text | This spell wards a willing creature you touch and creates a mystic connection between you and the target. The target gains +1 to AC and saving throws, and you take the same amount of damage the target takes."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "2nd level",
+      "Abjuration",
+      "Cleric",
+      "Paladin",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Aura of Vitality",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 3rd-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self (30-foot radius)",
+      "property | Components | V",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | Healing energy radiates from you in an aura. Until the spell ends, you can use a bonus action to cause one creature in the aura to regain 2d6 hit points."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "3rd level",
+      "Evocation",
+      "Paladin",
+      "Artificer",
+      "Healing",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Conjure Barrage",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 3rd-level conjuration",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self (60-foot cone)",
+      "property | Components | V, S, M",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | You throw a nonmagical weapon or piece of ammunition into the air to create a cone of identical weapons. Each creature in the area must make a Dexterity saving throw or take 3d8 damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "3rd level",
+      "Conjuration",
+      "Ranger",
+      "Artificer"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Aura of Purity",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 4th-level abjuration",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self (30-foot radius)",
+      "property | Components | V",
+      "property | Duration | Concentration, up to 10 minutes",
+      "rule",
+      "text | Purifying energy radiates from you in an aura. Each nonhostile creature in the aura has advantage on saving throws against certain conditions and gains resistance to poison damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "4th level",
+      "Abjuration",
+      "Paladin",
+      "Artificer",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Fire Shield",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 4th-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | Self",
+      "property | Components | V, S, M",
+      "property | Duration | 10 minutes",
+      "rule",
+      "text | Thin flames wreath your body. You gain resistance to cold or fire damage, and creatures that hit you with melee attacks take fire or cold damage."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "4th level",
+      "Evocation",
+      "Druid",
+      "Sorcerer",
+      "Wizard",
+      "Artificer",
+      "Fire",
+      "Cold"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Banishing Smite",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 5th-level abjuration",
+      "rule",
+      "property | Casting Time | 1 bonus action",
+      "property | Range | Self",
+      "property | Components | V",
+      "property | Duration | Concentration, up to 1 minute",
+      "rule",
+      "text | The next time you hit a creature with a weapon attack before this spell ends, the weapon crackles with force. The attack deals an extra 5d10 force damage, and the target may be banished if reduced to 50 hit points or fewer."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "5th level",
+      "Abjuration",
+      "Paladin",
+      "Artificer",
+      "Force",
+      "Concentration"
+    ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Mass Cure Wounds",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | 5th-level evocation",
+      "rule",
+      "property | Casting Time | 1 action",
+      "property | Range | 60 feet",
+      "property | Components | V, S",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | A wave of healing energy washes out from a point you choose. Up to six creatures of your choice regain hit points equal to 3d8 + your spellcasting ability modifier."
+    ],
+    "tags": [
+      "spell",
+      "PHB",
+      "5th level",
+      "Evocation",
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Artificer",
+      "Healing"
+    ]
+  }
+]

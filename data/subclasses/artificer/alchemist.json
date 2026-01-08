@@ -1,0 +1,95 @@
+{
+  "id": "alchemist",
+  "name": "Alchemist",
+  "classId": "artificer",
+  "source": "TCE",
+
+  "description": "An Alchemist is an expert at combining reagents to produce mystical effects. Alchemists use their creations to give life and to leech it away.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "tool-proficiency",
+        "name": "Tool Proficiency",
+        "type": "passive",
+        "description": "When you adopt this specialization at 3rd level, you gain proficiency with alchemist’s supplies. If you already have this proficiency, you gain proficiency with one other type of artisan’s tools of your choice.",
+        "tools": ["alchemists-supplies"]
+      },
+      {
+        "id": "alchemist-spells",
+        "name": "Alchemist Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared after you reach particular levels in this class. These spells count as artificer spells for you, but they don’t count against the number of artificer spells you prepare.",
+        "spells": {
+          "3": ["healing-word", "ray-of-sickness"],
+          "5": ["flaming-sphere", "melfs-acid-arrow"],
+          "9": ["gaseous-form", "mass-healing-word"],
+          "13": ["blight", "death-ward"],
+          "17": ["cloudkill", "raise-dead"]
+        }
+      },
+      {
+        "id": "experimental-elixir",
+        "name": "Experimental Elixir",
+        "type": "table",
+        "description": "Beginning at 3rd level, whenever you finish a long rest, you can magically produce an experimental elixir in an empty flask you touch.",
+        "table": {
+          "dice": "d6",
+          "rows": [
+            {
+              "roll": "1",
+              "effect": "Healing. The drinker regains hit points equal to 2d4 + your Intelligence modifier."
+            },
+            {
+              "roll": "2",
+              "effect": "Swiftness. The drinker’s walking speed increases by 10 feet for 1 hour."
+            },
+            {
+              "roll": "3",
+              "effect": "Resilience. The drinker gains a +1 bonus to AC for 10 minutes."
+            },
+            {
+              "roll": "4",
+              "effect": "Boldness. The drinker can roll a d4 and add the number rolled to every attack roll and saving throw they make for the next minute."
+            },
+            {
+              "roll": "5",
+              "effect": "Flight. The drinker gains a flying speed of 10 feet for 10 minutes."
+            },
+            {
+              "roll": "6",
+              "effect": "Transformation. The drinker’s body is transformed as if by the alter self spell for 10 minutes."
+            }
+          ]
+        }
+      }
+    ],
+
+    "5": [
+      {
+        "id": "alchemical-savant",
+        "name": "Alchemical Savant",
+        "type": "passive",
+        "description": "When you cast a spell using your alchemist’s supplies as the spellcasting focus, you gain a bonus to one roll of the spell equal to your Intelligence modifier."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "restorative-reagents",
+        "name": "Restorative Reagents",
+        "type": "passive",
+        "description": "You can produce additional restorative effects from your experimental elixirs, granting temporary hit points or removing conditions."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "chemical-mastery",
+        "name": "Chemical Mastery",
+        "type": "passive",
+        "description": "You gain resistance to acid damage and poison damage, and immunity to the poisoned condition."
+      }
+    ]
+  }
+}

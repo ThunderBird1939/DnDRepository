@@ -1,0 +1,58 @@
+{
+  "id": "artillerist",
+  "name": "Artillerist",
+  "classId": "artificer",
+  "source": "TCE",
+  "description": "Artillerists are masters of explosive magic and arcane artillery.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "eldritch-cannon",
+        "name": "Eldritch Cannon",
+        "type": "system",
+        "description": "You create a magical cannon that provides offensive or defensive effects."
+      },
+      {
+        "id": "artillerist-spells",
+        "name": "Artillerist Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific artificer levels.",
+        "spells": {
+          "3": ["shield", "thunderwave"],
+          "5": ["scorching-ray", "shatter"],
+          "9": ["fireball", "wind-wall"],
+          "13": ["ice-storm", "wall-of-fire"],
+          "17": ["cone-of-cold", "wall-of-force"]
+        }
+      }
+    ],
+
+    "5": [
+      {
+        "id": "arcane-firearm",
+        "name": "Arcane Firearm",
+        "type": "passive",
+        "description": "Your spells deal extra damage when cast through a special focus."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "explosive-cannon",
+        "name": "Explosive Cannon",
+        "type": "passive",
+        "description": "Your eldritch cannon deals increased damage."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "fortified-position",
+        "name": "Fortified Position",
+        "type": "passive",
+        "description": "You can have two cannons active at once."
+      }
+    ]
+  }
+}

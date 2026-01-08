@@ -1,0 +1,257 @@
+{
+  "id": "artificer",
+  "name": "Artificer",
+  "shortDescription": "Inventors and magical engineers who blend arcane power with ingenuity.",
+  "description": "Masters of invention, artificers use magic to imbue objects with extraordinary power. They see magic as a complex system waiting to be decoded and repurposed.",
+
+  "hitDie": 8,
+  "primaryAbility": "int",
+  "savingThrows": ["con", "int"],
+
+  "proficiencies": {
+    "armor": ["light", "medium", "shields"],
+    "weapons": ["simple"],
+    "tools": ["thieves", "tinkers", "artisan-choice"]
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "arcana",
+      "history",
+      "investigation",
+      "medicine",
+      "nature",
+      "perception",
+      "sleightOfHand"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "half",
+    "halfCaster": true,
+    "preparation": "prepared",
+    "ability": "int",
+    "focus": ["tools"],
+    "ritual": true,
+    "description": "Artificers cast spells through carefully constructed tools, preparing spells daily from the artificer spell list."
+  },
+
+  "ui": {
+    "showSpellTable": true,
+    "showInfusions": true,
+    "featureGrouping": "byLevel"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "magical-tinkering",
+          "name": "Magical Tinkering",
+          "type": "passive",
+          "description": "You imbue a tiny nonmagical object with a magical property, such as emitting light, recorded messages, or simple sensory effects."
+        },
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "type": "system",
+          "description": "You gain the ability to cast spells using artisan’s tools as a spellcasting focus."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "infuse-item",
+          "name": "Infuse Item",
+          "type": "choice",
+          "optionsSource": "infusions",
+          "description": "You gain the ability to imbue mundane items with magical infusions."
+        }
+      ]
+    },
+
+    "3": {
+      "subclass": {
+        "label": "Artificer Specialist",
+        "description": "Choose a specialization that defines your approach to magical invention.",
+        "optionsSource": "subclasses/artificer"
+      },
+      "features": [
+        {
+          "id": "right-tool-for-the-job",
+          "name": "The Right Tool for the Job",
+          "type": "passive",
+          "description": "You can create artisan’s tools magically during a short rest."
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "specialist-feature-5",
+          "name": "Artificer Specialist Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your chosen specialist."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "tool-expertise",
+          "name": "Tool Expertise",
+          "type": "passive",
+          "description": "Your proficiency bonus is doubled for any ability check you make that uses your proficiency with a tool."
+        }
+      ]
+    },
+
+    "7": {
+      "features": [
+        {
+          "id": "flash-of-genius",
+          "name": "Flash of Genius",
+          "type": "reaction",
+          "description": "You can add your Intelligence modifier to a saving throw or ability check made by you or an ally."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "9": {
+      "features": [
+        {
+          "id": "specialist-feature-9",
+          "name": "Artificer Specialist Feature",
+          "type": "subclass",
+          "description": "You gain an additional feature from your specialist."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "magic-item-adept",
+          "name": "Magic Item Adept",
+          "type": "passive",
+          "description": "You can attune to more magic items and craft them more efficiently."
+        }
+      ]
+    },
+
+    "11": {
+      "features": [
+        {
+          "id": "spell-storing-item",
+          "name": "Spell-Storing Item",
+          "type": "system",
+          "description": "You can store a spell in an item for later use."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "magic-item-savant",
+          "name": "Magic Item Savant",
+          "type": "passive",
+          "description": "You can attune to even more magic items and ignore class, race, spell, and level requirements."
+        }
+      ]
+    },
+
+    "15": {
+      "features": [
+        {
+          "id": "specialist-feature-15",
+          "name": "Artificer Specialist Feature",
+          "type": "subclass",
+          "description": "Your specialist grants you a powerful feature."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "magic-item-master",
+          "name": "Magic Item Master",
+          "type": "passive",
+          "description": "You can attune to up to six magic items at once."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "soul-of-artifice",
+          "name": "Soul of Artifice",
+          "type": "capstone",
+          "description": "You gain a bonus to saving throws and can sacrifice magic items to avoid dropping to 0 hit points."
+        }
+      ]
+    }
+  }
+}

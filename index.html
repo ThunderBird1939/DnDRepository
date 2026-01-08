@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>D&D Character Sheet</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+  />
+  <link rel="stylesheet" href="./ui/skillChoice.css" />
+</head>
+
+<body>
+
+<h1>D&D Character Sheet</h1>
+
+<div id="app-root">
+
+  <!-- ================= CHARACTER SHEET VIEW ================= -->
+  <section id="sheetView">
+
+    <!-- ================= Character Info ================= -->
+    <section class="panel">
+      <h2>Character</h2>
+
+      <label>
+        Character Name
+        <input type="text" id="name" />
+      </label>
+
+      <label>
+        Race
+        <select id="raceSelect">
+          <option value="">— Select Race —</option>
+        </select>
+
+        <!-- ➕ Race Detail -->
+        <button
+          class="detail-btn"
+          data-type="race"
+          data-id=""
+          title="View Race Details"
+        >+</button>
+      </label>
+
+      <div id="raceDetails"></div>
+    </section>
+
+    <!-- ================= Class & Level ================= -->
+    <section class="panel">
+      <h2>Class & Level</h2>
+
+      <label>
+        Level
+        <input type="number" id="level" min="1" max="20" value="1" />
+      </label>
+
+      <label>
+        Class
+        <select id="classSelect">
+          <option value="">— Select Class —</option>
+          <option value="artificer">Artificer</option>
+        </select>
+
+        <!-- ➕ Class Detail -->
+        <button
+          class="detail-btn"
+          data-type="class"
+          data-id=""
+          title="View Class Details"
+        >+</button>
+      </label>
+
+      <p>
+        Subclass:
+        <strong id="subclassName">—</strong>
+        <button
+          class="detail-btn"
+          data-type="subclass"
+          data-id=""
+          title="View Subclass Details"
+        >+</button>
+      </p>
+
+      <p>Proficiency Bonus: <strong id="profBonus">+2</strong></p>
+    <!-- ================= Skills ================= -->
+    <section class="panel">
+      <h2>Skills</h2>
+
+      <div class="skills">
+        <label><input type="checkbox" id="skill-acrobatics" /> Acrobatics (DEX)</label>
+        <label><input type="checkbox" id="skill-animalHandling" /> Animal Handling (WIS)</label>
+        <label><input type="checkbox" id="skill-arcana" /> Arcana (INT)</label>
+        <label><input type="checkbox" id="skill-athletics" /> Athletics (STR)</label>
+        <label><input type="checkbox" id="skill-deception" /> Deception (CHA)</label>
+        <label><input type="checkbox" id="skill-history" /> History (INT)</label>
+        <label><input type="checkbox" id="skill-insight" /> Insight (WIS)</label>
+        <label><input type="checkbox" id="skill-intimidation" /> Intimidation (CHA)</label>
+        <label><input type="checkbox" id="skill-investigation" /> Investigation (INT)</label>
+        <label><input type="checkbox" id="skill-medicine" /> Medicine (WIS)</label>
+        <label><input type="checkbox" id="skill-nature" /> Nature (INT)</label>
+        <label><input type="checkbox" id="skill-perception" /> Perception (WIS)</label>
+        <label><input type="checkbox" id="skill-performance" /> Performance (CHA)</label>
+        <label><input type="checkbox" id="skill-persuasion" /> Persuasion (CHA)</label>
+        <label><input type="checkbox" id="skill-religion" /> Religion (INT)</label>
+        <label><input type="checkbox" id="skill-sleightOfHand" /> Sleight of Hand (DEX)</label>
+        <label><input type="checkbox" id="skill-stealth" /> Stealth (DEX)</label>
+        <label><input type="checkbox" id="skill-survival" /> Survival (WIS)</label>
+      </div>
+    </section>
+
+      <!-- Skill choice mount (DO NOT REMOVE) -->
+      <div id="skillChoiceMount"></div>
+    </section>
+      <!-- ================= Saving Throws ================= -->
+      <section class="panel">
+        <h2>Saving Throws</h2>
+
+        <div class="saves">
+          <label><input type="checkbox" id="save-str" /> Strength</label>
+          <label><input type="checkbox" id="save-dex" /> Dexterity</label>
+          <label><input type="checkbox" id="save-con" /> Constitution</label>
+          <label><input type="checkbox" id="save-int" /> Intelligence</label>
+          <label><input type="checkbox" id="save-wis" /> Wisdom</label>
+          <label><input type="checkbox" id="save-cha" /> Charisma</label>
+        </div>
+      </section>
+
+    <!-- ================= Ability Scores ================= -->
+    <section class="panel">
+      <h2>Ability Scores</h2>
+
+      <div class="abilities">
+        <div class="ability"><label>STR</label><input id="str" type="number" value="10"/><span id="strRaceBonus">+0</span><span id="strMod">(+0)</span></div>
+        <div class="ability"><label>DEX</label><input id="dex" type="number" value="10"/><span id="dexRaceBonus">+0</span><span id="dexMod">(+0)</span></div>
+        <div class="ability"><label>CON</label><input id="con" type="number" value="10"/><span id="conRaceBonus">+0</span><span id="conMod">(+0)</span></div>
+        <div class="ability"><label>INT</label><input id="int" type="number" value="10"/><span id="intRaceBonus">+0</span><span id="intMod">(+0)</span></div>
+        <div class="ability"><label>WIS</label><input id="wis" type="number" value="10"/><span id="wisRaceBonus">+0</span><span id="wisMod">(+0)</span></div>
+        <div class="ability"><label>CHA</label><input id="cha" type="number" value="10"/><span id="chaRaceBonus">+0</span><span id="chaMod">(+0)</span></div>
+      </div>
+    </section>
+
+    <!-- ================= Spellcasting ================= -->
+    <section class="panel spellcasting-panel">
+      <h2>Spellcasting</h2>
+
+      <div id="spellcastingSummary" class="spell-summary"></div>
+
+      <div class="spell-section">
+        <h3>Spell Slots</h3>
+        <div id="spellSlots"></div>
+      </div>
+
+      <div class="spell-section always-prepared">
+        <h3>Always Prepared Spells</h3>
+        <div id="alwaysPreparedSpells"></div>
+      </div>
+
+      <div class="spell-section prepared-spells">
+        <h3>Prepared Spells</h3>
+        <div id="preparedSpells"></div>
+      </div>
+
+      <div class="spell-section available-spells">
+        <h3>Available Spells</h3>
+        <div id="spellList"></div>
+      </div>
+    </section>
+
+    <!-- ================= Features & Tools ================= -->
+    <section class="panel">
+      <h2>Features</h2>
+      <div id="featuresList"></div>
+
+      <h3>Tools</h3>
+      <div id="toolsList">—</div>
+    </section>
+
+    <!-- ================= Weapons ================= -->
+    <section class="panel">
+      <h2>Weapons</h2>
+      <select id="weaponsSelect" multiple></select>
+
+      <h3>Attacks & Spellcasting</h3>
+      <table id="attacksTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Attack Bonus</th>
+            <th>Damage</th>
+            <th>Damage Type</th>
+            <th>Properties</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- ================= Hit Points ================= -->
+    <section class="panel">
+      <h2>Hit Points</h2>
+
+      <label>Hit Die: d<input id="hitDie" type="number" value="10" min="4" step="2"/></label>
+      <label><input type="checkbox" id="useAverage" checked /> Use Average HP</label>
+
+      <p>Max HP: <strong id="maxHp">0</strong></p>
+      <label>Current HP <input id="currentHp" type="number" value="0"/></label>
+      <label>Temp HP <input id="tempHp" type="number" value="0"/></label>
+
+      <h3>Hit Dice</h3>
+      <p>Total: <span id="totalHitDice">1</span></p>
+      <label>Spent <input id="hitDiceSpent" type="number" value="0"/></label>
+    </section>
+
+    <!-- ================= Combat ================= -->
+    <section class="panel">
+      <h2>Combat</h2>
+
+      <label>Base AC <input id="baseAc" type="number" value="10"/></label>
+      <p>Armor Class: <strong id="armorClass">10</strong></p>
+      <p>Initiative: <strong id="initiative">+0</strong></p>
+      <label>Speed <input id="speed" type="number" value="30"/></label>
+    </section>
+
+  </section>
+
+  <!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
+  <section id="detailView" class="detail-view" hidden></section>
+
+</div>
+
+<!-- ================= MODALS (UNCHANGED) ================= -->
+<!-- Spell Detail Modal -->
+<div id="spellDetailModal" hidden class="modal spell-modal">
+  <h3 id="spellDetailTitle"></h3>
+  <div id="spellDetailBody"></div>
+  <button id="closeSpellDetail">Close</button>
+</div>
+<div id="spellDetailBackdrop" hidden class="modal-backdrop"></div>
+
+<!-- Tool Choice -->
+<div id="toolChoiceModal" hidden class="modal">
+  <h3>Choose an Artisan Tool</h3>
+  <div id="toolChoiceOptions"></div>
+  <button id="confirmTool" disabled>Confirm</button>
+</div>
+<div id="toolChoiceBackdrop" hidden class="modal-backdrop"></div>
+
+<!-- Infusion Choice -->
+<div id="infusionChoiceModal" hidden class="modal">
+  <h3 id="infusionChoiceTitle">Choose Infusions</h3>
+  <p id="infusionChoiceHint">Select the infusions you learn.</p>
+  <div id="infusionChoiceOptions"></div>
+  <button id="confirmInfusions" disabled>Confirm</button>
+</div>
+<div id="infusionBackdrop" hidden class="modal-backdrop"></div>
+
+<!-- Skill Choice -->
+<div id="modalBackdrop" class="modal-backdrop" hidden></div>
+<section id="skillChoiceModal" class="modal" hidden>
+  <h3 id="skillChoiceTitle">Choose Skills</h3>
+  <p id="skillChoiceHint"></p>
+  <div id="skillChoiceOptions"></div>
+  <button id="confirmSkills" disabled>Confirm</button>
+</section>
+
+<!-- Subclass Choice -->
+<div id="subclassModal" hidden class="modal">
+  <h3 id="subclassTitle">Choose a Subclass</h3>
+  <div id="subclassOptions"></div>
+  <button id="confirmSubclass" disabled>Confirm</button>
+</div>
+<div id="subclassBackdrop" hidden class="modal-backdrop"></div>
+
+<!-- ================= Scripts ================= -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script type="module" src="script.js"></script>
+<script>
+  // Prevent spell clicks from triggering global routing
+  document.addEventListener("DOMContentLoaded", () => {
+    document
+      .querySelectorAll(".spell-section, .spellcasting-panel")
+      .forEach(el => {
+        el.addEventListener("click", e => {
+          e.stopPropagation();
+        });
+      });
+  });
+</script>
+
+</body>
+</html>
