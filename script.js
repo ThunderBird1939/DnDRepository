@@ -14,6 +14,8 @@ import { renderSpellList } from "./ui/spellList.js";
 import { renderPreparedSpells } from "./ui/preparedSpells.js";
 import { openDetail } from "./ui/router.js";
 import { renderAlwaysPreparedSpells } from "./ui/alwaysPreparedSpells.js";
+import { calculateArmorClass } from "./engine/calculateArmorClass.js";
+
 /* =========================
    Character Defaults (SAFETY)
 ========================= */
@@ -356,11 +358,12 @@ async function openSubclassModal(pending) {
 function updateCombat() {
   const acEl = document.getElementById("armorClass");
   const initEl = document.getElementById("initiative");
-  const baseAc = Number(document.getElementById("baseAc")?.value || 10);
   if (!acEl || !initEl) return;
 
+  // 🔑 AC comes from the engine now
+  acEl.textContent = calculateArmorClass(character);
+
   const dex = abilityMod(getAbilityScore("dex"));
-  acEl.textContent = baseAc + dex;
   initEl.textContent = fmtSigned(dex);
 }
 
