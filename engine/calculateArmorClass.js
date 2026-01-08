@@ -28,14 +28,15 @@ export async function calculateArmorClass(character) {
   if (armor) {
     ac = armor.baseAC;
 
-    const profs = character.proficiencies?.armor || [];
+    const profs = character.proficiencies?.armor;
 
     if (
-      (armor.category !== "shield" && !profs.includes(armor.category)) ||
-      (armor.category === "shield" && !profs.includes("shield"))
+    (armor.category !== "shield" && !(profs?.has(armor.category))) ||
+    (armor.category === "shield" && !(profs?.has("shield")))
     ) {
-      character.combat.armorPenalty = true;
+    character.combat.armorPenalty = true;
     }
+
 
     // Heavy armor: no Dex bonus
     if (armor.category === "heavy") {
