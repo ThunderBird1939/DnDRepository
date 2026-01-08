@@ -68,6 +68,7 @@ function updateProfBonusUI() {
 let races = [];
 let appliedRaceAsi = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
 let ALL_WEAPONS = [];
+let ALL_ARMOR = [];
 
 /* =========================
    Ability Math
@@ -471,6 +472,32 @@ window.addEventListener("DOMContentLoaded", async () => {
   populateRaceDropdown();
   syncDetailButtons();
 
+/* ===== Armor ===== */
+const armorRes = await fetch("./data/armor.json");
+ALL_ARMOR = await armorRes.json();
+
+const armorSelect = document.getElementById("armorSelect");
+if (armorSelect) {
+  ALL_ARMOR
+    .filter(a => a.category !== "shield")
+    .forEach(a => {
+      const opt = document.createElement("option");
+      opt.value = a.id;
+      opt.textContent = a.name;
+      armorSelect.appendChild(opt);
+    });
+}
+/* ===== Armor Controls ===== */
+document.getElementById("armorSelect")?.addEventListener("change", async e => {
+  character.equipment.armor = e.target.value || null;
+  await updateCombat();
+});
+
+document.getElementById("shieldToggle")?.addEventListener("change", async e => {
+  character.equipment.shield = e.target.checked;
+  await updateCombat();
+});
+
   document.getElementById("raceSelect")?.addEventListener("change", async e => {
     const race = races.find(r => r.id == e.target.value);
     if (!race) return;
@@ -575,6 +602,16 @@ window.addEventListener("DOMContentLoaded", async () => {
       ALL_WEAPONS = d;
       renderAttacks();
     });
+  /* ===== Equipment UI Sync ===== */
+  const armorSelectInit = document.getElementById("armorSelect");
+  if (armorSelectInit && character.equipment?.armor) {
+    armorSelectInit.value = character.equipment.armor;
+  }
+
+  const shieldToggleInit = document.getElementById("shieldToggle");
+  if (shieldToggleInit) {
+    shieldToggleInit.checked = !!character.equipment?.shield;
+  }
 
   /* ===== Initial Render ===== */
   recalcAllAbilities();
