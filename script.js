@@ -1,6 +1,6 @@
 /* =========================
    Imports
-========================= */
+========================== */
 import { character } from "./data/character.js";
 import { initWeaponAndSpellSelects } from "./ui/dropdowns.js";
 import { loadClass } from "./data/classloader.js";
