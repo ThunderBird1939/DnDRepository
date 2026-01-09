@@ -108,3 +108,12 @@ details ul {
   font-weight: 600;
   color: #4a6898;
 }
+.warning {
+  background: #3a1e1e;
+  border: 1px solid #aa4444;
+  color: #ffcccc;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
