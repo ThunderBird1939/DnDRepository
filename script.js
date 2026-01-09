@@ -1,6 +1,6 @@
 /* =========================
    Imports
-========================== */
+========================= */
 import { character } from "./data/character.js";
 import { initWeaponAndSpellSelects } from "./ui/dropdowns.js";
 import { loadClass } from "./data/classloader.js";
@@ -157,15 +157,27 @@ function syncDetailButtons() {
 }
 
 document.addEventListener("click", e => {
-  // 🔒 Ignore clicks coming from spell UI
   if (e.target.closest(".spellcasting-panel")) return;
 
   const btn = e.target.closest(".detail-btn");
   if (!btn) return;
 
-  syncDetailButtons();
+  // 🔑 Ensure ID is correct at click time
+  if (btn.dataset.type === "class") {
+    btn.dataset.id = document.getElementById("classSelect")?.value || "";
+  }
+
+  if (btn.dataset.type === "race") {
+    btn.dataset.id = document.getElementById("raceSelect")?.value || "";
+  }
+
+  if (btn.dataset.type === "subclass") {
+    btn.dataset.id = character.subclass?.id || "";
+  }
+
   openDetail(btn.dataset.type, btn.dataset.id);
 });
+
 
 
 /* =========================
@@ -359,17 +371,22 @@ async function openSubclassModal(pending) {
 async function updateCombat() {
   const acEl = document.getElementById("armorClass");
   const initEl = document.getElementById("initiative");
+  const warningEl = document.getElementById("armorWarning");
   if (!acEl || !initEl) return;
 
-  // 🔑 AC comes from the engine now
   const ac = await calculateArmorClass(character);
   character.combat.armorClass = ac;
   acEl.textContent = ac;
 
-
   const dex = abilityMod(getAbilityScore("dex"));
   initEl.textContent = fmtSigned(dex);
+
+  // ⚠️ Armor proficiency warning
+  if (warningEl) {
+    warningEl.hidden = !character.combat?.armorPenalty;
+  }
 }
+
 
 function getWeaponAbilityMod(weapon) {
   const props = weapon.properties || [];
