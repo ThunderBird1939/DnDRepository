@@ -8,12 +8,20 @@ export function applyClass(character, classData, level = 1) {
   character.features ??= [];
 
   character.proficiencies ??= {};
-  character.proficiencies.armor ??= new Set();
+  character.proficiencies.armor = new Set();
   character.proficiencies.weapons ??= new Set();
   character.proficiencies.tools ??= new Set();
   character.proficiencies.skills ??= new Set();
 
   character.pendingChoices ??= {}; // ✅ keep this
+  character.savingThrows ??= {
+    str: false,
+    dex: false,
+    con: false,
+    int: false,
+    wis: false,
+    cha: false
+  };
 
   /* =========================
      CLASS CORE
