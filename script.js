@@ -432,6 +432,21 @@ async function updateCombat() {
   if (warningEl) {
     warningEl.hidden = !character.combat?.armorPenalty;
   }
+  const strengthWarning = document.getElementById("strengthWarning");
+
+  // Strength requirement warning
+  if (strengthWarning) {
+    strengthWarning.hidden = !character.combat?.strPenalty;
+  }
+
+  // Apply speed penalty
+  const baseSpeed = 30; // race already applied earlier
+  character.combat.speed = baseSpeed - (character.combat?.strPenalty ? 10 : 0);
+
+  const speedInput = document.getElementById("speed");
+  if (speedInput) {
+    speedInput.value = character.combat.speed;
+  }
 
   // 🚫 Disable spellcasting
   if (spellPanel) {

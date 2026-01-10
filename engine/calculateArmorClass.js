@@ -25,28 +25,37 @@ export async function calculateArmorClass(character) {
   /* =========================
      ARMOR
   ========================= */
-  if (armor) {
-    ac = armor.baseAC;
+if (armor) {
+  ac = armor.baseAC;
 
-    const profs = character.proficiencies?.armor;
+  const profs = [...(character.proficiencies?.armor || [])];
+  character.combat.armorPenalty = false;
+  character.combat.strPenalty = false; // 👈 NEW
 
-    if (
-    (armor.category !== "shield" && !(profs?.has(armor.category))) ||
-    (armor.category === "shield" && !(profs?.has("shield")))
-    ) {
+  // ❌ Not proficient
+  if (armor.category !== "shield" && !profs.includes(armor.category)) {
     character.combat.armorPenalty = true;
-    }
-
-
-    // Heavy armor: no Dex bonus
-    if (armor.category === "heavy") {
-      // Dex explicitly ignored
-    } else if (armor.dexBonus === "full") {
-      ac += dexMod;
-    } else if (armor.dexBonus === "max2") {
-      ac += Math.min(2, dexMod);
-    }
   }
+
+  // 💪 Strength requirement (heavy armor only)
+  if (
+    armor.category === "heavy" &&
+    armor.strengthRequirement &&
+    (character.abilities?.str ?? 10) < armor.strengthRequirement
+  ) {
+    character.combat.strPenalty = true;
+  }
+
+  // Dex handling
+  if (armor.category === "heavy") {
+    // no Dex bonus
+  } else if (armor.dexBonus === "full") {
+    ac += dexMod;
+  } else if (armor.dexBonus === "max2") {
+    ac += Math.min(2, dexMod);
+  }
+}
+
 
   /* =========================
      SHIELD
