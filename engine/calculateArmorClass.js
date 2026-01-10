@@ -32,19 +32,27 @@ if (armor) {
   character.combat.armorPenalty = false;
   character.combat.strPenalty = false; // 👈 NEW
 
-  // ❌ Not proficient
-  if (armor.category !== "shield" && !profs.includes(armor.category)) {
-    character.combat.armorPenalty = true;
-  }
+ const isArcaneArmor = !!character.combat?.arcaneArmor;
 
-  // 💪 Strength requirement (heavy armor only)
-  if (
-    armor.category === "heavy" &&
-    armor.strengthRequirement &&
-    (character.abilities?.str ?? 10) < armor.strengthRequirement
-  ) {
-    character.combat.strPenalty = true;
-  }
+// ❌ Not proficient (ignored by Arcane Armor)
+if (
+  !isArcaneArmor &&
+  armor.category !== "shield" &&
+  !profs.includes(armor.category)
+) {
+  character.combat.armorPenalty = true;
+}
+
+// 💪 Strength requirement (ignored by Arcane Armor)
+if (
+  !isArcaneArmor &&
+  armor.category === "heavy" &&
+  armor.strengthRequirement &&
+  (character.abilities?.str ?? 10) < armor.strengthRequirement
+) {
+  character.combat.strPenalty = true;
+}
+
 
   // Dex handling
   if (armor.category === "heavy") {
