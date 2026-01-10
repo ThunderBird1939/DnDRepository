@@ -106,6 +106,20 @@ function updateProfBonusUI() {
   if (!el) return;
   el.textContent = fmtSigned(proficiencyBonus(character.level || 1));
 }
+function updateArmorLockUI() {
+  const armorSelect = document.getElementById("armorSelect");
+  const shieldToggle = document.getElementById("shieldToggle");
+
+  if (!armorSelect) return;
+
+  const locked = !!character.combat?.arcaneArmorLocked;
+
+  armorSelect.disabled = locked;
+
+  if (shieldToggle) {
+    shieldToggle.disabled = locked;
+  }
+}
 
 /* =========================
    Globals
@@ -458,6 +472,10 @@ async function updateCombat() {
 
   // ❗ Disadvantage indicators (added next)
   toggleDisadvantageUI(!!character.combat?.armorPenalty);
+  // 🔒 Lock armor UI if Arcane Armor is active
+  updateArmorLockUI();
+}
+
 }
 
 
@@ -680,6 +698,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
   window.addEventListener("subclass-updated", async () => {
     syncDetailButtons();
+    updateArmorLockUI();
   });
 
   window.addEventListener("prepared-spells-updated", () => {
@@ -708,6 +727,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   recalcAllAbilities();
   updateRaceBonusDisplay();
   await updateCombat();
+  updateArmorLockUI();
   renderSkills();
   runPendingChoiceFlow();
   updateHitPoints();
