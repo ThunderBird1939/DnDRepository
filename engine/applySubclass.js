@@ -81,6 +81,10 @@ export function applySubclass(character, subclassData) {
       });
     }
   );
+  // Reset subclass-specific combat flags
+  character.combat ??= {};
+  delete character.combat.arcaneArmor;
+
   /* =========================
     ARMORER: ARCANE ARMOR FLAG
   ========================= */
@@ -88,9 +92,9 @@ export function applySubclass(character, subclassData) {
     subclassData.id === "armorer" &&
     character.class?.id === "artificer"
   ) {
-    character.combat ??= {};
     character.combat.arcaneArmor = true;
   }
+
 
   /* =========================
      CLEAR PENDING CHOICE
