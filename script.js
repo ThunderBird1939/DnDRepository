@@ -476,7 +476,6 @@ async function updateCombat() {
   updateArmorLockUI();
 }
 
-}
 
 
 
