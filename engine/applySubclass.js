@@ -81,19 +81,21 @@ export function applySubclass(character, subclassData) {
       });
     }
   );
-  // Reset subclass-specific combat flags
-  character.combat ??= {};
-  delete character.combat.arcaneArmor;
+// Reset subclass-specific combat flags
+character.combat ??= {};
+delete character.combat.arcaneArmor;
+delete character.combat.arcaneArmorLocked;
 
-  /* =========================
-    ARMORER: ARCANE ARMOR FLAG
-  ========================= */
-  if (
-    subclassData.id === "armorer" &&
-    character.class?.id === "artificer"
-  ) {
-    character.combat.arcaneArmor = true;
-  }
+/* =========================
+   ARMORER: ARCANE ARMOR
+========================= */
+if (
+  subclassData.id === "armorer" &&
+  character.class?.id === "artificer"
+) {
+  character.combat.arcaneArmor = true;
+  character.combat.arcaneArmorLocked = true;
+}
 
 
   /* =========================
