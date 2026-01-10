@@ -437,9 +437,13 @@ async function openSubclassModal(pending) {
    Combat & Attacks
 ========================= */
 async function updateCombat() {
+  // Reset UI indicators first
+  toggleDisadvantageUI(false);
+
   const acEl = document.getElementById("armorClass");
   const initEl = document.getElementById("initiative");
   const warningEl = document.getElementById("armorWarning");
+  const strengthWarning = document.getElementById("strengthWarning");
   const spellPanel = document.querySelector(".spellcasting-panel");
 
   if (!acEl || !initEl) return;
@@ -448,23 +452,32 @@ async function updateCombat() {
   character.combat.armorClass = ac;
   acEl.textContent = ac;
 
+  // 🔁 Arcane Armor overrides all penalties
+  if (character.combat?.arcaneArmor) {
+    character.combat.armorPenalty = false;
+    character.combat.strPenalty = false;
+  }
+
+  // Initiative
   const dex = abilityMod(getAbilityScore("dex"));
   initEl.textContent = fmtSigned(dex);
 
   // ⚠️ Armor proficiency warning
   if (warningEl) {
-    warningEl.hidden = !character.combat?.armorPenalty;
+    warningEl.hidden =
+      !character.combat?.armorPenalty || character.combat?.arcaneArmor;
   }
-  const strengthWarning = document.getElementById("strengthWarning");
 
-  // Strength requirement warning
+  // 💪 Strength requirement warning
   if (strengthWarning) {
-    strengthWarning.hidden = !character.combat?.strPenalty;
+    strengthWarning.hidden =
+      !character.combat?.strPenalty || character.combat?.arcaneArmor;
   }
 
-  // Apply speed penalty
+  // 🏃 Speed penalty
   const baseSpeed = 30; // race already applied earlier
-  character.combat.speed = baseSpeed - (character.combat?.strPenalty ? 10 : 0);
+  character.combat.speed =
+    baseSpeed - (character.combat?.strPenalty ? 10 : 0);
 
   const speedInput = document.getElementById("speed");
   if (speedInput) {
@@ -473,21 +486,23 @@ async function updateCombat() {
 
   // 🚫 Disable spellcasting
   if (spellPanel) {
-  spellPanel.classList.toggle(
-    "spellcasting-disabled",
-    !!character.combat?.armorPenalty && !character.combat?.arcaneArmor
-  );
-
+    spellPanel.classList.toggle(
+      "spellcasting-disabled",
+      !!character.combat?.armorPenalty && !character.combat?.arcaneArmor
+    );
   }
 
-  // ❗ Disadvantage indicators (added next)
-toggleDisadvantageUI(
-  !!character.combat?.armorPenalty || !!character.combat?.strPenalty
-);
+  // ❗ Disadvantage indicators
+  toggleDisadvantageUI(
+    !character.combat?.arcaneArmor &&
+      (character.combat?.armorPenalty || character.combat?.strPenalty)
+  );
+
   // 🔒 Lock armor UI if Arcane Armor is active
   updateArmorLockUI();
   updateArmorLockText();
 }
+
 
 
 

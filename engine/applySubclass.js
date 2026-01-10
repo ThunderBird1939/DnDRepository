@@ -93,8 +93,19 @@ if (
   subclassData.id === "armorer" &&
   character.class?.id === "artificer"
 ) {
+  character.combat ??= {};
   character.combat.arcaneArmor = true;
-  character.combat.arcaneArmorLocked = true;
+  character.combat.arcaneArmorLocked = true; // ✅ MISSING PIECE
+  character.combat.arcaneArmorMode ??= "guardian";
+
+  // 🛡️ Auto-equip plate if no armor selected
+  character.equipment ??= {};
+  if (!character.equipment.armor) {
+    character.equipment.armor = "plate";
+  }
+
+  // ❌ Armorer does not use shields
+  character.equipment.shield = false;
 }
 
 
