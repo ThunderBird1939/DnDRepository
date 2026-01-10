@@ -19,8 +19,11 @@ export async function calculateArmorClass(character) {
     ? armorData.find(a => a.id === armorId)
     : null;
 
-  character.combat ??= {};
-  character.combat.armorPenalty = false;
+character.combat ??= {};
+
+// 🔁 Always reset penalties to avoid stale UI state
+character.combat.armorPenalty = false;
+character.combat.strPenalty = false;
 
   /* =========================
      ARMOR
@@ -63,7 +66,6 @@ if (
     ac += Math.min(2, dexMod);
   }
 }
-
 
   /* =========================
      SHIELD
