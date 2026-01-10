@@ -69,6 +69,23 @@ function updateArmorLockText() {
   note.hidden = !character.combat?.arcaneArmor;
 }
 
+function updateArmorerModeUI() {
+  const block = document.getElementById("armorerModeBlock");
+  const select = document.getElementById("armorerModeSelect");
+
+  if (!block || !select) return;
+
+  const isArmorer =
+    character.class?.id === "artificer" &&
+    character.subclass?.id === "armorer";
+
+  block.hidden = !isArmorer;
+
+  if (isArmorer) {
+    select.value = character.combat?.armorerMode ?? "guardian";
+  }
+}
+
 function fmtSigned(n) {
   return `${n >= 0 ? "+" : ""}${n}`;
 }
@@ -532,6 +549,55 @@ function renderAttacks() {
   const level = Number(character.level ?? 1);
   const prof = proficiencyBonus(level);
 
+  /* =========================
+     ARMORER: GUARDIAN
+  ========================= */
+  if (
+    character.combat?.arcaneArmor &&
+    character.combat?.armorerMode === "guardian"
+  ) {
+    const intMod = abilityMod(character.abilities?.int ?? 10);
+    const attackBonus = intMod + prof;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>Thunder Gauntlets</td>
+      <td>${fmtSigned(attackBonus)}</td>
+      <td>1d8 ${fmtSigned(intMod)}</td>
+      <td>Thunder</td>
+      <td>On hit: target has disadvantage on attacks vs others</td>
+    `;
+    tbody.appendChild(row);
+
+    return; // 🔑 STOP here
+  }
+
+  /* =========================
+     ARMORER: INFILTRATOR
+  ========================= */
+  if (
+    character.combat?.arcaneArmor &&
+    character.combat?.armorerMode === "infiltrator"
+  ) {
+    const intMod = abilityMod(character.abilities?.int ?? 10);
+    const attackBonus = intMod + prof;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>Lightning Launcher</td>
+      <td>${fmtSigned(attackBonus)}</td>
+      <td>1d6 ${fmtSigned(intMod)}</td>
+      <td>Lightning</td>
+      <td>Once/turn +1d6 lightning damage</td>
+    `;
+    tbody.appendChild(row);
+
+    return; // 🔑 STOP here
+  }
+
+  /* =========================
+     NORMAL WEAPONS
+  ========================= */
   (character.weapons || []).forEach(id => {
     const weapon = ALL_WEAPONS.find(w => w.id === id);
     if (!weapon) return;
@@ -553,6 +619,7 @@ function renderAttacks() {
     tbody.appendChild(row);
   });
 }
+
 
 /* =========================
    Hit Points (Snapshot)
@@ -728,7 +795,15 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     syncDetailButtons();
     updateArmorLockUI();
     updateArmorLockText();
+    updateArmorerModeUI
     await updateCombat();
+  });
+document
+  .getElementById("armorerModeSelect")
+  ?.addEventListener("change", e => {
+    character.combat.armorerMode = e.target.value;
+    renderFeatures();
+    renderAttacks();
   });
 
   window.addEventListener("prepared-spells-updated", () => {
@@ -768,4 +843,5 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderAlwaysPreparedSpells();
   updateArmorLockText();
   syncDetailButtons();
+  updateArmorerModeUI();
 });
