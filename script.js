@@ -417,7 +417,11 @@ async function updateCombat() {
   const acEl = document.getElementById("armorClass");
   const initEl = document.getElementById("initiative");
   const warningEl = document.getElementById("armorWarning");
-  const spellPanel = document.querySelector(".spellcasting-panel");
+  const spellDisabled =
+    !!character.combat?.armorPenalty && !character.combat?.arcaneArmor;
+
+  spellPanel.classList.toggle("spellcasting-disabled", spellDisabled);
+
 
   if (!acEl || !initEl) return;
 
@@ -447,6 +451,10 @@ async function updateCombat() {
   if (speedInput) {
     speedInput.value = character.combat.speed;
   }
+  const arcaneNote = document.getElementById("arcaneArmorNote");
+  if (arcaneNote) {
+    arcaneNote.hidden = !character.combat?.arcaneArmor;
+  }
 
   // 🚫 Disable spellcasting
   if (spellPanel) {
@@ -457,7 +465,9 @@ async function updateCombat() {
   }
 
   // ❗ Disadvantage indicators (added next)
-  toggleDisadvantageUI(!!character.combat?.armorPenalty);
+toggleDisadvantageUI(
+  !!character.combat?.armorPenalty && !character.combat?.arcaneArmor
+);
 }
 
 
