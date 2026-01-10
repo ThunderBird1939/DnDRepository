@@ -51,6 +51,51 @@ function proficiencyBonus(level) {
 function fmtSigned(n) {
   return `${n >= 0 ? "+" : ""}${n}`;
 }
+function toggleDisadvantageUI(enabled) {
+  const affectedStats = ["str", "dex"];
+
+  /* ===== Saving Throws ===== */
+  affectedStats.forEach(stat => {
+    const checkbox = document.getElementById(`save-${stat}`);
+    const label = checkbox?.closest("label");
+    if (!label) return;
+
+    let badge = label.querySelector(".disadvantage");
+
+    if (enabled && !badge) {
+      badge = document.createElement("span");
+      badge.className = "disadvantage";
+      badge.textContent = " Disadvantage";
+      label.appendChild(badge);
+    }
+
+    if (!enabled && badge) {
+      badge.remove();
+    }
+  });
+
+  /* ===== Skills ===== */
+  document.querySelectorAll(".skills label").forEach(label => {
+    const text = label.textContent.toLowerCase();
+    const isStr = text.includes("(str)");
+    const isDex = text.includes("(dex)");
+
+    if (!isStr && !isDex) return;
+
+    let badge = label.querySelector(".disadvantage");
+
+    if (enabled && !badge) {
+      badge = document.createElement("span");
+      badge.className = "disadvantage";
+      badge.textContent = " Disadvantage";
+      label.appendChild(badge);
+    }
+
+    if (!enabled && badge) {
+      badge.remove();
+    }
+  });
+}
 
 function formatToolName(tool) {
   return tool.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
