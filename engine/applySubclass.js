@@ -81,6 +81,16 @@ export function applySubclass(character, subclassData) {
       });
     }
   );
+  /* =========================
+    ARMORER: ARCANE ARMOR FLAG
+  ========================= */
+  if (
+    subclassData.id === "armorer" &&
+    character.class?.id === "artificer"
+  ) {
+    character.combat ??= {};
+    character.combat.arcaneArmor = true;
+  }
 
   /* =========================
      CLEAR PENDING CHOICE
