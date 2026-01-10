@@ -47,6 +47,27 @@ function abilityMod(score) {
 function proficiencyBonus(level) {
   return Math.ceil(1 + level / 4);
 }
+function updateArmorLockUI() {
+  const armorSelect = document.getElementById("armorSelect");
+  const shieldToggle = document.getElementById("shieldToggle");
+
+  if (!armorSelect) return;
+
+  const locked = !!character.combat?.arcaneArmor;
+
+  armorSelect.disabled = locked;
+
+  if (shieldToggle) {
+    shieldToggle.disabled = locked;
+  }
+}
+
+function updateArmorLockText() {
+  const note = document.getElementById("arcaneArmorNote");
+  if (!note) return;
+
+  note.hidden = !character.combat?.arcaneArmor;
+}
 
 function fmtSigned(n) {
   return `${n >= 0 ? "+" : ""}${n}`;
@@ -73,6 +94,8 @@ function toggleDisadvantageUI(enabled) {
       badge.remove();
     }
   });
+
+
 
   /* ===== Skills ===== */
   document.querySelectorAll(".skills label").forEach(label => {
@@ -105,20 +128,6 @@ function updateProfBonusUI() {
   const el = document.getElementById("profBonus");
   if (!el) return;
   el.textContent = fmtSigned(proficiencyBonus(character.level || 1));
-}
-function updateArmorLockUI() {
-  const armorSelect = document.getElementById("armorSelect");
-  const shieldToggle = document.getElementById("shieldToggle");
-
-  if (!armorSelect) return;
-
-  const locked = !!character.combat?.arcaneArmorLocked;
-
-  armorSelect.disabled = locked;
-
-  if (shieldToggle) {
-    shieldToggle.disabled = locked;
-  }
 }
 
 /* =========================
@@ -464,16 +473,20 @@ async function updateCombat() {
 
   // 🚫 Disable spellcasting
   if (spellPanel) {
-    spellPanel.classList.toggle(
-      "spellcasting-disabled",
-      !!character.combat?.armorPenalty
-    );
+  spellPanel.classList.toggle(
+    "spellcasting-disabled",
+    !!character.combat?.armorPenalty && !character.combat?.arcaneArmor
+  );
+
   }
 
   // ❗ Disadvantage indicators (added next)
-  toggleDisadvantageUI(!!character.combat?.armorPenalty);
+toggleDisadvantageUI(
+  !!character.combat?.armorPenalty || !!character.combat?.strPenalty
+);
   // 🔒 Lock armor UI if Arcane Armor is active
   updateArmorLockUI();
+  updateArmorLockText();
 }
 
 
@@ -674,15 +687,16 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     window.dispatchEvent(new Event("features-updated"));
 
     syncDetailButtons();
+    updateArmorLockUI();
   });
 
   /* ===== Event wiring ===== */
   window.addEventListener("weapons-changed", renderAttacks);
   window.addEventListener("tools-updated", renderTools);
   window.addEventListener("skills-updated", () => {
-    renderSkills();          // 🔑 this was missing logically
-    renderFeatures();        // optional but correct
-    runPendingChoiceFlow();  // continue pipeline
+    renderSkills();        
+    renderFeatures();     
+    runPendingChoiceFlow(); 
   });
 
   window.addEventListener("features-updated", async () => {
@@ -698,6 +712,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   window.addEventListener("subclass-updated", async () => {
     syncDetailButtons();
     updateArmorLockUI();
+    updateArmorLockText();
+    await updateCombat();
   });
 
   window.addEventListener("prepared-spells-updated", () => {
@@ -735,5 +751,6 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   await renderPreparedSpells();
   renderSpellList();
   renderAlwaysPreparedSpells();
+  updateArmorLockText();
   syncDetailButtons();
 });
