@@ -372,6 +372,8 @@ async function updateCombat() {
   const acEl = document.getElementById("armorClass");
   const initEl = document.getElementById("initiative");
   const warningEl = document.getElementById("armorWarning");
+  const spellPanel = document.querySelector(".spellcasting-panel");
+
   if (!acEl || !initEl) return;
 
   const ac = await calculateArmorClass(character);
@@ -385,7 +387,19 @@ async function updateCombat() {
   if (warningEl) {
     warningEl.hidden = !character.combat?.armorPenalty;
   }
+
+  // 🚫 Disable spellcasting
+  if (spellPanel) {
+    spellPanel.classList.toggle(
+      "spellcasting-disabled",
+      !!character.combat?.armorPenalty
+    );
+  }
+
+  // ❗ Disadvantage indicators (added next)
+  toggleDisadvantageUI(!!character.combat?.armorPenalty);
 }
+
 
 
 function getWeaponAbilityMod(weapon) {
