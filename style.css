@@ -117,3 +117,14 @@ details ul {
   border-radius: 6px;
   font-size: 0.9rem;
 }
+.spellcasting-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  filter: grayscale(1);
+}
+.disadvantage {
+  color: #ff9a9a;
+  font-size: 0.75rem;
+  margin-left: 6px;
+  font-weight: bold;
+}
