@@ -244,16 +244,8 @@
           Shield (+2 AC)
         </label>
       </div>
-      <div id="armorerModeBlock" hidden>
       <strong>Arcane Armor Configuration</strong>
       <label>
-        <input type="radio" name="armorerMode" value="guardian" />
-        Guardian
-      </label>
-      <label>
-        <input type="radio" name="armorerMode" value="infiltrator" />
-        Infiltrator
-      </label>
     </div>
       <!-- Armor Proficiency Warning -->
       <div id="armorWarning" class="warning" hidden>
@@ -279,6 +271,10 @@
         Speed
         <input id="speed" type="number" value="30" />
     </section>
+    <label id="flySpeedBlock" hidden>
+      Flying Speed
+      <input id="flySpeed" type="number" disabled />
+    </label>
 
   <!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
   <section id="detailView" class="detail-view" hidden></section>

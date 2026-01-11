@@ -117,6 +117,7 @@ if (
 
   character.equipment.shield = false;
 }
+window.dispatchEvent(new Event("combat-updated"));
 
 
 

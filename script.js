@@ -77,12 +77,13 @@ function updateArmorerModeUI() {
   block.hidden = !active;
 
   if (!active) return;
+}
 
-  document
-    .querySelectorAll('input[name="armorerMode"]')
-    .forEach(radio => {
-      radio.checked = radio.value === character.combat.armorerMode;
-    });
+function updateWeaponLockUI() {
+  const weaponsSelect = document.getElementById("weaponsSelect");
+  if (!weaponsSelect) return;
+
+  weaponsSelect.disabled = !!character.combat?.arcaneArmor;
 }
 
 function fmtSigned(n) {
@@ -306,7 +307,7 @@ function renderRaceDetails(race) {
 
 function applyRaceToCharacter(race) {
   appliedRaceAsi = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
-  character.combat.speed = 30;
+  character.combat.baseSpeed = 30;
 
   race.contents.forEach(line => {
     if (!line.startsWith("property")) return;
@@ -320,13 +321,23 @@ function applyRaceToCharacter(race) {
     }
 
     if (label === "Speed") {
-      const m = value.match(/(\d+)/);
-      if (m) character.combat.speed = Number(m[1]);
-    }
+  // Walking speed
+  const walkMatch = value.match(/(\d+)\s*ft/);
+  if (walkMatch) {
+    character.combat.baseSpeed = Number(walkMatch[1]);
+  }
+
+  // Flying speed (optional)
+  const flyMatch = value.match(/fly\s*(\d+)/i);
+  if (flyMatch) {
+    character.combat.baseFlySpeed = Number(flyMatch[1]);
+  }
+}
+
   });
 
   const speedInput = document.getElementById("speed");
-  if (speedInput) speedInput.value = character.combat.speed;
+  if (speedInput) speedInput.value = character.combat.baseSpeed;
 }
 
 /* =========================
@@ -490,10 +501,10 @@ async function updateCombat() {
       !character.combat?.strPenalty || character.combat?.arcaneArmor;
   }
 
- // 🏃 Speed calculation
-let speed = 30; // base (race already applied earlier)
+// 🏃 Speed calculation
+let speed = character.combat?.baseSpeed ?? 30;
 
-// Strength penalty (ignored by Arcane Armor earlier, but safe to keep)
+// Strength penalty (ignored by Arcane Armor)
 if (character.combat?.strPenalty) {
   speed -= 10;
 }
@@ -508,11 +519,11 @@ if (
 
 character.combat.speed = speed;
 
-
-  const speedInput = document.getElementById("speed");
-  if (speedInput) {
-    speedInput.value = character.combat.speed;
-  }
+const speedInput = document.getElementById("speed");
+if (speedInput) {
+  speedInput.value = speed;
+  speedInput.disabled = !!character.combat?.arcaneArmor;
+}
 
   // 🚫 Disable spellcasting
   if (spellPanel) {
@@ -531,11 +542,33 @@ character.combat.speed = speed;
   // 🔒 Lock armor UI if Arcane Armor is active
   updateArmorLockUI();
   updateArmorLockText();
+  // 🕊️ Flying speed (if applicable)
+if (character.combat?.baseFlySpeed) {
+  let flySpeed = character.combat.baseFlySpeed;
+
+  // 🔒 FUTURE RULE HOOK (not active yet)
+  // Disable flight if wearing medium/heavy armor
+  // if (character.equipment?.armorCategory !== "light") {
+  //   flySpeed = 0;
+  // }
+
+  character.combat.flySpeed = flySpeed;
+} else {
+  delete character.combat.flySpeed;
+}
+const flyBlock = document.getElementById("flySpeedBlock");
+const flyInput = document.getElementById("flySpeed");
+
+if (flyBlock && flyInput) {
+  if (character.combat?.flySpeed) {
+    flyBlock.hidden = false;
+    flyInput.value = character.combat.flySpeed;
+  } else {
+    flyBlock.hidden = true;
+  }
 }
 
-
-
-
+}
 
 function getWeaponAbilityMod(weapon) {
   const props = weapon.properties || [];
@@ -815,17 +848,23 @@ document
     renderSpellList();
   });
 
+  window.addEventListener("combat-updated", async () => {
+    await updateCombat();
+  });
+
   window.addEventListener("subclass-updated", async () => {
     syncDetailButtons();
     updateArmorLockUI();
     updateArmorLockText();
     updateArmorerModeUI();
     await updateCombat();
+    updateWeaponLockUI();
   });
 document
   .getElementById("armorerModeSelect")
-  ?.addEventListener("change", e => {
+  ?.addEventListener("change", async e => {
     character.combat.armorerMode = e.target.value;
+    await updateCombat();
     renderFeatures();
     renderAttacks();
   });
@@ -868,4 +907,5 @@ document
   updateArmorLockText();
   syncDetailButtons();
   updateArmorerModeUI();
+  updateWeaponLockUI();
 });
