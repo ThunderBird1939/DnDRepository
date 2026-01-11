@@ -73,11 +73,14 @@ function updateArmorerModeUI() {
   const block = document.getElementById("armorerModeBlock");
   if (!block) return;
 
-  const active = !!character.combat?.arcaneArmor;
-  block.hidden = !active;
+  const active =
+    character.subclass?.id === "armorer" &&
+    character.class?.level >= 3 &&
+    !!character.combat?.arcaneArmor;
 
-  if (!active) return;
+  block.hidden = !active;
 }
+
 
 function updateWeaponLockUI() {
   const weaponsSelect = document.getElementById("weaponsSelect");
@@ -187,6 +190,21 @@ function updateRaceBonusDisplay() {
 function renderSkills() {
   character.proficiencies ??= {};
   character.proficiencies.skills ??= new Set();
+const stealthCheckbox = document.getElementById("skill-stealth");
+const stealthLabel = stealthCheckbox?.closest("label");
+
+if (stealthLabel) {
+  // Remove existing ADV indicator if present
+  stealthLabel.querySelector(".advantage")?.remove();
+
+  if (character.combat?.stealthAdvantage) {
+    const adv = document.createElement("span");
+    adv.className = "advantage";
+    adv.textContent = "Advantage";
+    stealthLabel.appendChild(adv);
+  }
+}
+
 
   document
     .querySelectorAll(".skills input[type=checkbox]")
@@ -516,6 +534,15 @@ if (
 ) {
   speed += 5;
 }
+// 🕶️ Infiltrator stealth advantage
+if (
+  character.combat?.arcaneArmor &&
+  character.combat?.armorerMode === "infiltrator"
+) {
+  character.combat.stealthAdvantage = true;
+} else {
+  delete character.combat.stealthAdvantage;
+}
 
 character.combat.speed = speed;
 
@@ -753,6 +780,7 @@ document
     radio.addEventListener("change", async e => {
       character.combat.armorerMode = e.target.value;
       await updateCombat();
+      renderSkills();
       renderAttacks();
       updateArmorerModeUI();
     });
@@ -865,9 +893,11 @@ document
   ?.addEventListener("change", async e => {
     character.combat.armorerMode = e.target.value;
     await updateCombat();
+    renderSkills();          // 🔑 REQUIRED
     renderFeatures();
     renderAttacks();
   });
+
 
   window.addEventListener("prepared-spells-updated", () => {
     renderSpellList();

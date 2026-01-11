@@ -85,6 +85,8 @@
       </p>
 
       <p>Proficiency Bonus: <strong id="profBonus">+2</strong></p>
+    </section>
+
     <!-- ================= Skills ================= -->
     <section class="panel">
       <h2>Skills</h2>
@@ -111,22 +113,22 @@
       </div>
     </section>
 
-      <!-- Skill choice mount (DO NOT REMOVE) -->
-      <div id="skillChoiceMount"></div>
-    </section>
-      <!-- ================= Saving Throws ================= -->
-      <section class="panel">
-        <h2>Saving Throws</h2>
+    <!-- Skill choice mount (DO NOT REMOVE) -->
+    <div id="skillChoiceMount"></div>
 
-        <div class="saves">
-          <label><input type="checkbox" id="save-str" /> Strength</label>
-          <label><input type="checkbox" id="save-dex" /> Dexterity</label>
-          <label><input type="checkbox" id="save-con" /> Constitution</label>
-          <label><input type="checkbox" id="save-int" /> Intelligence</label>
-          <label><input type="checkbox" id="save-wis" /> Wisdom</label>
-          <label><input type="checkbox" id="save-cha" /> Charisma</label>
-        </div>
-      </section>
+    <!-- ================= Saving Throws ================= -->
+    <section class="panel">
+      <h2>Saving Throws</h2>
+
+      <div class="saves">
+        <label><input type="checkbox" id="save-str" /> Strength</label>
+        <label><input type="checkbox" id="save-dex" /> Dexterity</label>
+        <label><input type="checkbox" id="save-con" /> Constitution</label>
+        <label><input type="checkbox" id="save-int" /> Intelligence</label>
+        <label><input type="checkbox" id="save-wis" /> Wisdom</label>
+        <label><input type="checkbox" id="save-cha" /> Charisma</label>
+      </div>
+    </section>
 
     <!-- ================= Ability Scores ================= -->
     <section class="panel">
@@ -145,9 +147,10 @@
     <!-- ================= Spellcasting ================= -->
     <section class="panel spellcasting-panel">
       <h2>Spellcasting</h2>
-    <p id="spellcastingWarning" class="warning" hidden>
-      ⚠️ You cannot cast spells while wearing armor you are not proficient with.
-    </p>
+
+      <p id="spellcastingWarning" class="warning" hidden>
+        ⚠️ You cannot cast spells while wearing armor you are not proficient with.
+      </p>
 
       <div id="spellcastingSummary" class="spell-summary"></div>
 
@@ -217,7 +220,6 @@
       <label>Spent <input id="hitDiceSpent" type="number" value="0"/></label>
     </section>
 
- 
     <!-- ================= Combat & Equipment ================= -->
     <section class="panel">
       <h2>Combat</h2>
@@ -229,7 +231,9 @@
             <option value="">— Unarmored —</option>
           </select>
         </label>
+
         <div id="armorerModeBlock" hidden>
+          <strong>Arcane Armor Configuration</strong>
           <label>
             Armorer Mode
             <select id="armorerModeSelect">
@@ -244,27 +248,26 @@
           Shield (+2 AC)
         </label>
       </div>
-      <strong>Arcane Armor Configuration</strong>
-      <label>
-    </div>
+
       <!-- Armor Proficiency Warning -->
       <div id="armorWarning" class="warning" hidden>
         ⚠️ You are wearing armor or a shield you are not proficient with.
         <br />
         You have disadvantage on STR & DEX checks and saving throws and cannot cast spells.
+
         <!-- Strength Requirement Warning -->
         <div id="strengthWarning" class="warning" hidden>
           ⚠️ Your Strength is too low for this armor.
           <br />
           Your speed is reduced by 10 ft.
+
           <div id="arcaneArmorNote" class="warning info" hidden>
-          🛠 Arcane Armor active — proficiency and Strength requirements are ignored.
+            🛠 Arcane Armor active — proficiency and Strength requirements are ignored.
+          </div>
         </div>
-
-        </div>
-
       </div>
-      <<p>Armor Class: <strong id="armorClass">10</strong></p>
+
+      <p>Armor Class: <strong id="armorClass">10</strong></p>
       <p>Initiative: <strong id="initiative">+0</strong></p>
 
       <label>
@@ -276,9 +279,11 @@
         Flying Speed
         <input id="flySpeed" type="number" disabled />
       </label>
-      </section>
+    </section>
 
-        <!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
+  </section>
+
+  <!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
   <section id="detailView" class="detail-view" hidden></section>
 
 </div>
