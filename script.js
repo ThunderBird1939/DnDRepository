@@ -344,14 +344,6 @@ function applyRaceToCharacter(race) {
 
   const speedInput = document.getElementById("speed");
   if (speedInput) speedInput.value = character.combat.speed;
-  // 🏃 Infiltrator speed bonus
-if (
-  character.combat?.arcaneArmor &&
-  character.combat?.armorerMode === "infiltrator"
-) {
-  character.combat.speed += 5;
-}
-
 }
 
 /* =========================
@@ -515,10 +507,24 @@ async function updateCombat() {
       !character.combat?.strPenalty || character.combat?.arcaneArmor;
   }
 
-  // 🏃 Speed penalty
-  const baseSpeed = 30; // race already applied earlier
-  character.combat.speed =
-    baseSpeed - (character.combat?.strPenalty ? 10 : 0);
+ // 🏃 Speed calculation
+let speed = 30; // base (race already applied earlier)
+
+// Strength penalty (ignored by Arcane Armor earlier, but safe to keep)
+if (character.combat?.strPenalty) {
+  speed -= 10;
+}
+
+// 🕶️ Infiltrator bonus
+if (
+  character.combat?.arcaneArmor &&
+  character.combat?.armorerMode === "infiltrator"
+) {
+  speed += 5;
+}
+
+character.combat.speed = speed;
+
 
   const speedInput = document.getElementById("speed");
   if (speedInput) {
