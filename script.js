@@ -795,7 +795,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     syncDetailButtons();
     updateArmorLockUI();
     updateArmorLockText();
-    updateArmorerModeUI
+    updateArmorerModeUI();
     await updateCombat();
   });
 document
