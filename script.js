@@ -86,6 +86,22 @@ function updateArmorerModeUI() {
   }
 }
 
+function updateArmorerModeUI() {
+  const block = document.getElementById("armorerModeBlock");
+  if (!block) return;
+
+  const active = !!character.combat?.arcaneArmor;
+  block.hidden = !active;
+
+  if (!active) return;
+
+  document
+    .querySelectorAll('input[name="armorerMode"]')
+    .forEach(radio => {
+      radio.checked = radio.value === character.combat.armorerMode;
+    });
+}
+
 function fmtSigned(n) {
   return `${n >= 0 ? "+" : ""}${n}`;
 }
@@ -328,6 +344,14 @@ function applyRaceToCharacter(race) {
 
   const speedInput = document.getElementById("speed");
   if (speedInput) speedInput.value = character.combat.speed;
+  // 🏃 Infiltrator speed bonus
+if (
+  character.combat?.arcaneArmor &&
+  character.combat?.armorerMode === "infiltrator"
+) {
+  character.combat.speed += 5;
+}
+
 }
 
 /* =========================
@@ -700,6 +724,17 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   character.equipment.shield = e.target.checked;
   await updateCombat();
 });
+
+document
+  .querySelectorAll('input[name="armorerMode"]')
+  .forEach(radio => {
+    radio.addEventListener("change", async e => {
+      character.combat.armorerMode = e.target.value;
+      await updateCombat();
+      renderAttacks();
+      updateArmorerModeUI();
+    });
+  });
 
   document.getElementById("raceSelect")?.addEventListener("change", async e => {
     const race = races.find(r => r.id == e.target.value);

@@ -1,5 +1,11 @@
 export function applySubclass(character, subclassData) {
   if (!subclassData) return;
+function resetArmorerModeState(character) {
+  if (!character.combat) return;
+
+  delete character.combat.thunderGauntletsActive;
+  delete character.combat.lightningLauncherUsed;
+}
 
   /* =========================
      SUBCLASS CORE
@@ -94,19 +100,24 @@ if (
   character.class?.id === "artificer"
 ) {
   character.combat ??= {};
-  character.combat.arcaneArmor = true;
-  character.combat.arcaneArmorLocked = true; // ✅ MISSING PIECE
-  character.combat.arcaneArmorMode ??= "guardian";
 
-  // 🛡️ Auto-equip plate if no armor selected
+  // 🔁 Reset mode-specific state
+  resetArmorerModeState(character);
+
+  character.combat.arcaneArmor = true;
+
+  // Default mode (you can change later)
+  character.combat.armorerMode ??= "guardian";
+
+  // Auto-equip armor
   character.equipment ??= {};
   if (!character.equipment.armor) {
     character.equipment.armor = "plate";
   }
 
-  // ❌ Armorer does not use shields
   character.equipment.shield = false;
 }
+
 
 
   /* =========================
