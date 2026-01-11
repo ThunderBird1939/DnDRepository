@@ -71,23 +71,6 @@ function updateArmorLockText() {
 
 function updateArmorerModeUI() {
   const block = document.getElementById("armorerModeBlock");
-  const select = document.getElementById("armorerModeSelect");
-
-  if (!block || !select) return;
-
-  const isArmorer =
-    character.class?.id === "artificer" &&
-    character.subclass?.id === "armorer";
-
-  block.hidden = !isArmorer;
-
-  if (isArmorer) {
-    select.value = character.combat?.armorerMode ?? "guardian";
-  }
-}
-
-function updateArmorerModeUI() {
-  const block = document.getElementById("armorerModeBlock");
   if (!block) return;
 
   const active = !!character.combat?.arcaneArmor;
