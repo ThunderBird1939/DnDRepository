@@ -40,6 +40,15 @@ character.combat ??= { speed: 30 };
 /* =========================
    Helpers
 ========================= */
+const ELDRITCH_CANNON_DESCRIPTIONS = {
+  "force-ballista":
+    "The cannon makes a ranged spell attack, dealing force damage and pushing the target up to 5 feet away.",
+  "flamethrower":
+    "The cannon exhales fire in a 15-foot cone. Creatures in the area take fire damage on a failed Dexterity save, or half as much on a success.",
+  "protector":
+    "The cannon grants temporary hit points to creatures of your choice within 10 feet."
+};
+
 function abilityMod(score) {
   return Math.floor((score - 10) / 2);
 }
@@ -94,6 +103,29 @@ function renderAllSpellUI() {
   renderAlwaysPreparedSpells();
   renderPreparedSpells();
   renderSpellList();
+}
+
+function updateEldritchCannonUI() {
+  const block = document.getElementById("eldritchCannonBlock");
+  const select = document.getElementById("eldritchCannonSelect");
+  const desc = document.getElementById("eldritchCannonDescription");
+
+  if (!block || !select || !desc) return;
+
+  const isArtillerist =
+    character.class?.id === "artificer" &&
+    character.subclass?.id === "artillerist";
+
+  if (!isArtillerist) {
+    block.hidden = true;
+    return;
+  }
+
+  block.hidden = false;
+
+  const type = character.combat?.eldritchCannonType;
+  select.value = type;
+  desc.textContent = ELDRITCH_CANNON_DESCRIPTIONS[type] ?? "";
 }
 
 function fmtSigned(n) {
@@ -878,6 +910,7 @@ window.addEventListener("features-updated", () => {
 
   window.addEventListener("combat-updated", async () => {
     await updateCombat();
+    updateEldritchCannonUI();
   });
 
   window.addEventListener("subclass-updated", async () => {
@@ -920,6 +953,12 @@ document
   if (shieldToggleInit) {
     shieldToggleInit.checked = !!character.equipment?.shield;
   }
+document
+  .getElementById("eldritchCannonSelect")
+  ?.addEventListener("change", e => {
+    character.combat.eldritchCannonType = e.target.value;
+    updateEldritchCannonUI();
+  });
 
   /* ===== Initial Render ===== */
   recalcAllAbilities();
