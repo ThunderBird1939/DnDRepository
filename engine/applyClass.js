@@ -8,11 +8,13 @@ export function applyClass(character, classData, level = 1) {
   character.features ??= [];
 
   character.proficiencies ??= {};
+if (level === 1) {
   character.proficiencies.armor = new Set();
-  character.proficiencies.weapons ??= new Set();
-  character.proficiencies.tools ??= new Set();
-  character.proficiencies.skills ??= new Set();
+  character.proficiencies.weapons = new Set();
+  character.proficiencies.tools = new Set();
+}
 
+  character.proficiencies.skills ??= new Set();
   character.pendingChoices ??= {}; // ✅ keep this
   character.savingThrows ??= {
     str: false,
@@ -28,7 +30,6 @@ export function applyClass(character, classData, level = 1) {
   ========================= */
   character.class.id = classData.id;
   character.class.name = classData.name;
-  character.class.level = level;
 
   /* =========================
      HIT DIE

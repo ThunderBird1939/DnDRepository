@@ -1,4 +1,6 @@
 import { character } from "../data/character.js";
+import { getSpellById } from "../engine/lookups/spellLookup.js";
+import { openSpellDetail } from "./spellDetailModal.js";
 
 function cap(s) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
@@ -37,7 +39,7 @@ export async function renderSpellcasting() {
   // ===== Spell Slots (display only) =====
   const slotsTable = await loadSlots();
   if (slotsTable) {
-    const row = slotsTable[String(character.class.level)];
+    const row = slotsTable[String(character.level)];
     if (row) {
       const table = document.createElement("table");
       table.style.borderCollapse = "collapse";
@@ -55,7 +57,7 @@ export async function renderSpellcasting() {
 
       // Character level column
       const lvl = document.createElement("td");
-      lvl.textContent = character.class.level;
+      lvl.textContent = character.level;
       lvl.style.padding = "0.25rem 0.5rem";
       tr.appendChild(lvl);
 

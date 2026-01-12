@@ -37,7 +37,7 @@ export async function renderSpellList() {
     return;
   }
 
-  const maxSpellLevel = maxArtificerSpellLevel(character.class.level);
+  const maxSpellLevel = maxArtificerSpellLevel(character.level);
   const alwaysPrepared = character.spellcasting.alwaysPrepared ?? new Set();
   const prepared = character.spellcasting.prepared ?? new Set();
 

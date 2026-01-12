@@ -25,16 +25,18 @@ export function applySubclass(character, subclassData) {
   /* =========================
      RESET SUBCLASS SPELL STATE
   ========================= */
-  if (character.spellcasting) {
+  if (!character.resolvedChoices?.subclass) {
     character.spellcasting.alwaysPrepared = new Set();
   }
+
 
   /* =========================
      RESET SUBCLASS COMBAT FLAGS
   ========================= */
-  character.combat ??= {};
-  delete character.combat.arcaneArmor;
-  delete character.combat.arcaneArmorLocked;
+  // DO NOT recreate combat object
+  delete character.combat?.arcaneArmor;
+  delete character.combat?.arcaneArmorLocked;
+
 
   /* =========================
      ARMORER: ARCANE ARMOR
@@ -82,13 +84,29 @@ if (
     mode: "defender" // future-proof (defender / aggressive / support)
   };
 }
+/* =========================
+   BATTLE SMITH: ARCANE JOLT
+========================= */
+if (
+  subclassData.id === "battle-smith" &&
+  character.class?.id === "artificer" &&
+  character.level >= 9
+) {
+  character.combat ??= {};
+
+  character.combat.arcaneJolt = {
+    usesMax: Math.max(1, Math.floor((character.abilities.int - 10) / 2)),
+    description:
+      "When you hit with a magic weapon or your Steel Defender hits, you can deal extra force damage or restore hit points."
+  };
+}
 
   /* =========================
      FEATURES (LEVEL AWARE)
   ========================= */
   Object.entries(subclassData.featuresByLevel || {}).forEach(
     ([lvl, features]) => {
-      if (Number(lvl) > character.class.level) return;
+      if (Number(lvl) > character.level) return;
       if (!Array.isArray(features)) return;
 
       features.forEach(feature => {
@@ -126,7 +144,7 @@ if (
 
           Object.entries(feature.spells).forEach(
             ([spellLevel, spells]) => {
-              if (Number(spellLevel) > character.class.level) return;
+              if (Number(spellLevel) > character.level) return;
               spells.forEach(spellId =>
                 character.spellcasting.alwaysPrepared.add(spellId)
               );

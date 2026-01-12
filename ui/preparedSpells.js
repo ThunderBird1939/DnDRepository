@@ -19,13 +19,13 @@ export async function renderPreparedSpells() {
   }
 
   character.spellcasting.prepared ??= new Set();
-  character.spellcasting.additionalSpells ??= new Set();
+  character.spellcasting.alwaysPrepared ??= new Set();
 
   const prepared = character.spellcasting.prepared;
-  const alwaysPrepared = character.spellcasting.additionalSpells;
+  const alwaysPrepared = character.spellcasting.alwaysPrepared;
 
   const limit = artificerPrepLimit(character);
-  const maxLevel = maxArtificerSpellLevel(character.class.level);
+  const maxLevel = maxArtificerSpellLevel(character.level);
 
   // 🔑 Load class spell list (same source as spellList.js)
   const res = await fetch(`./data/spells/${character.class.id}.json`);
@@ -54,6 +54,9 @@ export async function renderPreparedSpells() {
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.checked = prepared.has(id);
+    if (!cb.checked && prepared.size >= limit) {
+      cb.disabled = true;
+    }
 
     cb.onchange = () => {
       if (cb.checked) {

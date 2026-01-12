@@ -344,7 +344,8 @@ function updateSteelDefenderUI() {
 
   block.hidden = false;
 
-  const level = character.class.level;
+  const level = character.level
+;
 
   const infoMap = {
     base: `
@@ -388,7 +389,7 @@ function updateArmorerModeUI() {
 
   const active =
     character.subclass?.id === "armorer" &&
-    character.class?.level >= 3 &&
+    character.level >= 3 &&
     !!character.combat?.arcaneArmor;
 
   block.hidden = !active;
@@ -1169,8 +1170,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     active: new Set(character.infusions?.active ?? [])
   };
 
-    const data = await loadClass(e.target.value);
-    applyClass(character, data, level);
+    const classData = await loadClass(e.target.value);
+    applyClass(character, classData, level);
     character.infusions ??= { known: new Set(), active: new Set() };
 
     // Restore known
@@ -1210,50 +1211,64 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
 
   document.getElementById("level")?.addEventListener("change", async e => {
-    if (!character.class?.id) return;
+  if (!character.class?.id) return;
 
-    const prevLevel = character.level;
-    const lvl = Number(e.target.value);
-    character.level = lvl;
-    const prevInfusions = {
-      known: new Set(character.infusions?.known ?? []),
-      active: new Set(character.infusions?.active ?? [])
-    };
+  const prevLevel = Number(character.level ?? 1);
+  const lvl = Number(e.target.value);
 
-    checkInfusionUnlocks(prevLevel, lvl);
+  // update single source of truth
+  character.level = lvl;
 
-    if (character._subclassData) {
-      applySubclass(character, character._subclassData);
-    }
+  // snapshot infusion state (because applyClass may touch pendingChoices)
+  const prevInfusions = {
+    known: new Set(character.infusions?.known ?? []),
+    active: new Set(character.infusions?.active ?? []),
+    targets: { ...(character.infusions?.targets ?? {}) }
+  };
 
-    // Restore known
-    character.infusions.known = prevInfusions.known;
+  // Re-apply class up to the new level (adds new features, sets pendingSubclassChoice, etc.)
+  const classData = await loadClass(character.class.id);
+  applyClass(character, classData, lvl);
 
-    // Restore active (only if still known)
-    character.infusions.active = new Set(
-      [...prevInfusions.active].filter(id =>
-        character.infusions.known.has(id)
-      )
-    );
+  // Re-apply subclass (adds any new subclass features / always-prepared spells for this level)
+  if (character._subclassData) {
+    applySubclass(character, character._subclassData);
+  }
 
+  // restore infusion state
+  character.infusions.known = prevInfusions.known;
+  character.infusions.active = new Set(
+    [...prevInfusions.active].filter(id => character.infusions.known.has(id))
+  );
+  character.infusions.targets = prevInfusions.targets;
 
+  // If max known increased at 6/10/14, force re-selection
+  checkInfusionUnlocks(prevLevel, lvl);
 
-    const hitDieInput = document.getElementById("hitDie");
-    if (hitDieInput && character.hp?.hitDie) hitDieInput.value = character.hp.hitDie;
+  // UI refresh
+  renderSavingThrows();
+  renderFeatures();
+  renderSkills();
+  renderTools();
+  renderAllSpellUI();
+  renderInfusions();
+  updateHitPoints();
+  updateProfBonusUI();
 
-    renderFeatures();
-    renderSkills();
-    renderInfusions()
-    runPendingChoiceFlow();
-    updateHitPoints();
-    updateProfBonusUI();
-    updateInfusionVisibility();
-    renderSavingThrows();
-    await updateCombat();
-    window.dispatchEvent(new Event("class-updated"));
-    syncDetailButtons();
-    updateArmorLockUI();
-  });
+  await updateCombat();
+  applyInfusionEffects();
+  renderAttacks();
+
+  syncDetailButtons();
+  updateArmorLockUI();
+  updateArmorLockText();
+  updateArmorerModeUI();
+  updateWeaponLockUI();
+
+  // This is what opens subclass/tool/skill/infusion modals
+  runPendingChoiceFlow();
+});
+
 
   /* ===== Event wiring ===== */
   window.addEventListener("weapons-changed", renderAttacks);
@@ -1268,7 +1283,6 @@ window.addEventListener("features-updated", () => {
   renderFeatures();
   renderSavingThrows();
   renderTools();
-  renderAllSpellUI();
 });
 window.addEventListener("features-updated", updateSteelDefenderUI);
 document
@@ -1289,8 +1303,8 @@ window.addEventListener("subclass-updated", async () => {
   updateArmorLockText();
   updateArmorerModeUI();
   await updateCombat();
-  applyInfusionEffects(); // 🔑 ADD
-  renderAttacks();        // 🔑 ADD
+  applyInfusionEffects();
+  renderAttacks();        
   updateWeaponLockUI();
 });
 
@@ -1304,10 +1318,6 @@ document
     renderAttacks();
   });
 
-
-  window.addEventListener("prepared-spells-updated", () => {
-    renderSpellList();
-  });
 
   /* ===== Weapons ===== */
   fetch("./data/weapons.all.json")

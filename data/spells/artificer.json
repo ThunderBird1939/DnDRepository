@@ -3549,35 +3549,6 @@
   {
     "count": 1,
     "color": "#4a6898",
-    "title": "Shatter",
-    "icon": "magic-swirl",
-    "icon_back": "magic-swirl",
-    "contents": [
-      "subtitle | 2nd-level evocation",
-      "rule",
-      "property | Casting Time | 1 action",
-      "property | Range | 60 feet",
-      "property | Components | V, S, M",
-      "property | Duration | Instantaneous",
-      "rule",
-      "text | A sudden loud ringing noise erupts from a point of your choice. Each creature in a 10-foot-radius sphere must make a Constitution saving throw or take 3d8 thunder damage."
-    ],
-    "tags": [
-      "spell",
-      "PHB",
-      "2nd level",
-      "Evocation",
-      "Bard",
-      "Sorcerer",
-      "Warlock",
-      "Wizard",
-      "Artificer",
-      "Thunder"
-    ]
-  },
-  {
-    "count": 1,
-    "color": "#4a6898",
     "title": "Fireball",
     "icon": "magic-swirl",
     "icon_back": "magic-swirl",
@@ -3717,33 +3688,6 @@
   {
     "count": 1,
     "color": "#4a6898",
-    "title": "Wall of Force",
-    "icon": "magic-swirl",
-    "icon_back": "magic-swirl",
-    "contents": [
-      "subtitle | 5th-level evocation",
-      "rule",
-      "property | Casting Time | 1 action",
-      "property | Range | 120 feet",
-      "property | Components | V, S, M",
-      "property | Duration | Concentration, up to 10 minutes",
-      "rule",
-      "text | An invisible wall of force springs into existence at a point you choose. The wall is immune to damage and blocks physical movement."
-    ],
-    "tags": [
-      "spell",
-      "PHB",
-      "5th level",
-      "Evocation",
-      "Wizard",
-      "Artificer",
-      "Force",
-      "Concentration"
-    ]
-  },
-  {
-    "count": 1,
-    "color": "#4a6898",
     "title": "Heroism",
     "icon": "magic-swirl",
     "icon_back": "magic-swirl",
@@ -3766,32 +3710,6 @@
       "Paladin",
       "Artificer",
       "Concentration"
-    ]
-  },
-  {
-    "count": 1,
-    "color": "#4a6898",
-    "title": "Shield",
-    "icon": "magic-swirl",
-    "icon_back": "magic-swirl",
-    "contents": [
-      "subtitle | 1st-level abjuration",
-      "rule",
-      "property | Casting Time | 1 reaction, which you take when you are hit by an attack or targeted by the magic missile spell",
-      "property | Range | Self",
-      "property | Components | V, S",
-      "property | Duration | 1 round",
-      "rule",
-      "text | An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack."
-    ],
-    "tags": [
-      "spell",
-      "PHB",
-      "1st level",
-      "Abjuration",
-      "Sorcerer",
-      "Wizard",
-      "Artificer"
     ]
   },
   {
@@ -3923,35 +3841,6 @@
       "Paladin",
       "Artificer",
       "Concentration"
-    ]
-  },
-  {
-    "count": 1,
-    "color": "#4a6898",
-    "title": "Fire Shield",
-    "icon": "magic-swirl",
-    "icon_back": "magic-swirl",
-    "contents": [
-      "subtitle | 4th-level evocation",
-      "rule",
-      "property | Casting Time | 1 action",
-      "property | Range | Self",
-      "property | Components | V, S, M",
-      "property | Duration | 10 minutes",
-      "rule",
-      "text | Thin flames wreath your body. You gain resistance to cold or fire damage, and creatures that hit you with melee attacks take fire or cold damage."
-    ],
-    "tags": [
-      "spell",
-      "PHB",
-      "4th level",
-      "Evocation",
-      "Druid",
-      "Sorcerer",
-      "Wizard",
-      "Artificer",
-      "Fire",
-      "Cold"
     ]
   },
   {
