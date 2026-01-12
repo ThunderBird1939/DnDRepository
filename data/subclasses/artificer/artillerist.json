@@ -3,21 +3,16 @@
   "name": "Artillerist",
   "classId": "artificer",
   "source": "TCE",
-  "description": "Artillerists are masters of explosive magic and arcane artillery.",
+
+  "description": "Artillerists are masters of destructive magic, using arcane firearms and magical cannons to dominate the battlefield.",
 
   "featuresByLevel": {
     "3": [
       {
-        "id": "eldritch-cannon",
-        "name": "Eldritch Cannon",
-        "type": "system",
-        "description": "You create a magical cannon that provides offensive or defensive effects."
-      },
-      {
         "id": "artillerist-spells",
         "name": "Artillerist Spells",
         "type": "spell-table",
-        "description": "You always have certain spells prepared at specific artificer levels.",
+        "description": "You always have certain spells prepared after you reach particular levels in this class. These spells count as artificer spells for you, but they don’t count against the number of artificer spells you prepare.",
         "spells": {
           "3": ["shield", "thunderwave"],
           "5": ["scorching-ray", "shatter"],
@@ -25,6 +20,26 @@
           "13": ["ice-storm", "wall-of-fire"],
           "17": ["cone-of-cold", "wall-of-force"]
         }
+      },
+      {
+        "id": "eldritch-cannon",
+        "name": "Eldritch Cannon",
+        "type": "choice",
+        "description": "At 3rd level, you learn how to create a magical cannon. As an action, you can magically create a Small or Tiny eldritch cannon in an unoccupied space. Choose one of the following cannon options when you create it.",
+        "options": [
+          {
+            "name": "Flamethrower",
+            "description": "The cannon exhales fire in a 15-foot cone. Creatures in the area take fire damage on a failed Dexterity save, or half as much on a success."
+          },
+          {
+            "name": "Force Ballista",
+            "description": "The cannon makes a ranged spell attack, dealing force damage and pushing the target up to 5 feet away."
+          },
+          {
+            "name": "Protector",
+            "description": "The cannon grants temporary hit points to creatures of your choice within 10 feet."
+          }
+        ]
       }
     ],
 
@@ -33,7 +48,7 @@
         "id": "arcane-firearm",
         "name": "Arcane Firearm",
         "type": "passive",
-        "description": "Your spells deal extra damage when cast through a special focus."
+        "description": "Beginning at 5th level, you can use a specially crafted arcane firearm as a spellcasting focus. When you cast an artificer spell through the firearm, roll a d8 and add the number rolled to one of the spell’s damage rolls."
       }
     ],
 
@@ -42,7 +57,7 @@
         "id": "explosive-cannon",
         "name": "Explosive Cannon",
         "type": "passive",
-        "description": "Your eldritch cannon deals increased damage."
+        "description": "Starting at 9th level, all damage rolls of your eldritch cannon increase by 1d8. In addition, when you create a cannon, it explodes at the end of its duration or when destroyed, dealing force damage to nearby creatures."
       }
     ],
 
@@ -51,7 +66,7 @@
         "id": "fortified-position",
         "name": "Fortified Position",
         "type": "passive",
-        "description": "You can have two cannons active at once."
+        "description": "At 15th level, you can have two eldritch cannons active at the same time. In addition, you and your allies have half cover while within 10 feet of a cannon you control."
       }
     ]
   }

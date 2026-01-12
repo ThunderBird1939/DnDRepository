@@ -804,12 +804,31 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     const data = await loadClass(e.target.value);
     applyClass(character, data, level);
 
+    // 🔁 RE-APPLY subclass if already chosen (level changes, reloads, etc.)
     if (character._subclassData) {
       applySubclass(character, character._subclassData);
     }
 
+    // 🔥 THIS WAS MISSING 🔥
+    renderSavingThrows();
+    renderFeatures();
+    renderSkills();
+    renderTools();
+    renderAllSpellUI();   // spellcasting + lists
+    updateHitPoints();
+    updateProfBonusUI();
+    await updateCombat();
+    renderAttacks();
+
+    syncDetailButtons();
+    updateArmorLockUI();
+    updateArmorLockText();
+    updateArmorerModeUI();
+    updateWeaponLockUI();
+
     runPendingChoiceFlow();
   });
+
 
   document.getElementById("level")?.addEventListener("change", async e => {
     if (!character.class?.id) return;
