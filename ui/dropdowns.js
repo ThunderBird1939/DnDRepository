@@ -45,13 +45,4 @@ export async function initWeaponAndSpellSelects() {
       window.dispatchEvent(new Event("weapons-changed"));
     });
   }
-
-  /* ======================
-     Spells — intentionally removed
-     ====================== */
-  // Snapshot spellcasting is handled by:
-  //   - ui/spells.js
-  //   - ui/spellList.js
-  //
-  // There is NO spell dropdown anymore.
 }

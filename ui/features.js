@@ -16,8 +16,26 @@ export function renderFeatures() {
     return;
   }
 
+// 🔍 FILTER: hide generic specialist placeholders once subclass is chosen
+const filteredFeatures = character.features.filter(feature => {
+  // If no subclass chosen, show everything
+  if (!character.subclass) return true;
+
+  // Hide generic artificer specialist placeholders
+  if (
+    feature.source === "artificer" &&
+    feature.type === "specialist-placeholder"
+  ) {
+    return false;
+  }
+
+  return true;
+});
+
+
+
   // Sort by level, then name (stable & PDF-friendly)
-  const features = [...character.features].sort((a, b) => {
+  const features = [...filteredFeatures].sort((a, b) => {
     if (a.level !== b.level) return a.level - b.level;
     return a.name.localeCompare(b.name);
   });

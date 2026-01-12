@@ -11,13 +11,13 @@
         "id": "arcane-armor",
         "name": "Arcane Armor",
         "type": "passive",
-        "description": "You gain a magical suit of armor that replaces missing limbs and integrates weapons."
+        "description": "You gain a magical suit of armor that replaces missing limbs and integrates weapons. While wearing your Arcane Armor, you ignore Strength requirements, gain proficiency with it if you lacked it, and it can be used as a spellcasting focus. The armor can’t be removed against your will."
       },
       {
         "id": "armor-model",
         "name": "Armor Model",
         "type": "choice",
-        "description": "You choose between the Guardian or Infiltrator armor model."
+        "description": "You choose an armor model for your Arcane Armor: Guardian or Infiltrator. Your choice grants you special weapons and benefits, and you can change the model when you finish a short or long rest."
       },
       {
         "id": "armorer-spells",
@@ -39,7 +39,7 @@
         "id": "extra-attack",
         "name": "Extra Attack",
         "type": "passive",
-        "description": "You can attack twice, instead of once, when you take the Attack action."
+        "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
       }
     ],
 
@@ -48,7 +48,7 @@
         "id": "armor-modifications",
         "name": "Armor Modifications",
         "type": "passive",
-        "description": "You can infuse your armor with additional magical effects."
+        "description": "Your Arcane Armor counts as four separate items for the purpose of infusions: armor, boots, helmet, and your Arcane Armor weapon (Thunder Gauntlets or Lightning Launcher). You can have up to two additional infusions active, but they must be part of your Arcane Armor."
       }
     ],
 
@@ -57,7 +57,7 @@
         "id": "perfected-armor",
         "name": "Perfected Armor",
         "type": "passive",
-        "description": "Your armor gains additional powerful effects based on its model."
+        "description": "Your Arcane Armor gains additional benefits based on its model.\n\nGuardian: When a creature affected by your Thunder Gauntlets hits a target other than you, you can use your reaction to deal 2d6 force damage to the creature and pull it up to 15 feet toward you.\n\nInfiltrator: Once on each of your turns when you hit a creature with your Lightning Launcher, you deal an extra 2d6 lightning damage. The target must succeed on a Constitution saving throw or be blinded until the end of its next turn."
       }
     ]
   }

@@ -101,26 +101,34 @@ classData.proficiencies?.tools?.forEach(tool => {
     character.spellcasting.enabled = false;
   }
 
-  /* =========================
-     FEATURES (LEVEL AWARE)
-  ========================= */
-  if (classData.levels && typeof classData.levels === "object") {
-    Object.entries(classData.levels).forEach(([lvl, data]) => {
-      if (Number(lvl) > level) return;
-      if (!Array.isArray(data.features)) return;
+/* =========================
+   FEATURES (LEVEL AWARE)
+========================= */
+if (classData.levels && typeof classData.levels === "object") {
+  Object.entries(classData.levels).forEach(([lvl, data]) => {
+    if (Number(lvl) > level) return;
+    if (!Array.isArray(data.features)) return;
 
-      data.features.forEach(feature => {
-        if (!character.features.some(f => f.id === feature.id)) {
-          character.features.push({
-            ...feature,
-            source: classData.id,
-            level: Number(lvl)
-          });
-        }
-      });
+    data.features.forEach(feature => {
+      // 🚫 Skip subclass placeholders once a subclass exists
+      if (
+        feature.type === "subclass" &&
+        character.subclass
+      ) {
+        return;
+      }
+
+      if (!character.features.some(f => f.id === feature.id)) {
+        character.features.push({
+          ...feature,
+          source: classData.id,
+          level: Number(lvl)
+        });
+      }
     });
-    
-  }
+  });
+}
+
 /* =========================
    INFUSION LEARN (LEVEL 2)
 ========================= */

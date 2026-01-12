@@ -89,6 +89,13 @@ function updateWeaponLockUI() {
   weaponsSelect.disabled = !!character.combat?.arcaneArmor;
 }
 
+function renderAllSpellUI() {
+  renderSpellcasting();
+  renderAlwaysPreparedSpells();
+  renderPreparedSpells();
+  renderSpellList();
+}
+
 function fmtSigned(n) {
   return `${n >= 0 ? "+" : ""}${n}`;
 }
@@ -727,7 +734,6 @@ function updateHitPoints() {
     await updateCombat();
     renderAttacks();
     updateHitPoints();
-    renderPreparedSpells();
   });
 });
 
@@ -774,18 +780,6 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   await updateCombat();
 });
 
-document
-  .querySelectorAll('input[name="armorerMode"]')
-  .forEach(radio => {
-    radio.addEventListener("change", async e => {
-      character.combat.armorerMode = e.target.value;
-      await updateCombat();
-      renderSkills();
-      renderAttacks();
-      updateArmorerModeUI();
-    });
-  });
-
   document.getElementById("raceSelect")?.addEventListener("change", async e => {
     const race = races.find(r => r.id == e.target.value);
     if (!race) return;
@@ -809,25 +803,12 @@ document
 
     const data = await loadClass(e.target.value);
     applyClass(character, data, level);
-    // 🔑 FORCE pending choices immediately
+
+    if (character._subclassData) {
+      applySubclass(character, character._subclassData);
+    }
+
     runPendingChoiceFlow();
-
-    const hitDieInput = document.getElementById("hitDie");
-    if (hitDieInput && character.hp?.hitDie) hitDieInput.value = character.hp.hitDie;
-
-    renderTools();
-    renderFeatures();
-    renderSkills();
-    runPendingChoiceFlow();
-    updateHitPoints();
-    renderSavingThrows();
-    updateProfBonusUI();
-    await updateCombat();
-
-    window.dispatchEvent(new Event("class-updated"));
-    window.dispatchEvent(new Event("features-updated"));
-
-    syncDetailButtons();
   });
 
   document.getElementById("level")?.addEventListener("change", async e => {
@@ -839,6 +820,11 @@ document
     const data = await loadClass(character.class.id);
     applyClass(character, data, lvl);
 
+    if (character._subclassData) {
+      applySubclass(character, character._subclassData);
+    }
+
+
     const hitDieInput = document.getElementById("hitDie");
     if (hitDieInput && character.hp?.hitDie) hitDieInput.value = character.hp.hitDie;
 
@@ -849,10 +835,7 @@ document
     updateProfBonusUI();
     renderSavingThrows();
     await updateCombat();
-
     window.dispatchEvent(new Event("class-updated"));
-    window.dispatchEvent(new Event("features-updated"));
-
     syncDetailButtons();
     updateArmorLockUI();
   });
@@ -866,15 +849,13 @@ document
     runPendingChoiceFlow(); 
   });
 
-  window.addEventListener("features-updated", async () => {
-    renderFeatures();
-    renderSavingThrows();
-    renderTools();
-    renderSpellcasting();
-    await renderAlwaysPreparedSpells();
-    renderPreparedSpells();
-    renderSpellList();
-  });
+window.addEventListener("features-updated", () => {
+  renderFeatures();
+  renderSavingThrows();
+  renderTools();
+  renderAllSpellUI();
+});
+
 
   window.addEventListener("combat-updated", async () => {
     await updateCombat();
@@ -893,7 +874,7 @@ document
   ?.addEventListener("change", async e => {
     character.combat.armorerMode = e.target.value;
     await updateCombat();
-    renderSkills();          // 🔑 REQUIRED
+    renderSkills();         
     renderFeatures();
     renderAttacks();
   });
@@ -931,9 +912,6 @@ document
   updateHitPoints();
   updateProfBonusUI();
   renderSavingThrows();
-  await renderPreparedSpells();
-  renderSpellList();
-  renderAlwaysPreparedSpells();
   updateArmorLockText();
   syncDetailButtons();
   updateArmorerModeUI();
