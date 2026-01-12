@@ -2,12 +2,12 @@
    Imports
 ========================= */
 import { character } from "./data/character.js";
+window.character = character;
 import { initWeaponAndSpellSelects } from "./ui/dropdowns.js";
 import { loadClass } from "./data/classloader.js";
 import { applyClass } from "./engine/applyClass.js";
 import { applySubclass } from "./engine/applySubclass.js";
 import { renderSkillChoice } from "./ui/skillChoice.js";
-import { openInfusionChoiceModal } from "./ui/infusionChoice.js";
 import { renderFeatures } from "./ui/features.js";
 import { renderSpellcasting } from "./ui/spells.js";
 import { renderSpellList } from "./ui/spellList.js";
@@ -15,27 +15,6 @@ import { renderPreparedSpells } from "./ui/preparedSpells.js";
 import { openDetail } from "./ui/router.js";
 import { renderAlwaysPreparedSpells } from "./ui/alwaysPreparedSpells.js";
 import { calculateArmorClass } from "./engine/calculateArmorClass.js";
-
-/* =========================
-   Character Defaults (SAFETY)
-========================= */
-character.level ??= 1;
-
-character.abilities ??= {
-  str: 10,
-  dex: 10,
-  con: 10,
-  int: 10,
-  wis: 10,
-  cha: 10
-};
-
-character.proficiencies ??= {};
-character.proficiencies.skills ??= new Set();
-character.proficiencies.tools ??= new Set();
-
-character.weapons ??= [];
-character.combat ??= { speed: 30 };
 
 /* =========================
    Helpers
@@ -78,7 +57,14 @@ function renderActiveInfusions() {
 
   container.innerHTML = "";
 
-  const maxActive = getMaxActiveInfusions(character.class.level);
+  // Guard: no level or too low
+  if (character.level == null || character.level < 2) {
+    counterEl.textContent = "";
+    container.textContent = "—";
+    return;
+  }
+
+  const maxActive = getMaxActiveInfusions(character.level);
   const activeCount = character.infusions.active.size;
 
   // Counter
@@ -89,8 +75,8 @@ function renderActiveInfusions() {
     return;
   }
 
-  character.infusions.known.forEach(id => {
-    const inf = allInfusions.find(i => i.id === id);
+  character.infusions.known.forEach(infusionId => {
+    const inf = allInfusions.find(i => i.id === infusionId);
     if (!inf) return;
 
     const row = document.createElement("div");
@@ -100,30 +86,31 @@ function renderActiveInfusions() {
     label.style.display = "flex";
     label.style.alignItems = "center";
     label.style.gap = "0.5rem";
+    label.style.cursor = "pointer";
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.checked = character.infusions.active.has(id);
+    checkbox.checked = character.infusions.active.has(infusionId);
 
-    // 🔒 Disable unchecked boxes if limit reached
+    // Disable unchecked boxes if limit reached
     if (!checkbox.checked && activeCount >= maxActive) {
       checkbox.disabled = true;
     }
 
     checkbox.onchange = () => {
       if (checkbox.checked) {
-        // Enforce limit (safety)
         if (character.infusions.active.size >= maxActive) {
           checkbox.checked = false;
           return;
         }
-        character.infusions.active.add(id);
+        character.infusions.active.add(infusionId);
       } else {
-        character.infusions.active.delete(id);
+        character.infusions.active.delete(infusionId);
       }
 
       applyInfusionEffects();
-      renderActiveInfusions(); // re-render to refresh disables + counter
+      renderAttacks();
+      renderActiveInfusions(); // state-driven re-render
     };
 
     const name = document.createElement("strong");
@@ -134,48 +121,102 @@ function renderActiveInfusions() {
     desc.style.marginLeft = "1.5rem";
 
     label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(" "));
     label.appendChild(name);
 
     row.appendChild(label);
     row.appendChild(desc);
+
+    /* =========================
+       🎯 TARGET SELECTION UI
+       (STATE-DRIVEN, NOT EVENT-DRIVEN)
+    ========================= */
+    if (checkbox.checked) {
+      let options = [];
+
+      if (inf.type === "weapon") {
+        options = (character.weapons || [])
+          .map(wid => {
+            const w = ALL_WEAPONS.find(w => w.id === wid);
+            return w ? { value: wid, label: w.name } : null;
+          })
+          .filter(Boolean);
+      }
+
+      if (inf.type === "armor" || inf.type === "item") {
+        options.push({ value: "armor", label: "Equipped Armor" });
+        if (character.equipment?.shield) {
+          options.push({ value: "shield", label: "Shield" });
+        }
+      }
+
+      if (options.length > 0) {
+        const targetSelect = document.createElement("select");
+        targetSelect.style.marginLeft = "1.5rem";
+        targetSelect.style.marginTop = "0.25rem";
+
+        options.forEach(opt => {
+          const o = document.createElement("option");
+          o.value = opt.value;
+          o.textContent = opt.label;
+          targetSelect.appendChild(o);
+        });
+
+        const savedTarget = character.infusions.targets[infusionId];
+
+        if (savedTarget) {
+          targetSelect.value = savedTarget;
+        } else if (options.length === 1) {
+          // 🔑 AUTO-ASSIGN when only one valid target exists
+          character.infusions.targets[infusionId] = options[0].value;
+          targetSelect.value = options[0].value;
+        }
+
+        targetSelect.onchange = () => {
+          character.infusions.targets[infusionId] = targetSelect.value;
+          applyInfusionEffects();
+          renderAttacks();
+};
+
+
+        row.appendChild(targetSelect);
+      }
+    }
+
     container.appendChild(row);
   });
 }
 
 
+
 function applyInfusionEffects() {
-  // Reset infusion effects
+  character.infusions.targets ??= {};
+  // clear ONLY infusion flags
   delete character.combat.infusedWeapon;
   delete character.combat.infusedArmor;
-  delete character.combat.infusedFocus;
+  delete character.combat.infusedShield;
 
   character.infusions.active.forEach(id => {
     const inf = allInfusions.find(i => i.id === id);
     if (!inf) return;
 
-    switch (inf.type) {
-      case "weapon":
-        character.combat.infusedWeapon = true;
-        break;
+    const target = character.infusions.targets[id];
 
-      case "armor":
-      case "item": // armor or shield
+    if (inf.type === "weapon") {
+      character.combat.infusedWeapon = target;
+    }
+
+    if (inf.type === "armor" || inf.type === "item") {
+      if (target === "shield") {
+        character.combat.infusedShield = true;
+      } else {
         character.combat.infusedArmor = true;
-        break;
-
-      case "focus":
-        character.combat.infusedFocus = true;
-        break;
-
-      // Other types are passive for now
-      default:
-        break;
+      }
     }
   });
-
-  updateCombat();
-  renderAttacks();
 }
+
+
 
 function renderInfusions() {
   const artificerInfusions = allInfusions; // ✅ FIX
@@ -190,10 +231,14 @@ function renderInfusions() {
     panel.hidden = true;
     return;
   }
+if (character.level == null || character.level < 2) {
+  panel.hidden = true;
+  return;
+}
 
   panel.hidden = false;
 
-  const maxKnown = getMaxInfusionsKnown(character.class.level);
+  const maxKnown = getMaxInfusionsKnown(character.level);
 
   // ❌ Below level 2 → nothing
   if (maxKnown === 0) {
@@ -266,18 +311,18 @@ function updateInfusionVisibility() {
 }
 
 function getMaxInfusionsKnown(level) {
-  if (level >= 14) return 10;
-  if (level >= 10) return 8;
-  if (level >= 6) return 6;
-  if (level >= 2) return 4;
+  if (level >= 14) return 8;
+  if (level >= 10) return 6;
+  if (level >= 6)  return 6;
+  if (level >= 2)  return 4;
   return 0;
 }
 
 function getMaxActiveInfusions(level) {
   if (level >= 14) return 5;
   if (level >= 10) return 4;
-  if (level >= 6) return 3;
-  if (level >= 2) return 2;
+  if (level >= 6)  return 3;
+  if (level >= 2)  return 2;
   return 0;
 }
 
@@ -453,8 +498,11 @@ function formatToolName(tool) {
 
 function updateProfBonusUI() {
   const el = document.getElementById("profBonus");
-  if (!el) return;
-  el.textContent = fmtSigned(proficiencyBonus(character.level || 1));
+if (character.level == null) {
+  el.textContent = "—";
+  return;
+}
+el.textContent = fmtSigned(proficiencyBonus(character.level));
 }
 
 /* =========================
@@ -981,7 +1029,8 @@ function renderAttacks() {
 
   const abilityBonus = getWeaponAbilityMod(weapon);
   const infusionBonus =
-    character.combat?.infusedWeapon ? 1 : 0;
+    character.combat?.infusedWeapon === weapon.id ? 1 : 0;
+
 
   const attackBonus = abilityBonus + prof + infusionBonus;
   const damageDice = weapon.damage?.[0]?.dice || "—";
@@ -1081,12 +1130,18 @@ fetch("./data/infusions/artificer.json")
 document.getElementById("armorSelect")?.addEventListener("change", async e => {
   character.equipment.armor = e.target.value || null;
   await updateCombat();
+  applyInfusionEffects();
+  renderAttacks(); 
 });
+
 
 document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   character.equipment.shield = e.target.checked;
   await updateCombat();
+  applyInfusionEffects();
+  renderAttacks();
 });
+
 
   document.getElementById("raceSelect")?.addEventListener("change", async e => {
     const race = races.find(r => r.id == e.target.value);
@@ -1097,6 +1152,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     updateRaceBonusDisplay();
     recalcAllAbilities();
     await updateCombat();
+    applyInfusionEffects();
     renderAttacks();
     updateHitPoints();
     updateProfBonusUI();
@@ -1165,8 +1221,6 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     };
 
     checkInfusionUnlocks(prevLevel, lvl);
-    const data = await loadClass(character.class.id);
-    applyClass(character, data, lvl);
 
     if (character._subclassData) {
       applySubclass(character, character._subclassData);
@@ -1221,19 +1275,25 @@ document
   .getElementById("steelDefenderInfo")
   ?.addEventListener("change", updateSteelDefenderUI);
 
-  window.addEventListener("combat-updated", async () => {
-    await updateCombat();
-    updateEldritchCannonUI();
-  });
+window.addEventListener("combat-updated", async () => {
+  await updateCombat();
+  applyInfusionEffects();
+  renderAttacks(); // 🔑 REQUIRED
+  updateEldritchCannonUI();
+});
 
-  window.addEventListener("subclass-updated", async () => {
-    syncDetailButtons();
-    updateArmorLockUI();
-    updateArmorLockText();
-    updateArmorerModeUI();
-    await updateCombat();
-    updateWeaponLockUI();
-  });
+
+window.addEventListener("subclass-updated", async () => {
+  syncDetailButtons();
+  updateArmorLockUI();
+  updateArmorLockText();
+  updateArmorerModeUI();
+  await updateCombat();
+  applyInfusionEffects(); // 🔑 ADD
+  renderAttacks();        // 🔑 ADD
+  updateWeaponLockUI();
+});
+
 document
   .getElementById("armorerModeSelect")
   ?.addEventListener("change", async e => {
@@ -1277,6 +1337,9 @@ document
   recalcAllAbilities();
   updateRaceBonusDisplay();
   await updateCombat();
+  applyInfusionEffects(); 
+  renderAttacks();        
+  updateArmorLockUI();;
   updateArmorLockUI();
   renderSkills();
   runPendingChoiceFlow();

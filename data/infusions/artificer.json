@@ -8,7 +8,7 @@
   {
     "id": "enhanced-weapon",
     "name": "Enhanced Weapon",
-    "type": "item",
+    "type": "weapon",
     "description": "A simple or martial weapon gains a +1 bonus to attack and damage rolls."
   },
   {

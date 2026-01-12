@@ -8,19 +8,13 @@ export const character = {
   raceSource: null,
 
   /* =========================
-     CLASS
+     CLASS (NO DEFAULTS)
   ========================= */
-  class: {
-    id: null,
-    level: 1
-  },
-
-
+  class: null,          // { id, name, level }
   subclass: null,
 
   /* =========================
      ABILITIES (RAW ONLY)
-     Final = raw + race + class
   ========================= */
   abilities: {
     str: 10,
@@ -32,8 +26,12 @@ export const character = {
   },
 
   /* =========================
+     LEVEL (SINGLE SOURCE OF TRUTH)
+  ========================= */
+  level: null,          // set only by UI
+
+  /* =========================
      PENDING PLAYER CHOICES
-     (engine-pausing state)
   ========================= */
   pendingChoices: {
     skills: null,
@@ -42,10 +40,8 @@ export const character = {
   },
   pendingSubclassChoice: null,
 
-
   /* =========================
      RESOLVED PLAYER CHOICES
-     (one-time permanent flags)
   ========================= */
   resolvedChoices: {
     skills: false,
@@ -80,7 +76,7 @@ export const character = {
      HIT POINTS
   ========================= */
   hp: {
-    hitDie: null,        // set by class
+    hitDie: null,
     max: 0,
     current: 0,
     temp: 0,
@@ -102,36 +98,37 @@ export const character = {
     focus: [],
     ritual: false,
 
-    prepared: new Set(),        // player-chosen
-    alwaysPrepared: new Set(),  // class + subclass
-    available: new Set()        // class list (optional future)
+    prepared: new Set(),
+    alwaysPrepared: new Set(),
+    available: new Set()
   },
 
-/* =========================
-   INFUSIONS
-========================= */
-infusions: {
-  known: new Set(),
-  active: new Set()
-},
+  /* =========================
+     INFUSIONS
+  ========================= */
+  infusions: {
+    known: new Set(),
+    active: new Set(),
+    targets: {}          // ← REQUIRED
+  },
+
   /* =========================
      EQUIPMENT
   ========================= */
   equipment: {
-    armor: null,   // armor id from armor.json (e.g. "chain-mail")
-    shield: false  // boolean for now (magic shields later)
+    armor: null,
+    shield: false
   },
 
   /* =========================
-     ARMOR CLASS MODIFIERS
-     (Defense style, magic, etc.)
+     WEAPONS
+  ========================= */
+  weapons: [],           // ← DECLARED
+
+  /* =========================
+     ARMOR CLASS
   ========================= */
   acModifiers: [],
-  
-  /* =========================
-     ARMOR CLASS OVERRIDE
-     (Mage Armor, Unarmored Defense)
-  ========================= */
   acOverride: null,
 
   /* =========================

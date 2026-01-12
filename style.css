@@ -134,4 +134,50 @@ details ul {
   margin-left: 6px;
   font-weight: bold;
 }
+#featuresList h3 {
+  margin-top: 1rem;
+  border-bottom: 1px solid #444;
+  padding-bottom: 2px;
+}
+
+.feature {
+  margin-left: 0.5rem;
+}
+.subclass-block {
+  margin-top: 8px;
+}
+
+.info-box {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+  white-space: pre-wrap;
+}
+.infusion {
+  margin-bottom: 8px;
+  padding: 6px;
+  border-left: 3px solid #4a6898;
+}
+
+.infusion strong {
+  display: block;
+}
+
+#activeInfusionsCounter {
+  margin-bottom: 0.5rem;
+  font-size: 0.9em;
+}
+#activeInfusionsList .feature {
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+#activeInfusionsList .feature:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+#activeInfusionsList input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
 
