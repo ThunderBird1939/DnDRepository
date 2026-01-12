@@ -4,7 +4,7 @@
   "classId": "artificer",
   "source": "TCE",
 
-  "description": "An Alchemist is an expert at combining reagents to produce mystical effects. Alchemists use their creations to give life and to leech it away.",
+  "description": "Alchemists specialize in blending magical reagents to create powerful elixirs. Their creations can restore life, enhance allies, or deliver volatile elemental effects.",
 
   "featuresByLevel": {
     "3": [
@@ -32,7 +32,7 @@
         "id": "experimental-elixir",
         "name": "Experimental Elixir",
         "type": "table",
-        "description": "Beginning at 3rd level, whenever you finish a long rest, you can magically produce an experimental elixir in an empty flask you touch.",
+        "description": "At 3rd level, whenever you finish a long rest, you can magically produce an experimental elixir in an empty flask you touch. The elixir’s effect is determined by rolling on the Experimental Elixir table. You can also create specific elixirs by expending spell slots. Any elixir you create lasts until it is consumed or until the end of your next long rest.",
         "table": {
           "dice": "d6",
           "rows": [
@@ -50,7 +50,7 @@
             },
             {
               "roll": "4",
-              "effect": "Boldness. The drinker can roll a d4 and add the number rolled to every attack roll and saving throw they make for the next minute."
+              "effect": "Boldness. For 1 minute, the drinker can roll a d4 and add the number rolled to every attack roll and saving throw they make."
             },
             {
               "roll": "5",
@@ -70,7 +70,7 @@
         "id": "alchemical-savant",
         "name": "Alchemical Savant",
         "type": "passive",
-        "description": "When you cast a spell using your alchemist’s supplies as the spellcasting focus, you gain a bonus to one roll of the spell equal to your Intelligence modifier."
+        "description": "Beginning at 5th level, when you cast a spell using your alchemist’s supplies as the spellcasting focus, you gain a bonus to one roll of the spell equal to your Intelligence modifier. This bonus applies to acid, poison, fire, or necrotic damage, or to healing provided by the spell."
       }
     ],
 
@@ -79,7 +79,7 @@
         "id": "restorative-reagents",
         "name": "Restorative Reagents",
         "type": "passive",
-        "description": "You can produce additional restorative effects from your experimental elixirs, granting temporary hit points or removing conditions."
+        "description": "Starting at 9th level, experimental elixirs you create provide additional restorative benefits. The drinker gains temporary hit points equal to 2d6 + your Intelligence modifier. In addition, you can cast lesser restoration without expending a spell slot and without preparing the spell, provided you use alchemist’s supplies as the spellcasting focus."
       }
     ],
 
@@ -88,7 +88,7 @@
         "id": "chemical-mastery",
         "name": "Chemical Mastery",
         "type": "passive",
-        "description": "You gain resistance to acid damage and poison damage, and immunity to the poisoned condition."
+        "description": "At 15th level, you gain resistance to acid damage and poison damage, and you are immune to the poisoned condition. In addition, you can cast greater restoration and heal once without expending a spell slot and without preparing the spell, provided you use alchemist’s supplies as the spellcasting focus."
       }
     ]
   }

@@ -3030,7 +3030,7 @@
   {
     "count": 1,
     "color": "#4a6898",
-    "title": "Melf’s Acid Arrow",
+    "title": "Melfs Acid Arrow",
     "icon": "magic-swirl",
     "icon_back": "magic-swirl",
     "contents": [
@@ -3517,35 +3517,6 @@
       "Sorcerer",
       "Wizard",
       "Artificer"
-    ]
-  },
-  {
-    "count": 1,
-    "color": "#4a6898",
-    "title": "Thunderwave",
-    "icon": "magic-swirl",
-    "icon_back": "magic-swirl",
-    "contents": [
-      "subtitle | 1st-level evocation",
-      "rule",
-      "property | Casting Time | 1 action",
-      "property | Range | Self (15-foot cube)",
-      "property | Components | V, S",
-      "property | Duration | Instantaneous",
-      "rule",
-      "text | A wave of thunderous force sweeps out from you. Each creature in a 15-foot cube must make a Constitution saving throw or take 2d8 thunder damage and be pushed 10 feet away."
-    ],
-    "tags": [
-      "spell",
-      "PHB",
-      "1st level",
-      "Evocation",
-      "Bard",
-      "Druid",
-      "Sorcerer",
-      "Wizard",
-      "Artificer",
-      "Thunder"
     ]
   },
   {
