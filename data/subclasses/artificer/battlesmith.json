@@ -3,7 +3,8 @@
   "name": "Battle Smith",
   "classId": "artificer",
   "source": "TCE",
-  "description": "Battle Smiths blend martial prowess with arcane engineering.",
+
+  "description": "Battle Smiths blend martial prowess with arcane ingenuity, fighting alongside a loyal Steel Defender constructed through magical engineering.",
 
   "featuresByLevel": {
     "3": [
@@ -11,13 +12,13 @@
         "id": "battle-ready",
         "name": "Battle Ready",
         "type": "passive",
-        "description": "You can use Intelligence instead of Strength or Dexterity for attacks with magic weapons."
+        "description": "You gain proficiency with martial weapons. When you attack with a magic weapon, you can use your Intelligence modifier instead of Strength or Dexterity for the attack and damage rolls."
       },
       {
         "id": "steel-defender",
         "name": "Steel Defender",
-        "type": "system",
-        "description": "You create a loyal construct companion that fights alongside you."
+        "type": "companion",
+        "description": "You construct a Steel Defender, a loyal magical companion that acts on your initiative. It can move and use its reaction each round, and it can take actions when you command it."
       },
       {
         "id": "battle-smith-spells",
@@ -39,7 +40,7 @@
         "id": "extra-attack",
         "name": "Extra Attack",
         "type": "passive",
-        "description": "You can attack twice when you take the Attack action."
+        "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
       }
     ],
 
@@ -48,7 +49,7 @@
         "id": "arcane-jolt",
         "name": "Arcane Jolt",
         "type": "passive",
-        "description": "You can empower attacks with additional damage or healing."
+        "description": "When you hit a target with a magic weapon attack or your Steel Defender hits a creature, you can deal extra force damage or restore hit points to a creature you can see."
       }
     ],
 
@@ -57,7 +58,7 @@
         "id": "improved-defender",
         "name": "Improved Defender",
         "type": "passive",
-        "description": "Your Steel Defender becomes more powerful."
+        "description": "Your Steel Defender becomes more resilient and dangerous, gaining additional damage and improved reactions."
       }
     ]
   }

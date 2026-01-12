@@ -71,6 +71,54 @@ function updateArmorLockUI() {
   }
 }
 
+function updateSteelDefenderUI() {
+  const block = document.getElementById("steelDefenderBlock");
+  const select = document.getElementById("steelDefenderInfo");
+  const details = document.getElementById("steelDefenderDetails");
+
+  if (
+    !block ||
+    !select ||
+    !details ||
+    character.subclass?.id !== "battle-smith"
+  ) {
+    if (block) block.hidden = true;
+    return;
+  }
+
+  block.hidden = false;
+
+  const level = character.class.level;
+
+  const infoMap = {
+    base: `
+Steel Defender is a construct companion that acts on your initiative.
+It can move and use its reaction every round.
+You must use a bonus action to command it to take actions.
+`,
+    reaction: `
+Deflect Attack (Reaction):
+Imposes disadvantage on an attack made against a creature within 5 feet of it.
+`,
+    "arcane-jolt": level >= 9
+      ? `
+Arcane Jolt:
+When you hit with a magic weapon or the Steel Defender hits,
+you can deal extra force damage or restore hit points to a creature you can see.
+Uses equal to your Intelligence modifier.
+`
+      : "Arcane Jolt unlocks at level 9.",
+    improved: level >= 15
+      ? `
+Improved Defender:
+The Steel Defender deals extra force damage and its reactions improve.
+`
+      : "Improved Defender unlocks at level 15."
+  };
+
+  details.textContent = infoMap[select.value] ?? "";
+}
+
 function updateArmorLockText() {
   const note = document.getElementById("arcaneArmorNote");
   if (!note) return;
@@ -851,13 +899,11 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     updateProfBonusUI();
     await updateCombat();
     renderAttacks();
-
     syncDetailButtons();
     updateArmorLockUI();
     updateArmorLockText();
     updateArmorerModeUI();
     updateWeaponLockUI();
-
     runPendingChoiceFlow();
   });
 
@@ -906,7 +952,10 @@ window.addEventListener("features-updated", () => {
   renderTools();
   renderAllSpellUI();
 });
-
+window.addEventListener("features-updated", updateSteelDefenderUI);
+document
+  .getElementById("steelDefenderInfo")
+  ?.addEventListener("change", updateSteelDefenderUI);
 
   window.addEventListener("combat-updated", async () => {
     await updateCombat();

@@ -21,7 +21,7 @@ export function applySubclass(character, subclassData) {
   character.proficiencies ??= {};
   character.proficiencies.skills ??= new Set();
   character.proficiencies.tools ??= new Set();
-  
+
   /* =========================
      RESET SUBCLASS SPELL STATE
   ========================= */
@@ -54,6 +54,34 @@ export function applySubclass(character, subclassData) {
     }
     character.equipment.shield = false;
   }
+
+/* =========================
+   ARTILLERIST: ELDRITCH CANNON
+========================= */
+if (
+  subclassData.id === "artillerist" &&
+  character.class?.id === "artificer"
+) {
+  character.combat ??= {};
+
+  // Default cannon selection
+  character.combat.eldritchCannonType ??= "force-ballista";
+}
+
+/* =========================
+   BATTLE SMITH: STEEL DEFENDER
+========================= */
+if (
+  subclassData.id === "battle-smith" &&
+  character.class?.id === "artificer"
+) {
+  character.combat ??= {};
+
+  character.combat.steelDefender = {
+    active: true,
+    mode: "defender" // future-proof (defender / aggressive / support)
+  };
+}
 
   /* =========================
      FEATURES (LEVEL AWARE)
