@@ -71,6 +71,217 @@ function updateArmorLockUI() {
   }
 }
 
+function renderActiveInfusions() {
+  const container = document.getElementById("activeInfusionsList");
+  const counterEl = document.getElementById("activeInfusionsCounter");
+  if (!container || !counterEl) return;
+
+  container.innerHTML = "";
+
+  const maxActive = getMaxActiveInfusions(character.class.level);
+  const activeCount = character.infusions.active.size;
+
+  // Counter
+  counterEl.textContent = `Active Infusions: ${activeCount} / ${maxActive}`;
+
+  if (character.infusions.known.size === 0) {
+    container.textContent = "—";
+    return;
+  }
+
+  character.infusions.known.forEach(id => {
+    const inf = allInfusions.find(i => i.id === id);
+    if (!inf) return;
+
+    const row = document.createElement("div");
+    row.className = "feature";
+
+    const label = document.createElement("label");
+    label.style.display = "flex";
+    label.style.alignItems = "center";
+    label.style.gap = "0.5rem";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = character.infusions.active.has(id);
+
+    // 🔒 Disable unchecked boxes if limit reached
+    if (!checkbox.checked && activeCount >= maxActive) {
+      checkbox.disabled = true;
+    }
+
+    checkbox.onchange = () => {
+      if (checkbox.checked) {
+        // Enforce limit (safety)
+        if (character.infusions.active.size >= maxActive) {
+          checkbox.checked = false;
+          return;
+        }
+        character.infusions.active.add(id);
+      } else {
+        character.infusions.active.delete(id);
+      }
+
+      applyInfusionEffects();
+      renderActiveInfusions(); // re-render to refresh disables + counter
+    };
+
+    const name = document.createElement("strong");
+    name.textContent = inf.name;
+
+    const desc = document.createElement("div");
+    desc.textContent = inf.description;
+    desc.style.marginLeft = "1.5rem";
+
+    label.appendChild(checkbox);
+    label.appendChild(name);
+
+    row.appendChild(label);
+    row.appendChild(desc);
+    container.appendChild(row);
+  });
+}
+
+
+function applyInfusionEffects() {
+  // Reset infusion effects
+  delete character.combat.infusedWeapon;
+  delete character.combat.infusedArmor;
+  delete character.combat.infusedFocus;
+
+  character.infusions.active.forEach(id => {
+    const inf = allInfusions.find(i => i.id === id);
+    if (!inf) return;
+
+    switch (inf.type) {
+      case "weapon":
+        character.combat.infusedWeapon = true;
+        break;
+
+      case "armor":
+      case "item": // armor or shield
+        character.combat.infusedArmor = true;
+        break;
+
+      case "focus":
+        character.combat.infusedFocus = true;
+        break;
+
+      // Other types are passive for now
+      default:
+        break;
+    }
+  });
+
+  updateCombat();
+  renderAttacks();
+}
+
+function renderInfusions() {
+  const artificerInfusions = allInfusions; // ✅ FIX
+  const panel = document.getElementById("infusionsPanel");
+  const knownBlock = document.getElementById("knownInfusionsBlock");
+  const activeBlock = document.getElementById("activeInfusionsBlock");
+  const select = document.getElementById("infusionsSelect");
+  const hint = document.getElementById("infusionsHint");
+
+  // ❌ Not an artificer → hide everything
+  if (character.class?.id !== "artificer") {
+    panel.hidden = true;
+    return;
+  }
+
+  panel.hidden = false;
+
+  const maxKnown = getMaxInfusionsKnown(character.class.level);
+
+  // ❌ Below level 2 → nothing
+  if (maxKnown === 0) {
+    knownBlock.hidden = true;
+    activeBlock.hidden = true;
+    return;
+  }
+
+  activeBlock.hidden = false;
+
+  const needsSelection =
+    character.infusions.known.size < maxKnown;
+
+  // ✅ KNOWN INFUSIONS (learning state)
+  knownBlock.hidden = !needsSelection;
+
+  if (needsSelection) {
+    hint.textContent = `Choose ${maxKnown - character.infusions.known.size} infusion(s).`;
+
+    // populate dropdown
+    select.innerHTML = "";
+
+    artificerInfusions.forEach(inf => {
+      const opt = document.createElement("option");
+      opt.value = inf.id;
+      opt.textContent = inf.name;
+
+      // ✅ CRITICAL FIX
+      if (character.infusions.known.has(inf.id)) {
+        opt.selected = true;
+      }
+
+      select.appendChild(opt);
+    });
+
+
+    if (infusionChoices) {
+      infusionChoices.destroy();
+      infusionChoices = null;
+    }
+
+    infusionChoices = new Choices(select, {
+      removeItemButton: true,
+      maxItemCount: maxKnown,
+      shouldSort: false
+    });
+
+    select.addEventListener("change", () => {
+  const selected = infusionChoices.getValue(true);
+
+  character.infusions.known = new Set(selected);
+  character.resolvedChoices.infusions =
+    character.infusions.known.size >= maxKnown;
+  renderActiveInfusions();
+});
+  }
+  // ✅ ACTIVE INFUSIONS DISPLAY
+  renderActiveInfusions();
+}
+
+
+function updateInfusionVisibility() {
+  const infusionPanel = document
+    .getElementById("infusionsSelect")
+    ?.closest(".panel");
+
+  if (!infusionPanel) return;
+
+  infusionPanel.hidden = character.class?.id !== "artificer";
+}
+
+function getMaxInfusionsKnown(level) {
+  if (level >= 14) return 10;
+  if (level >= 10) return 8;
+  if (level >= 6) return 6;
+  if (level >= 2) return 4;
+  return 0;
+}
+
+function getMaxActiveInfusions(level) {
+  if (level >= 14) return 5;
+  if (level >= 10) return 4;
+  if (level >= 6) return 3;
+  if (level >= 2) return 2;
+  return 0;
+}
+
+
 function updateSteelDefenderUI() {
   const block = document.getElementById("steelDefenderBlock");
   const select = document.getElementById("steelDefenderInfo");
@@ -176,6 +387,15 @@ function updateEldritchCannonUI() {
   desc.textContent = ELDRITCH_CANNON_DESCRIPTIONS[type] ?? "";
 }
 
+function checkInfusionUnlocks(prevLevel, newLevel) {
+  const prevMax = getMaxInfusionsKnown(prevLevel);
+  const newMax = getMaxInfusionsKnown(newLevel);
+
+  if (newMax > prevMax) {
+    character.resolvedChoices.infusions = false;
+  }
+}
+
 function fmtSigned(n) {
   return `${n >= 0 ? "+" : ""}${n}`;
 }
@@ -244,6 +464,8 @@ let races = [];
 let appliedRaceAsi = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
 let ALL_WEAPONS = [];
 let ALL_ARMOR = [];
+let allInfusions = [];
+let infusionChoices = null;
 
 /* =========================
    Ability Math
@@ -459,11 +681,6 @@ function runPendingChoiceFlow() {
     return;
   }
 
-  if (character.pendingChoices?.infusions) {
-    openInfusionChoiceModal(character);
-    return;
-  }
-
   if (character.pendingSubclassChoice && !character.subclass) {
     openSubclassModal(character.pendingSubclassChoice);
   }
@@ -580,9 +797,15 @@ async function updateCombat() {
 
   if (!acEl || !initEl) return;
 
-  const ac = await calculateArmorClass(character);
+  let ac = await calculateArmorClass(character);
+
+  if (character.combat?.infusedArmor) {
+    ac += 1;
+  }
+
   character.combat.armorClass = ac;
   acEl.textContent = ac;
+
 
   // 🔁 Arcane Armor overrides all penalties
   if (character.combat?.arcaneArmor) {
@@ -659,12 +882,6 @@ if (speedInput) {
   // 🕊️ Flying speed (if applicable)
 if (character.combat?.baseFlySpeed) {
   let flySpeed = character.combat.baseFlySpeed;
-
-  // 🔒 FUTURE RULE HOOK (not active yet)
-  // Disable flight if wearing medium/heavy armor
-  // if (character.equipment?.armorCategory !== "light") {
-  //   flySpeed = 0;
-  // }
 
   character.combat.flySpeed = flySpeed;
 } else {
@@ -758,26 +975,28 @@ function renderAttacks() {
   /* =========================
      NORMAL WEAPONS
   ========================= */
-  (character.weapons || []).forEach(id => {
-    const weapon = ALL_WEAPONS.find(w => w.id === id);
-    if (!weapon) return;
+(character.weapons || []).forEach(id => {
+  const weapon = ALL_WEAPONS.find(w => w.id === id);
+  if (!weapon) return;
 
-    const abilityBonus = getWeaponAbilityMod(weapon);
-    const attackBonus = abilityBonus + prof;
+  const abilityBonus = getWeaponAbilityMod(weapon);
+  const infusionBonus =
+    character.combat?.infusedWeapon ? 1 : 0;
 
-    const damageDice = weapon.damage?.[0]?.dice || "—";
-    const damageType = weapon.damage?.[0]?.type || "—";
+  const attackBonus = abilityBonus + prof + infusionBonus;
+  const damageDice = weapon.damage?.[0]?.dice || "—";
+  const damageType = weapon.damage?.[0]?.type || "—";
 
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${weapon.name}</td>
-      <td>${fmtSigned(attackBonus)}</td>
-      <td>${damageDice} ${fmtSigned(abilityBonus)}</td>
-      <td>${damageType}</td>
-      <td>${(weapon.properties || []).join(", ") || "—"}</td>
-    `;
-    tbody.appendChild(row);
-  });
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${weapon.name}</td>
+    <td>${fmtSigned(attackBonus)}</td>
+    <td>${damageDice} ${fmtSigned(abilityBonus + infusionBonus)}</td>
+    <td>${damageType}</td>
+    <td>${(weapon.properties || []).join(", ") || "—"}</td>
+  `;
+  tbody.appendChild(row);
+});
 }
 
 
@@ -849,6 +1068,15 @@ if (armorSelect) {
       armorSelect.appendChild(opt);
     });
 }
+
+/* ===== Infusions ===== */
+fetch("./data/infusions/artificer.json")
+  .then(r => r.json())
+  .then(d => {
+    allInfusions = d;
+    renderInfusions();
+  });
+
 /* ===== Armor Controls ===== */
 document.getElementById("armorSelect")?.addEventListener("change", async e => {
   character.equipment.armor = e.target.value || null;
@@ -880,9 +1108,24 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
     const level = Number(document.getElementById("level")?.value || 1);
     character.level = level;
+    const prevInfusions = {
+    known: new Set(character.infusions?.known ?? []),
+    active: new Set(character.infusions?.active ?? [])
+  };
 
     const data = await loadClass(e.target.value);
     applyClass(character, data, level);
+    character.infusions ??= { known: new Set(), active: new Set() };
+
+    // Restore known
+    character.infusions.known = prevInfusions.known;
+
+    // Restore active (only if still known)
+    character.infusions.active = new Set(
+      [...prevInfusions.active].filter(id =>
+        character.infusions.known.has(id)
+      )
+    );
 
     // 🔁 RE-APPLY subclass if already chosen (level changes, reloads, etc.)
     if (character._subclassData) {
@@ -893,9 +1136,11 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     renderSavingThrows();
     renderFeatures();
     renderSkills();
+    renderInfusions();
     renderTools();
     renderAllSpellUI();   // spellcasting + lists
     updateHitPoints();
+    updateInfusionVisibility();
     updateProfBonusUI();
     await updateCombat();
     renderAttacks();
@@ -911,9 +1156,15 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   document.getElementById("level")?.addEventListener("change", async e => {
     if (!character.class?.id) return;
 
+    const prevLevel = character.level;
     const lvl = Number(e.target.value);
     character.level = lvl;
+    const prevInfusions = {
+      known: new Set(character.infusions?.known ?? []),
+      active: new Set(character.infusions?.active ?? [])
+    };
 
+    checkInfusionUnlocks(prevLevel, lvl);
     const data = await loadClass(character.class.id);
     applyClass(character, data, lvl);
 
@@ -921,15 +1172,28 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
       applySubclass(character, character._subclassData);
     }
 
+    // Restore known
+    character.infusions.known = prevInfusions.known;
+
+    // Restore active (only if still known)
+    character.infusions.active = new Set(
+      [...prevInfusions.active].filter(id =>
+        character.infusions.known.has(id)
+      )
+    );
+
+
 
     const hitDieInput = document.getElementById("hitDie");
     if (hitDieInput && character.hp?.hitDie) hitDieInput.value = character.hp.hitDie;
 
     renderFeatures();
     renderSkills();
+    renderInfusions()
     runPendingChoiceFlow();
     updateHitPoints();
     updateProfBonusUI();
+    updateInfusionVisibility();
     renderSavingThrows();
     await updateCombat();
     window.dispatchEvent(new Event("class-updated"));

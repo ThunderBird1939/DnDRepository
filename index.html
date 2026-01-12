@@ -145,6 +145,26 @@
     </section>
 
     <!-- ================= Spellcasting ================= -->
+    <section class="panel" id="infusionsPanel" hidden>
+  <h2>Infusions</h2>
+
+  <!-- Known Infusions (learning only) -->
+  <div id="knownInfusionsBlock" hidden>
+    <label>
+      Known Infusions
+      <select id="infusionsSelect" multiple></select>
+    </label>
+    <p id="infusionsHint" class="muted"></p>
+  </div>
+
+  <!-- Active Infusions (always visible once artificer) -->
+  <div id="activeInfusionsBlock" hidden>
+    <h3>Active Infusions</h3>
+    <div id="activeInfusionsCounter" class="muted"></div>
+    <div id="activeInfusionsList">—</div>
+  </div>
+</section>
+
     <section class="panel spellcasting-panel">
       <h2>Spellcasting</h2>
 
