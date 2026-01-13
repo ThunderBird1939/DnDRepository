@@ -49,6 +49,87 @@ function updateArmorLockUI() {
     shieldToggle.disabled = locked;
   }
 }
+function parseBackground(bg) {
+  const parsed = {
+    skills: [],
+    languages: null,
+    features: [],
+    equipment: []
+  };
+
+  bg.contents.forEach(line => {
+    // Skills
+    if (line.includes("Skill Proficiencies:")) {
+      parsed.skills = line
+        .split(":")[1]
+        .split(",")
+        .map(s => s.trim().toLowerCase().replace(/\s+/g, ""));
+    }
+
+    // Languages
+    if (line.includes("Languages:")) {
+      const txt = line.split(":")[1].toLowerCase();
+      if (txt.includes("two")) parsed.languages = { choose: 2 };
+      else if (txt.includes("one")) parsed.languages = { choose: 1 };
+    }
+
+    // Equipment (display only)
+    if (line.includes("Equipment:")) {
+      parsed.equipment = line
+        .split(":")[1]
+        .split(",")
+        .map(s => s.trim());
+    }
+
+    // Feature
+    if (line.startsWith("Feature:")) {
+      const name = line.replace("Feature:", "").trim();
+      parsed.features.push({
+        id: name.toLowerCase().replace(/\s+/g, "-"),
+        name,
+        source: "background"
+      });
+    }
+  });
+
+  return parsed;
+}
+
+function applyBackground(bg) {
+  const parsed = parseBackground(bg);
+
+  /* ===== Identity ===== */
+  character.background = {
+    id: bg.id,
+    name: bg.title,
+    source: "background"
+  };
+
+  /* ===== Skills ===== */
+  parsed.skills.forEach(skill => {
+    character.proficiencies.skills.add(skill);
+  });
+
+  /* ===== Languages ===== */
+  if (parsed.languages) {
+    character.pendingChoices.languages = {
+      ...parsed.languages,
+      source: "background"
+    };
+  }
+
+  /* ===== Features ===== */
+  parsed.features.forEach(f => {
+    if (!character.features.some(x => x.id === f.id)) {
+      character.features.push(f);
+    }
+  });
+
+  /* ===== Equipment (display only) ===== */
+  character.backgroundEquipment = parsed.equipment;
+
+  window.dispatchEvent(new Event("background-applied"));
+}
 
 function renderActiveInfusions() {
   const container = document.getElementById("activeInfusionsList");
@@ -187,6 +268,19 @@ function renderActiveInfusions() {
   });
 }
 
+function populateBackgroundDropdown() {
+  const select = document.getElementById("backgroundSelect");
+  if (!select) return;
+
+  select.innerHTML = `<option value="">— Select Background —</option>`;
+
+  backgrounds.forEach(bg => {
+    const opt = document.createElement("option");
+    opt.value = bg.id;
+    opt.textContent = bg.title;
+    select.appendChild(opt);
+  });
+}
 
 
 function applyInfusionEffects() {
@@ -732,19 +826,6 @@ async function initBackgrounds() {
   }));
 }
 
-function populateBackgroundDropdown() {
-  const select = document.getElementById("backgroundSelect");
-  if (!select) return;
-
-  select.innerHTML = `<option value="">— Select Background —</option>`;
-
-  backgrounds.forEach(bg => {
-    const opt = document.createElement("option");
-    opt.value = bg.id;
-    opt.textContent = bg.title;
-    select.appendChild(opt);
-  });
-}
 
 function renderBackgroundDetails(bg) {
   const el = document.getElementById("backgroundDetails");
@@ -1203,6 +1284,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     .forEach(cb => (cb.disabled = true));
 
   await initBackgrounds();
+  populateBackgroundDropdown();
   await initRaces();
   populateRaceDropdown();
   syncDetailButtons();
@@ -1421,20 +1503,19 @@ document
   });
 
 document
-  .getElementById("backgroundSelect")?.addEventListener("change", e => {
+  .getElementById("backgroundSelect")
+  ?.addEventListener("change", e => {
     const bg = backgrounds.find(b => b.id == e.target.value);
     if (!bg) return;
 
-    // Store background identity ONLY
-    character.background = {
-      id: bg.id,
-      name: bg.title,
-      source: "background"
-    };
-
+    applyBackground(bg);
     renderBackgroundDetails(bg);
+    renderSkills();
+    renderFeatures();
+    runPendingChoiceFlow(); // opens language modal
     syncDetailButtons();
   });
+
 
   /* ===== Weapons ===== */
   fetch("./data/weapons.all.json")
