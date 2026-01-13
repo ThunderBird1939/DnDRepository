@@ -8,11 +8,8 @@ export function applyClass(character, classData, level = 1) {
   character.features ??= [];
 
   character.proficiencies ??= {};
-if (level === 1) {
-  character.proficiencies.armor = new Set();
-  character.proficiencies.weapons = new Set();
-}
-
+  character.proficiencies.armor ??= new Set();
+  character.proficiencies.weapons ??= new Set();
   character.proficiencies.skills ??= new Set();
   character.pendingChoices ??= {}; // ✅ keep this
   character.savingThrows ??= {
@@ -60,16 +57,17 @@ if (level === 1) {
   /* =========================
      SKILL CHOICES (SAFE)
   ========================= */
-  if (
-    classData.skillChoices &&
-    !character.pendingChoices.skills &&
-    character.proficiencies.skills.size === 0
-  ) {
-    character.pendingChoices.skills = {
-      choose: classData.skillChoices.choose,
-      from: [...classData.skillChoices.from]
-    };
-  }
+if (
+  classData.skillChoices &&
+  !character.pendingChoices.skills
+) {
+  character.pendingChoices.skills = {
+    choose: classData.skillChoices.choose,
+    from: [...classData.skillChoices.from],
+    source: classData.id
+  };
+}
+
 
   /* =========================
      SPELLCASTING
@@ -80,9 +78,10 @@ if (level === 1) {
     character.spellcasting.type = classData.spellcasting.type;
     character.spellcasting.focus = classData.spellcasting.focus ?? [];
     character.spellcasting.ritual = classData.spellcasting.ritual ?? false;
-  } else {
+  } else if (character.class.id !== "artificer") {
     character.spellcasting.enabled = false;
   }
+
 
 /* =========================
    FEATURES (LEVEL AWARE)
@@ -95,11 +94,24 @@ if (classData.levels && typeof classData.levels === "object") {
     data.features.forEach(feature => {
       // 🚫 Skip subclass placeholders once a subclass exists
       if (
+        
         feature.type === "subclass" &&
         character.subclass
       ) {
         return;
       }
+      if (
+        feature.type === "choice" &&
+        !character.features.some(f => f.parentFeature === feature.id)
+      ) {
+        character.pendingChoices.choiceFeature = {
+          feature,
+          source: classData.id
+        };
+        return;
+      }
+
+
 
       if (!character.features.some(f => f.id === feature.id)) {
         character.features.push({

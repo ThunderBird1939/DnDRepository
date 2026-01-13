@@ -1,0 +1,61 @@
+{
+  "id": "echo-knight",
+  "name": "Echo Knight",
+  "classId": "fighter",
+  "source": "EGW",
+
+  "description": "Echo Knights manipulate dunamantic energy to manifest an echo of themselves, striking from multiple positions and blurring the line between space and self.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "manifest-echo",
+        "name": "Manifest Echo",
+        "type": "system",
+        "description": "You can use a bonus action to magically manifest an echo of yourself in an unoccupied space you can see within 15 feet of you. The echo lasts until it is destroyed, dismissed, or you manifest another echo. You can make attacks from the echo’s position, swap places with it, and use it for opportunity attacks. The echo has AC 14 + your proficiency bonus, 1 hit point, and is immune to all conditions."
+      },
+      {
+        "id": "unleash-incarnation",
+        "name": "Unleash Incarnation",
+        "type": "system",
+        "description": "When you take the Attack action, you can make one additional melee attack from the echo’s position. You can use this feature a number of times equal to your Constitution modifier (minimum of once), and you regain all expended uses when you finish a long rest."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "echo-avatar",
+        "name": "Echo Avatar",
+        "type": "passive",
+        "description": "Starting at 7th level, you can temporarily transfer your consciousness to your echo. As an action, you can see and hear through the echo’s senses for up to 10 minutes, and you can move the echo up to 1,000 feet away from you while doing so."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "shadow-martyr",
+        "name": "Shadow Martyr",
+        "type": "reaction",
+        "description": "At 10th level, when a creature you can see within 5 feet of your echo is hit by an attack roll, you can use your reaction to teleport the echo to an unoccupied space within 5 feet of that creature and have the echo take the attack instead."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "reclaim-potential",
+        "name": "Reclaim Potential",
+        "type": "passive",
+        "description": "Starting at 15th level, when an echo is destroyed by taking damage, you gain temporary hit points equal to 2d6 + your Constitution modifier, provided you don’t already have temporary hit points."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "legion-of-one",
+        "name": "Legion of One",
+        "type": "passive",
+        "description": "At 18th level, you can have two echoes manifested at the same time. In addition, when you roll initiative and have no uses of Unleash Incarnation remaining, you regain one use."
+      }
+    ]
+  }
+}

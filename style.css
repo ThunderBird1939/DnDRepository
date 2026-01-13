@@ -192,3 +192,47 @@ details ul {
   margin-left: 6px;
   cursor: pointer;
 }
+/* =========================
+   Choice Feature Modal
+========================= */
+
+#choiceFeatureOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.choice-option {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #f9f9f9;
+}
+
+.choice-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.choice-label input[type="radio"] {
+  margin-top: 4px;
+}
+
+.choice-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.choice-name {
+  font-weight: bold;
+}
+
+.choice-description {
+  font-size: 0.9em;
+  color: #444;
+  line-height: 1.3;
+}

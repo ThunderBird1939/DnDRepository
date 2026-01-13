@@ -561,6 +561,23 @@ async function loadAllTools() {
   ALL_TOOLS = results;
 }
 
+function updateInfusionsVisibility(classData) {
+  const panel = document.getElementById("infusionsPanel");
+  if (!panel) return;
+
+  const show = !!classData?.ui?.showInfusions;
+  panel.hidden = !show;
+}
+
+function updateSpellcastingVisibility(classData) {
+  const panel = document.querySelector(".spellcasting-panel");
+  if (!panel) return;
+
+  const isSpellcaster = !!classData?.spellcasting;
+
+  panel.hidden = !isSpellcaster;
+}
+
 function renderToolDropdown() {
   const container = document.getElementById("toolsList");
   if (!container) return;
@@ -685,6 +702,7 @@ let allInfusions = [];
 let infusionChoices = null;
 let backgrounds = [];
 let ALL_TOOLS = [];
+let activeChoiceFeature = null;
 
 /* =========================
    Ability Math
@@ -693,6 +711,95 @@ function getAbilityScore(stat) {
   const base = Number(character.abilities?.[stat] ?? 10);
   const race = Number(appliedRaceAsi?.[stat] ?? 0);
   return base + race;
+}
+async function openChoiceFeatureModal(feature, sourceClass) {
+  activeChoiceFeature = feature;
+
+  const modal = document.getElementById("choiceFeatureModal");
+  const backdrop = document.getElementById("choiceFeatureBackdrop");
+  const title = document.getElementById("choiceFeatureTitle");
+  const hint = document.getElementById("choiceFeatureHint");
+  const optionsEl = document.getElementById("choiceFeatureOptions");
+  const confirmBtn = document.getElementById("confirmChoiceFeature");
+
+  // Safety guard
+  if (!feature || !feature.optionsSource) {
+    console.error("Invalid choice feature:", feature);
+    return;
+  }
+
+  title.textContent = feature.name;
+  hint.textContent = "Choose one option.";
+  optionsEl.innerHTML = "";
+  confirmBtn.disabled = true;
+
+  const res = await fetch(`./data/${feature.optionsSource}.json`);
+  const options = await res.json();
+
+  let selected = null;
+
+  options.forEach(opt => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "choice-option";
+
+    const label = document.createElement("label");
+    label.className = "choice-label";
+
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "choiceFeature";
+    input.value = opt.id;
+
+    input.addEventListener("change", () => {
+      selected = opt;
+      confirmBtn.disabled = false;
+    });
+
+    const text = document.createElement("div");
+    text.className = "choice-text";
+
+    const name = document.createElement("div");
+    name.className = "choice-name";
+    name.textContent = opt.name;
+
+    const desc = document.createElement("div");
+    desc.className = "choice-description";
+    desc.textContent = opt.description;
+
+    text.appendChild(name);
+    text.appendChild(desc);
+
+    label.appendChild(input);
+    label.appendChild(text);
+    wrapper.appendChild(label);
+    optionsEl.appendChild(wrapper);
+  });
+
+  confirmBtn.onclick = () => {
+    if (!selected) return;
+
+    character.features.push({
+      id: selected.id,
+      name: selected.name,
+      description: selected.description,
+      source: sourceClass,
+      parentFeature: feature.id
+    });
+
+    delete character.pendingChoices.choiceFeature;
+    closeChoiceFeatureModal();
+    renderFeatures();
+  };
+
+  modal.hidden = false;
+  backdrop.hidden = false;
+}
+
+
+function closeChoiceFeatureModal() {
+  document.getElementById("choiceFeatureModal").hidden = true;
+  document.getElementById("choiceFeatureBackdrop").hidden = true;
+  activeChoiceFeature = null;
 }
 
 function recalcAllAbilities() {
@@ -909,6 +1016,12 @@ function runPendingChoiceFlow() {
     return;
   }
 
+  if (character.pendingChoices?.choiceFeature) {
+    const { feature, source } = character.pendingChoices.choiceFeature;
+    openChoiceFeatureModal(feature, source);
+    return;
+  }
+
   if (character.pendingChoices?.tools) {
     openToolChoiceModal();
     return;
@@ -918,6 +1031,7 @@ function runPendingChoiceFlow() {
     openSubclassModal(character.pendingSubclassChoice);
   }
 }
+
 
 /* =========================
    Tool Choice Modal
@@ -1378,6 +1492,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     // 🔥 THIS WAS MISSING 🔥
     renderSavingThrows();
     renderFeatures();
+    updateSpellcastingVisibility(classData);
+    updateInfusionsVisibility(classData);
     renderSkills();
     renderInfusions();
     renderAllSpellUI();   // spellcasting + lists
@@ -1516,6 +1632,15 @@ document
     syncDetailButtons();
   });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const infusions = document.getElementById("infusionsPanel");
+  if (infusions) infusions.hidden = true;
+});
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const panel = document.querySelector(".spellcasting-panel");
+    if (panel) panel.hidden = true;
+  });
 
   /* ===== Weapons ===== */
   fetch("./data/weapons.all.json")

@@ -1,0 +1,55 @@
+{
+  "id": "samurai",
+  "name": "Samurai",
+  "classId": "fighter",
+  "source": "XGE",
+
+  "description": "Samurai draw on an indomitable fighting spirit to overcome adversity, striking with precision and enduring through sheer force of will.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "fighting-spirit",
+        "name": "Fighting Spirit",
+        "type": "system",
+        "description": "On your turn, you can use a bonus action to give yourself advantage on all weapon attack rolls until the end of the current turn. When you do so, you also gain temporary hit points equal to 5 + your fighter level. You can use this feature three times, and you regain all expended uses when you finish a long rest."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "elegant-courtier",
+        "name": "Elegant Courtier",
+        "type": "passive",
+        "description": "Starting at 7th level, you gain proficiency in Wisdom saving throws. If you already have this proficiency, you instead gain proficiency in Intelligence or Charisma saving throws (your choice). In addition, whenever you make a Charisma (Persuasion) check, you gain a bonus to the check equal to your Wisdom modifier."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "tireless-spirit",
+        "name": "Tireless Spirit",
+        "type": "passive",
+        "description": "Starting at 10th level, when you roll initiative and have no uses of Fighting Spirit remaining, you regain one use."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "rapid-strike",
+        "name": "Rapid Strike",
+        "type": "passive",
+        "description": "Starting at 15th level, if you take the Attack action on your turn and have advantage on an attack roll against one of the targets, you can forgo that advantage to make one additional weapon attack against that target as part of the same action."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "strength-before-death",
+        "name": "Strength Before Death",
+        "type": "reaction",
+        "description": "Starting at 18th level, if you take damage that reduces you to 0 hit points and doesn’t kill you outright, you can use your reaction to delay falling unconscious and immediately take an extra turn. While you have 0 hit points during that extra turn, taking damage causes death saving throw failures as normal, and three failures end the effect. You fall unconscious if you still have 0 hit points at the end of the extra turn."
+      }
+    ]
+  }
+}

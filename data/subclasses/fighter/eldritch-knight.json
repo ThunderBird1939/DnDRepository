@@ -1,0 +1,61 @@
+{
+  "id": "eldritch-knight",
+  "name": "Eldritch Knight",
+  "classId": "fighter",
+  "source": "PHB",
+
+  "description": "Eldritch Knights blend martial mastery with arcane spellcasting, wielding magic to enhance their combat prowess and versatility.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "spellcasting",
+        "name": "Spellcasting",
+        "type": "system",
+        "description": "You augment your martial prowess with the ability to cast spells. You learn wizard spells, primarily from the abjuration and evocation schools, and use Intelligence as your spellcasting ability."
+      },
+      {
+        "id": "weapon-bond",
+        "name": "Weapon Bond",
+        "type": "passive",
+        "description": "You learn a ritual that creates a magical bond between you and a weapon. You can’t be disarmed of that weapon unless you are incapacitated, and you can summon it to your hand as a bonus action."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "war-magic",
+        "name": "War Magic",
+        "type": "passive",
+        "description": "Starting at 7th level, when you use your action to cast a cantrip, you can make one weapon attack as a bonus action."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "eldritch-strike",
+        "name": "Eldritch Strike",
+        "type": "passive",
+        "description": "At 10th level, when you hit a creature with a weapon attack, that creature has disadvantage on the next saving throw it makes against a spell you cast before the end of your next turn."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "arcane-charge",
+        "name": "Arcane Charge",
+        "type": "system",
+        "description": "Starting at 15th level, when you use your Action Surge, you can teleport up to 30 feet to an unoccupied space you can see before or after the additional action."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "improved-war-magic",
+        "name": "Improved War Magic",
+        "type": "passive",
+        "description": "At 18th level, when you use your action to cast a spell, you can make one weapon attack as a bonus action."
+      }
+    ]
+  }
+}

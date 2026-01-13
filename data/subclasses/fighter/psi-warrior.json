@@ -1,0 +1,73 @@
+{
+  "id": "psi-warrior",
+  "name": "Psi Warrior",
+  "classId": "fighter",
+  "source": "TCE",
+
+  "description": "Psi Warriors awaken psionic power within themselves, using mental energy to shield allies, strike foes, and move objects with sheer force of will.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "psionic-power",
+        "name": "Psionic Power",
+        "type": "system",
+        "description": "You harbor a well of psionic energy represented by Psionic Energy dice, which are d6s. You can fuel various psionic effects using these dice, and you regain expended dice when you finish a long rest. You gain protective and telekinetic psionic abilities."
+      },
+      {
+        "id": "protective-field",
+        "name": "Protective Field",
+        "type": "reaction",
+        "description": "When you or another creature you can see within 30 feet of you takes damage, you can use your reaction to roll one Psionic Energy die and reduce the damage taken by the number rolled plus your Intelligence modifier."
+      },
+      {
+        "id": "psionic-strike",
+        "name": "Psionic Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit a target with a weapon attack, you can expend one Psionic Energy die to deal extra force damage equal to the die roll plus your Intelligence modifier."
+      },
+      {
+        "id": "telekinetic-movement",
+        "name": "Telekinetic Movement",
+        "type": "system",
+        "description": "As an action, you can move an object or a willing creature you can see within 30 feet of you using telekinetic force. You can move the target up to 30 feet to an unoccupied space you can see."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "telekinetic-adept",
+        "name": "Telekinetic Adept",
+        "type": "passive",
+        "description": "Starting at 7th level, your Psionic Energy dice become d8s, and you can move a creature or object with your Telekinetic Movement as a bonus action instead of an action."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "guarded-mind",
+        "name": "Guarded Mind",
+        "type": "passive",
+        "description": "At 10th level, you gain resistance to psychic damage. In addition, you can expend a Psionic Energy die to end the charmed or frightened condition on yourself."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "bulwark-of-force",
+        "name": "Bulwark of Force",
+        "type": "system",
+        "description": "Starting at 15th level, you can protect yourself and others with a burst of psionic power. As a bonus action, you can grant half cover to yourself and a number of creatures of your choice within 30 feet equal to your Intelligence modifier for 1 minute."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "telekinetic-master",
+        "name": "Telekinetic Master",
+        "type": "system",
+        "description": "At 18th level, you can cast telekinesis without expending a spell slot or components. Once you do so, you can’t do so again until you finish a long rest. In addition, your Psionic Energy dice become d12s."
+      }
+    ]
+  }
+}

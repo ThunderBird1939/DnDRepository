@@ -1,0 +1,55 @@
+{
+  "id": "banneret",
+  "name": "Banneret",
+  "classId": "fighter",
+  "source": "SCAG",
+
+  "description": "Bannerets inspire allies through leadership and battlefield presence, turning martial prowess into rallying strength for those who fight beside them.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "rallying-cry",
+        "name": "Rallying Cry",
+        "type": "system",
+        "description": "When you use your Second Wind feature, you can choose up to three creatures within 60 feet of you that are allied with you. Each one regains hit points equal to your fighter level, provided the creature can see or hear you."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "royal-envoy",
+        "name": "Royal Envoy",
+        "type": "passive",
+        "description": "You gain proficiency in the Persuasion skill. If you already have proficiency in Persuasion, you gain proficiency in one of the following skills of your choice: Animal Handling, Insight, Intimidation, or Performance. In addition, your proficiency bonus is doubled for any ability check you make that uses Persuasion."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "inspiring-surge",
+        "name": "Inspiring Surge",
+        "type": "system",
+        "description": "Starting at 10th level, when you use your Action Surge feature, you can choose one creature within 60 feet of you that is allied with you. That creature can make one melee or ranged weapon attack with its reaction, provided it can see or hear you."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "bulwark",
+        "name": "Bulwark",
+        "type": "reaction",
+        "description": "Starting at 15th level, when you or a creature you can see within 60 feet of you fails an Intelligence, Wisdom, or Charisma saving throw, you can use your reaction to allow the creature to reroll the saving throw and take the new result."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "improved-inspiring-surge",
+        "name": "Improved Inspiring Surge",
+        "type": "passive",
+        "description": "At 18th level, you can choose two creatures to benefit from your Inspiring Surge feature instead of one."
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "cavalier",
+  "name": "Cavalier",
+  "classId": "fighter",
+  "source": "XGE",
+
+  "description": "Cavaliers excel at controlling the battlefield, protecting allies, and punishing enemies who dare ignore them.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "born-to-the-saddle",
+        "name": "Born to the Saddle",
+        "type": "passive",
+        "description": "Starting at 3rd level, you have advantage on saving throws made to avoid falling off your mount. If you fall off your mount and descend no more than 10 feet, you can land on your feet if you aren’t incapacitated."
+      },
+      {
+        "id": "unwavering-mark",
+        "name": "Unwavering Mark",
+        "type": "system",
+        "description": "When you hit a creature with a melee weapon attack, you can mark the creature until the end of your next turn. While it is within 5 feet of you, it has disadvantage on any attack roll that doesn’t target you. If the marked creature deals damage to anyone other than you, you can make a special melee weapon attack against it on your next turn as a bonus action, dealing extra damage equal to half your fighter level. You can use this feature a number of times equal to your Strength modifier (minimum of once), and you regain all expended uses when you finish a long rest."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "warding-maneuver",
+        "name": "Warding Maneuver",
+        "type": "reaction",
+        "description": "At 7th level, if you or a creature you can see within 5 feet of you is hit by an attack, you can roll a d8 as a reaction and add the number rolled to the target’s AC against that attack. If the attack still hits, the target has resistance to the attack’s damage. You can use this feature a number of times equal to your Constitution modifier (minimum of once), and you regain all expended uses when you finish a long rest."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "hold-the-line",
+        "name": "Hold the Line",
+        "type": "passive",
+        "description": "Starting at 10th level, creatures provoke an opportunity attack from you when they move 5 feet or more while within your reach, and when you hit a creature with an opportunity attack, the creature’s speed is reduced to 0 until the end of the current turn."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "ferocious-charger",
+        "name": "Ferocious Charger",
+        "type": "passive",
+        "description": "Starting at 15th level, if you move at least 10 feet in a straight line immediately before attacking a creature and hit it with a melee weapon attack, you can force the target to make a Strength saving throw. On a failed save, you knock the target prone. You can use this feature once on each of your turns."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "vigilant-defender",
+        "name": "Vigilant Defender",
+        "type": "passive",
+        "description": "Starting at 18th level, you gain a special reaction that you can take once on every creature’s turn, except your turn. You can use this special reaction only to make an opportunity attack, and you can’t use it on the same turn that you take your normal reaction."
+      }
+    ]
+  }
+}

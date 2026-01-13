@@ -80,6 +80,7 @@
         <select id="classSelect">
           <option value="">— Select Class —</option>
           <option value="artificer">Artificer</option>
+          <option value="fighter">Fighter</option>
         </select>
 
         <!-- ➕ Class Detail -->
@@ -392,6 +393,20 @@
   <button id="confirmSubclass" disabled>Confirm</button>
 </div>
 <div id="subclassBackdrop" hidden class="modal-backdrop"></div>
+<!-- =========================
+     Choice Feature Modal
+========================= -->
+<div id="choiceFeatureBackdrop" class="modal-backdrop" hidden></div>
+
+<div id="choiceFeatureModal" class="modal" hidden>
+  <h3 id="choiceFeatureTitle"></h3>
+  <p id="choiceFeatureHint" class="muted"></p>
+
+  <div id="choiceFeatureOptions"></div>
+
+  <button id="confirmChoiceFeature" disabled>Confirm</button>
+</div>
+
 <!-- =========================
      Language Choice Modal
 ========================= -->

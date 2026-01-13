@@ -1,0 +1,62 @@
+{
+  "id": "battle-master",
+  "name": "Battle Master",
+  "classId": "fighter",
+  "source": "PHB",
+
+  "description": "Battle Masters employ martial techniques passed down through generations, using tactical maneuvers and combat superiority to control the battlefield.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "combat-superiority",
+        "name": "Combat Superiority",
+        "type": "system",
+        "description": "You learn maneuvers that are fueled by special dice called superiority dice. You start with four superiority dice, which are d8s. You regain all expended superiority dice when you finish a short or long rest. You learn three maneuvers of your choice."
+      },
+      {
+        "id": "student-of-war",
+        "name": "Student of War",
+        "type": "choice",
+        "description": "You gain proficiency with one type of artisan’s tools of your choice.",
+        "optionsSource": "tools/artisan"
+      }
+    ],
+
+    "7": [
+      {
+        "id": "know-your-enemy",
+        "name": "Know Your Enemy",
+        "type": "passive",
+        "description": "If you spend at least 1 minute observing or interacting with another creature outside combat, you can learn certain information about its capabilities compared to your own."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "improved-combat-superiority",
+        "name": "Improved Combat Superiority",
+        "type": "passive",
+        "description": "At 10th level, your superiority dice turn into d10s. You also learn two additional maneuvers of your choice."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "relentless",
+        "name": "Relentless",
+        "type": "passive",
+        "description": "Starting at 15th level, when you roll initiative and have no superiority dice remaining, you regain one superiority die."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "superior-combat-superiority",
+        "name": "Superior Combat Superiority",
+        "type": "passive",
+        "description": "At 18th level, your superiority dice turn into d12s."
+      }
+    ]
+  }
+}
