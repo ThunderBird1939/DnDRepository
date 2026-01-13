@@ -63,9 +63,9 @@ function updateArmorLockUI() {
 }
 
     const TOOL_CATEGORY_MAP = {
-      artisan: "./data/tools/artisan.json",
-      gaming: "./data/tools/gaming.json",
-      musical: "./data/tools/musical.json"
+      artisan: "./data/artisan-tools.json",
+      gaming: "./data/gaming-tools.json",
+      musical: "./data/musical-tools.json"
     };
 async function runToolCategoryChoice(choice) {
   const modal = document.getElementById("toolChoiceModal");
@@ -758,14 +758,28 @@ function renderSavingThrows() {
    Tools
 ========================= */
 function renderTools() {
-  const el = document.getElementById("toolsList");
-  if (!el) return;
+  const listEl = document.getElementById("toolsList");
+  const summaryEl = document.getElementById("toolsSummary");
 
-  el.textContent =
-    character.proficiencies?.tools?.size
-      ? [...character.proficiencies.tools].map(formatToolName).join(", ")
-      : "—";
+  if (!listEl || !summaryEl) return;
+
+  const tools = [...character.proficiencies.tools];
+
+  // Summary (collapsed view)
+  summaryEl.textContent = tools.length
+    ? tools.map(t => t.replace(/-/g, " ")).join(", ")
+    : "—";
+
+  // Expanded list
+  listEl.innerHTML = "";
+
+  tools.forEach(tool => {
+    const row = document.createElement("div");
+    row.textContent = tool.replace(/-/g, " ");
+    listEl.appendChild(row);
+  });
 }
+
 
 /* =========================
    Router: "+" detail buttons
@@ -1464,6 +1478,12 @@ document
     renderAttacks();
   });
 
+document.getElementById("toolsToggle")?.addEventListener("click", () => {
+  const body = document.getElementById("toolsList");
+  if (!body) return;
+
+  body.hidden = !body.hidden;
+});
 
   /* ===== Weapons ===== */
   fetch("./data/weapons.all.json")

@@ -27,15 +27,19 @@ export function applyBackground(character, bg) {
     });
 
 
-  /* =========================
-     TOOL PROFICIENCIES
-  ========================= */
-    character._backgroundTools = new Set();
+    /* =========================
+    TOOLS
+    ========================= */
+    if (line.includes("<b>Tool Proficiencies:</b>")) {
+    const text = extractAfterColon(line);
 
-    bg.tools?.forEach(tool => {
-    character.proficiencies.tools.add(tool);
-    character._backgroundTools.add(tool);
-    });
+    const choice = detectChoice(text);
+    if (choice) {
+        parsed.toolChoice = choice;
+    } else {
+        parsed.tools = splitList(text).map(normalizeId);
+    }
+    }
 
 
   /* =========================
@@ -50,9 +54,12 @@ export function applyBackground(character, bg) {
     }
 
     if (bg.languages.fixed) {
-      bg.languages.fixed.forEach(lang => {
-        character.proficiencies.languages?.add?.(lang);
-      });
+        character._backgroundLanguages ??= new Set();
+
+        bg.languages.fixed?.forEach(lang => {
+        character.proficiencies.languages.add(lang);
+        character._backgroundLanguages.add(lang);
+        });
     }
   }
     /* =========================
