@@ -587,10 +587,44 @@ function renderSpellSlots() {
   const { max, used } = character.spellcasting.slots;
 
   Object.keys(max).forEach(lvl => {
-    if (!max[lvl]) return;
+    const maxSlots = max[lvl];
+    if (!maxSlots) return;
+
+    const usedSlots = used[lvl] ?? 0;
+    const remaining = maxSlots - usedSlots;
 
     const row = document.createElement("div");
-    row.textContent = `Level ${lvl}: ${max[lvl] - used[lvl]} / ${max[lvl]}`;
+    row.className = "spell-slot-row";
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "0.5rem";
+
+    const label = document.createElement("span");
+    label.textContent = `Level ${lvl}: ${remaining} / ${maxSlots}`;
+    label.style.minWidth = "120px";
+
+    const minusBtn = document.createElement("button");
+    minusBtn.textContent = "−";
+    minusBtn.disabled = usedSlots === 0;
+
+    minusBtn.onclick = () => {
+      refundSpellSlot(Number(lvl));
+      renderSpellSlots();
+    };
+
+    const plusBtn = document.createElement("button");
+    plusBtn.textContent = "+";
+    plusBtn.disabled = remaining === 0;
+
+    plusBtn.onclick = () => {
+      useSpellSlot(Number(lvl));
+      renderSpellSlots();
+    };
+
+    row.appendChild(label);
+    row.appendChild(minusBtn);
+    row.appendChild(plusBtn);
+
     el.appendChild(row);
   });
 }
@@ -618,23 +652,6 @@ function useSpellSlot(level) {
 
   slots.used[level] += 1;
   window.dispatchEvent(new Event("spell-slots-updated"));
-  return true;
-}
-
-function castSpell(spell) {
-  // Cantrips are always free
-  if (spell.level === 0) {
-    alert(`Cast cantrip: ${spell.name}`);
-    return true;
-  }
-
-  const success = useSpellSlot(spell.level);
-
-  if (!success) {
-    return false;
-  }
-
-  alert(`Cast level ${spell.level} spell: ${spell.name}`);
   return true;
 }
 
