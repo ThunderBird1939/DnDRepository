@@ -124,19 +124,6 @@ if (
             character.proficiencies.skills.add(skill)
           );
         }
-
-        // Tools
-        if (Array.isArray(feature.tools)) {
-          feature.tools.forEach(tool => {
-            if (!character.proficiencies.tools.has(tool)) {
-              character.proficiencies.tools.add(tool);
-            } else {
-              character.pendingChoices ??= {};
-              character.pendingChoices.tools = { choose: 1 };
-            }
-          });
-        }
-
         // Spell tables → always prepared
         if (feature.type === "spell-table" && feature.spells) {
           character.spellcasting ??= {};

@@ -15,8 +15,6 @@ import { renderPreparedSpells } from "./ui/preparedSpells.js";
 import { openDetail } from "./ui/router.js";
 import { renderAlwaysPreparedSpells } from "./ui/alwaysPreparedSpells.js";
 import { calculateArmorClass } from "./engine/calculateArmorClass.js";
-import { parseBackgroundCard } from "./engine/backgroundParser.js";
-import { applyBackground } from "./engine/applyBackground.js";
 
 /* =========================
    Helpers
@@ -32,16 +30,6 @@ const ELDRITCH_CANNON_DESCRIPTIONS = {
 
 function abilityMod(score) {
   return Math.floor((score - 10) / 2);
-}
-
-function renderLanguages() {
-  const el = document.getElementById("languagesList");
-  if (!el) return;
-
-  el.textContent =
-    character.proficiencies.languages.size
-      ? [...character.proficiencies.languages].join(", ")
-      : "—";
 }
 
 function proficiencyBonus(level) {
@@ -60,149 +48,6 @@ function updateArmorLockUI() {
   if (shieldToggle) {
     shieldToggle.disabled = locked;
   }
-}
-
-    const TOOL_CATEGORY_MAP = {
-      artisan: "./data/artisan-tools.json",
-      gaming: "./data/gaming-tools.json",
-      musical: "./data/musical-tools.json"
-    };
-async function runToolCategoryChoice(choice) {
-  const modal = document.getElementById("toolChoiceModal");
-  const backdrop = document.getElementById("toolChoiceBackdrop");
-  const optionsEl = document.getElementById("toolChoiceOptions");
-  const confirmBtn = document.getElementById("confirmTool");
-
-  optionsEl.innerHTML = "";
-  confirmBtn.disabled = true;
-
-  const src = TOOL_CATEGORY_MAP[choice.category];
-  if (!src) return;
-
-  const res = await fetch(src);
-  const tools = await res.json();
-
-  let selected = new Set();
-
-  tools.forEach(toolId => {
-    const label = document.createElement("label");
-    label.style.display = "block";
-
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.value = toolId;
-
-    cb.addEventListener("change", () => {
-      if (cb.checked) {
-        selected.add(toolId);
-      } else {
-        selected.delete(toolId);
-      }
-
-      // enforce choose limit
-      if (selected.size > choice.choose) {
-        cb.checked = false;
-        selected.delete(toolId);
-      }
-
-      confirmBtn.disabled = selected.size !== choice.choose;
-    });
-
-    label.append(cb, " ", toolId.replace(/-/g, " "));
-    optionsEl.appendChild(label);
-  });
-
-  confirmBtn.onclick = () => {
-    selected.forEach(tool => {
-      character.proficiencies.tools.add(tool);
-    });
-
-    character.pendingChoices.tools = null;
-
-    modal.hidden = true;
-    backdrop.hidden = true;
-
-    renderTools();
-  };
-
-  modal.hidden = false;
-  backdrop.hidden = false;
-}
-async function openLanguageChoiceModal(choice) {
-  const modal = document.getElementById("languageChoiceModal");
-  const backdrop = document.getElementById("languageChoiceBackdrop");
-  const optionsEl = document.getElementById("languageChoiceOptions");
-  const confirmBtn = document.getElementById("confirmLanguage");
-
-  optionsEl.innerHTML = "";
-  confirmBtn.disabled = true;
-
-  const res = await fetch("./data/languages.json");
-  const languages = await res.json();
-
-  let selected = new Set();
-
-  languages.forEach(lang => {
-    const label = document.createElement("label");
-    label.style.display = "block";
-
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.value = lang;
-
-    // Disable already-known languages (race/background/etc)
-    if (character.proficiencies.languages.has(lang)) {
-      cb.disabled = true;
-    }
-
-    cb.addEventListener("change", () => {
-      if (cb.checked) {
-        selected.add(lang);
-      } else {
-        selected.delete(lang);
-      }
-
-      if (selected.size > choice.choose) {
-        cb.checked = false;
-        selected.delete(lang);
-      }
-
-      confirmBtn.disabled = selected.size !== choice.choose;
-    });
-
-    label.append(cb, " ", lang.replace(/-/g, " "));
-    optionsEl.appendChild(label);
-  });
-
-  confirmBtn.onclick = () => {
-    selected.forEach(lang => {
-      character.proficiencies.languages.add(lang);
-    });
-
-    character.pendingChoices.languages = null;
-
-    modal.hidden = true;
-    backdrop.hidden = true;
-
-    renderLanguages?.();
-  };
-
-  modal.hidden = false;
-  backdrop.hidden = false;
-}
-
-function populateBackgroundDropdown() {
-  const select = document.getElementById("backgroundSelect");
-  if (!select) return;
-
-  select.innerHTML = `<option value="">— Select Background —</option>`;
-
-  backgrounds.forEach((bg, i) => {
-    const opt = document.createElement("option");
-    opt.value = i;
-    opt.textContent = bg.title;
-    select.appendChild(opt);
-  });
 }
 
 function renderActiveInfusions() {
@@ -281,7 +126,6 @@ function renderActiveInfusions() {
 
     row.appendChild(label);
     row.appendChild(desc);
-
 
     /* =========================
        🎯 TARGET SELECTION UI
@@ -482,15 +326,6 @@ function getMaxActiveInfusions(level) {
   return 0;
 }
 
-function renderVehicles() {
-  const el = document.getElementById("vehiclesList");
-  if (!el) return;
-
-  el.textContent =
-    character.proficiencies.vehicles.size
-      ? [...character.proficiencies.vehicles].join(", ")
-      : "—";
-}
 
 function updateSteelDefenderUI() {
   const block = document.getElementById("steelDefenderBlock");
@@ -607,6 +442,80 @@ function checkInfusionUnlocks(prevLevel, newLevel) {
   }
 }
 
+async function loadAllTools() {
+  const categories = [
+    { key: "artisan", file: "artisan-tools.json" },
+    { key: "gaming", file: "gaming-tools.json" },
+    { key: "musical", file: "musical-tools.json" },
+    { key: "kits", file: "kits-tools.json" }
+  ];
+
+  const results = [];
+
+  for (const cat of categories) {
+    const res = await fetch(`./data/tools/${cat.file}`);
+    const data = await res.json();
+
+    data.forEach(id => {
+      results.push({
+        id,
+        category: cat.key
+      });
+    });
+  }
+
+  ALL_TOOLS = results;
+}
+
+function renderToolDropdown() {
+  const container = document.getElementById("toolsList");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const select = document.createElement("select");
+  select.innerHTML = `<option value="">— Add Tool Proficiency —</option>`;
+
+  ALL_TOOLS.forEach(tool => {
+    if (character.proficiencies.tools.has(tool.id)) return;
+
+    const opt = document.createElement("option");
+    opt.value = tool.id;
+    opt.textContent = tool.id.replace(/-/g, " ");
+    select.appendChild(opt);
+  });
+
+  select.addEventListener("change", e => {
+    const toolId = e.target.value;
+    if (!toolId) return;
+
+    character.proficiencies.tools.add(toolId);
+    renderToolDropdown();
+  });
+
+  container.appendChild(select);
+
+  // Render chosen tools
+  const list = document.createElement("ul");
+
+  character.proficiencies.tools.forEach(tool => {
+    const li = document.createElement("li");
+    li.textContent = tool.replace(/-/g, " ");
+
+    const remove = document.createElement("button");
+    remove.textContent = "×";
+    remove.addEventListener("click", () => {
+      character.proficiencies.tools.delete(tool);
+      renderToolDropdown();
+    });
+
+    li.appendChild(remove);
+    list.appendChild(li);
+  });
+
+  container.appendChild(list);
+}
+
 function fmtSigned(n) {
   return `${n >= 0 ? "+" : ""}${n}`;
 }
@@ -681,6 +590,7 @@ let ALL_ARMOR = [];
 let allInfusions = [];
 let infusionChoices = null;
 let backgrounds = [];
+let ALL_TOOLS = [];
 
 /* =========================
    Ability Math
@@ -755,33 +665,6 @@ function renderSavingThrows() {
 }
 
 /* =========================
-   Tools
-========================= */
-function renderTools() {
-  const listEl = document.getElementById("toolsList");
-  const summaryEl = document.getElementById("toolsSummary");
-
-  if (!listEl || !summaryEl) return;
-
-  const tools = [...character.proficiencies.tools];
-
-  // Summary (collapsed view)
-  summaryEl.textContent = tools.length
-    ? tools.map(t => t.replace(/-/g, " ")).join(", ")
-    : "—";
-
-  // Expanded list
-  listEl.innerHTML = "";
-
-  tools.forEach(tool => {
-    const row = document.createElement("div");
-    row.textContent = tool.replace(/-/g, " ");
-    listEl.appendChild(row);
-  });
-}
-
-
-/* =========================
    Router: "+" detail buttons
 ========================= */
 function syncDetailButtons() {
@@ -835,13 +718,45 @@ async function initRaces() {
     contents: r.contents
   }));
 }
+/* =========================
+   Backgrounds
+========================= */
 async function initBackgrounds() {
   const res = await fetch("./data/backgrounds.json");
   const data = await res.json();
 
-  backgrounds = data.filter(card =>
-    card.tags?.includes("background")
-  );
+  backgrounds = data.map((b, i) => ({
+    id: i,
+    title: b.title,
+    contents: b.contents
+  }));
+}
+
+function populateBackgroundDropdown() {
+  const select = document.getElementById("backgroundSelect");
+  if (!select) return;
+
+  select.innerHTML = `<option value="">— Select Background —</option>`;
+
+  backgrounds.forEach(bg => {
+    const opt = document.createElement("option");
+    opt.value = bg.id;
+    opt.textContent = bg.title;
+    select.appendChild(opt);
+  });
+}
+
+function renderBackgroundDetails(bg) {
+  const el = document.getElementById("backgroundDetails");
+  if (!el) return;
+
+  el.innerHTML = "";
+
+  bg.contents.forEach(line => {
+    const div = document.createElement("div");
+    div.textContent = line;
+    el.appendChild(div);
+  });
 }
 
 function populateRaceDropdown() {
@@ -913,20 +828,66 @@ function runPendingChoiceFlow() {
     return;
   }
 
-  if (character.pendingChoices?.tools?.category) {
-    runToolCategoryChoice(character.pendingChoices.tools);
+  if (character.pendingChoices?.tools) {
+    openToolChoiceModal();
     return;
   }
-if (character.pendingChoices?.languages) {
-  openLanguageChoiceModal(character.pendingChoices.languages);
-  return;
-}
-
-
 
   if (character.pendingSubclassChoice && !character.subclass) {
     openSubclassModal(character.pendingSubclassChoice);
   }
+}
+
+/* =========================
+   Tool Choice Modal
+========================= */
+async function openToolChoiceModal() {
+  const modal = document.getElementById("toolChoiceModal");
+  const backdrop = document.getElementById("toolChoiceBackdrop");
+  const optionsDiv = document.getElementById("toolChoiceOptions");
+  const confirmBtn = document.getElementById("confirmTool");
+
+  if (!modal || !backdrop || !optionsDiv || !confirmBtn) return;
+
+  const res = await fetch("./data/tools/artisan-tools.json");
+  const tools = await res.json();
+
+  optionsDiv.innerHTML = "";
+  confirmBtn.disabled = true;
+  modal.hidden = false;
+  backdrop.hidden = false;
+
+  let selected = null;
+
+  tools.forEach(tool => {
+    const label = document.createElement("label");
+    label.style.display = "block";
+
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "artisanTool";
+    radio.value = tool;
+
+    radio.onchange = () => {
+      selected = tool;
+      confirmBtn.disabled = false;
+    };
+
+    label.appendChild(radio);
+    label.append(` ${formatToolName(tool)}`);
+    optionsDiv.appendChild(label);
+  });
+
+  confirmBtn.onclick = () => {
+    if (!selected) return;
+    character.proficiencies.tools.add(selected);
+    character.pendingChoices.tools = null;
+    character.resolvedChoices.tools = true;
+    modal.hidden = true;
+    backdrop.hidden = true;
+    window.dispatchEvent(new Event("tools-updated"));
+    runPendingChoiceFlow();
+  };
 }
 
 /* =========================
@@ -1241,9 +1202,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     .querySelectorAll(".saves input[type=checkbox]")
     .forEach(cb => (cb.disabled = true));
 
-  await initRaces();
   await initBackgrounds();
-  populateBackgroundDropdown();
+  await initRaces();
   populateRaceDropdown();
   syncDetailButtons();
 
@@ -1338,7 +1298,6 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     renderFeatures();
     renderSkills();
     renderInfusions();
-    renderTools();
     renderAllSpellUI();   // spellcasting + lists
     updateHitPoints();
     updateInfusionVisibility();
@@ -1353,22 +1312,6 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     runPendingChoiceFlow();
   });
 
-  document.getElementById("backgroundSelect")?.addEventListener("change", e => {
-      const bg = backgrounds[e.target.value];
-      if (!bg) return;
-      character.resolvedChoices.background = false;
-      character.pendingChoices.languages = null;
-      character.pendingChoices.tools = null;
-
-      const parsed = parseBackgroundCard(bg);
-      applyBackground(character, parsed);
-
-      // 🔁 Re-render using existing systems
-      renderSkills();
-      renderTools();
-      renderFeatures();
-      runPendingChoiceFlow();
-    });
 
   document.getElementById("level")?.addEventListener("change", async e => {
   if (!character.class?.id) return;
@@ -1409,16 +1352,15 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderSavingThrows();
   renderFeatures();
   renderSkills();
-  renderTools();
   renderAllSpellUI();
   renderInfusions();
   updateHitPoints();
   updateProfBonusUI();
-
+  await loadAllTools();
+  renderToolDropdown();
   await updateCombat();
   applyInfusionEffects();
   renderAttacks();
-
   syncDetailButtons();
   updateArmorLockUI();
   updateArmorLockText();
@@ -1431,8 +1373,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
 
   /* ===== Event wiring ===== */
-  window.addEventListener("weapons-changed", renderAttacks);
-  window.addEventListener("tools-updated", renderTools);
+  window.addEventListener("weapons-changed", renderAttacks)
   window.addEventListener("skills-updated", () => {
     renderSkills();        
     renderFeatures();     
@@ -1442,7 +1383,6 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 window.addEventListener("features-updated", () => {
   renderFeatures();
   renderSavingThrows();
-  renderTools();
 });
 window.addEventListener("features-updated", updateSteelDefenderUI);
 document
@@ -1462,6 +1402,8 @@ window.addEventListener("subclass-updated", async () => {
   updateArmorLockUI();
   updateArmorLockText();
   updateArmorerModeUI();
+  await loadAllTools();
+  renderToolDropdown();
   await updateCombat();
   applyInfusionEffects();
   renderAttacks();        
@@ -1478,12 +1420,21 @@ document
     renderAttacks();
   });
 
-document.getElementById("toolsToggle")?.addEventListener("click", () => {
-  const body = document.getElementById("toolsList");
-  if (!body) return;
+document
+  .getElementById("backgroundSelect")?.addEventListener("change", e => {
+    const bg = backgrounds.find(b => b.id == e.target.value);
+    if (!bg) return;
 
-  body.hidden = !body.hidden;
-});
+    // Store background identity ONLY
+    character.background = {
+      id: bg.id,
+      name: bg.title,
+      source: "background"
+    };
+
+    renderBackgroundDetails(bg);
+    syncDetailButtons();
+  });
 
   /* ===== Weapons ===== */
   fetch("./data/weapons.all.json")
@@ -1517,6 +1468,8 @@ document
   renderAttacks();        
   updateArmorLockUI();;
   updateArmorLockUI();
+  await loadAllTools();
+  renderToolDropdown();
   renderSkills();
   runPendingChoiceFlow();
   updateHitPoints();

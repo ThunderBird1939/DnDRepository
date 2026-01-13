@@ -46,21 +46,25 @@
       </label>
 
       <div id="raceDetails"></div>
-    </section>
-    <label>
-      Background
-      <select id="backgroundSelect">
-        <option value="">— Select Background —</option>
-      </select>
+      <section class="panel">
+        <h2>Background</h2>
 
-      <!-- ➕ Background Detail -->
-      <button
-        class="detail-btn"
-        data-type="background"
-        data-id=""
-        title="View Background Details"
-      >+</button>
-    </label>
+        <label>
+          Background
+          <select id="backgroundSelect">
+            <option value="">— Select Background —</option>
+          </select>
+
+          <button
+            class="detail-btn"
+            data-type="background"
+            data-id=""
+            title="View Background Details"
+          >+</button>
+        </label>
+
+        <div id="backgroundDetails"></div>
+      </section>
 
     <!-- ================= Class & Level ================= -->
     <section class="panel">
@@ -215,14 +219,8 @@
       <div id="featuresList"></div>
 
       <h3>Tools</h3>
+      <div id="toolsList">—</div>
     </section>
-  <div class="dropdown-section">
-    <div class="dropdown-header" id="toolsToggle">
-      Tools <span id="toolsSummary">—</span>
-    </div>
-
-    <div class="dropdown-body" id="toolsList" hidden></div>
-  </div>
 
     <!-- ================= Weapons ================= -->
     <section class="panel">

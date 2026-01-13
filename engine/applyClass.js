@@ -11,7 +11,6 @@ export function applyClass(character, classData, level = 1) {
 if (level === 1) {
   character.proficiencies.armor = new Set();
   character.proficiencies.weapons = new Set();
-  character.proficiencies.tools = new Set();
 }
 
   character.proficiencies.skills ??= new Set();
@@ -57,23 +56,6 @@ if (level === 1) {
   classData.proficiencies?.weapons?.forEach(p =>
     character.proficiencies.weapons.add(p)
   );
-
-
-  /* =========================
-     TOOL CHOICES (FINAL FIX)
-  ========================= */
-classData.proficiencies?.tools?.forEach(tool => {
-  if (tool === "artisan-choice") {
-    if (!character.resolvedChoices.tools) {
-      character.pendingChoices.tools = {
-        choose: 1,
-        source: "artisan"
-      };
-    }
-  } else {
-    character.proficiencies.tools.add(tool);
-  }
-});
 
   /* =========================
      SKILL CHOICES (SAFE)
