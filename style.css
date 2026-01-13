@@ -244,3 +244,70 @@ details ul {
   font-weight: bold;
   color: #4a6898;
 }
+.spell-slot-row button {
+  width: 28px;
+  height: 28px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.spell-slot-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+/* =========================
+   SKILLS
+========================= */
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.25rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.skills label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.skills input[type="checkbox"] {
+  margin: 0;
+}
+
+/* Optional hover clarity */
+.skills label:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+}
+
+/* =========================
+   SAVING THROWS
+========================= */
+.saves {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.saves label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.saves input[type="checkbox"] {
+  margin: 0;
+}
+
+/* =========================
+   SECTION HEADERS (optional)
+========================= */
+.section-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
