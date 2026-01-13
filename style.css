@@ -236,3 +236,11 @@ details ul {
   color: #444;
   line-height: 1.3;
 }
+.spell-row {
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.spell-row.prepared {
+  font-weight: bold;
+  color: #4a6898;
+}

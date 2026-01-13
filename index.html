@@ -105,6 +105,14 @@
 
       <p>Proficiency Bonus: <strong id="profBonus">+2</strong></p>
     </section>
+    <section class="panel">
+  <h2>Rest</h2>
+
+  <button id="shortRestBtn">Short Rest</button>
+  <button id="longRestBtn">Long Rest</button>
+
+  <div id="restLog" class="muted"></div>
+</section>
 
     <!-- ================= Skills ================= -->
     <section class="panel">
@@ -218,6 +226,17 @@
     <section class="panel">
       <h2>Features</h2>
       <div id="featuresList"></div>
+      <div id="fighterResources" hidden class="subclass-block">
+        <h3>Fighter Features</h3>
+
+        <button id="secondWindBtn">Second Wind</button>
+        <span id="secondWindStatus" class="muted"></span>
+
+        <br />
+
+        <button id="actionSurgeBtn">Action Surge</button>
+        <span id="actionSurgeStatus" class="muted"></span>
+      </div>
 
       <h3>Tools</h3>
       <div id="toolsList">—</div>

@@ -3,16 +3,16 @@ import {
   maxArtificerSpellLevel,
   spellLevelFromTags,
   isCantripFromTags,
-  spellIdFromTitle
+  spellIdFromTitle,
+  artificerPrepLimit
 } from "../engine/rules/spellPrepRules.js";
 import { openSpellDetail } from "./spellDetailModal.js";
 
 /**
- * Render Available Spells (read-only)
- * - Loads spells from data/spells/<Class>.json
- * - Uses tags to determine spell level
- * - Groups spells by level
- * - Marks always-prepared spells
+ * Render Available Spells
+ * - Click: prepare / unprepare
+ * - Right-click: open spell detail
+ * - Enforces prep limits
  */
 export async function renderSpellList() {
   const container = document.getElementById("spellList");
@@ -25,6 +25,17 @@ export async function renderSpellList() {
     return;
   }
 
+  // ✅ Ensure state
+  character.spellcasting.prepared ??= new Set();
+  character.spellcasting.alwaysPrepared ??= new Set();
+
+  const prepared = character.spellcasting.prepared;
+  const alwaysPrepared = character.spellcasting.alwaysPrepared;
+
+  const prepLimit = artificerPrepLimit(character);
+  const maxSpellLevel = maxArtificerSpellLevel(character.level);
+
+  // 🔑 Load class spell list
   const res = await fetch(`./data/spells/${character.class.id}.json`);
   if (!res.ok) {
     container.textContent = "Spell data missing.";
@@ -37,11 +48,9 @@ export async function renderSpellList() {
     return;
   }
 
-  const maxSpellLevel = maxArtificerSpellLevel(character.level);
-  const alwaysPrepared = character.spellcasting.alwaysPrepared ?? new Set();
-  const prepared = character.spellcasting.prepared ?? new Set();
-
-  /** Group spells by level */
+  /* =========================
+     Group spells by level
+  ========================= */
   const byLevel = {};
 
   spells.forEach(spell => {
@@ -68,43 +77,65 @@ export async function renderSpellList() {
     return;
   }
 
-  /** Render */
-levels.forEach(level => {
-  const details = document.createElement("details");
+  /* =========================
+     Render
+  ========================= */
+  levels.forEach(level => {
+    const details = document.createElement("details");
+    if (level === 0) details.open = true;
 
-  // Open cantrips by default, collapse others
-  if (level === 0) details.open = true;
+    const summary = document.createElement("summary");
+    summary.textContent =
+      level === 0 ? "Cantrips" : `Level ${level} Spells`;
 
-  const summary = document.createElement("summary");
-  summary.textContent =
-    level === 0 ? "Cantrips" : `Level ${level} Spells`;
+    details.appendChild(summary);
 
-  details.appendChild(summary);
+    const ul = document.createElement("ul");
 
-  const ul = document.createElement("ul");
+    byLevel[level]
+      .sort((a, b) => a.spell.title.localeCompare(b.spell.title))
+      .forEach(({ spell, id }) => {
+        const li = document.createElement("li");
+        li.textContent = spell.title;
+        li.style.cursor = "pointer";
 
-  byLevel[level]
-    .sort((a, b) => a.spell.title.localeCompare(b.spell.title))
-    .forEach(({ spell, id }) => {
-      const li = document.createElement("li");
-      li.textContent = spell.title;
-      li.style.cursor = "pointer";
-      li.onclick = e => {
-        e.preventDefault();
-        e.stopPropagation();
-        openSpellDetail(spell);
-      };
-      if (alwaysPrepared.has(id)) {
-        li.textContent += " (always prepared)";
-      }
-      if (prepared.has(id)) {
-        li.classList.add("prepared");
-      }
+        if (alwaysPrepared.has(id)) {
+          li.textContent += " (always prepared)";
+          li.classList.add("prepared");
+        } else if (prepared.has(id)) {
+          li.classList.add("prepared");
+        }
 
-      ul.appendChild(li);
-    });
+        // ✅ Left-click: prepare / unprepare
+        li.onclick = e => {
+          e.preventDefault();
+          e.stopPropagation();
 
-  details.appendChild(ul);
-  container.appendChild(details);
-});
+          if (alwaysPrepared.has(id)) return;
+
+          if (prepared.has(id)) {
+            prepared.delete(id);
+          } else {
+            if (prepared.size >= prepLimit) {
+              alert(`You can only prepare ${prepLimit} spells.`);
+              return;
+            }
+            prepared.add(id);
+          }
+
+          window.dispatchEvent(new Event("spells-updated"));
+        };
+
+        // 🔍 Right-click: spell detail
+        li.oncontextmenu = e => {
+          e.preventDefault();
+          openSpellDetail(spell);
+        };
+
+        ul.appendChild(li);
+      });
+
+    details.appendChild(ul);
+    container.appendChild(details);
+  });
 }

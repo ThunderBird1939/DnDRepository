@@ -95,6 +95,23 @@ function parseBackground(bg) {
   return parsed;
 }
 
+function togglePreparedSpell(spellId, limit) {
+  const prepared = character.spellcasting.prepared;
+
+  if (prepared.has(spellId)) {
+    prepared.delete(spellId);
+    return true;
+  }
+
+  if (prepared.size >= limit) {
+    alert(`You can only prepare ${limit} spells.`);
+    return false;
+  }
+
+  prepared.add(spellId);
+  return true;
+}
+
 function applyBackground(bg) {
   const parsed = parseBackground(bg);
 
@@ -393,15 +410,240 @@ if (character.level == null || character.level < 2) {
   renderActiveInfusions();
 }
 
+function updateSpellcastingVisibility() {
+  const panel = document.querySelector(".spellcasting-panel");
+  if (!panel) return;
 
-function updateInfusionVisibility() {
-  const infusionPanel = document
-    .getElementById("infusionsSelect")
-    ?.closest(".panel");
+  panel.hidden = !character.spellcasting?.enabled;
+}
 
-  if (!infusionPanel) return;
 
-  infusionPanel.hidden = character.class?.id !== "artificer";
+function updateInfusionsVisibility(classData) {
+  const panel = document.getElementById("infusionsPanel");
+  if (!panel) return;
+
+  // Only Artificer shows infusions
+  panel.hidden = !(classData?.id === "artificer");
+}
+
+
+
+function applyShortRest() {
+  const log = [];
+
+  // =========================
+  // FIGHTER
+  // =========================
+  if (character.class?.id === "fighter") {
+    if (character.combat?.secondWind) {
+      character.combat.secondWind.used = false;
+      log.push("Second Wind refreshed");
+    }
+
+    if (character.combat?.actionSurge) {
+      character.combat.actionSurge.usesUsed = 0;
+      log.push("Action Surge refreshed");
+    }
+
+    if (character.combat?.superiority) {
+      character.combat.superiority.diceUsed = 0;
+      log.push("Superiority Dice refreshed");
+    }
+
+    if (character.combat?.runes) {
+      character.combat.runes.uses = character.combat.runes.usesMax ?? 1;
+      log.push("Runes refreshed");
+    }
+  }
+
+  // =========================
+  // GENERIC (future)
+  // =========================
+  window.dispatchEvent(new Event("rest-short"));
+
+  updateFighterButtons?.();
+  updateRestLog(log, "Short Rest");
+}
+function applyLongRest() {
+  const log = [];
+
+  // =========================
+  // HIT POINTS
+  // =========================
+  character.currentHp = character.maxHp;
+  log.push("HP fully restored");
+
+  // =========================
+  // FIGHTER
+  // =========================
+  if (character.class?.id === "fighter") {
+    if (character.combat?.secondWind) {
+      character.combat.secondWind.used = false;
+      log.push("Second Wind refreshed");
+    }
+
+    if (character.combat?.actionSurge) {
+      character.combat.actionSurge.usesUsed = 0;
+      log.push("Action Surge refreshed");
+    }
+
+    if (character.combat?.superiority) {
+      character.combat.superiority.diceUsed = 0;
+      log.push("Superiority Dice refreshed");
+    }
+
+    if (character.combat?.psionic) {
+      character.combat.psionic.diceUsed = 0;
+      log.push("Psionic Energy refreshed");
+    }
+
+    if (character.combat?.runes) {
+      character.combat.runes.uses = character.combat.runes.usesMax ?? 1;
+      log.push("Runes refreshed");
+    }
+
+    if (character.combat?.echo) {
+      character.combat.echo.unleashUses =
+        Math.max(1, Math.floor((character.abilities.con - 10) / 2));
+      log.push("Echo resources refreshed");
+    }
+  }
+  // =========================
+  // ARTIFICIER
+  // =========================
+if (character.class?.id === "artificer") {
+  window.dispatchEvent(new Event("artificer-long-rest"));
+}
+
+  // =========================
+  // SPELLCASTING
+  // =========================
+    if (character.spellcasting?.slots) {
+      log.push("Spell slots refreshed");
+    }
+
+  // =========================
+  // SPELL SLOTS (LONG REST)
+  // =========================
+  if (character.spellcasting?.slots) {
+    for (const lvl in character.spellcasting.slots.used) {
+      character.spellcasting.slots.used[lvl] = 0;
+    }
+}
+
+  // =========================
+  // GENERIC EVENT
+  // =========================
+  window.dispatchEvent(new Event("rest-long"));
+
+  updateFighterButtons?.();
+  updateRestLog(log, "Long Rest");
+}
+async function getSpellSlotsForClass(classId, level) {
+  const res = await fetch(`./data/spellslots/${classId}.json`);
+
+  if (!res.ok) {
+    console.warn(`No spell slot table for class: ${classId}`);
+    return {};
+  }
+
+  const table = await res.json();
+
+  return table[level] ?? {};
+}
+
+async function initSpellSlots() {
+  if (!character.spellcasting?.enabled) return;
+
+  character.spellcasting.slots ??= {
+    max: {},
+    used: {}
+  };
+
+  const slotsByLevel = await getSpellSlotsForClass(
+    character.class.id,
+    character.level
+  );
+
+  // Reset max slots 
+  character.spellcasting.slots.max = {};
+
+  for (const [lvl, count] of Object.entries(slotsByLevel)) {
+    character.spellcasting.slots.max[lvl] = count;
+    character.spellcasting.slots.used[lvl] ??= 0;
+
+    if (character.spellcasting.slots.used[lvl] > count) {
+      character.spellcasting.slots.used[lvl] = count;
+    }
+  }
+}
+
+function renderSpellSlots() {
+  const el = document.getElementById("spellSlots");
+  if (!el || !character.spellcasting?.slots) return;
+
+  el.innerHTML = "";
+
+  const { max, used } = character.spellcasting.slots;
+
+  Object.keys(max).forEach(lvl => {
+    if (!max[lvl]) return;
+
+    const row = document.createElement("div");
+    row.textContent = `Level ${lvl}: ${max[lvl] - used[lvl]} / ${max[lvl]}`;
+    el.appendChild(row);
+  });
+}
+
+function updateRestLog(entries, type) {
+  const el = document.getElementById("restLog");
+  if (!el) return;
+
+  el.innerHTML = `
+    <strong>${type}</strong><br>
+    ${entries.map(e => `• ${e}`).join("<br>")}
+  `;
+}
+
+function useSpellSlot(level) {
+  const slots = character.spellcasting?.slots;
+  if (!slots) return false;
+
+  if (
+    slots.used[level] >= slots.max[level]
+  ) {
+    alert(`No level ${level} spell slots remaining`);
+    return false;
+  }
+
+  slots.used[level] += 1;
+  window.dispatchEvent(new Event("spell-slots-updated"));
+  return true;
+}
+
+function castSpell(spell) {
+  // Cantrips are always free
+  if (spell.level === 0) {
+    alert(`Cast cantrip: ${spell.name}`);
+    return true;
+  }
+
+  const success = useSpellSlot(spell.level);
+
+  if (!success) {
+    return false;
+  }
+
+  alert(`Cast level ${spell.level} spell: ${spell.name}`);
+  return true;
+}
+
+function refundSpellSlot(level) {
+  const slots = character.spellcasting?.slots;
+  if (!slots) return;
+
+  slots.used[level] = Math.max(0, slots.used[level] - 1);
+  window.dispatchEvent(new Event("spell-slots-updated"));
 }
 
 function getMaxInfusionsKnown(level) {
@@ -420,6 +662,34 @@ function getMaxActiveInfusions(level) {
   return 0;
 }
 
+function updateFighterUI() {
+  const block = document.getElementById("fighterResources");
+  if (!block) return;
+
+  if (character.class?.id === "fighter") {
+    block.hidden = false;
+    updateFighterButtons();
+  } else {
+    block.hidden = true;
+  }
+}
+
+function updateFighterButtons() {
+  const swBtn = document.getElementById("secondWindBtn");
+  const swText = document.getElementById("secondWindStatus");
+
+  const asBtn = document.getElementById("actionSurgeBtn");
+  const asText = document.getElementById("actionSurgeStatus");
+
+  const sw = character.combat.secondWind;
+  const as = character.combat.actionSurge;
+
+  swBtn.disabled = sw.used;
+  swText.textContent = sw.used ? "Used (short rest)" : "Available";
+
+  asBtn.disabled = as.usesUsed >= as.usesMax;
+  asText.textContent = `${as.usesMax - as.usesUsed} remaining`;
+}
 
 function updateSteelDefenderUI() {
   const block = document.getElementById("steelDefenderBlock");
@@ -561,21 +831,26 @@ async function loadAllTools() {
   ALL_TOOLS = results;
 }
 
-function updateInfusionsVisibility(classData) {
-  const panel = document.getElementById("infusionsPanel");
-  if (!panel) return;
+function initFighterResources() {
+  if (character.class?.id !== "fighter") return;
 
-  const show = !!classData?.ui?.showInfusions;
-  panel.hidden = !show;
-}
+  character.combat ??= {};
 
-function updateSpellcastingVisibility(classData) {
-  const panel = document.querySelector(".spellcasting-panel");
-  if (!panel) return;
+  // Second Wind
+  character.combat.secondWind ??= {
+    used: false
+  };
 
-  const isSpellcaster = !!classData?.spellcasting;
+  // Action Surge
+  const maxUses = character.level >= 17 ? 2 : 1;
 
-  panel.hidden = !isSpellcaster;
+  character.combat.actionSurge ??= {
+    usesMax: maxUses,
+    usesUsed: 0
+  };
+
+  // Keep Action Surge scaling correct on level change
+  character.combat.actionSurge.usesMax = maxUses;
 }
 
 function renderToolDropdown() {
@@ -625,6 +900,22 @@ function renderToolDropdown() {
   });
 
   container.appendChild(list);
+}
+
+function updateSubclassUI() {
+  const nameEl = document.getElementById("subclassName");
+  const btn = document.querySelector('.detail-btn[data-type="subclass"]');
+
+  if (!nameEl || !btn) return;
+
+  if (!character.subclass) {
+    nameEl.textContent = "—";
+    btn.dataset.id = "";
+    return;
+  }
+
+  nameEl.textContent = character.subclass.name;
+  btn.dataset.id = character.subclass.id;
 }
 
 function fmtSigned(n) {
@@ -734,7 +1025,17 @@ async function openChoiceFeatureModal(feature, sourceClass) {
   confirmBtn.disabled = true;
 
   const res = await fetch(`./data/${feature.optionsSource}.json`);
+
+  if (!res.ok) {
+    console.error(
+      `Failed to load choice options: ./data/${feature.optionsSource}.json`,
+      feature
+    );
+    return;
+  }
+
   const options = await res.json();
+
 
   let selected = null;
 
@@ -786,10 +1087,14 @@ async function openChoiceFeatureModal(feature, sourceClass) {
       parentFeature: feature.id
     });
 
+    character.resolvedChoices.choiceFeature ??= {};
+    character.resolvedChoices.choiceFeature[feature.id] = true;
+
     delete character.pendingChoices.choiceFeature;
     closeChoiceFeatureModal();
     renderFeatures();
   };
+
 
   modal.hidden = false;
   backdrop.hidden = false;
@@ -1093,6 +1398,10 @@ async function openSubclassModal(pending) {
   const backdrop = document.getElementById("subclassBackdrop");
   const optionsDiv = document.getElementById("subclassOptions");
   const confirmBtn = document.getElementById("confirmSubclass");
+  const title = document.getElementById("subclassTitle");
+if (title && pending.label) {
+  title.textContent = `Choose ${pending.label}`;
+}
 
   if (!modal || !backdrop || !optionsDiv || !confirmBtn) return;
 
@@ -1455,6 +1764,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     await updateCombat();
     applyInfusionEffects();
     renderAttacks();
+    updateFighterUI();
     updateHitPoints();
     updateProfBonusUI();
     syncDetailButtons();
@@ -1492,16 +1802,19 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     // 🔥 THIS WAS MISSING 🔥
     renderSavingThrows();
     renderFeatures();
-    updateSpellcastingVisibility(classData);
+    updateSpellcastingVisibility();
+    await initSpellSlots();
     updateInfusionsVisibility(classData);
     renderSkills();
+    initFighterResources();
     renderInfusions();
     renderAllSpellUI();   // spellcasting + lists
+    renderSpellSlots();
     updateHitPoints();
-    updateInfusionVisibility();
     updateProfBonusUI();
     await updateCombat();
     renderAttacks();
+    updateFighterUI();
     syncDetailButtons();
     updateArmorLockUI();
     updateArmorLockText();
@@ -1551,6 +1864,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderFeatures();
   renderSkills();
   renderAllSpellUI();
+  initFighterResources();
+  await initSpellSlots();
   renderInfusions();
   updateHitPoints();
   updateProfBonusUI();
@@ -1559,6 +1874,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   await updateCombat();
   applyInfusionEffects();
   renderAttacks();
+  updateFighterUI();
   syncDetailButtons();
   updateArmorLockUI();
   updateArmorLockText();
@@ -1593,11 +1909,14 @@ window.addEventListener("combat-updated", async () => {
   renderAttacks(); // 🔑 REQUIRED
   updateEldritchCannonUI();
 });
+window.addEventListener("combat-updated", updateFighterButtons);
 
 
 window.addEventListener("subclass-updated", async () => {
   syncDetailButtons();
+  updateSubclassUI();
   updateArmorLockUI();
+  updateFighterUI();
   updateArmorLockText();
   updateArmorerModeUI();
   await loadAllTools();
@@ -1618,6 +1937,30 @@ document
     renderAttacks();
   });
 
+document.getElementById("secondWindBtn").onclick = () => {
+  const sw = character.combat.secondWind;
+  if (sw.used) return;
+
+  sw.used = true;
+
+  const heal = Math.floor(Math.random() * 10) + 1 +
+               Math.floor((character.abilities.con - 10) / 2);
+
+  alert(`Second Wind: regain ${heal} HP`);
+
+  window.dispatchEvent(new Event("combat-updated"));
+};
+document.getElementById("actionSurgeBtn").onclick = () => {
+  const as = character.combat.actionSurge;
+  if (as.usesUsed >= as.usesMax) return;
+
+  as.usesUsed += 1;
+
+  alert("Action Surge used: gain one additional action");
+
+  window.dispatchEvent(new Event("combat-updated"));
+};
+
 document
   .getElementById("backgroundSelect")
   ?.addEventListener("change", e => {
@@ -1632,15 +1975,9 @@ document
     syncDetailButtons();
   });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const infusions = document.getElementById("infusionsPanel");
-  if (infusions) infusions.hidden = true;
-});
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const panel = document.querySelector(".spellcasting-panel");
-    if (panel) panel.hidden = true;
-  });
+window.addEventListener("rest-long", renderSpellSlots);
+  document.getElementById("shortRestBtn").onclick = applyShortRest;
+  document.getElementById("longRestBtn").onclick = applyLongRest;
 
   /* ===== Weapons ===== */
   fetch("./data/weapons.all.json")
@@ -1665,24 +2002,40 @@ document
     character.combat.eldritchCannonType = e.target.value;
     updateEldritchCannonUI();
   });
+/* ===== Initial Render ===== */
+// 🔥 HARD RESET SPELLCASTING IF NO CLASS SELECTED
+if (!character.class?.spellcasting?.enabled) {
+  delete character.spellcasting;
+}
 
-  /* ===== Initial Render ===== */
-  recalcAllAbilities();
-  updateRaceBonusDisplay();
-  await updateCombat();
-  applyInfusionEffects(); 
-  renderAttacks();        
-  updateArmorLockUI();;
-  updateArmorLockUI();
-  await loadAllTools();
-  renderToolDropdown();
-  renderSkills();
-  runPendingChoiceFlow();
-  updateHitPoints();
-  updateProfBonusUI();
-  renderSavingThrows();
-  updateArmorLockText();
-  syncDetailButtons();
-  updateArmorerModeUI();
-  updateWeaponLockUI();
+recalcAllAbilities();
+updateRaceBonusDisplay();
+
+// 🔑 SPELL SLOTS — GUARDED
+if (character.class?.id && character.spellcasting?.enabled) {
+  await initSpellSlots();
+  renderSpellSlots();
+} else {
+  const slotsEl = document.getElementById("spellSlots");
+  if (slotsEl) slotsEl.innerHTML = "";
+}
+
+await updateCombat();
+applyInfusionEffects(); 
+renderAttacks();        
+updateFighterUI();
+updateArmorLockUI();
+initFighterResources();
+await loadAllTools();
+renderToolDropdown();
+renderSkills();
+runPendingChoiceFlow();
+updateHitPoints();
+updateProfBonusUI();
+renderSavingThrows();
+updateArmorLockText();
+syncDetailButtons();
+updateArmorerModeUI();
+updateWeaponLockUI();
+
 });

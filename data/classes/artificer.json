@@ -63,13 +63,13 @@
 
     "2": {
       "features": [
-        {
-          "id": "infuse-item",
-          "name": "Infuse Item",
-          "type": "choice",
-          "optionsSource": "infusions",
-          "description": "You gain the ability to imbue mundane items with magical infusions."
-        }
+      {
+        "id": "infuse-item",
+        "name": "Infuse Item",
+        "type": "choice",
+        "optionsSource": "infusions/artificer",
+        "description": "You gain the ability to imbue mundane items with magical infusions."
+      }
       ]
     },
 

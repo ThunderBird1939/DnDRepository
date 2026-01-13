@@ -2,8 +2,9 @@ export function applyClass(character, classData, level = 1) {
   if (!classData) return;
 
   /* =========================
-     ENSURE STRUCTURE
+     ENSURE STRUCTURE (CRITICAL)
   ========================= */
+
   character.class ??= {};
   character.features ??= [];
 
@@ -11,7 +12,10 @@ export function applyClass(character, classData, level = 1) {
   character.proficiencies.armor ??= new Set();
   character.proficiencies.weapons ??= new Set();
   character.proficiencies.skills ??= new Set();
-  character.pendingChoices ??= {}; // ✅ keep this
+
+  character.pendingChoices ??= {};
+  character.resolvedChoices ??= {};
+
   character.savingThrows ??= {
     str: false,
     dex: false,
@@ -21,11 +25,23 @@ export function applyClass(character, classData, level = 1) {
     cha: false
   };
 
+  character.spellcasting ??= {
+    enabled: false,
+    ability: null,
+    type: null,
+    focus: [],
+    ritual: false,
+    prepared: new Set(),
+    alwaysPrepared: new Set(),
+    available: new Set()
+  };
+
   /* =========================
      CLASS CORE
   ========================= */
   character.class.id = classData.id;
   character.class.name = classData.name;
+  character.class.level = level;
 
   /* =========================
      HIT DIE
@@ -54,12 +70,13 @@ export function applyClass(character, classData, level = 1) {
     character.proficiencies.weapons.add(p)
   );
 
-  /* =========================
-     SKILL CHOICES (SAFE)
-  ========================= */
+/* =========================
+   SKILL CHOICES (ONCE)
+========================= */
 if (
   classData.skillChoices &&
-  !character.pendingChoices.skills
+  !character.pendingChoices.skills &&
+  !character.resolvedChoices.skills
 ) {
   character.pendingChoices.skills = {
     choose: classData.skillChoices.choose,
@@ -67,6 +84,7 @@ if (
     source: classData.id
   };
 }
+
 
 
   /* =========================
@@ -140,13 +158,13 @@ if (
 }
 
   /* =========================
-     SUBCLASS UNLOCK (LEVEL 3 ONCE)
+    SUBCLASS UNLOCK (LEVEL 3 ONCE)
   ========================= */
   if (
     level >= 3 &&
     classData.levels?.["3"]?.subclass &&
     !character.subclass &&
-    !character.pendingSubclassChoice
+    !character.resolvedChoices?.subclass
   ) {
     character.pendingSubclassChoice = {
       classId: classData.id,
@@ -154,6 +172,7 @@ if (
       source: classData.levels["3"].subclass.optionsSource
     };
   }
+
   // 🔒 Clamp prepared spells if prep limit changed
 if (character.spellcasting?.prepared) {
   const limit = Math.max(
