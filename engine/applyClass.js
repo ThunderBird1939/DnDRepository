@@ -119,15 +119,24 @@ if (classData.levels && typeof classData.levels === "object") {
         return;
       }
       if (
-        feature.type === "choice" &&
-        !character.features.some(f => f.parentFeature === feature.id)
+      feature.type === "choice" &&
+      !character.features.some(f => f.parentFeature === feature.id)
+    ) {
+      // 🚫 SKIP Artificer Infuse Item — handled by infusion dropdown UI
+      if (
+        character.class.id === "artificer" &&
+        feature.id === "infuse-item"
       ) {
-        character.pendingChoices.choiceFeature = {
-          feature,
-          source: classData.id
-        };
         return;
       }
+
+      character.pendingChoices.choiceFeature = {
+        feature,
+        source: classData.id
+      };
+      return;
+    }
+
 
 
 

@@ -675,11 +675,19 @@ function updateFighterUI() {
 }
 
 function updateFighterButtons() {
+  // 🛑 HARD CLASS GUARD
+  if (character.class?.id !== "fighter") return;
+
+  // 🛑 HARD STATE GUARD
+  if (!character.combat?.secondWind || !character.combat?.actionSurge) return;
+
   const swBtn = document.getElementById("secondWindBtn");
   const swText = document.getElementById("secondWindStatus");
 
   const asBtn = document.getElementById("actionSurgeBtn");
   const asText = document.getElementById("actionSurgeStatus");
+
+  if (!swBtn || !asBtn || !swText || !asText) return;
 
   const sw = character.combat.secondWind;
   const as = character.combat.actionSurge;
@@ -690,6 +698,7 @@ function updateFighterButtons() {
   asBtn.disabled = as.usesUsed >= as.usesMax;
   asText.textContent = `${as.usesMax - as.usesUsed} remaining`;
 }
+
 
 function updateSteelDefenderUI() {
   const block = document.getElementById("steelDefenderBlock");
@@ -1864,8 +1873,9 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderFeatures();
   renderSkills();
   renderAllSpellUI();
-  initFighterResources();
   await initSpellSlots();
+  renderSpellSlots();
+  initFighterResources();
   renderInfusions();
   updateHitPoints();
   updateProfBonusUI();
@@ -1909,14 +1919,19 @@ window.addEventListener("combat-updated", async () => {
   renderAttacks(); // 🔑 REQUIRED
   updateEldritchCannonUI();
 });
-window.addEventListener("combat-updated", updateFighterButtons);
-
+window.addEventListener("combat-updated", () => {
+  if (character.class?.id === "fighter") {
+    updateFighterButtons();
+  }
+});
 
 window.addEventListener("subclass-updated", async () => {
   syncDetailButtons();
   updateSubclassUI();
   updateArmorLockUI();
   updateFighterUI();
+  await initSpellSlots();
+  renderSpellSlots();
   updateArmorLockText();
   updateArmorerModeUI();
   await loadAllTools();
@@ -2004,9 +2019,10 @@ document
   });
 /* ===== Initial Render ===== */
 // 🔥 HARD RESET SPELLCASTING IF NO CLASS SELECTED
-if (!character.class?.spellcasting?.enabled) {
-  delete character.spellcasting;
+if (!character.class?.id || !character.spellcasting?.enabled) {
+  character.spellcasting.enabled = false;
 }
+
 
 recalcAllAbilities();
 updateRaceBonusDisplay();
