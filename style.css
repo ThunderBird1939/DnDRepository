@@ -180,4 +180,15 @@ details ul {
   transform: scale(1.2);
   cursor: pointer;
 }
+/* =========================
+   Background Selector
+========================= */
 
+#backgroundSelect {
+  min-width: 220px;
+}
+
+.detail-btn {
+  margin-left: 6px;
+  cursor: pointer;
+}

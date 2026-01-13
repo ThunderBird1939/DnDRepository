@@ -13,6 +13,16 @@ export const character = {
   class: null,          // { id, name, level }
   subclass: null,
 
+    /* =========================
+     BACKGROUND
+     (APPLIED ONCE)
+  ========================= */
+  background: {
+    id: null,
+    name: null,
+    source: null
+  },
+
   /* =========================
      ABILITIES (RAW ONLY)
   ========================= */
@@ -36,7 +46,8 @@ export const character = {
   pendingChoices: {
     skills: null,
     tools: null,
-    infusions: null
+    infusions: null,
+    languages: null
   },
   pendingSubclassChoice: null,
 
@@ -47,7 +58,8 @@ export const character = {
     skills: false,
     tools: false,
     subclass: false,
-    infusions: false
+    infusions: false,
+    background: false
   },
 
   /* =========================
@@ -65,12 +77,15 @@ export const character = {
   /* =========================
      PROFICIENCIES
   ========================= */
-  proficiencies: {
-    armor: new Set(),
-    weapons: new Set(),
-    tools: new Set(),
-    skills: new Set()
-  },
+   proficiencies: {
+   armor: new Set(),
+   weapons: new Set(),
+   tools: new Set(),
+   skills: new Set(),
+   languages: new Set(),     // ← NEW
+   vehicles: new Set()       // ← NEW
+   },
+
 
   /* =========================
      HIT POINTS

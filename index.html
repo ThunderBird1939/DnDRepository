@@ -47,6 +47,20 @@
 
       <div id="raceDetails"></div>
     </section>
+    <label>
+      Background
+      <select id="backgroundSelect">
+        <option value="">— Select Background —</option>
+      </select>
+
+      <!-- ➕ Background Detail -->
+      <button
+        class="detail-btn"
+        data-type="background"
+        data-id=""
+        title="View Background Details"
+      >+</button>
+    </label>
 
     <!-- ================= Class & Level ================= -->
     <section class="panel">
@@ -374,6 +388,18 @@
   <button id="confirmSubclass" disabled>Confirm</button>
 </div>
 <div id="subclassBackdrop" hidden class="modal-backdrop"></div>
+<!-- =========================
+     Language Choice Modal
+========================= -->
+<div id="languageChoiceBackdrop" class="modal-backdrop" hidden></div>
+
+<div id="languageChoiceModal" class="modal" hidden>
+  <h3>Select Languages</h3>
+
+  <div id="languageChoiceOptions"></div>
+
+  <button id="confirmLanguage" disabled>Confirm</button>
+</div>
 
 <!-- ================= Scripts ================= -->
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
