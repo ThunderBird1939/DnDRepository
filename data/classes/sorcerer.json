@@ -1,0 +1,218 @@
+{
+  "id": "sorcerer",
+  "name": "Sorcerer",
+  "shortDescription": "Innate spellcasters who wield magic drawn from bloodlines, curses, or raw arcane power.",
+  "description": "Sorcerers are conduits of magic, born with supernatural power flowing through their veins. Their spellcasting is instinctive, flexible, and shaped by their origin.",
+
+  "hitDie": 6,
+  "primaryAbility": "cha",
+  "savingThrows": ["con", "cha"],
+
+  "proficiencies": {
+    "armor": [],
+    "weapons": ["dagger", "dart", "sling", "quarterstaff", "light-crossbow"],
+    "tools": []
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "arcana",
+      "deception",
+      "insight",
+      "intimidation",
+      "persuasion",
+      "religion"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "full",
+    "preparation": "known",
+    "ability": "cha",
+    "focus": ["arcane-focus"],
+    "ritual": false,
+    "description": "Sorcerers know a limited number of spells and cast them using Charisma, shaping magic through instinct rather than study."
+  },
+
+  "resources": {
+    "sorceryPoints": {
+      "formula": "level",
+      "minimum": 1,
+      "recovery": "longRest"
+    }
+  },
+
+  "ui": {
+    "showSpellTable": true,
+    "showInfusions": false,
+    "featureGrouping": "byLevel",
+    "customResource": "sorceryPoints"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "sorcerous-origin",
+          "name": "Sorcerous Origin",
+          "type": "subclass",
+          "description": "Choose a Sorcerous Origin that defines the source of your innate magic.",
+          "optionsSource": "subclasses/sorcerer"
+        },
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "type": "system",
+          "description": "You gain the ability to cast sorcerer spells using Charisma."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "font-of-magic",
+          "name": "Font of Magic",
+          "type": "resource",
+          "description": "You gain sorcery points that can be converted into spell slots or fuel metamagic."
+        }
+      ]
+    },
+
+    "3": {
+      "features": [
+        {
+          "id": "metamagic",
+          "name": "Metamagic",
+          "type": "choice",
+          "description": "You gain the ability to twist spells to suit your needs.",
+          "optionsSource": "metamagic-options"
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "metamagic-2",
+          "name": "Metamagic Option",
+          "type": "choice",
+          "description": "You learn an additional Metamagic option.",
+          "optionsSource": "metamagic-options"
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "origin-feature-6",
+          "name": "Sorcerous Origin Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your Sorcerous Origin."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "metamagic-3",
+          "name": "Metamagic Option",
+          "type": "choice",
+          "description": "You learn an additional Metamagic option.",
+          "optionsSource": "metamagic-options"
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "origin-feature-14",
+          "name": "Sorcerous Origin Feature",
+          "type": "subclass",
+          "description": "You gain an additional feature from your Sorcerous Origin."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "origin-feature-18",
+          "name": "Sorcerous Origin Feature",
+          "type": "subclass",
+          "description": "You gain the pinnacle feature of your Sorcerous Origin."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "sorcerous-restoration",
+          "name": "Sorcerous Restoration",
+          "type": "capstone",
+          "description": "When you finish a short rest, you regain a small number of sorcery points."
+        }
+      ]
+    }
+  }
+}

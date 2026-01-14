@@ -1,0 +1,209 @@
+{
+  "id": "druid",
+  "name": "Druid",
+  "shortDescription": "Primal spellcasters who draw power from nature and the wilds.",
+  "description": "Druids are guardians of the natural world, wielding primal magic to heal, control the battlefield, and transform into beasts through their bond with nature.",
+
+  "hitDie": 8,
+  "primaryAbility": "wis",
+  "savingThrows": ["wis", "dex"],
+
+  "proficiencies": {
+    "armor": ["light", "medium", "shields"],
+    "weapons": [
+      "club",
+      "dagger",
+      "dart",
+      "javelin",
+      "mace",
+      "quarterstaff",
+      "scimitar",
+      "sickle",
+      "sling",
+      "spear"
+    ],
+    "tools": ["herbalism-kit"]
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "arcana",
+      "animalHandling",
+      "insight",
+      "medicine",
+      "nature",
+      "perception",
+      "religion",
+      "survival"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "full",
+    "preparation": "prepared",
+    "ability": "wis",
+    "focus": ["druidic-focus"],
+    "ritual": true,
+    "description": "Druids prepare spells from the druid spell list, channeling primal magic drawn from the natural world."
+  },
+
+  "ui": {
+    "showSpellTable": true,
+    "showInfusions": false,
+    "featureGrouping": "byLevel"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "druidic",
+          "name": "Druidic",
+          "type": "passive",
+          "description": "You know Druidic, the secret language of druids."
+        },
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "type": "system",
+          "description": "You gain the ability to cast druid spells using Wisdom as your spellcasting ability."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "wild-shape",
+          "name": "Wild Shape",
+          "type": "resource",
+          "description": "You can use your action to magically assume the shape of a beast you have seen before."
+        },
+        {
+          "id": "druid-circle",
+          "name": "Druid Circle",
+          "type": "subclass",
+          "description": "Choose a Druid Circle that represents your connection to nature.",
+          "optionsSource": "subclasses/druid"
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "circle-feature-6",
+          "name": "Druid Circle Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your Druid Circle."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "circle-feature-10",
+          "name": "Druid Circle Feature",
+          "type": "subclass",
+          "description": "You gain an additional feature from your Druid Circle."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "circle-feature-14",
+          "name": "Druid Circle Feature",
+          "type": "subclass",
+          "description": "You gain a powerful feature from your Druid Circle."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "timeless-body",
+          "name": "Timeless Body",
+          "type": "passive",
+          "description": "The primal magic that sustains you slows the effects of aging."
+        },
+        {
+          "id": "beast-spells",
+          "name": "Beast Spells",
+          "type": "system",
+          "description": "You can cast spells while in Wild Shape."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "archdruid",
+          "name": "Archdruid",
+          "type": "capstone",
+          "description": "You can use Wild Shape an unlimited number of times."
+        }
+      ]
+    }
+  }
+}

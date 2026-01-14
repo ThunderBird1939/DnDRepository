@@ -1,0 +1,229 @@
+{
+  "id": "bard",
+  "name": "Bard",
+  "shortDescription": "Charismatic performers who weave magic through music, words, and inspiration.",
+  "description": "Bards are masters of song, speech, and magic. They use performance and wit to inspire allies, confound enemies, and subtly shape the world around them.",
+
+  "hitDie": 8,
+  "primaryAbility": "cha",
+  "savingThrows": ["dex", "cha"],
+
+  "proficiencies": {
+    "armor": ["light"],
+    "weapons": [
+      "simple",
+      "hand-crossbow",
+      "longsword",
+      "rapier",
+      "shortsword"
+    ],
+    "tools": ["musical-instrument-choice", "musical-instrument-choice", "musical-instrument-choice"]
+  },
+
+  "skillChoices": {
+    "choose": 3,
+    "from": [
+      "acrobatics",
+      "animalHandling",
+      "arcana",
+      "athletics",
+      "deception",
+      "history",
+      "insight",
+      "intimidation",
+      "investigation",
+      "medicine",
+      "nature",
+      "perception",
+      "performance",
+      "persuasion",
+      "religion",
+      "sleightOfHand",
+      "stealth",
+      "survival"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "full",
+    "preparation": "known",
+    "ability": "cha",
+    "focus": ["musical-instrument"],
+    "ritual": true,
+    "description": "Bards cast spells through music and performance. They know a limited number of spells and can cast any known spell using spell slots."
+  },
+
+  "ui": {
+    "showSpellTable": true,
+    "showInfusions": false,
+    "featureGrouping": "byLevel"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "bardic-inspiration",
+          "name": "Bardic Inspiration",
+          "type": "resource",
+          "description": "You can inspire others through stirring words or music. As a bonus action, grant a creature within 60 feet a Bardic Inspiration die (d6). The creature can add it to an ability check, attack roll, or saving throw."
+        },
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "type": "system",
+          "description": "You gain the ability to cast bard spells using Charisma as your spellcasting ability."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "jack-of-all-trades",
+          "name": "Jack of All Trades",
+          "type": "passive",
+          "description": "You can add half your proficiency bonus (rounded down) to any ability check you make that doesn’t already include your proficiency bonus."
+        },
+        {
+          "id": "song-of-rest",
+          "name": "Song of Rest",
+          "type": "passive",
+          "description": "During a short rest, you and friendly creatures regain extra hit points when spending Hit Dice (d6)."
+        }
+      ]
+    },
+
+    "3": {
+      "subclass": {
+        "label": "Bard College",
+        "description": "Choose a bardic college that shapes the style of your magic and performance.",
+        "optionsSource": "subclasses/bard"
+      },
+      "features": [
+        {
+          "id": "expertise",
+          "name": "Expertise",
+          "type": "choice",
+          "description": "Choose two skill proficiencies. Your proficiency bonus is doubled for any ability check you make with them."
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "bardic-inspiration-d8",
+          "name": "Bardic Inspiration Improvement",
+          "type": "upgrade",
+          "description": "Your Bardic Inspiration die becomes a d8, and Bardic Inspiration now refreshes on a short rest."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "countercharm",
+          "name": "Countercharm",
+          "type": "action",
+          "description": "You can use musical performance to grant advantage on saving throws against being frightened or charmed."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "bardic-inspiration-d10",
+          "name": "Bardic Inspiration Improvement",
+          "type": "upgrade",
+          "description": "Your Bardic Inspiration die becomes a d10."
+        },
+        {
+          "id": "expertise-10",
+          "name": "Expertise",
+          "type": "choice",
+          "description": "Choose two additional skill proficiencies to gain expertise."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "15": {
+      "features": [
+        {
+          "id": "bardic-inspiration-d12",
+          "name": "Bardic Inspiration Improvement",
+          "type": "upgrade",
+          "description": "Your Bardic Inspiration die becomes a d12."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "superior-inspiration",
+          "name": "Superior Inspiration",
+          "type": "capstone",
+          "description": "When you roll initiative and have no Bardic Inspiration uses left, you regain one use."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,263 @@
+{
+  "id": "warlock",
+  "name": "Warlock",
+  "shortDescription": "Spellcasters who gain power through pacts with otherworldly patrons.",
+  "description": "Warlocks draw magic from binding agreements with powerful entities. Their magic is limited but potent, refreshed through brief rests and shaped by invocations and pacts.",
+
+  "hitDie": 8,
+  "primaryAbility": "cha",
+  "savingThrows": ["wis", "cha"],
+
+  "proficiencies": {
+    "armor": ["light"],
+    "weapons": ["simple"],
+    "tools": []
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "arcana",
+      "deception",
+      "history",
+      "intimidation",
+      "investigation",
+      "nature",
+      "religion"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "pact",
+    "preparation": "known",
+    "ability": "cha",
+    "focus": ["arcane-focus"],
+    "ritual": false,
+    "description": "Warlocks use Pact Magic, casting a limited number of spells at the highest level available, regained on a short rest."
+  },
+
+  "resources": {
+    "pactSlots": {
+      "formula": "warlockTable",
+      "minimum": 1,
+      "recovery": "shortRest"
+    }
+  },
+
+  "ui": {
+    "showSpellTable": true,
+    "showInfusions": false,
+    "featureGrouping": "byLevel",
+    "customResource": "pactSlots"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "otherworldly-patron",
+          "name": "Otherworldly Patron",
+          "type": "subclass",
+          "description": "You form a pact with a powerful otherworldly being that grants you magical abilities.",
+          "optionsSource": "subclasses/warlock"
+        },
+        {
+          "id": "pact-magic",
+          "name": "Pact Magic",
+          "type": "system",
+          "description": "You gain access to Pact Magic, allowing you to cast a small number of powerful spells."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "eldritch-invocations",
+          "name": "Eldritch Invocations",
+          "type": "choice",
+          "description": "You learn powerful invocations that enhance your abilities.",
+          "optionsSource": "eldritch-invocations"
+        }
+      ]
+    },
+
+    "3": {
+      "features": [
+        {
+          "id": "pact-boon",
+          "name": "Pact Boon",
+          "type": "choice",
+          "description": "Your patron bestows a pact boon.",
+          "optionsSource": "pact-boons"
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "invocation-5",
+          "name": "Eldritch Invocation",
+          "type": "choice",
+          "description": "You gain an additional Eldritch Invocation.",
+          "optionsSource": "eldritch-invocations"
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "patron-feature-6",
+          "name": "Otherworldly Patron Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your patron."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "patron-feature-10",
+          "name": "Otherworldly Patron Feature",
+          "type": "subclass",
+          "description": "You gain another feature from your patron."
+        }
+      ]
+    },
+
+    "11": {
+      "features": [
+        {
+          "id": "mystic-arcanum-6",
+          "name": "Mystic Arcanum (6th level)",
+          "type": "system",
+          "description": "You gain a 6th-level spell that you can cast once without using a pact slot."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "13": {
+      "features": [
+        {
+          "id": "mystic-arcanum-7",
+          "name": "Mystic Arcanum (7th level)",
+          "type": "system",
+          "description": "You gain a 7th-level spell that you can cast once without using a pact slot."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "patron-feature-14",
+          "name": "Otherworldly Patron Feature",
+          "type": "subclass",
+          "description": "You gain a powerful feature from your patron."
+        }
+      ]
+    },
+
+    "15": {
+      "features": [
+        {
+          "id": "mystic-arcanum-8",
+          "name": "Mystic Arcanum (8th level)",
+          "type": "system",
+          "description": "You gain an 8th-level spell that you can cast once without using a pact slot."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "17": {
+      "features": [
+        {
+          "id": "mystic-arcanum-9",
+          "name": "Mystic Arcanum (9th level)",
+          "type": "system",
+          "description": "You gain a 9th-level spell that you can cast once without using a pact slot."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "eldritch-master",
+          "name": "Eldritch Master",
+          "type": "passive",
+          "description": "You can briefly entreat your patron to regain expended pact magic."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "eldritch-master-improvement",
+          "name": "Master of the Pact",
+          "type": "capstone",
+          "description": "You can fully restore your pact magic through communion with your patron."
+        }
+      ]
+    }
+  }
+}

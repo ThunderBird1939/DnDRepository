@@ -1,0 +1,192 @@
+{
+  "id": "wizard",
+  "name": "Wizard",
+  "shortDescription": "Scholars of the arcane who master magic through study, preparation, and intellect.",
+  "description": "Wizards are supreme spellcasters who unravel the mysteries of magic through rigorous study. Their power comes from spellbooks, preparation, and deep arcane knowledge.",
+
+  "hitDie": 6,
+  "primaryAbility": "int",
+  "savingThrows": ["int", "wis"],
+
+  "proficiencies": {
+    "armor": [],
+    "weapons": ["dagger", "dart", "sling", "quarterstaff", "light-crossbow"],
+    "tools": []
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "arcana",
+      "history",
+      "insight",
+      "investigation",
+      "medicine",
+      "religion"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "full",
+    "preparation": "prepared",
+    "ability": "int",
+    "focus": ["arcane-focus"],
+    "ritual": true,
+    "description": "Wizards prepare spells from their spellbooks, using Intelligence as their spellcasting ability."
+  },
+
+  "resources": {
+    "arcaneRecovery": {
+      "formula": "wizardLevelDiv2",
+      "minimum": 1,
+      "recovery": "shortRest"
+    }
+  },
+
+  "ui": {
+    "showSpellTable": true,
+    "showInfusions": false,
+    "featureGrouping": "byLevel"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "type": "system",
+          "description": "You gain the ability to cast wizard spells using Intelligence."
+        },
+        {
+          "id": "arcane-recovery",
+          "name": "Arcane Recovery",
+          "type": "resource",
+          "description": "Once per day after a short rest, you recover expended spell slots."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "arcane-tradition",
+          "name": "Arcane Tradition",
+          "type": "subclass",
+          "description": "Choose an Arcane Tradition that shapes your approach to magic.",
+          "optionsSource": "subclasses/wizard"
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "tradition-feature-6",
+          "name": "Arcane Tradition Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your Arcane Tradition."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "tradition-feature-10",
+          "name": "Arcane Tradition Feature",
+          "type": "subclass",
+          "description": "You gain an additional feature from your Arcane Tradition."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "tradition-feature-14",
+          "name": "Arcane Tradition Feature",
+          "type": "subclass",
+          "description": "You gain a powerful feature from your Arcane Tradition."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "spell-mastery",
+          "name": "Spell Mastery",
+          "type": "system",
+          "description": "You can cast certain low-level spells without expending spell slots."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "signature-spells",
+          "name": "Signature Spells",
+          "type": "capstone",
+          "description": "You master two powerful spells, allowing you to cast them more efficiently."
+        }
+      ]
+    }
+  }
+}

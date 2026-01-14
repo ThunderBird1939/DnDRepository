@@ -1,0 +1,185 @@
+{
+  "id": "ostrumite-vanguard",
+  "name": "Ostrumite Vanguard",
+  "shortDescription": "Martial inventors who wield a living gunblade powered by unstable magical crystal.",
+  "description": "Ostrumite Vanguards bond to a volatile crystal weapon that fuses steel and firearm into a single system. Through innovation, risk, and precision, they turn instability into overwhelming force.",
+
+  "hitDie": 10,
+  "primaryAbility": ["dex", "str"],
+  "secondaryAbility": "int",
+  "savingThrows": ["dex", "int"],
+
+  "proficiencies": {
+    "armor": ["light", "medium", "shields"],
+    "weapons": ["simple", "martial", "firearms"],
+    "tools": ["tinkers-tools", "smiths-tools"]
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "athletics",
+      "acrobatics",
+      "investigation",
+      "arcana",
+      "perception",
+      "survival",
+      "insight"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "none"
+  },
+
+  "resources": {
+    "ostrumiteCharges": {
+      "formula": "proficiencyBonus + intelligenceMod",
+      "minimum": 1,
+      "recovery": "shortRest"
+    }
+  },
+
+  "ui": {
+    "showSpellTable": false,
+    "showInfusions": false,
+    "featureGrouping": "byLevel",
+    "customResource": "ostrumiteCharges"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "ostrumite-gunblade",
+          "name": "Ostrumite Gunblade",
+          "type": "system",
+          "description": "You construct and bond to a unique Ostrumite-powered gunblade that functions as both a melee weapon and firearm."
+        },
+        {
+          "id": "ostrumite-charges",
+          "name": "Ostrumite Charges",
+          "type": "resource",
+          "description": "You generate volatile Ostrumite energy used to fuel weapon effects, modifications, and overcharges."
+        },
+        {
+          "id": "misfire-overcharge",
+          "name": "Misfire & Overcharge",
+          "type": "system",
+          "description": "Spending excessive charges risks misfire, dealing damage to you and jamming your weapon."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "weapon-modifications",
+          "name": "Weapon Modifications",
+          "type": "system",
+          "description": "You install permanent modifications into your Ostrumite Gunblade, choosing from multiple mod categories."
+        }
+      ]
+    },
+
+    "3": {
+      "features": [
+        {
+          "id": "vanguard-path",
+          "name": "Vanguard Path",
+          "type": "subclass",
+          "description": "Choose a specialization that defines how you fight with your Ostrumite weapon.",
+          "optionsSource": "subclasses/ostrumite-vanguard"
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "extra-attack",
+          "name": "Extra Attack",
+          "type": "passive",
+          "description": "You can attack twice when you take the Attack action. One attack may be replaced with a firearm attack."
+        }
+      ]
+    },
+
+    "7": {
+      "features": [
+        {
+          "id": "reactive-shot",
+          "name": "Reactive Shot",
+          "type": "reaction",
+          "description": "When a creature misses you, leaves your reach, or attacks an ally you can see, you may make a firearm attack as a reaction by spending 1 charge."
+        }
+      ]
+    },
+
+    "9": {
+      "features": [
+        {
+          "id": "advanced-mods",
+          "name": "Advanced Mods",
+          "type": "system",
+          "description": "You unlock more powerful Ostrumite weapon modifications."
+        }
+      ]
+    },
+
+    "11": {
+      "features": [
+        {
+          "id": "overcharge-mastery",
+          "name": "Overcharge Mastery",
+          "type": "upgrade",
+          "description": "Your control over Ostrumite improves, reducing misfire risk and enhancing successful overcharges."
+        }
+      ]
+    },
+
+    "13": {
+      "features": [
+        {
+          "id": "dual-mode-assault",
+          "name": "Dual-Mode Assault",
+          "type": "passive",
+          "description": "Once per turn, you may make one melee and one firearm attack as part of the same Attack action without spending a charge."
+        }
+      ]
+    },
+
+    "15": {
+      "features": [
+        {
+          "id": "stabilized-core",
+          "name": "Stabilized Core",
+          "type": "passive",
+          "description": "You ignore misfires unless you greatly exceed safe charge limits, and clearing jams becomes easier."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "perfect-synchronization",
+          "name": "Perfect Synchronization",
+          "type": "passive",
+          "description": "When combat begins and you have no charges, you regain a portion automatically."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "living-ostrumite-engine",
+          "name": "Living Ostrumite Engine",
+          "type": "capstone",
+          "description": "Your bond with Ostrumite reaches its peak, empowering your weapon and reducing the risks of instability."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "id": "bound-vanguard",
+  "name": "Bound Vanguard",
+  "shortDescription": "Frontline spellblades who wield a bound entity through violent, close-range techniques.",
+  "description": "A Bound Vanguard channels supernatural power through a permanent contract with a bound entity. Rather than formal spellcasting, their magic manifests as brutal, momentary techniques fueled by Manifest Energy.",
+
+  "hitDie": 10,
+  "primaryAbility": ["str", "dex"],
+  "secondaryAbility": "con",
+  "manifestAbility": ["cha", "wis"],
+
+  "savingThrows": ["str-or-dex", "con"],
+
+  "proficiencies": {
+    "armor": ["light", "medium", "shields"],
+    "weapons": ["simple", "martial"],
+    "tools": []
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "athletics",
+      "acrobatics",
+      "perception",
+      "intimidation",
+      "survival",
+      "insight"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "none"
+  },
+
+  "resources": {
+    "manifestEnergy": {
+      "formula": "level + manifestAbilityMod",
+      "minimum": 1,
+      "recovery": "longRest"
+    }
+  },
+
+  "ui": {
+    "showSpellTable": false,
+    "showInfusions": false,
+    "featureGrouping": "byLevel",
+    "customResource": "manifestEnergy"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "martial-foundation",
+          "name": "Martial Foundation",
+          "type": "choice",
+          "optionsSource": "fighting-styles",
+          "description": "You gain one Fighting Style, as the Fighter class."
+        },
+        {
+          "id": "halphas-contracted-presence",
+          "name": "Halphas, Contracted Presence",
+          "type": "passive",
+          "description": "You cannot be flanked. Enemies do not gain advantage against you from positioning alone. You have advantage on Perception checks relying on sight or hearing."
+        },
+        {
+          "id": "manifest-energy",
+          "name": "Manifest Energy",
+          "type": "system",
+          "description": "You gain a pool of Manifest Energy (ME) used to fuel Manifest Techniques."
+        },
+        {
+          "id": "manifest-strike",
+          "name": "Manifest Strike",
+          "type": "system",
+          "description": "Once per turn when you hit with a weapon attack, you may spend 1 ME to enhance the strike with force or thunder power."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "guardian-intercept",
+          "name": "Guardian Intercept",
+          "type": "reaction",
+          "description": "When you or an ally within 5 ft is hit, you may reduce the damage by 1d10 + your Constitution modifier."
+        },
+        {
+          "id": "manifest-techniques",
+          "name": "Manifest Techniques",
+          "type": "system",
+          "description": "You learn Universal Manifest Techniques and gain access to Disposition Techniques."
+        },
+        {
+          "id": "manifest-strain",
+          "name": "Manifest Strain",
+          "type": "system",
+          "description": "Using Manifest Techniques can cause strain, imposing drawbacks depending on your level."
+        },
+        {
+          "id": "manifest-hesitation",
+          "name": "Manifest Hesitation",
+          "type": "system",
+          "description": "In stressful situations, you may be required to make a Manifest Hesitation check when using powerful techniques."
+        }
+      ]
+    },
+
+    "3": {
+      "features": [
+        {
+          "id": "halphas-disposition",
+          "name": "Halphas’s Disposition",
+          "type": "system",
+          "description": "Halphas’s current Disposition determines which Disposition Manifest Techniques are available to you."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "extra-attack",
+          "name": "Extra Attack",
+          "type": "passive",
+          "description": "You can attack twice whenever you take the Attack action."
+        },
+        {
+          "id": "shared-pressure",
+          "name": "Shared Pressure",
+          "type": "passive",
+          "description": "Hostile creatures within 5 ft of you treat the area as difficult terrain."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "manifest-surge",
+          "name": "Manifest Surge",
+          "type": "trigger",
+          "description": "Once per turn when you spend ME, you may gain a minor secondary benefit."
+        }
+      ]
+    },
+
+    "9": {
+      "features": [
+        {
+          "id": "dual-threat",
+          "name": "Dual Threat",
+          "type": "passive",
+          "description": "You may treat a space within 10 ft as if you occupy it for certain class features."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "supernatural-resilience",
+          "name": "Supernatural Resilience",
+          "type": "passive",
+          "description": "You gain proficiency in Wisdom saving throws, or Charisma if already proficient."
+        }
+      ]
+    },
+
+    "13": {
+      "features": [
+        {
+          "id": "manifest-mastery",
+          "name": "Manifest Mastery",
+          "type": "upgrade",
+          "description": "Your Manifest Strike and Guardian Intercept improve."
+        }
+      ]
+    },
+
+    "17": {
+      "features": [
+        {
+          "id": "irrevocable-contract",
+          "name": "Irrevocable Contract",
+          "type": "passive",
+          "description": "You are immune to frightened, have advantage against charm, and can refuse death once per long rest."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "unbound-moment",
+          "name": "Unbound Moment",
+          "type": "activation",
+          "description": "Once per long rest, you briefly suppress strain and push beyond mortal limits."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "contract-fulfilled",
+          "name": "Contract Fulfilled",
+          "type": "capstone",
+          "description": "You reach the apex of your bond, continuously regenerating Manifest Energy and dominating nearby foes."
+        }
+      ]
+    }
+  }
+}

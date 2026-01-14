@@ -1,0 +1,200 @@
+{
+  "id": "cleric",
+  "name": "Cleric",
+  "shortDescription": "Divine agents who wield sacred magic in service of powerful deities.",
+  "description": "Clerics are intermediaries between the mortal world and the divine. Through faith and devotion, they channel divine power to heal allies, smite foes, and uphold their deity’s will.",
+
+  "hitDie": 8,
+  "primaryAbility": "wis",
+  "savingThrows": ["wis", "cha"],
+
+  "proficiencies": {
+    "armor": ["light", "medium", "shields"],
+    "weapons": ["simple"],
+    "tools": []
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "history",
+      "insight",
+      "medicine",
+      "persuasion",
+      "religion"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "full",
+    "preparation": "prepared",
+    "ability": "wis",
+    "focus": ["holy-symbol"],
+    "ritual": true,
+    "description": "Clerics prepare spells from the cleric spell list, channeling divine power through prayer and holy symbols."
+  },
+
+  "ui": {
+    "showSpellTable": true,
+    "showInfusions": false,
+    "featureGrouping": "byLevel"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "type": "system",
+          "description": "You gain the ability to cast cleric spells using Wisdom as your spellcasting ability."
+        },
+        {
+          "id": "divine-domain",
+          "name": "Divine Domain",
+          "type": "subclass",
+          "description": "Choose a Divine Domain that represents the aspect of your deity you serve.",
+          "optionsSource": "subclasses/cleric"
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "channel-divinity",
+          "name": "Channel Divinity",
+          "type": "resource",
+          "description": "You can channel divine energy to fuel magical effects, starting with Turn Undead and a domain-specific option."
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "destroy-undead-1",
+          "name": "Destroy Undead",
+          "type": "passive",
+          "description": "When an undead fails its saving throw against Turn Undead, it is instantly destroyed if its challenge rating is low enough."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "domain-feature-6",
+          "name": "Divine Domain Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your Divine Domain."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        },
+        {
+          "id": "divine-strike",
+          "name": "Divine Strike / Potent Spellcasting",
+          "type": "subclass",
+          "description": "Your Divine Domain grants you a damage-enhancing feature."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "divine-intervention",
+          "name": "Divine Intervention",
+          "type": "system",
+          "description": "You can call on your deity for direct aid. The success chance is based on your cleric level."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "destroy-undead-2",
+          "name": "Destroy Undead Improvement",
+          "type": "passive",
+          "description": "Your Destroy Undead feature affects more powerful undead."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "17": {
+      "features": [
+        {
+          "id": "domain-feature-17",
+          "name": "Divine Domain Feature",
+          "type": "subclass",
+          "description": "You gain a powerful feature from your Divine Domain."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "divine-intervention-improvement",
+          "name": "Improved Divine Intervention",
+          "type": "capstone",
+          "description": "Your Divine Intervention automatically succeeds when you use it."
+        }
+      ]
+    }
+  }
+}

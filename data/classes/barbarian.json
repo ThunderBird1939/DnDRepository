@@ -1,0 +1,276 @@
+{
+  "id": "barbarian",
+  "name": "Barbarian",
+  "shortDescription": "Ferocious warriors who channel primal fury into devastating combat power.",
+  "description": "Barbarians are driven by instinct and rage. In battle, they enter a primal state that enhances their strength, resilience, and ferocity beyond mortal limits.",
+
+  "hitDie": 12,
+  "primaryAbility": "str",
+  "savingThrows": ["str", "con"],
+
+  "proficiencies": {
+    "armor": ["light", "medium", "shields"],
+    "weapons": ["simple", "martial"],
+    "tools": []
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "animalHandling",
+      "athletics",
+      "intimidation",
+      "nature",
+      "perception",
+      "survival"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "none"
+  },
+
+  "ui": {
+    "showSpellTable": false,
+    "showInfusions": false,
+    "featureGrouping": "byLevel"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "rage",
+          "name": "Rage",
+          "type": "resource",
+          "description": "On your turn, you can enter a rage as a bonus action. While raging, you gain advantage on Strength checks and saves, bonus damage on Strength-based melee attacks, and resistance to bludgeoning, piercing, and slashing damage."
+        },
+        {
+          "id": "unarmored-defense",
+          "name": "Unarmored Defense",
+          "type": "passive",
+          "description": "While not wearing armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "reckless-attack",
+          "name": "Reckless Attack",
+          "type": "action",
+          "description": "You can attack recklessly, gaining advantage on melee weapon attacks using Strength, but attack rolls against you have advantage until your next turn."
+        },
+        {
+          "id": "danger-sense",
+          "name": "Danger Sense",
+          "type": "passive",
+          "description": "You have advantage on Dexterity saving throws against effects you can see, such as traps and spells."
+        }
+      ]
+    },
+
+    "3": {
+      "subclass": {
+        "label": "Primal Path",
+        "description": "Choose a primal path that shapes the source of your rage.",
+        "optionsSource": "subclasses/barbarian"
+      },
+      "features": []
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "extra-attack",
+          "name": "Extra Attack",
+          "type": "passive",
+          "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+        },
+        {
+          "id": "fast-movement",
+          "name": "Fast Movement",
+          "type": "passive",
+          "description": "Your speed increases by 10 feet while you aren’t wearing heavy armor."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "path-feature-6",
+          "name": "Primal Path Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your chosen primal path."
+        }
+      ]
+    },
+
+    "7": {
+      "features": [
+        {
+          "id": "feral-instinct",
+          "name": "Feral Instinct",
+          "type": "passive",
+          "description": "You have advantage on initiative rolls, and you can act normally on your first turn even if surprised."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "9": {
+      "features": [
+        {
+          "id": "brutal-critical-1",
+          "name": "Brutal Critical",
+          "type": "passive",
+          "description": "You roll one additional weapon damage die when determining the extra damage for a critical hit."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "path-feature-10",
+          "name": "Primal Path Feature",
+          "type": "subclass",
+          "description": "You gain another feature from your chosen primal path."
+        }
+      ]
+    },
+
+    "11": {
+      "features": [
+        {
+          "id": "relentless-rage",
+          "name": "Relentless Rage",
+          "type": "reaction",
+          "description": "When you drop to 0 hit points while raging, you can make a Constitution saving throw to drop to 1 hit point instead."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "13": {
+      "features": [
+        {
+          "id": "brutal-critical-2",
+          "name": "Brutal Critical",
+          "type": "passive",
+          "description": "You roll two additional weapon damage dice when determining the extra damage for a critical hit."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "path-feature-14",
+          "name": "Primal Path Feature",
+          "type": "subclass",
+          "description": "You gain a powerful feature from your chosen primal path."
+        }
+      ]
+    },
+
+    "15": {
+      "features": [
+        {
+          "id": "persistent-rage",
+          "name": "Persistent Rage",
+          "type": "passive",
+          "description": "Your rage only ends early if you fall unconscious or choose to end it."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "17": {
+      "features": [
+        {
+          "id": "brutal-critical-3",
+          "name": "Brutal Critical",
+          "type": "passive",
+          "description": "You roll three additional weapon damage dice when determining the extra damage for a critical hit."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "indomitable-might",
+          "name": "Indomitable Might",
+          "type": "passive",
+          "description": "If your Strength check total is less than your Strength score, you can use that score instead."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "primal-champion",
+          "name": "Primal Champion",
+          "type": "capstone",
+          "description": "Your Strength and Constitution scores increase by 4, and their maximums increase to 24."
+        }
+      ]
+    }
+  }
+}

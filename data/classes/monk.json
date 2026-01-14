@@ -1,0 +1,291 @@
+{
+  "id": "monk",
+  "name": "Monk",
+  "shortDescription": "Martial artists who channel inner ki to perform supernatural feats.",
+  "description": "Monks are masters of disciplined combat, blending physical training with spiritual focus. Through ki, they achieve speed, precision, and supernatural resilience.",
+
+  "hitDie": 8,
+  "primaryAbility": "dex",
+  "secondaryAbility": "wis",
+  "savingThrows": ["str", "dex"],
+
+  "proficiencies": {
+    "armor": [],
+    "weapons": ["simple", "shortsword"],
+    "tools": ["artisan-or-musical-choice"]
+  },
+
+  "skillChoices": {
+    "choose": 2,
+    "from": [
+      "acrobatics",
+      "athletics",
+      "history",
+      "insight",
+      "religion",
+      "stealth"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "none"
+  },
+
+  "resources": {
+    "ki": {
+      "formula": "level",
+      "minimum": 1,
+      "recovery": "shortRest"
+    }
+  },
+
+  "ui": {
+    "showSpellTable": false,
+    "showInfusions": false,
+    "featureGrouping": "byLevel",
+    "customResource": "ki"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "unarmored-defense",
+          "name": "Unarmored Defense",
+          "type": "passive",
+          "description": "While not wearing armor or wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier."
+        },
+        {
+          "id": "martial-arts",
+          "name": "Martial Arts",
+          "type": "system",
+          "description": "You can use Dexterity instead of Strength for monk weapons and unarmed strikes, and gain a bonus unarmed strike."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "ki",
+          "name": "Ki",
+          "type": "resource",
+          "description": "You gain a pool of ki points that fuel special monk abilities."
+        },
+        {
+          "id": "unarmored-movement",
+          "name": "Unarmored Movement",
+          "type": "passive",
+          "description": "Your speed increases while you are not wearing armor or wielding a shield."
+        }
+      ]
+    },
+
+    "3": {
+      "features": [
+        {
+          "id": "monastic-tradition",
+          "name": "Monastic Tradition",
+          "type": "subclass",
+          "description": "Choose a Monastic Tradition that shapes your ki techniques.",
+          "optionsSource": "subclasses/monk"
+        },
+        {
+          "id": "deflect-missiles",
+          "name": "Deflect Missiles",
+          "type": "reaction",
+          "description": "You can use your reaction to reduce damage from a ranged weapon attack."
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        },
+        {
+          "id": "slow-fall",
+          "name": "Slow Fall",
+          "type": "reaction",
+          "description": "You can reduce falling damage using your reaction."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "extra-attack",
+          "name": "Extra Attack",
+          "type": "passive",
+          "description": "You can attack twice when you take the Attack action."
+        },
+        {
+          "id": "stunning-strike",
+          "name": "Stunning Strike",
+          "type": "resource",
+          "description": "When you hit a creature, you can spend ki to attempt to stun it."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "ki-empowered-strikes",
+          "name": "Ki-Empowered Strikes",
+          "type": "passive",
+          "description": "Your unarmed strikes count as magical for overcoming resistance."
+        },
+        {
+          "id": "tradition-feature-6",
+          "name": "Monastic Tradition Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your Monastic Tradition."
+        }
+      ]
+    },
+
+    "7": {
+      "features": [
+        {
+          "id": "evasion",
+          "name": "Evasion",
+          "type": "passive",
+          "description": "You take no damage on a successful Dexterity saving throw and half on a failure."
+        },
+        {
+          "id": "stillness-of-mind",
+          "name": "Stillness of Mind",
+          "type": "action",
+          "description": "You can end one effect on yourself that is causing you to be charmed or frightened."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "purity-of-body",
+          "name": "Purity of Body",
+          "type": "passive",
+          "description": "You are immune to disease and poison."
+        }
+      ]
+    },
+
+    "11": {
+      "features": [
+        {
+          "id": "tradition-feature-11",
+          "name": "Monastic Tradition Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your Monastic Tradition."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "13": {
+      "features": [
+        {
+          "id": "tongue-of-the-sun-and-moon",
+          "name": "Tongue of the Sun and Moon",
+          "type": "passive",
+          "description": "You can understand and communicate with any creature that knows a language."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "diamond-soul",
+          "name": "Diamond Soul",
+          "type": "passive",
+          "description": "You gain proficiency in all saving throws."
+        }
+      ]
+    },
+
+    "15": {
+      "features": [
+        {
+          "id": "timeless-body",
+          "name": "Timeless Body",
+          "type": "passive",
+          "description": "You suffer none of the frailty of old age."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "empty-body",
+          "name": "Empty Body",
+          "type": "activation",
+          "description": "You can become invisible and gain resistance to all damage but force."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "perfect-self",
+          "name": "Perfect Self",
+          "type": "capstone",
+          "description": "When you roll initiative and have no ki remaining, you regain ki."
+        }
+      ]
+    }
+  }
+}

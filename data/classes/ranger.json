@@ -1,0 +1,256 @@
+{
+  "id": "ranger",
+  "name": "Ranger",
+  "shortDescription": "Skilled hunters who blend martial prowess with nature magic to track and defeat their foes.",
+  "description": "Rangers are guardians of the wilds and expert trackers. They combine weapon mastery, survival skills, and primal magic to control terrain and strike decisively.",
+
+  "hitDie": 10,
+  "primaryAbility": "dex",
+  "secondaryAbility": "wis",
+  "savingThrows": ["dex", "wis"],
+
+  "proficiencies": {
+    "armor": ["light", "medium", "shields"],
+    "weapons": ["simple", "martial"],
+    "tools": []
+  },
+
+  "skillChoices": {
+    "choose": 3,
+    "from": [
+      "animalHandling",
+      "athletics",
+      "insight",
+      "investigation",
+      "nature",
+      "perception",
+      "stealth",
+      "survival"
+    ]
+  },
+
+  "spellcasting": {
+    "type": "half",
+    "halfCaster": true,
+    "preparation": "prepared",
+    "ability": "wis",
+    "focus": ["druidic-focus"],
+    "ritual": false,
+    "description": "Rangers prepare spells from the ranger spell list, drawing on primal magic tied to the natural world."
+  },
+
+  "ui": {
+    "showSpellTable": true,
+    "showInfusions": false,
+    "featureGrouping": "byLevel"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "favored-foe",
+          "name": "Favored Foe",
+          "type": "system",
+          "description": "You can mark a creature you hit to deal extra damage to it and track it more easily."
+        },
+        {
+          "id": "deft-explorer",
+          "name": "Deft Explorer",
+          "type": "passive",
+          "description": "You gain expertise and movement benefits reflecting your mastery of exploration."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "fighting-style",
+          "name": "Fighting Style",
+          "type": "choice",
+          "optionsSource": "fighting-styles",
+          "description": "You adopt a particular style of fighting as your specialty."
+        },
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "type": "system",
+          "description": "You gain the ability to cast ranger spells using Wisdom."
+        }
+      ]
+    },
+
+    "3": {
+      "features": [
+        {
+          "id": "ranger-archetype",
+          "name": "Ranger Archetype",
+          "type": "subclass",
+          "description": "Choose a ranger archetype that defines your hunting methods.",
+          "optionsSource": "subclasses/ranger"
+        },
+        {
+          "id": "primeval-awareness",
+          "name": "Primeval Awareness",
+          "type": "system",
+          "description": "You can attune your senses to the surrounding wilderness to detect certain creature types."
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "extra-attack",
+          "name": "Extra Attack",
+          "type": "passive",
+          "description": "You can attack twice when you take the Attack action."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "favored-foe-improvement",
+          "name": "Favored Foe Improvement",
+          "type": "upgrade",
+          "description": "Your Favored Foe feature improves, increasing its damage or duration."
+        }
+      ]
+    },
+
+    "7": {
+      "features": [
+        {
+          "id": "archetype-feature-7",
+          "name": "Ranger Archetype Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your ranger archetype."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "hide-in-plain-sight",
+          "name": "Hide in Plain Sight",
+          "type": "system",
+          "description": "You can camouflage yourself to gain bonuses to Stealth."
+        }
+      ]
+    },
+
+    "11": {
+      "features": [
+        {
+          "id": "archetype-feature-11",
+          "name": "Ranger Archetype Feature",
+          "type": "subclass",
+          "description": "You gain an additional feature from your ranger archetype."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "vanish",
+          "name": "Vanish",
+          "type": "passive",
+          "description": "You can hide as a bonus action, and your tracks are harder to follow."
+        }
+      ]
+    },
+
+    "15": {
+      "features": [
+        {
+          "id": "archetype-feature-15",
+          "name": "Ranger Archetype Feature",
+          "type": "subclass",
+          "description": "You gain a powerful feature from your ranger archetype."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "feral-senses",
+          "name": "Feral Senses",
+          "type": "passive",
+          "description": "You gain heightened awareness of invisible or hidden enemies."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "foe-slayer",
+          "name": "Foe Slayer",
+          "type": "capstone",
+          "description": "You become a peerless hunter, dealing extra damage or improving accuracy against your marked foes."
+        }
+      ]
+    }
+  }
+}
