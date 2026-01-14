@@ -1,0 +1,277 @@
+{
+  "id": "rogue",
+  "name": "Rogue",
+  "shortDescription": "Skilled infiltrators and precision strikers who rely on agility, stealth, and cunning.",
+  "description": "Rogues rely on skill, stealth, and their foes’ vulnerabilities to get the upper hand in any situation. They excel at dealing precise damage and avoiding danger.",
+
+  "hitDie": 8,
+  "primaryAbility": "dex",
+  "savingThrows": ["dex", "int"],
+
+  "proficiencies": {
+    "armor": ["light"],
+    "weapons": ["simple", "hand-crossbow", "longsword", "rapier", "shortsword"],
+    "tools": ["thieves"]
+  },
+
+  "skillChoices": {
+    "choose": 4,
+    "from": [
+      "acrobatics",
+      "athletics",
+      "deception",
+      "insight",
+      "intimidation",
+      "investigation",
+      "perception",
+      "performance",
+      "persuasion",
+      "sleightOfHand",
+      "stealth"
+    ]
+  },
+
+  "ui": {
+    "showSpellTable": false,
+    "featureGrouping": "byLevel"
+  },
+
+  "levels": {
+    "1": {
+      "features": [
+        {
+          "id": "expertise",
+          "name": "Expertise",
+          "type": "choice",
+          "description": "Choose two of your skill proficiencies, or one skill proficiency and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies."
+        },
+        {
+          "id": "sneak-attack",
+          "name": "Sneak Attack",
+          "type": "scaling",
+          "description": "Once per turn, you can deal extra damage to one creature you hit with an attack if you have advantage on the attack roll or an ally is adjacent to the target."
+        },
+        {
+          "id": "thieves-cant",
+          "name": "Thieves’ Cant",
+          "type": "passive",
+          "description": "You know the secret language of thieves, allowing you to convey hidden messages."
+        }
+      ]
+    },
+
+    "2": {
+      "features": [
+        {
+          "id": "cunning-action",
+          "name": "Cunning Action",
+          "type": "passive",
+          "description": "You can take a bonus action on each of your turns to Dash, Disengage, or Hide."
+        }
+      ]
+    },
+
+    "3": {
+      "subclass": {
+        "label": "Roguish Archetype",
+        "description": "Choose a roguish archetype that defines your methods and talents.",
+        "optionsSource": "subclasses/rogue"
+      },
+      "features": [
+        {
+          "id": "steady-aim",
+          "name": "Steady Aim",
+          "type": "optional",
+          "description": "As a bonus action, you can give yourself advantage on your next attack roll this turn, provided you haven’t moved."
+        }
+      ]
+    },
+
+    "4": {
+      "features": [
+        {
+          "id": "asi-4",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "5": {
+      "features": [
+        {
+          "id": "uncanny-dodge",
+          "name": "Uncanny Dodge",
+          "type": "reaction",
+          "description": "When an attacker that you can see hits you with an attack, you can use your reaction to halve the attack’s damage."
+        }
+      ]
+    },
+
+    "6": {
+      "features": [
+        {
+          "id": "expertise-6",
+          "name": "Expertise",
+          "type": "choice",
+          "description": "Choose two more of your skill proficiencies or thieves’ tools to gain Expertise."
+        }
+      ]
+    },
+
+    "7": {
+      "features": [
+        {
+          "id": "evasion",
+          "name": "Evasion",
+          "type": "passive",
+          "description": "You take no damage on a successful Dexterity saving throw, and only half damage on a failure."
+        }
+      ]
+    },
+
+    "8": {
+      "features": [
+        {
+          "id": "asi-8",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "9": {
+      "features": [
+        {
+          "id": "subclass-feature-9",
+          "name": "Roguish Archetype Feature",
+          "type": "subclass",
+          "description": "You gain a feature granted by your chosen roguish archetype."
+        }
+      ]
+    },
+
+    "10": {
+      "features": [
+        {
+          "id": "asi-10",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "11": {
+      "features": [
+        {
+          "id": "reliable-talent",
+          "name": "Reliable Talent",
+          "type": "passive",
+          "description": "Whenever you make an ability check that lets you add your proficiency bonus, you treat a d20 roll of 9 or lower as a 10."
+        }
+      ]
+    },
+
+    "12": {
+      "features": [
+        {
+          "id": "asi-12",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "13": {
+      "features": [
+        {
+          "id": "subclass-feature-13",
+          "name": "Roguish Archetype Feature",
+          "type": "subclass",
+          "description": "You gain another feature from your chosen archetype."
+        }
+      ]
+    },
+
+    "14": {
+      "features": [
+        {
+          "id": "blindsense",
+          "name": "Blindsense",
+          "type": "passive",
+          "description": "You can effectively perceive hidden or invisible creatures within 10 feet."
+        }
+      ]
+    },
+
+    "15": {
+      "features": [
+        {
+          "id": "slippery-mind",
+          "name": "Slippery Mind",
+          "type": "passive",
+          "description": "You gain proficiency in Wisdom saving throws."
+        }
+      ]
+    },
+
+    "16": {
+      "features": [
+        {
+          "id": "asi-16",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "17": {
+      "features": [
+        {
+          "id": "subclass-feature-17",
+          "name": "Roguish Archetype Feature",
+          "type": "subclass",
+          "description": "You gain a powerful feature from your archetype."
+        }
+      ]
+    },
+
+    "18": {
+      "features": [
+        {
+          "id": "elusive",
+          "name": "Elusive",
+          "type": "passive",
+          "description": "No attack roll has advantage against you while you aren’t incapacitated."
+        }
+      ]
+    },
+
+    "19": {
+      "features": [
+        {
+          "id": "asi-19",
+          "name": "Ability Score Improvement",
+          "type": "asi",
+          "description": "Increase one ability score by 2, or two ability scores by 1."
+        }
+      ]
+    },
+
+    "20": {
+      "features": [
+        {
+          "id": "stroke-of-luck",
+          "name": "Stroke of Luck",
+          "type": "capstone",
+          "description": "If your attack misses, you can turn the miss into a hit, or treat a failed ability check as a roll of 20."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "phantom",
+  "name": "Phantom",
+  "classId": "rogue",
+  "source": "TCE",
+
+  "description": "Phantoms channel the power of death itself, forming fleeting connections to the spirits of the departed and drawing strength from the boundary between life and death.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "whispers-of-the-dead",
+        "name": "Whispers of the Dead",
+        "type": "passive",
+        "description": "You gain a skill or tool proficiency of your choice. You can change this proficiency whenever you finish a long rest, as spirits guide your talents."
+      },
+      {
+        "id": "wails-from-the-grave",
+        "name": "Wails from the Grave",
+        "type": "system",
+        "description": "Immediately after you deal Sneak Attack damage to a creature, you can target a second creature you can see within 30 feet. The second creature takes necrotic damage equal to half the Sneak Attack dice (rounded up). You can use this feature a number of times equal to your proficiency bonus per long rest."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "tokens-of-the-departed",
+        "name": "Tokens of the Departed",
+        "type": "system",
+        "description": "When a creature dies within 30 feet of you, you can capture a soul trinket. While you have a soul trinket, you gain advantage on death saving throws and Constitution saving throws. You can expend a trinket to use Wails from the Grave without expending a normal use."
+      }
+    ],
+
+    "13": [
+      {
+        "id": "ghost-walk",
+        "name": "Ghost Walk",
+        "type": "system",
+        "description": "You can become incorporeal as a bonus action for 10 minutes. While incorporeal, you gain a flying speed, can move through creatures and objects, and take force damage if you end your turn inside an object. Once used, you can’t use this feature again until you finish a long rest unless you expend a soul trinket."
+      }
+    ],
+
+    "17": [
+      {
+        "id": "death-knell",
+        "name": "Death Knell",
+        "type": "passive",
+        "description": "Your Wails from the Grave deals necrotic damage equal to your full Sneak Attack dice instead of half."
+      }
+    ]
+  }
+}
