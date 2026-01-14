@@ -1,3 +1,6 @@
+/* =========================
+   BASE
+========================= */
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -6,16 +9,42 @@ body {
 input {
   margin-left: 10px;
 }
-.abilities div {
-  margin: 5px 0;
-}
 
 span {
   margin-left: 10px;
   font-weight: bold;
 }
+
+/* =========================
+   PANELS / SECTIONS
+========================= */
+.panel {
+  margin-bottom: 1.25rem;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* =========================
+   ABILITIES
+========================= */
+.abilities div {
+  margin: 5px 0;
+}
+
+/* =========================
+   FEATURES
+========================= */
 #featuresList {
   margin-top: 1rem;
+}
+
+#featuresList h3 {
+  margin-top: 1rem;
+  border-bottom: 1px solid #444;
+  padding-bottom: 2px;
 }
 
 .feature {
@@ -23,6 +52,7 @@ span {
   padding: 0.5rem 0.75rem;
   border-left: 3px solid #555;
   background: #f5f5f5;
+  margin-left: 0.5rem;
 }
 
 .feature h4 {
@@ -35,19 +65,19 @@ span {
   color: #666;
   margin-bottom: 0.25rem;
 }
+
+.subclass-block {
+  margin-top: 8px;
+}
+
+/* =========================
+   SPELL LIST / DETAILS
+========================= */
 #spellList {
   opacity: 0.85;
   font-size: 0.95rem;
 }
 
-#spellList h4 {
-  margin-top: 0.75rem;
-  color: #555;
-}
-.prepared {
-  font-weight: 600;
-  color: #4a6898;
-}
 details {
   margin-bottom: 0.75rem;
 }
@@ -65,36 +95,7 @@ summary::marker {
 details ul {
   margin: 0.25rem 0 0.5rem 1.25rem;
 }
-#detailView {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 1.5rem;
-}
 
-.feature-block {
-  margin-bottom: 1rem;
-}
-
-.feature-block h4 {
-  margin-bottom: 0.25rem;
-}
-.spell-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1.5rem;
-}
-
-.spell-table th,
-.spell-table td {
-  border: 1px solid #444;
-  padding: 0.35rem 0.5rem;
-  text-align: center;
-}
-
-.spell-table th {
-  background: #222;
-  font-weight: 600;
-}
 .spell-row {
   cursor: pointer;
   padding: 2px 4px;
@@ -104,10 +105,30 @@ details ul {
   text-decoration: underline;
 }
 
-.spell-row.always {
-  font-weight: 600;
+.spell-row.prepared,
+.prepared {
+  font-weight: bold;
   color: #4a6898;
 }
+
+/* =========================
+   SPELL SLOTS
+========================= */
+.spell-slot-row button {
+  width: 28px;
+  height: 28px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.spell-slot-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================
+   SPELLCASTING STATES
+========================= */
 .warning {
   background: #3a1e1e;
   border: 1px solid #aa4444;
@@ -117,42 +138,34 @@ details ul {
   border-radius: 6px;
   font-size: 0.9rem;
 }
+
 .spellcasting-disabled {
   opacity: 0.4;
   pointer-events: none;
   filter: grayscale(1);
 }
+
+/* =========================
+   ADV / DIS
+========================= */
+.advantage,
 .disadvantage {
-  color: #ff9a9a;
   font-size: 0.75rem;
   margin-left: 6px;
   font-weight: bold;
 }
+
 .advantage {
-  color: #6fe36f;
-  font-size: 0.75rem;
-  margin-left: 6px;
-  font-weight: bold;
-}
-#featuresList h3 {
-  margin-top: 1rem;
-  border-bottom: 1px solid #444;
-  padding-bottom: 2px;
+  color: #2e7d32;
 }
 
-.feature {
-  margin-left: 0.5rem;
-}
-.subclass-block {
-  margin-top: 8px;
+.disadvantage {
+  color: #b71c1c;
 }
 
-.info-box {
-  margin-top: 6px;
-  font-size: 0.85rem;
-  opacity: 0.9;
-  white-space: pre-wrap;
-}
+/* =========================
+   INFUSIONS
+========================= */
 .infusion {
   margin-bottom: 8px;
   padding: 6px;
@@ -167,6 +180,7 @@ details ul {
   margin-bottom: 0.5rem;
   font-size: 0.9em;
 }
+
 #activeInfusionsList .feature {
   padding: 0.5rem;
   border-radius: 6px;
@@ -180,107 +194,33 @@ details ul {
   transform: scale(1.2);
   cursor: pointer;
 }
-/* =========================
-   Background Selector
-========================= */
 
-#backgroundSelect {
-  min-width: 220px;
-}
-
-.detail-btn {
-  margin-left: 6px;
-  cursor: pointer;
-}
-/* =========================
-   Choice Feature Modal
-========================= */
-
-#choiceFeatureOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.choice-option {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px 10px;
-  background: #f9f9f9;
-}
-
-.choice-label {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.choice-label input[type="radio"] {
-  margin-top: 4px;
-}
-
-.choice-text {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.choice-name {
-  font-weight: bold;
-}
-
-.choice-description {
-  font-size: 0.9em;
-  color: #444;
-  line-height: 1.3;
-}
-.spell-row {
-  cursor: pointer;
-  padding: 2px 4px;
-}
-.spell-row.prepared {
-  font-weight: bold;
-  color: #4a6898;
-}
-.spell-slot-row button {
-  width: 28px;
-  height: 28px;
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
-.spell-slot-row button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
 /* =========================
    SKILLS
 ========================= */
 .skills {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.25rem 1rem;
+  gap: 0.35rem 1rem;
   margin-bottom: 1rem;
 }
 
 .skills label {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   white-space: nowrap;
   font-size: 0.9rem;
+  padding: 2px 4px;
+  border-radius: 4px;
 }
 
 .skills input[type="checkbox"] {
   margin: 0;
 }
 
-/* Optional hover clarity */
 .skills label:hover {
   background: rgba(0, 0, 0, 0.04);
-  border-radius: 4px;
 }
 
 /* =========================
@@ -288,16 +228,17 @@ details ul {
 ========================= */
 .saves {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.5rem 1rem;
-  margin-top: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.4rem 1rem;
 }
 
 .saves label {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   font-size: 0.9rem;
+  padding: 2px 4px;
+  border-radius: 4px;
 }
 
 .saves input[type="checkbox"] {
@@ -305,9 +246,95 @@ details ul {
 }
 
 /* =========================
-   SECTION HEADERS (optional)
+   MISC
 ========================= */
-.section-title {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+.detail-btn {
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+#detailView {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+/* =========================
+   CHOICE FEATURE MODAL
+========================= */
+#choiceFeatureModal {
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 1.25rem;
+}
+
+#choiceFeatureTitle {
+  margin-bottom: 0.25rem;
+}
+
+#choiceFeatureHint {
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   OPTION LIST
+========================= */
+#choiceFeatureOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* =========================
+   OPTION CARD
+========================= */
+.choice-option {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+/* Hover */
+.choice-option:hover {
+  background: #f5f7fa;
+  border-color: #999;
+}
+
+/* Selected */
+.choice-option.selected {
+  background: #eef3ff;
+  border-color: #4a6898;
+}
+
+/* Radio */
+.choice-option input[type="radio"] {
+  margin-top: 4px;
+  transform: scale(1.1);
+}
+
+/* =========================
+   OPTION TEXT
+========================= */
+.choice-option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.choice-option-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.choice-option-description {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.35;
 }

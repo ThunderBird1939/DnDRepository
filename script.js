@@ -66,13 +66,6 @@ function parseBackground(bg) {
         .map(s => s.trim().toLowerCase().replace(/\s+/g, ""));
     }
 
-    // Languages
-    if (line.includes("Languages:")) {
-      const txt = line.split(":")[1].toLowerCase();
-      if (txt.includes("two")) parsed.languages = { choose: 2 };
-      else if (txt.includes("one")) parsed.languages = { choose: 1 };
-    }
-
     // Equipment (display only)
     if (line.includes("Equipment:")) {
       parsed.equipment = line
@@ -94,22 +87,56 @@ function parseBackground(bg) {
 
   return parsed;
 }
+let languageChoices;
 
-function togglePreparedSpell(spellId, limit) {
-  const prepared = character.spellcasting.prepared;
+async function initLanguageSelect() {
+  const el = document.getElementById("languageSelect");
+  if (!el) return;
 
-  if (prepared.has(spellId)) {
-    prepared.delete(spellId);
-    return true;
+  el.innerHTML = "";
+
+  const res = await fetch("./data/languages.json");
+  if (!res.ok) {
+    console.error("Failed to load languages.json");
+    return;
   }
 
-  if (prepared.size >= limit) {
-    alert(`You can only prepare ${limit} spells.`);
-    return false;
-  }
+  const languages = await res.json();
 
-  prepared.add(spellId);
-  return true;
+  languages.forEach(lang => {
+    const opt = document.createElement("option");
+    opt.value = lang; // "common"
+    opt.textContent = lang
+      .split("-")
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" "); // "Deep Speech"
+
+    el.appendChild(opt);
+  });
+
+  languageChoices = new Choices(el, {
+    removeItemButton: true,
+    shouldSort: false,
+    placeholderValue: "Select languages"
+  });
+
+  el.addEventListener("change", () => {
+    character.proficiencies.languages = new Set(
+      [...el.selectedOptions].map(o => o.value)
+    );
+  });
+
+  syncLanguagesUI();
+}
+
+function initIndomitable() {
+  if (character.class?.id !== "fighter") return;
+  if (character.level < 9) return;
+
+  character.combat.indomitable ??= {
+    usesMax: character.level >= 13 ? 2 : 1,
+    usesUsed: 0
+  };
 }
 
 function applyBackground(bg) {
@@ -454,6 +481,10 @@ function applyShortRest() {
       character.combat.runes.uses = character.combat.runes.usesMax ?? 1;
       log.push("Runes refreshed");
     }
+    if (character.combat?.indomitable) {
+      character.combat.indomitable.usesUsed = 0;
+      log.push("Indomitable refreshed");
+    }
   }
 
   // =========================
@@ -629,6 +660,16 @@ function renderSpellSlots() {
   });
 }
 
+function syncLanguagesUI() {
+  if (!languageChoices) return;
+
+  languageChoices.removeActiveItems();
+
+  character.proficiencies.languages.forEach(langId => {
+    languageChoices.setChoiceByValue(langId);
+  });
+}
+
 function updateRestLog(entries, type) {
   const el = document.getElementById("restLog");
   if (!el) return;
@@ -692,30 +733,65 @@ function updateFighterUI() {
 }
 
 function updateFighterButtons() {
-  // 🛑 HARD CLASS GUARD
-  if (character.class?.id !== "fighter") return;
+  const isFighter = character.class?.id === "fighter";
 
-  // 🛑 HARD STATE GUARD
-  if (!character.combat?.secondWind || !character.combat?.actionSurge) return;
-
+  // =========================
+  // Second Wind (Lv 1)
+  // =========================
   const swBtn = document.getElementById("secondWindBtn");
   const swText = document.getElementById("secondWindStatus");
 
+  if (isFighter && character.combat?.secondWind && swBtn && swText) {
+    swBtn.hidden = false;
+    swBtn.disabled = character.combat.secondWind.used;
+    swText.textContent = character.combat.secondWind.used
+      ? "Used (short rest)"
+      : "Available";
+  } else if (swBtn && swText) {
+    swBtn.hidden = true;
+    swText.textContent = "";
+  }
+
+  // =========================
+  // Action Surge (Lv 2)
+  // =========================
   const asBtn = document.getElementById("actionSurgeBtn");
   const asText = document.getElementById("actionSurgeStatus");
 
-  if (!swBtn || !asBtn || !swText || !asText) return;
+  if (isFighter && character.combat?.actionSurge && asBtn && asText) {
+    asBtn.hidden = false;
+    asBtn.disabled =
+      character.combat.actionSurge.usesUsed >=
+      character.combat.actionSurge.usesMax;
 
-  const sw = character.combat.secondWind;
-  const as = character.combat.actionSurge;
+    asText.textContent =
+      `${character.combat.actionSurge.usesMax -
+        character.combat.actionSurge.usesUsed} remaining`;
+  } else if (asBtn && asText) {
+    asBtn.hidden = true;
+    asText.textContent = "";
+  }
 
-  swBtn.disabled = sw.used;
-  swText.textContent = sw.used ? "Used (short rest)" : "Available";
+  // =========================
+  // Indomitable (Lv 9)
+  // =========================
+  const indBtn = document.getElementById("indomitableBtn");
+  const indText = document.getElementById("indomitableStatus");
 
-  asBtn.disabled = as.usesUsed >= as.usesMax;
-  asText.textContent = `${as.usesMax - as.usesUsed} remaining`;
+  if (isFighter && character.combat?.indomitable && indBtn && indText) {
+    indBtn.hidden = false;
+    indBtn.disabled =
+      character.combat.indomitable.usesUsed >=
+      character.combat.indomitable.usesMax;
+
+    indText.textContent =
+      `${character.combat.indomitable.usesMax -
+        character.combat.indomitable.usesUsed} remaining`;
+  } else if (indBtn && indText) {
+    indBtn.hidden = true;
+    indText.textContent = "";
+  }
 }
-
 
 function updateSteelDefenderUI() {
   const block = document.getElementById("steelDefenderBlock");
@@ -858,25 +934,47 @@ async function loadAllTools() {
 }
 
 function initFighterResources() {
-  if (character.class?.id !== "fighter") return;
+  if (character.class?.id !== "fighter") {
+    delete character.combat?.secondWind;
+    delete character.combat?.actionSurge;
+    delete character.combat?.indomitable;
+    return;
+  }
 
   character.combat ??= {};
 
-  // Second Wind
-  character.combat.secondWind ??= {
-    used: false
-  };
+  // =========================
+  // Second Wind (Lv 1)
+  // =========================
+  character.combat.secondWind ??= { used: false };
 
-  // Action Surge
-  const maxUses = character.level >= 17 ? 2 : 1;
+  // =========================
+  // Action Surge (Lv 2)
+  // =========================
+  if (character.level >= 2) {
+    const maxUses = character.level >= 17 ? 2 : 1;
+    character.combat.actionSurge ??= {
+      usesMax: maxUses,
+      usesUsed: 0
+    };
+    character.combat.actionSurge.usesMax = maxUses;
+  } else {
+    delete character.combat.actionSurge;
+  }
 
-  character.combat.actionSurge ??= {
-    usesMax: maxUses,
-    usesUsed: 0
-  };
-
-  // Keep Action Surge scaling correct on level change
-  character.combat.actionSurge.usesMax = maxUses;
+  // =========================
+  // Indomitable (Lv 9)
+  // =========================
+  if (character.level >= 9) {
+    character.combat.indomitable ??= {
+      usesMax: character.level >= 13 ? 2 : 1,
+      usesUsed: 0
+    };
+    character.combat.indomitable.usesMax =
+      character.level >= 13 ? 2 : 1;
+  } else {
+    delete character.combat.indomitable;
+  }
 }
 
 function renderToolDropdown() {
@@ -1858,6 +1956,18 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
   // update single source of truth
   character.level = lvl;
+  const indomitableBtn = document.getElementById("indomitableBtn");
+  const indomitableStatus = document.getElementById("indomitableStatus");
+
+  if (indomitableBtn) {
+    indomitableBtn.onclick = () => {
+      const i = character.combat.indomitable;
+      if (!i || i.usesUsed >= i.usesMax) return;
+
+      i.usesUsed++;
+      updateFighterButtons();
+    };
+  }
 
   // snapshot infusion state (because applyClass may touch pendingChoices)
   const prevInfusions = {
@@ -2057,6 +2167,8 @@ await updateCombat();
 applyInfusionEffects(); 
 renderAttacks();        
 updateFighterUI();
+initLanguageSelect();
+syncLanguagesUI();
 updateArmorLockUI();
 initFighterResources();
 await loadAllTools();

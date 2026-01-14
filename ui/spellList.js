@@ -3,16 +3,15 @@ import {
   maxArtificerSpellLevel,
   spellLevelFromTags,
   isCantripFromTags,
-  spellIdFromTitle,
-  artificerPrepLimit
+  spellIdFromTitle
 } from "../engine/rules/spellPrepRules.js";
 import { openSpellDetail } from "./spellDetailModal.js";
 
 /**
- * Render Available Spells
- * - Click: prepare / unprepare
- * - Right-click: open spell detail
- * - Enforces prep limits
+ * Render Available Spells (READ-ONLY)
+ * - Click: open spell detail modal
+ * - Visually marks prepared & always-prepared spells
+ * - Does NOT modify prepared spell state
  */
 export async function renderSpellList() {
   const container = document.getElementById("spellList");
@@ -25,14 +24,13 @@ export async function renderSpellList() {
     return;
   }
 
-  // ✅ Ensure state
+  // Ensure state exists (read-only use)
   character.spellcasting.prepared ??= new Set();
   character.spellcasting.alwaysPrepared ??= new Set();
 
   const prepared = character.spellcasting.prepared;
   const alwaysPrepared = character.spellcasting.alwaysPrepared;
 
-  const prepLimit = artificerPrepLimit(character);
   const maxSpellLevel = maxArtificerSpellLevel(character.level);
 
   // 🔑 Load class spell list
@@ -99,6 +97,7 @@ export async function renderSpellList() {
         li.textContent = spell.title;
         li.style.cursor = "pointer";
 
+        // Visual state only
         if (alwaysPrepared.has(id)) {
           li.textContent += " (always prepared)";
           li.classList.add("prepared");
@@ -106,29 +105,10 @@ export async function renderSpellList() {
           li.classList.add("prepared");
         }
 
-        // ✅ Left-click: prepare / unprepare
+        // 📖 Click = view spell details only
         li.onclick = e => {
           e.preventDefault();
           e.stopPropagation();
-
-          if (alwaysPrepared.has(id)) return;
-
-          if (prepared.has(id)) {
-            prepared.delete(id);
-          } else {
-            if (prepared.size >= prepLimit) {
-              alert(`You can only prepare ${prepLimit} spells.`);
-              return;
-            }
-            prepared.add(id);
-          }
-
-          window.dispatchEvent(new Event("spells-updated"));
-        };
-
-        // 🔍 Right-click: spell detail
-        li.oncontextmenu = e => {
-          e.preventDefault();
           openSpellDetail(spell);
         };
 
