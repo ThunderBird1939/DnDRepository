@@ -86,6 +86,7 @@
           <option value="">— Select Class —</option>
           <option value="artificer">Artificer</option>
           <option value="fighter">Fighter</option>
+          <option value="rogue">Rogue</option>
         </select>
 
         <!-- ➕ Class Detail -->
@@ -107,6 +108,12 @@
           title="View Subclass Details"
         >+</button>
       </p>
+      <div id="soulTrinketPanel" class="panel" hidden>
+        <strong>Soul Trinkets:</strong>
+        <button id="soulMinus">−</button>
+        <span id="soulTrinketCount">0 / 0</span>
+        <button id="soulPlus">+</button>
+      </div>
 
       <p>Proficiency Bonus: <strong id="profBonus">+2</strong></p>
     </section>
@@ -118,6 +125,7 @@
 
   <div id="restLog" class="muted"></div>
 </section>
+
 
     <!-- ================= Skills ================= -->
     <section class="panel">

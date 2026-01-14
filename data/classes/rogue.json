@@ -42,7 +42,7 @@
         {
           "id": "expertise",
           "name": "Expertise",
-          "type": "choice",
+          "type": "passive",
           "description": "Choose two of your skill proficiencies, or one skill proficiency and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies."
         },
         {
@@ -114,7 +114,7 @@
         {
           "id": "expertise-6",
           "name": "Expertise",
-          "type": "choice",
+          "type": "passive",
           "description": "Choose two more of your skill proficiencies or thieves’ tools to gain Expertise."
         }
       ]

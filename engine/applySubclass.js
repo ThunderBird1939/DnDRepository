@@ -133,6 +133,30 @@ if (
     character.pendingChoices.arcaneShots = { choose: 2 };
   }
 }
+/* =========================
+   PHANTOM – SOUL TRINKETS
+========================= */
+if (
+  subclassData.id === "phantom" &&
+  character.class.id === "rogue" &&
+  character.class.level >= 9
+) {
+  character.combat ??= {};
+
+  character.combat.soulTrinkets ??= {
+    current: 0,
+    max: character.proficiencyBonus
+  };
+
+  // Always sync max to proficiency bonus
+  character.combat.soulTrinkets.max = character.proficiencyBonus;
+
+  // Clamp current
+  if (character.combat.soulTrinkets.current > character.combat.soulTrinkets.max) {
+    character.combat.soulTrinkets.current = character.combat.soulTrinkets.max;
+  }
+}
+
 
 
   /* =========================

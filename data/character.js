@@ -83,7 +83,9 @@ export const character = {
    tools: new Set(),
    skills: new Set(),
    languages: new Set(),    
-   vehicles: new Set()      
+   vehicles: new Set(),
+   expertise: new Set()
+
    },
 
 

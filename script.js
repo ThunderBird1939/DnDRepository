@@ -961,6 +961,80 @@ function updateArcaneArcherVisibility() {
 
   block.hidden = !isArcaneArcher;
 }
+function renderExpertiseToggles() {
+  const expertise = character.proficiencies.expertise;
+
+  document.querySelectorAll(".skills label").forEach(label => {
+    const checkbox = label.querySelector("input[type='checkbox']");
+    if (!checkbox) return;
+
+    const skillId = checkbox.id.replace("skill-", "");
+    if (!character.proficiencies.skills.has(skillId)) return;
+
+    let star = label.querySelector(".expertise-toggle");
+    if (!star) {
+      star = document.createElement("button");
+      star.type = "button";
+      star.className = "expertise-toggle";
+      star.textContent = "⭐";
+      star.title = "Toggle Expertise";
+      star.style.marginLeft = "6px";
+      label.appendChild(star);
+    }
+
+    star.classList.toggle("active", expertise.has(skillId));
+
+    star.onclick = () => {
+      if (expertise.has(skillId)) {
+        expertise.delete(skillId);
+      } else {
+        expertise.add(skillId);
+      }
+      renderExpertiseToggles();
+    };
+  });
+}
+
+function renderSoulTrinkets() {
+  const panel = document.getElementById("soulTrinketPanel");
+  const countEl = document.getElementById("soulTrinketCount");
+  const plusBtn = document.getElementById("soulPlus");
+  const minusBtn = document.getElementById("soulMinus");
+
+  const trinkets = character.combat?.soulTrinkets;
+  if (!panel || !countEl || !trinkets) {
+    if (panel) panel.hidden = true;
+    return;
+  }
+
+  // ✅ Use existing proficiency bonus function
+  trinkets.max = proficiencyBonus(character.class.level);
+
+  // Clamp
+  if (trinkets.current > trinkets.max) {
+    trinkets.current = trinkets.max;
+  }
+
+  panel.hidden = false;
+  countEl.textContent = `${trinkets.current} / ${trinkets.max}`;
+
+  plusBtn.disabled = trinkets.current >= trinkets.max;
+  minusBtn.disabled = trinkets.current <= 0;
+
+  plusBtn.onclick = () => {
+    if (trinkets.current < trinkets.max) {
+      trinkets.current++;
+      renderSoulTrinkets();
+    }
+  };
+
+  minusBtn.onclick = () => {
+    if (trinkets.current > 0) {
+      trinkets.current--;
+      renderSoulTrinkets();
+    }
+  };
+}
 
 function renderArcaneShotUseDropdown() {
   ensureArcaneShotState(); 
@@ -2165,6 +2239,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     await initSpellSlots();
     updateInfusionsVisibility(classData);
     renderSkills();
+    renderExpertiseToggles();
     initFighterResources();
     renderInfusions();
     renderAllSpellUI();   // spellcasting + lists
@@ -2181,6 +2256,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     updateWeaponLockUI();
     runPendingChoiceFlow();
     updateArcaneArcherVisibility();
+    renderSoulTrinkets();
+
   });
 
 
@@ -2237,6 +2314,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderSavingThrows();
   renderFeatures();
   renderSkills();
+  renderExpertiseToggles();
   renderAllSpellUI();
   await initSpellSlots();
   renderSpellSlots();
@@ -2255,6 +2333,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   updateArmorLockText();
   updateArmorerModeUI();
   updateWeaponLockUI();
+  renderSoulTrinkets();
+
 
   // This is what opens subclass/tool/skill/infusion modals
   runPendingChoiceFlow();
@@ -2267,7 +2347,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   /* ===== Event wiring ===== */
   window.addEventListener("weapons-changed", renderAttacks)
   window.addEventListener("skills-updated", () => {
-    renderSkills();        
+    renderSkills();       
+    renderExpertiseToggles();
     renderFeatures();     
     runPendingChoiceFlow(); 
   });
@@ -2286,6 +2367,7 @@ window.addEventListener("combat-updated", async () => {
   applyInfusionEffects();
   renderAttacks(); // 🔑 REQUIRED
   updateEldritchCannonUI();
+  renderSoulTrinkets();
 });
 window.addEventListener("combat-updated", () => {
   if (character.class?.id === "fighter") {
@@ -2314,7 +2396,7 @@ window.addEventListener("subclass-updated", async () => {
   renderArcaneShotUseDropdown();
   renderArcaneShotDetails();
   updateArcaneShotActiveUI();
-
+  renderSoulTrinkets();
 });
 
 document
@@ -2360,6 +2442,7 @@ document
     applyBackground(bg);
     renderBackgroundDetails(bg);
     renderSkills();
+    renderExpertiseToggles();
     renderFeatures();
     runPendingChoiceFlow(); // opens language modal
     syncDetailButtons();
@@ -2422,6 +2505,7 @@ initFighterResources();
 await loadAllTools();
 renderToolDropdown();
 renderSkills();
+renderExpertiseToggles();
 runPendingChoiceFlow();
 updateHitPoints();
 updateProfBonusUI();
@@ -2434,6 +2518,8 @@ initArcaneShotKnownUI();
 renderArcaneShotDetails();
 renderArcaneShotUseDropdown();
 updateArcaneArcherVisibility();
+renderSoulTrinkets();
+
 
 // HARD RESET ALL BACKDROPS — prevents invisible click shields
 [
