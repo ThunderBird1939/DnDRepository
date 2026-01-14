@@ -1,0 +1,47 @@
+{
+  "id": "shepherd",
+  "name": "Circle of the Shepherd",
+  "classId": "druid",
+  "source": "XGE",
+  "description": "Druids of the Circle of the Shepherd protect nature’s creatures, summoning powerful spirits and strengthening allied beasts.",
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "speech-of-the-woods",
+        "name": "Speech of the Woods",
+        "type": "passive",
+        "description": "You can communicate with beasts and many fey."
+      },
+      {
+        "id": "spirit-totem",
+        "name": "Spirit Totem",
+        "type": "activation",
+        "description": "You summon a nature spirit that grants powerful benefits to allies in an area."
+      }
+    ],
+    "6": [
+      {
+        "id": "mighty-summoner",
+        "name": "Mighty Summoner",
+        "type": "passive",
+        "description": "Your summoned creatures gain extra hit points and their attacks count as magical."
+      }
+    ],
+    "10": [
+      {
+        "id": "guardian-spirit",
+        "name": "Guardian Spirit",
+        "type": "passive",
+        "description": "Your summoned creatures regain hit points at the end of their turns."
+      }
+    ],
+    "14": [
+      {
+        "id": "faithful-summons",
+        "name": "Faithful Summons",
+        "type": "passive",
+        "description": "When reduced to 0 hit points, you automatically summon protective creatures."
+      }
+    ]
+  }
+}

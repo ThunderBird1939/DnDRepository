@@ -1,0 +1,57 @@
+{
+  "id": "engaged-companion",
+  "name": "Engaged Companion",
+  "classId": "bound-vanguard",
+  "source": "homebrew",
+  "description": "Engaged Companions move in lockstep with their bound entity, turning motion into offense and chaining attacks through relentless momentum.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "talon-dash",
+        "name": "Talon Dash",
+        "type": "activation",
+        "description": "As a bonus action, you may spend 1 Manifest Energy to move up to 20 feet in a straight line without provoking opportunity attacks. The first creature you hit with a melee attack before the end of your turn takes bonus force damage."
+      },
+      {
+        "id": "predators-leap",
+        "name": "Predator’s Leap",
+        "type": "trigger",
+        "description": "When you hit a creature with a melee weapon attack, you may spend 1 Manifest Energy to move up to 10 feet toward another hostile creature you can see. If you end this movement adjacent to a hostile creature, you gain advantage on your next attack against it before the end of the turn."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "momentum-surge",
+        "name": "Momentum Surge",
+        "type": "activation",
+        "description": "As a bonus action, you may spend 2 Manifest Energy to enter a surge until the end of your turn. When you reduce a creature to 0 hit points or score a critical hit, you can make one additional weapon attack. This additional attack cannot trigger Momentum Surge again."
+      },
+      {
+        "id": "raptors-focus",
+        "name": "Raptor’s Focus",
+        "type": "activation",
+        "description": "As a bonus action, you may spend 1 Manifest Energy to mark a creature you can see within 30 feet until the start of your next turn. You have advantage on opportunity attacks against the marked creature, and it has disadvantage on attacks against targets other than you while within your reach."
+      }
+    ],
+
+    "11": [
+      {
+        "id": "wind-carried-strike",
+        "name": "Wind-Carried Strike",
+        "type": "trigger",
+        "description": "When you miss with a melee weapon attack, you may spend 1 Manifest Energy to move 5 feet and reroll the attack against the same target. You must use the new roll."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "skyfall-descent",
+        "name": "Skyfall Descent",
+        "type": "activation",
+        "description": "As an action, you may spend 2 Manifest Energy to leap up to 20 feet and crash down. Creatures within 5 feet of your landing point must make a Dexterity saving throw or take force damage and be knocked prone; on a success, they take half damage and are not knocked prone."
+      }
+    ]
+  }
+}

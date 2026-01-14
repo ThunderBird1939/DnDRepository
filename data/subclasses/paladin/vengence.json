@@ -1,0 +1,60 @@
+{
+  "id": "vengeance",
+  "name": "Oath of Vengeance",
+  "classId": "paladin",
+  "source": "PHB",
+  "description": "Paladins of Vengeance pursue justice through relentless punishment of their foes.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "vengeance-spells",
+        "name": "Oath Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific paladin levels.",
+        "spells": {
+          "3": ["bane", "hunter's-mark"],
+          "5": ["hold-person", "misty-step"],
+          "9": ["haste", "protection-from-energy"],
+          "13": ["banishment", "dimension-door"],
+          "17": ["hold-monster", "scrying"]
+        }
+      },
+      {
+        "id": "abjure-enemy",
+        "name": "Abjure Enemy",
+        "type": "channelDivinity",
+        "description": "You frighten or restrain a sworn foe."
+      },
+      {
+        "id": "vow-of-enmity",
+        "name": "Vow of Enmity",
+        "type": "activation",
+        "description": "You gain advantage on attacks against a chosen enemy."
+      }
+    ],
+    "7": [
+      {
+        "id": "relentless-avenger",
+        "name": "Relentless Avenger",
+        "type": "passive",
+        "description": "You can move after opportunity attacks without provoking."
+      }
+    ],
+    "15": [
+      {
+        "id": "soul-of-vengeance",
+        "name": "Soul of Vengeance",
+        "type": "reaction",
+        "description": "You can make reaction attacks against your sworn enemy."
+      }
+    ],
+    "20": [
+      {
+        "id": "avenging-angel",
+        "name": "Avenging Angel",
+        "type": "activation",
+        "description": "You gain flight and frighten enemies with your presence."
+      }
+    ]
+  }
+}

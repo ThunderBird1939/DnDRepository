@@ -1,0 +1,57 @@
+{
+  "id": "giant",
+  "name": "Path of the Giant",
+  "classId": "barbarian",
+  "source": "Bigby Presents: Glory of the Giants",
+  "description": "Barbarians who walk the Path of the Giant draw on the might of ancient giants, growing in stature and hurling massive weapons with devastating force.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "giants-power",
+        "name": "Giant’s Power",
+        "type": "system",
+        "description": "When you rage, you grow in size, gaining increased reach and the ability to hurl weapons with supernatural strength."
+      },
+      {
+        "id": "giant-throw",
+        "name": "Giant Throw",
+        "type": "passive",
+        "description": "You can throw melee weapons using Strength, treating them as having the thrown property with extended range while raging."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "elemental-cleaver",
+        "name": "Elemental Cleaver",
+        "type": "choice",
+        "description": "When you rage, you can imbue your weapon with elemental power, causing it to deal additional elemental damage.",
+        "options": [
+          { "id": "acid", "name": "Acid" },
+          { "id": "cold", "name": "Cold" },
+          { "id": "fire", "name": "Fire" },
+          { "id": "thunder", "name": "Thunder" }
+        ]
+      }
+    ],
+
+    "10": [
+      {
+        "id": "mighty-impel",
+        "name": "Mighty Impel",
+        "type": "action",
+        "description": "You can hurl creatures or objects with incredible force, repositioning allies or enemies on the battlefield."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "demiurgic-colossus",
+        "name": "Demiurgic Colossus",
+        "type": "system",
+        "description": "While raging, your size and reach increase further, and your thrown attacks gain additional power."
+      }
+    ]
+  }
+}

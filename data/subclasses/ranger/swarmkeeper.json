@@ -1,0 +1,54 @@
+{
+  "id": "swarmkeeper",
+  "name": "Swarmkeeper",
+  "classId": "ranger",
+  "source": "TCE",
+  "description": "Swarmkeepers command a magical swarm that aids them in combat and movement.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "swarmkeeper-spells",
+        "name": "Swarmkeeper Magic",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared.",
+        "spells": {
+          "3": ["faerie-fire"],
+          "5": ["web"],
+          "9": ["gaseous-form"],
+          "13": ["arcane-eye"],
+          "17": ["insect-plague"]
+        }
+      },
+      {
+        "id": "gathered-swarm",
+        "name": "Gathered Swarm",
+        "type": "passive",
+        "description": "Your swarm assists attacks, movement, or control."
+      }
+    ],
+    "7": [
+      {
+        "id": "writhing-tide",
+        "name": "Writhing Tide",
+        "type": "activation",
+        "description": "You gain a flying speed using your swarm."
+      }
+    ],
+    "11": [
+      {
+        "id": "mighty-swarm",
+        "name": "Mighty Swarm",
+        "type": "passive",
+        "description": "Your swarm effects improve."
+      }
+    ],
+    "15": [
+      {
+        "id": "swarming-dispersal",
+        "name": "Swarming Dispersal",
+        "type": "reaction",
+        "description": "You teleport when damaged."
+      }
+    ]
+  }
+}

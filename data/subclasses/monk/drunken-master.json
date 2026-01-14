@@ -1,0 +1,41 @@
+{
+  "id": "drunken-master",
+  "name": "Way of the Drunken Master",
+  "classId": "monk",
+  "source": "XGE",
+  "description": "Drunken Masters use erratic movements and deceptive techniques to confuse enemies and avoid retaliation.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "drunken-technique",
+        "name": "Drunken Technique",
+        "type": "passive",
+        "description": "Flurry of Blows grants free Disengage and increased movement."
+      }
+    ],
+    "6": [
+      {
+        "id": "tipsy-sway",
+        "name": "Tipsy Sway",
+        "type": "reaction",
+        "description": "You can redirect missed attacks or stand up cheaply."
+      }
+    ],
+    "11": [
+      {
+        "id": "drunkards-luck",
+        "name": "Drunkard’s Luck",
+        "type": "reaction",
+        "description": "You can spend ki to cancel disadvantage."
+      }
+    ],
+    "17": [
+      {
+        "id": "intoxicated-frenzy",
+        "name": "Intoxicated Frenzy",
+        "type": "passive",
+        "description": "Flurry of Blows can target additional creatures."
+      }
+    ]
+  }
+}

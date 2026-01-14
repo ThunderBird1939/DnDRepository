@@ -1,0 +1,41 @@
+{
+  "id": "mercy",
+  "name": "Way of Mercy",
+  "classId": "monk",
+  "source": "TCE",
+  "description": "Monks of Mercy use ki to heal allies or inflict necrotic harm with precise strikes.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "hands-of-healing-harm",
+        "name": "Hands of Healing and Harm",
+        "type": "passive",
+        "description": "You can heal allies or harm enemies using ki."
+      }
+    ],
+    "6": [
+      {
+        "id": "physicians-touch",
+        "name": "Physician’s Touch",
+        "type": "passive",
+        "description": "Your healing and harm impose additional effects."
+      }
+    ],
+    "11": [
+      {
+        "id": "flurry-of-healing-harm",
+        "name": "Flurry of Healing and Harm",
+        "type": "passive",
+        "description": "Flurry of Blows can heal or harm."
+      }
+    ],
+    "17": [
+      {
+        "id": "hand-of-ultimate-mercy",
+        "name": "Hand of Ultimate Mercy",
+        "type": "activation",
+        "description": "You can resurrect a creature without material components."
+      }
+    ]
+  }
+}

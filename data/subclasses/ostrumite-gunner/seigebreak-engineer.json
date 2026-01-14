@@ -1,0 +1,55 @@
+{
+  "id": "siegebreak-engineer",
+  "name": "Siegebreak Engineer",
+  "classId": "ostrumite-gunner",
+  "source": "homebrew",
+  "description": "Siegebreak Engineers treat combat as a structural problem, demolishing cover, shattering formations, and breaking enemies through controlled destruction.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "field-modularity",
+        "name": "Field Modularity",
+        "type": "passive",
+        "description": "You adopt two Engineering Modes that modify your firearm and defenses. You may change one mode during a short rest."
+      },
+      {
+        "id": "controlled-detonation",
+        "name": "Controlled Detonation",
+        "type": "passive",
+        "description": "When you hit with a firearm attack, you may spend charges to create a localized blast."
+      }
+    ],
+    "7": [
+      {
+        "id": "battlefield-architect",
+        "name": "Battlefield Architect",
+        "type": "passive",
+        "description": "You ignore most cover, move freely through difficult terrain, and punish creatures when you destroy objects or cover."
+      }
+    ],
+    "11": [
+      {
+        "id": "structural-analysis",
+        "name": "Structural Analysis",
+        "type": "activation",
+        "description": "At the start of combat, designate a target to suffer bonus damage and resistance bypass for one minute."
+      }
+    ],
+    "15": [
+      {
+        "id": "siege-override",
+        "name": "Siege Override",
+        "type": "activation",
+        "description": "Once per short rest, you replace an attack with a devastating cone blast that devastates structures."
+      }
+    ],
+    "18": [
+      {
+        "id": "master-engine",
+        "name": "Master Engine",
+        "type": "passive",
+        "description": "Your detonations improve, cost fewer charges, and cause destroyed objects to explode outward."
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "moon",
+  "name": "Circle of the Moon",
+  "classId": "druid",
+  "source": "PHB",
+  "description": "Druids of the Circle of the Moon are fierce guardians who transform into powerful beasts, excelling at combat wild shape.",
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "combat-wild-shape",
+        "name": "Combat Wild Shape",
+        "type": "passive",
+        "description": "You can use Wild Shape as a bonus action and expend spell slots to heal while transformed."
+      },
+      {
+        "id": "circle-forms",
+        "name": "Circle Forms",
+        "type": "passive",
+        "description": "You can transform into more dangerous beasts than normal druids."
+      }
+    ],
+    "6": [
+      {
+        "id": "primal-strike",
+        "name": "Primal Strike",
+        "type": "passive",
+        "description": "Your beast attacks count as magical for overcoming resistance and immunity."
+      }
+    ],
+    "10": [
+      {
+        "id": "elemental-wild-shape",
+        "name": "Elemental Wild Shape",
+        "type": "activation",
+        "description": "You can expend uses of Wild Shape to transform into an elemental."
+      }
+    ],
+    "14": [
+      {
+        "id": "thousand-forms",
+        "name": "Thousand Forms",
+        "type": "activation",
+        "description": "You can cast alter self at will."
+      }
+    ]
+  }
+}

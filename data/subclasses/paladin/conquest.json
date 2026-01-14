@@ -1,0 +1,60 @@
+{
+  "id": "conquest",
+  "name": "Oath of Conquest",
+  "classId": "paladin",
+  "source": "XGE",
+  "description": "Paladins of Conquest rule through fear, domination, and unyielding authority.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "conquest-spells",
+        "name": "Oath Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific paladin levels.",
+        "spells": {
+          "3": ["armor-of-agathys", "command"],
+          "5": ["hold-person", "spiritual-weapon"],
+          "9": ["bestow-curse", "fear"],
+          "13": ["blight", "dominate-beast"],
+          "17": ["cloudkill", "dominate-person"]
+        }
+      },
+      {
+        "id": "conquering-presence",
+        "name": "Conquering Presence",
+        "type": "channelDivinity",
+        "description": "You frighten nearby enemies."
+      },
+      {
+        "id": "guided-strike",
+        "name": "Guided Strike",
+        "type": "channelDivinity",
+        "description": "You gain a bonus to an attack roll."
+      }
+    ],
+    "7": [
+      {
+        "id": "aura-of-conquest",
+        "name": "Aura of Conquest",
+        "type": "passive",
+        "description": "Frightened enemies near you have their speed reduced and take psychic damage."
+      }
+    ],
+    "15": [
+      {
+        "id": "scornful-rebuke",
+        "name": "Scornful Rebuke",
+        "type": "reaction",
+        "description": "Creatures that damage you take psychic damage."
+      }
+    ],
+    "20": [
+      {
+        "id": "invincible-conqueror",
+        "name": "Invincible Conqueror",
+        "type": "activation",
+        "description": "You gain resistance to damage and improved attacks."
+      }
+    ]
+  }
+}

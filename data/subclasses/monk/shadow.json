@@ -1,0 +1,41 @@
+{
+  "id": "shadow",
+  "name": "Way of Shadow",
+  "classId": "monk",
+  "source": "PHB",
+  "description": "Monks of the Way of Shadow use stealth, darkness, and silence to strike unseen and vanish without a trace.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "shadow-arts",
+        "name": "Shadow Arts",
+        "type": "spellcasting",
+        "description": "You can spend ki to cast illusion and darkness-themed spells."
+      }
+    ],
+    "6": [
+      {
+        "id": "shadow-step",
+        "name": "Shadow Step",
+        "type": "activation",
+        "description": "You teleport between shadows and gain advantage on your next attack."
+      }
+    ],
+    "11": [
+      {
+        "id": "cloak-of-shadows",
+        "name": "Cloak of Shadows",
+        "type": "activation",
+        "description": "You can become invisible while in dim light or darkness."
+      }
+    ],
+    "17": [
+      {
+        "id": "opportunist",
+        "name": "Opportunist",
+        "type": "reaction",
+        "description": "You can make a reaction attack when a nearby creature is hit."
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "eloquence",
+  "name": "College of Eloquence",
+  "classId": "bard",
+  "source": "Mythic Odysseys of Theros / Tasha's Cauldron of Everything",
+  "description": "Bards of the College of Eloquence master the art of rhetoric, weaving words so powerful that their magic rarely fails and their inspiration never goes to waste.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "silver-tongue",
+        "name": "Silver Tongue",
+        "type": "passive",
+        "description": "When you make a Charisma (Persuasion or Deception) check, you can treat a d20 roll of 9 or lower as a 10."
+      },
+      {
+        "id": "unsettling-words",
+        "name": "Unsettling Words",
+        "type": "bonus",
+        "description": "As a bonus action, you can expend one use of Bardic Inspiration to subtract the inspiration die from a creature’s next saving throw before the start of your next turn."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "unfailing-inspiration",
+        "name": "Unfailing Inspiration",
+        "type": "system",
+        "description": "When a creature adds one of your Bardic Inspiration dice to its roll and the roll still fails, the Bardic Inspiration die is not expended."
+      },
+      {
+        "id": "universal-speech",
+        "name": "Universal Speech",
+        "type": "activation",
+        "description": "As a bonus action, you grant creatures the ability to understand you regardless of language for 1 hour."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "infectious-inspiration",
+        "name": "Infectious Inspiration",
+        "type": "system",
+        "description": "When a creature succeeds using your Bardic Inspiration die, you can use your reaction to grant Bardic Inspiration to another creature without expending a use."
+      }
+    ]
+  }
+}

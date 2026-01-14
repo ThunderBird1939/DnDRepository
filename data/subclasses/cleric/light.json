@@ -1,0 +1,68 @@
+{
+  "id": "light",
+  "name": "Light Domain",
+  "classId": "cleric",
+  "source": "PHB",
+  "description": "Clerics of the Light Domain wield radiance to banish darkness, burn away evil, and protect allies with blinding holy power.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "light-spells",
+        "name": "Light Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["burning-hands", "faerie-fire"],
+          "3": ["flaming-sphere", "scorching-ray"],
+          "5": ["daylight", "fireball"],
+          "7": ["guardian-of-faith", "wall-of-fire"],
+          "9": ["flame-strike", "scrying"]
+        }
+      },
+      {
+        "id": "bonus-cantrip-light",
+        "name": "Bonus Cantrip",
+        "type": "passive",
+        "description": "You gain the light cantrip if you don’t already know it."
+      },
+      {
+        "id": "warding-flare",
+        "name": "Warding Flare",
+        "type": "reaction",
+        "description": "When a creature attacks you, you can impose disadvantage on the attack roll by interposing divine light."
+      }
+    ],
+    "2": [
+      {
+        "id": "radiance-of-the-dawn",
+        "name": "Channel Divinity: Radiance of the Dawn",
+        "type": "channelDivinity",
+        "description": "You release a burst of sunlight that damages hostile creatures and dispels magical darkness."
+      }
+    ],
+    "6": [
+      {
+        "id": "improved-flare",
+        "name": "Improved Flare",
+        "type": "passive",
+        "description": "You can use Warding Flare to protect nearby creatures, not just yourself."
+      }
+    ],
+    "8": [
+      {
+        "id": "potent-spellcasting",
+        "name": "Potent Spellcasting",
+        "type": "passive",
+        "description": "You add your Wisdom modifier to the damage you deal with any cleric cantrip."
+      }
+    ],
+    "17": [
+      {
+        "id": "corona-of-light",
+        "name": "Corona of Light",
+        "type": "activation",
+        "description": "You can radiate sunlight that weakens enemy invisibility and strengthens your radiant/fire spells against targets in the light."
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "soulknife",
+  "name": "Soulknife",
+  "classId": "rogue",
+  "source": "TCE",
+
+  "description": "Soulknives manifest psionic blades and harness psychic energy to enhance their agility and attacks.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "psychic-blades",
+        "name": "Psychic Blades",
+        "type": "system",
+        "description": "You manifest psychic blades that deal psychic damage and can be used for Sneak Attack."
+      },
+      {
+        "id": "psionic-power",
+        "name": "Psionic Power",
+        "type": "resource",
+        "description": "You gain Psionic Energy dice to fuel special abilities."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "soul-blades",
+        "name": "Soul Blades",
+        "type": "passive",
+        "description": "Your psychic blades gain additional properties, including teleportation and extended range."
+      }
+    ],
+
+    "13": [
+      {
+        "id": "psychic-veil",
+        "name": "Psychic Veil",
+        "type": "activation",
+        "description": "You can become invisible for a limited time using psionic energy."
+      }
+    ],
+
+    "17": [
+      {
+        "id": "rend-mind",
+        "name": "Rend Mind",
+        "type": "activation",
+        "description": "You unleash psionic force to stun a creature you damage."
+      }
+    ]
+  }
+}

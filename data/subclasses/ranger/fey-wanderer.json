@@ -1,0 +1,54 @@
+{
+  "id": "fey-wanderer",
+  "name": "Fey Wanderer",
+  "classId": "ranger",
+  "source": "TCE",
+  "description": "Fey Wanderers are touched by the Feywild, blending charm, fear, and supernatural grace.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "fey-wanderer-spells",
+        "name": "Fey Wanderer Magic",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared.",
+        "spells": {
+          "3": ["charm-person"],
+          "5": ["misty-step"],
+          "9": ["dispel-magic"],
+          "13": ["dimension-door"],
+          "17": ["mislead"]
+        }
+      },
+      {
+        "id": "dreadful-strikes",
+        "name": "Dreadful Strikes",
+        "type": "passive",
+        "description": "You deal extra psychic damage to creatures you hit."
+      }
+    ],
+    "7": [
+      {
+        "id": "beguiling-twist",
+        "name": "Beguiling Twist",
+        "type": "reaction",
+        "description": "You redirect charm or fear effects."
+      }
+    ],
+    "11": [
+      {
+        "id": "fey-reinforcements",
+        "name": "Fey Reinforcements",
+        "type": "passive",
+        "description": "Summoned fey creatures improve."
+      }
+    ],
+    "15": [
+      {
+        "id": "misty-wanderer",
+        "name": "Misty Wanderer",
+        "type": "activation",
+        "description": "You teleport yourself and allies."
+      }
+    ]
+  }
+}

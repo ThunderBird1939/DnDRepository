@@ -1,0 +1,62 @@
+{
+  "id": "peace",
+  "name": "Peace Domain",
+  "classId": "cleric",
+  "source": "TCE",
+  "description": "Clerics of the Peace Domain forge bonds that protect and empower allies, sharing burdens and turning unity into miraculous defense.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "peace-spells",
+        "name": "Peace Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["heroism", "sanctuary"],
+          "3": ["aid", "warding-bond"],
+          "5": ["beacon-of-hope", "sending"],
+          "7": ["aura-of-purity", "otilukes-resilient-sphere"],
+          "9": ["greater-restoration", "rarys-telepathic-bond"]
+        }
+      },
+      {
+        "id": "emboldening-bond",
+        "name": "Emboldening Bond",
+        "type": "activation",
+        "description": "You can form a magical bond among creatures, letting them add a bonus to certain rolls and supporting coordinated defense."
+      }
+    ],
+    "2": [
+      {
+        "id": "balm-of-peace",
+        "name": "Channel Divinity: Balm of Peace",
+        "type": "channelDivinity",
+        "description": "You move with divine grace, healing creatures you pass near during the movement."
+      }
+    ],
+    "6": [
+      {
+        "id": "protective-bond",
+        "name": "Protective Bond",
+        "type": "reaction",
+        "description": "Bonded allies can take damage for each other using a reaction, sharing harm to keep the group standing."
+      }
+    ],
+    "8": [
+      {
+        "id": "potent-spellcasting",
+        "name": "Potent Spellcasting",
+        "type": "passive",
+        "description": "You add your Wisdom modifier to the damage you deal with any cleric cantrip."
+      }
+    ],
+    "17": [
+      {
+        "id": "expansive-bond",
+        "name": "Expansive Bond",
+        "type": "passive",
+        "description": "Your bonds extend farther and protect more effectively."
+      }
+    ]
+  }
+}

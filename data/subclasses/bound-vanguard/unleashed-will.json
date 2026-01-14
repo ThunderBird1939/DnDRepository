@@ -1,0 +1,57 @@
+{
+  "id": "unleashed-will",
+  "name": "Unleashed Will",
+  "classId": "bound-vanguard",
+  "source": "homebrew",
+  "special": true,
+  "description": "Unleashed Will represents a temporary, catastrophic override of the bond between the Vanguard and Halphas. For a brief moment, restraint vanishes and pure manifestation floods the battlefield.",
+
+  "activation": {
+    "type": "bonusAction",
+    "uses": "longRest",
+    "duration": "1 minute"
+  },
+
+  "rules": {
+    "ignoreManifestStrain": true,
+    "ignoreManifestHesitation": true,
+    "endConditions": [
+      "durationEnds",
+      "finalIntercessionTriggered"
+    ]
+  },
+
+  "features": {
+    "sovereign-strike": {
+      "name": "Sovereign Strike",
+      "type": "trigger",
+      "description": "Once per turn, when you hit with a weapon attack, you may deal additional force damage and prevent the target from taking reactions until the start of its next turn.",
+      "cost": 0
+    },
+
+    "shattering-advance": {
+      "name": "Shattering Advance",
+      "type": "activation",
+      "description": "As a bonus action, you may spend 1 Manifest Energy to move up to 30 feet in a straight line, passing through hostile creatures. The first hostile creature you pass through takes force damage and must succeed on a Strength saving throw or be knocked prone."
+    },
+
+    "relentless-manifestation": {
+      "name": "Relentless Manifestation",
+      "type": "passive",
+      "description": "While Unleashed Will is active, the first Manifest Energy you spend each turn costs 0. You may apply Manifest Strike twice per turn. This does not stack with other cost-reduction effects."
+    },
+
+    "dominion-aura": {
+      "name": "Dominion Aura",
+      "type": "activation",
+      "description": "As a bonus action, you may spend 1 Manifest Energy to project a 10-foot aura for the duration of Unleashed Will. Hostile creatures in the area have disadvantage on attacks against creatures other than you and disadvantage on saving throws against your Manifest Techniques."
+    },
+
+    "final-intercession": {
+      "name": "Final Intercession",
+      "type": "reaction",
+      "description": "When you would be reduced to 0 hit points, you instead drop to 1 hit point and the triggering creature takes massive force damage. Unleashed Will immediately ends and you gain 1 level of exhaustion.",
+      "cost": 0
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "id": "profane-soul",
+  "name": "Order of the Profane Soul",
+  "classId": "blood-hunter",
+  "source": "Critical Role / Explorer's Guide to Wildemount",
+  "description": "Blood Hunters of the Order of the Profane Soul bind their hemocraft to an otherworldly patron, blending martial prowess with pact magic and eldritch invocations.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "otherworldly-patron",
+        "name": "Otherworldly Patron",
+        "type": "choice",
+        "description": "You form a pact with an otherworldly patron that grants you expanded spells and unique features.",
+        "optionsSource": "blood-hunter-profane-soul-patrons"
+      },
+      {
+        "id": "pact-magic",
+        "name": "Pact Magic",
+        "type": "system",
+        "description": "You gain limited pact spellcasting, using Wisdom as your spellcasting ability. Pact spell slots recharge on a short rest."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "eldritch-invocations",
+        "name": "Eldritch Invocations",
+        "type": "choice",
+        "description": "You learn eldritch invocations that enhance your pact magic.",
+        "optionsSource": "blood-hunter-eldritch-invocations"
+      }
+    ],
+
+    "11": [
+      {
+        "id": "mystic-frenzy",
+        "name": "Mystic Frenzy",
+        "type": "system",
+        "description": "When you take the Attack action, you can replace one of your attacks with the casting of a cantrip."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "brand-of-the-sapped",
+        "name": "Brand of the Sapped",
+        "type": "system",
+        "description": "Your Brand of Castigation weakens your branded foe, reducing the damage it deals to you."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "soul-siphon",
+        "name": "Soul Siphon",
+        "type": "system",
+        "description": "When you reduce a hostile creature to 0 hit points, you can regain a pact spell slot."
+      }
+    ]
+  }
+}

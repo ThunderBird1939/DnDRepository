@@ -1,0 +1,77 @@
+{
+  "id": "swords",
+  "name": "College of Swords",
+  "classId": "bard",
+  "source": "Xanathar's Guide to Everything",
+  "description": "Bards of the College of Swords weave weapon mastery and performance into a deadly art, dancing across the battlefield with dazzling flourishes.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "bonus-proficiencies",
+        "name": "Bonus Proficiencies",
+        "type": "system",
+        "description": "You gain proficiency with medium armor and the scimitar."
+      },
+      {
+        "id": "fighting-style",
+        "name": "Fighting Style",
+        "type": "choice",
+        "description": "You adopt a fighting style that suits your style of combat.",
+        "options": [
+          {
+            "id": "dueling",
+            "name": "Dueling",
+            "description": "When wielding a melee weapon in one hand and no other weapons, you gain a bonus to damage rolls."
+          },
+          {
+            "id": "two-weapon-fighting",
+            "name": "Two-Weapon Fighting",
+            "description": "You can add your ability modifier to the damage of the second attack when fighting with two weapons."
+          }
+        ]
+      },
+      {
+        "id": "blade-flourish",
+        "name": "Blade Flourish",
+        "type": "choice",
+        "description": "When you take the Attack action, you can expend one Bardic Inspiration to perform a flourish.",
+        "options": [
+          {
+            "id": "defensive-flourish",
+            "name": "Defensive Flourish",
+            "description": "Add the Bardic Inspiration die to the weapon’s damage roll and increase your AC until the start of your next turn."
+          },
+          {
+            "id": "slashing-flourish",
+            "name": "Slashing Flourish",
+            "description": "Add the Bardic Inspiration die to the damage of the attack and deal damage to another creature nearby."
+          },
+          {
+            "id": "mobile-flourish",
+            "name": "Mobile Flourish",
+            "description": "Add the Bardic Inspiration die to the damage roll and push the target, allowing you to move with it."
+          }
+        ]
+      }
+    ],
+
+    "6": [
+      {
+        "id": "extra-attack",
+        "name": "Extra Attack",
+        "type": "system",
+        "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "masters-flourish",
+        "name": "Master’s Flourish",
+        "type": "system",
+        "description": "When you use a Blade Flourish, you can roll a d6 instead of expending a Bardic Inspiration die."
+      }
+    ]
+  }
+}

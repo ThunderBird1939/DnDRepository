@@ -1,0 +1,74 @@
+{
+  "id": "twilight",
+  "name": "Twilight Domain",
+  "classId": "cleric",
+  "source": "TCE",
+  "description": "Clerics of the Twilight Domain guard the boundary between darkness and light, bringing comfort in the night and warding allies with protective twilight.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "twilight-spells",
+        "name": "Twilight Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["faerie-fire", "sleep"],
+          "3": ["moonbeam", "see-invisibility"],
+          "5": ["aura-of-vitality", "leomunds-tiny-hut"],
+          "7": ["aura-of-life", "greater-invisibility"],
+          "9": ["circle-of-power", "mislead"]
+        }
+      },
+      {
+        "id": "bonus-proficiencies-twilight",
+        "name": "Bonus Proficiencies",
+        "type": "passive",
+        "description": "You gain proficiency with martial weapons and heavy armor."
+      },
+      {
+        "id": "eyes-of-night",
+        "name": "Eyes of Night",
+        "type": "passive",
+        "description": "You gain enhanced darkvision, and you can share it with allies for a duration."
+      },
+      {
+        "id": "vigilant-blessing",
+        "name": "Vigilant Blessing",
+        "type": "activation",
+        "description": "You give one creature advantage on its next initiative roll."
+      }
+    ],
+    "2": [
+      {
+        "id": "twilight-sanctuary",
+        "name": "Channel Divinity: Twilight Sanctuary",
+        "type": "channelDivinity",
+        "description": "You create a soothing sphere of twilight that grants temporary hit points or ends fear/charm effects on allies within it."
+      }
+    ],
+    "6": [
+      {
+        "id": "steps-of-night",
+        "name": "Steps of Night",
+        "type": "activation",
+        "description": "While in dim light or darkness, you can grant yourself a flying speed for a short duration."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-twilight",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra radiant damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "twilight-shroud",
+        "name": "Twilight Shroud",
+        "type": "passive",
+        "description": "You can grant partial cover-like protection to allies within your Twilight Sanctuary."
+      }
+    ]
+  }
+}

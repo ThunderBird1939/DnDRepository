@@ -1,0 +1,54 @@
+{
+  "id": "horizon-walker",
+  "name": "Horizon Walker",
+  "classId": "ranger",
+  "source": "XGE",
+  "description": "Horizon Walkers patrol the borders between planes, hunting extraplanar threats.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "horizon-walker-spells",
+        "name": "Horizon Walker Magic",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared.",
+        "spells": {
+          "3": ["protection-from-evil-and-good"],
+          "5": ["misty-step"],
+          "9": ["haste"],
+          "13": ["banishment"],
+          "17": ["teleportation-circle"]
+        }
+      },
+      {
+        "id": "planar-warrior",
+        "name": "Planar Warrior",
+        "type": "activation",
+        "description": "You convert weapon damage into force and increase damage output."
+      }
+    ],
+    "7": [
+      {
+        "id": "ethereal-step",
+        "name": "Ethereal Step",
+        "type": "activation",
+        "description": "You briefly step into the Ethereal Plane."
+      }
+    ],
+    "11": [
+      {
+        "id": "distant-strike",
+        "name": "Distant Strike",
+        "type": "passive",
+        "description": "You can teleport between attacks."
+      }
+    ],
+    "15": [
+      {
+        "id": "spectral-defense",
+        "name": "Spectral Defense",
+        "type": "reaction",
+        "description": "You gain resistance to an attack’s damage."
+      }
+    ]
+  }
+}

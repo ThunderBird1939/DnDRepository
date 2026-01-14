@@ -1,0 +1,41 @@
+{
+  "id": "hunter",
+  "name": "Hunter",
+  "classId": "ranger",
+  "source": "PHB",
+  "description": "Hunters specialize in combating monsters using adaptable tactics chosen to counter specific threats.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "hunters-prey",
+        "name": "Hunter’s Prey",
+        "type": "choice",
+        "description": "You choose a combat tactic such as Colossus Slayer, Giant Killer, or Horde Breaker."
+      }
+    ],
+    "7": [
+      {
+        "id": "defensive-tactics",
+        "name": "Defensive Tactics",
+        "type": "choice",
+        "description": "You gain a defensive feature such as Escape the Horde or Multiattack Defense."
+      }
+    ],
+    "11": [
+      {
+        "id": "multiattack",
+        "name": "Multiattack",
+        "type": "choice",
+        "description": "You gain Volley or Whirlwind Attack."
+      }
+    ],
+    "15": [
+      {
+        "id": "superior-hunters-defense",
+        "name": "Superior Hunter’s Defense",
+        "type": "choice",
+        "description": "You gain a powerful defensive reaction or resistance."
+      }
+    ]
+  }
+}

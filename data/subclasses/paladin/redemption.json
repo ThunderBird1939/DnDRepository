@@ -1,0 +1,60 @@
+{
+  "id": "redemption",
+  "name": "Oath of Redemption",
+  "classId": "paladin",
+  "source": "XGE",
+  "description": "Paladins of Redemption seek peace and nonviolence, redirecting harm and redeeming enemies.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "redemption-spells",
+        "name": "Oath Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific paladin levels.",
+        "spells": {
+          "3": ["sanctuary", "sleep"],
+          "5": ["calm-emotions", "hold-person"],
+          "9": ["counterspell", "hypnotic-pattern"],
+          "13": ["stoneskin", "wall-of-fire"],
+          "17": ["hold-monster", "wall-of-force"]
+        }
+      },
+      {
+        "id": "emissary-of-peace",
+        "name": "Emissary of Peace",
+        "type": "channelDivinity",
+        "description": "You gain a bonus to Persuasion checks."
+      },
+      {
+        "id": "rebuke-the-violent",
+        "name": "Rebuke the Violent",
+        "type": "reaction",
+        "description": "You reflect damage dealt to others back to the attacker."
+      }
+    ],
+    "7": [
+      {
+        "id": "aura-of-the-guardian",
+        "name": "Aura of the Guardian",
+        "type": "reaction",
+        "description": "You can take damage in place of allies."
+      }
+    ],
+    "15": [
+      {
+        "id": "protective-spirit",
+        "name": "Protective Spirit",
+        "type": "passive",
+        "description": "You regain hit points while below half health."
+      }
+    ],
+    "20": [
+      {
+        "id": "emissary-of-redemption",
+        "name": "Emissary of Redemption",
+        "type": "passive",
+        "description": "Enemies are punished for attacking you or your allies."
+      }
+    ]
+  }
+}

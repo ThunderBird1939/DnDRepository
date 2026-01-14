@@ -1,0 +1,41 @@
+{
+  "id": "astral-self",
+  "name": "Way of the Astral Self",
+  "classId": "monk",
+  "source": "TCE",
+  "description": "Astral Self monks manifest spectral limbs and visages to fight beyond physical limits.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "arms-of-the-astral-self",
+        "name": "Arms of the Astral Self",
+        "type": "activation",
+        "description": "You summon spectral arms that enhance reach and damage."
+      }
+    ],
+    "6": [
+      {
+        "id": "visage-of-the-astral-self",
+        "name": "Visage of the Astral Self",
+        "type": "activation",
+        "description": "You manifest a spectral visage that enhances perception."
+      }
+    ],
+    "11": [
+      {
+        "id": "body-of-the-astral-self",
+        "name": "Body of the Astral Self",
+        "type": "passive",
+        "description": "Your astral form enhances defense and offense."
+      }
+    ],
+    "17": [
+      {
+        "id": "awakening-of-the-astral-self",
+        "name": "Awakening of the Astral Self",
+        "type": "activation",
+        "description": "Your astral self reaches full power."
+      }
+    ]
+  }
+}

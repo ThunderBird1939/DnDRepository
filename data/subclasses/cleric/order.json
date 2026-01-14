@@ -1,0 +1,62 @@
+{
+  "id": "order",
+  "name": "Order Domain",
+  "classId": "cleric",
+  "source": "TCE",
+  "description": "Clerics of the Order Domain enforce law and structure through divine authority, commanding allies to strike and compelling foes to obey.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "order-spells",
+        "name": "Order Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["command", "heroism"],
+          "3": ["hold-person", "zone-of-truth"],
+          "5": ["mass-healing-word", "slow"],
+          "7": ["compulsion", "locate-creature"],
+          "9": ["commune", "dominate-person"]
+        }
+      },
+      {
+        "id": "voice-of-authority",
+        "name": "Voice of Authority",
+        "type": "passive",
+        "description": "When you cast a spell on an ally, you can command it to make an attack as a reaction."
+      }
+    ],
+    "2": [
+      {
+        "id": "orders-demand",
+        "name": "Channel Divinity: Order’s Demand",
+        "type": "channelDivinity",
+        "description": "You present your holy symbol and compel nearby creatures to drop what they are holding and be charmed briefly."
+      }
+    ],
+    "6": [
+      {
+        "id": "embodiment-of-the-law",
+        "name": "Embodiment of the Law",
+        "type": "passive",
+        "description": "You can cast certain enchantment spells more swiftly for a limited time, improving your action economy."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-order",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra psychic damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "orders-wrath",
+        "name": "Order’s Wrath",
+        "type": "passive",
+        "description": "When you deal your Divine Strike damage, you can mark the target so allies deal extra damage to it."
+      }
+    ]
+  }
+}

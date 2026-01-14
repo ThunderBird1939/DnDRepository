@@ -1,0 +1,68 @@
+{
+  "id": "forge",
+  "name": "Forge Domain",
+  "classId": "cleric",
+  "source": "XGE",
+  "description": "Clerics of the Forge Domain serve deities of crafting and fire, blessing arms and armor, shaping metal with divine skill, and standing resilient amid flame and steel.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "forge-spells",
+        "name": "Forge Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["identify", "searing-smite"],
+          "3": ["heat-metal", "magic-weapon"],
+          "5": ["elemental-weapon", "protection-from-energy"],
+          "7": ["fabricate", "wall-of-fire"],
+          "9": ["animate-objects", "creation"]
+        }
+      },
+      {
+        "id": "bonus-proficiencies-forge",
+        "name": "Bonus Proficiencies",
+        "type": "passive",
+        "description": "You gain proficiency with heavy armor and smith’s tools."
+      },
+      {
+        "id": "blessing-of-the-forge",
+        "name": "Blessing of the Forge",
+        "type": "activation",
+        "description": "At the end of a long rest, you can imbue one nonmagical weapon or suit of armor with a +1 bonus until your next long rest."
+      }
+    ],
+    "2": [
+      {
+        "id": "artisans-blessing",
+        "name": "Channel Divinity: Artisan’s Blessing",
+        "type": "channelDivinity",
+        "description": "You can conduct a short ritual to craft a simple metal object."
+      }
+    ],
+    "6": [
+      {
+        "id": "soul-of-the-forge",
+        "name": "Soul of the Forge",
+        "type": "passive",
+        "description": "You gain resistance to fire damage and a bonus to AC while wearing heavy armor."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-forge",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra fire damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "saint-of-forge-and-fire",
+        "name": "Saint of Forge and Fire",
+        "type": "passive",
+        "description": "You gain immunity to fire damage and resistance to nonmagical bludgeoning, piercing, and slashing damage while wearing heavy armor."
+      }
+    ]
+  }
+}

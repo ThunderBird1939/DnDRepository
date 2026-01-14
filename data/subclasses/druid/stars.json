@@ -1,0 +1,47 @@
+{
+  "id": "stars",
+  "name": "Circle of Stars",
+  "classId": "druid",
+  "source": "TCE",
+  "description": "Druids of the Circle of Stars draw power from constellations, assuming starry forms that guide, heal, and destroy.",
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "star-map",
+        "name": "Star Map",
+        "type": "passive",
+        "description": "You create a magical star map that enhances your spellcasting."
+      },
+      {
+        "id": "starry-form",
+        "name": "Starry Form",
+        "type": "toggle",
+        "description": "You expend Wild Shape to assume a starry constellation form."
+      }
+    ],
+    "6": [
+      {
+        "id": "cosmic-omen",
+        "name": "Cosmic Omen",
+        "type": "reaction",
+        "description": "You can alter attack rolls or saving throws based on a cosmic portent."
+      }
+    ],
+    "10": [
+      {
+        "id": "twinkling-constellations",
+        "name": "Twinkling Constellations",
+        "type": "passive",
+        "description": "Your starry forms improve and grant additional benefits."
+      }
+    ],
+    "14": [
+      {
+        "id": "full-of-stars",
+        "name": "Full of Stars",
+        "type": "passive",
+        "description": "You gain resistance to physical damage while in Starry Form."
+      }
+    ]
+  }
+}

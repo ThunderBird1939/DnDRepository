@@ -1,0 +1,41 @@
+{
+  "id": "dreams",
+  "name": "Circle of Dreams",
+  "classId": "druid",
+  "source": "XGE",
+  "description": "Druids of the Circle of Dreams guard the Feywild’s borders, using gentle magic to heal allies and ward against danger.",
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "balm-of-the-summer-court",
+        "name": "Balm of the Summer Court",
+        "type": "passive",
+        "description": "You gain a pool of fey energy you can use to heal creatures as a bonus action."
+      }
+    ],
+    "6": [
+      {
+        "id": "hearth-of-moonlight-and-shadow",
+        "name": "Hearth of Moonlight and Shadow",
+        "type": "activation",
+        "description": "During a rest, you ward allies against detection and improve stealth."
+      }
+    ],
+    "10": [
+      {
+        "id": "hidden-paths",
+        "name": "Hidden Paths",
+        "type": "reaction",
+        "description": "You can teleport yourself or an ally when targeted by an attack."
+      }
+    ],
+    "14": [
+      {
+        "id": "walker-in-dreams",
+        "name": "Walker in Dreams",
+        "type": "activation",
+        "description": "You can travel or communicate through dreams and the Feywild."
+      }
+    ]
+  }
+}

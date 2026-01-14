@@ -1,0 +1,62 @@
+{
+  "id": "knowledge",
+  "name": "Knowledge Domain",
+  "classId": "cleric",
+  "source": "PHB",
+  "description": "Clerics of the Knowledge Domain value learning and understanding above all, using divine insight to master skills, languages, and secrets both mundane and mystical.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "knowledge-spells",
+        "name": "Knowledge Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["command", "identify"],
+          "3": ["augury", "suggestion"],
+          "5": ["nondetection", "speak-with-dead"],
+          "7": ["arcane-eye", "confusion"],
+          "9": ["legend-lore", "scrying"]
+        }
+      },
+      {
+        "id": "blessings-of-knowledge",
+        "name": "Blessings of Knowledge",
+        "type": "choice",
+        "description": "You learn two languages of your choice and gain proficiency (and expertise) in two of the following skills: Arcana, History, Nature, or Religion."
+      }
+    ],
+    "2": [
+      {
+        "id": "knowledge-of-the-ages",
+        "name": "Channel Divinity: Knowledge of the Ages",
+        "type": "channelDivinity",
+        "description": "You gain proficiency with one skill or tool of your choice for a short duration."
+      }
+    ],
+    "6": [
+      {
+        "id": "read-thoughts",
+        "name": "Channel Divinity: Read Thoughts",
+        "type": "channelDivinity",
+        "description": "You can read a creature’s surface thoughts, and then potentially cast suggestion without expending a spell slot."
+      }
+    ],
+    "8": [
+      {
+        "id": "potent-spellcasting",
+        "name": "Potent Spellcasting",
+        "type": "passive",
+        "description": "You add your Wisdom modifier to the damage you deal with any cleric cantrip."
+      }
+    ],
+    "17": [
+      {
+        "id": "visions-of-the-past",
+        "name": "Visions of the Past",
+        "type": "utility",
+        "description": "You can call up visions of the past that reveal information about an object or location."
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "storm-sorcery",
+  "name": "Storm Sorcery",
+  "classId": "sorcerer",
+  "source": "XGE",
+
+  "description": "Your magic is tied to storms, wind, and lightning, carrying you through battle with elemental fury.",
+
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "wind-speaker",
+        "name": "Wind Speaker",
+        "type": "passive",
+        "description": "You can speak, read, and write Primordial, and can understand its dialects."
+      },
+      {
+        "id": "tempestuous-magic",
+        "name": "Tempestuous Magic",
+        "type": "passive",
+        "description": "You can fly briefly after casting a spell."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "heart-of-the-storm",
+        "name": "Heart of the Storm",
+        "type": "passive",
+        "description": "You gain resistance to lightning and thunder damage and deal damage to nearby creatures."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "storm-guide",
+        "name": "Storm Guide",
+        "type": "activation",
+        "description": "You can control rain and wind conditions in your vicinity."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "wind-soul",
+        "name": "Wind Soul",
+        "type": "passive",
+        "description": "You gain immunity to lightning and thunder damage and grant flight to allies."
+      }
+    ]
+  }
+}

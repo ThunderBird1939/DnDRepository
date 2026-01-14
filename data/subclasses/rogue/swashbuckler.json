@@ -1,0 +1,52 @@
+{
+  "id": "swashbuckler",
+  "name": "Swashbuckler",
+  "classId": "rogue",
+  "source": "XGE",
+
+  "description": "Swashbucklers rely on speed, charm, and daring maneuvers to outfight their enemies in single combat.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "fancy-footwork",
+        "name": "Fancy Footwork",
+        "type": "passive",
+        "description": "When you make a melee attack against a creature, that creature can’t make opportunity attacks against you for the rest of your turn."
+      },
+      {
+        "id": "rakish-audacity",
+        "name": "Rakish Audacity",
+        "type": "passive",
+        "description": "You gain a bonus to your initiative rolls equal to your Charisma modifier. In addition, you can use Sneak Attack even if no ally is adjacent to the target, provided you are within 5 feet of it and no other enemies are within 5 feet of you."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "panache",
+        "name": "Panache",
+        "type": "activation",
+        "description": "You can use your Charisma (Persuasion) check to charm or goad a creature into focusing on you."
+      }
+    ],
+
+    "13": [
+      {
+        "id": "elegant-maneuver",
+        "name": "Elegant Maneuver",
+        "type": "activation",
+        "description": "As a bonus action, you can gain advantage on the next Dexterity (Acrobatics) or Strength (Athletics) check you make during the same turn."
+      }
+    ],
+
+    "17": [
+      {
+        "id": "master-duelist",
+        "name": "Master Duelist",
+        "type": "reaction",
+        "description": "If you miss with an attack roll, you can reroll it with advantage. You can use this feature once per short or long rest."
+      }
+    ]
+  }
+}

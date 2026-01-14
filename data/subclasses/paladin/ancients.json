@@ -1,0 +1,60 @@
+{
+  "id": "ancients",
+  "name": "Oath of the Ancients",
+  "classId": "paladin",
+  "source": "PHB",
+  "description": "Paladins of the Ancients defend life, light, and the natural order against encroaching darkness.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "ancients-spells",
+        "name": "Oath Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific paladin levels.",
+        "spells": {
+          "3": ["ensnaring-strike", "speak-with-animals"],
+          "5": ["moonbeam", "misty-step"],
+          "9": ["plant-growth", "protection-from-energy"],
+          "13": ["ice-storm", "stoneskin"],
+          "17": ["commune-with-nature", "tree-stride"]
+        }
+      },
+      {
+        "id": "nature-wrath",
+        "name": "Nature’s Wrath",
+        "type": "channelDivinity",
+        "description": "You restrain foes with spectral vines."
+      },
+      {
+        "id": "turn-the-faithless",
+        "name": "Turn the Faithless",
+        "type": "channelDivinity",
+        "description": "You turn fey and fiends."
+      }
+    ],
+    "7": [
+      {
+        "id": "aura-of-warding",
+        "name": "Aura of Warding",
+        "type": "passive",
+        "description": "You and allies take reduced damage from spells."
+      }
+    ],
+    "15": [
+      {
+        "id": "undying-sentinel",
+        "name": "Undying Sentinel",
+        "type": "passive",
+        "description": "You resist being reduced to 0 HP and ignore aging effects."
+      }
+    ],
+    "20": [
+      {
+        "id": "elder-champion",
+        "name": "Elder Champion",
+        "type": "activation",
+        "description": "You assume an ancient form that regenerates health and empowers spells."
+      }
+    ]
+  }
+}

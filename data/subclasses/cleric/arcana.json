@@ -1,0 +1,62 @@
+{
+  "id": "arcana",
+  "name": "Arcana Domain",
+  "classId": "cleric",
+  "source": "SCAG",
+  "description": "Clerics of the Arcana Domain serve deities of magic, gaining arcane secrets, warding against extraplanar threats, and blending cleric power with wizardly mastery.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "arcana-spells",
+        "name": "Arcana Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["detect-magic", "magic-missile"],
+          "3": ["magic-weapon", "nystuls-magic-aura"],
+          "5": ["dispel-magic", "magic-circle"],
+          "7": ["arcane-eye", "leomunds-secret-chest"],
+          "9": ["planar-binding", "teleportation-circle"]
+        }
+      },
+      {
+        "id": "arcane-initiate",
+        "name": "Arcane Initiate",
+        "type": "passive",
+        "description": "You gain proficiency in Arcana and learn two wizard cantrips of your choice."
+      }
+    ],
+    "2": [
+      {
+        "id": "arcane-abjuration",
+        "name": "Channel Divinity: Arcane Abjuration",
+        "type": "channelDivinity",
+        "description": "You use divine magic to banish celestials, elementals, fey, or fiends."
+      }
+    ],
+    "6": [
+      {
+        "id": "spell-breaker",
+        "name": "Spell Breaker",
+        "type": "passive",
+        "description": "When you restore hit points to an ally with a spell, you can also end certain spells affecting them."
+      }
+    ],
+    "8": [
+      {
+        "id": "potent-spellcasting",
+        "name": "Potent Spellcasting",
+        "type": "passive",
+        "description": "You add your Wisdom modifier to the damage you deal with any cleric cantrip."
+      }
+    ],
+    "17": [
+      {
+        "id": "arcane-mastery",
+        "name": "Arcane Mastery",
+        "type": "system",
+        "description": "You gain access to high-level arcane spells as domain spells, representing supreme command of magic."
+      }
+    ]
+  }
+}

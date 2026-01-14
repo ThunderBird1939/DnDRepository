@@ -1,0 +1,52 @@
+{
+  "id": "mastermind",
+  "name": "Mastermind",
+  "classId": "rogue",
+  "source": "XGE",
+
+  "description": "Masterminds manipulate others through tactics, misdirection, and keen insight.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "master-of-intrigue",
+        "name": "Master of Intrigue",
+        "type": "passive",
+        "description": "You gain proficiency with disguise kits, forgery kits, and one gaming set. You also learn two languages of your choice."
+      },
+      {
+        "id": "master-of-tactics",
+        "name": "Master of Tactics",
+        "type": "passive",
+        "description": "You can use the Help action as a bonus action. When you do so, the target can be within 30 feet of you."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "insightful-manipulator",
+        "name": "Insightful Manipulator",
+        "type": "activation",
+        "description": "You can use an action to analyze a creature and learn information about its capabilities."
+      }
+    ],
+
+    "13": [
+      {
+        "id": "misdirection",
+        "name": "Misdirection",
+        "type": "reaction",
+        "description": "When you are targeted by an attack while a creature is within 5 feet of you, you can redirect the attack to that creature."
+      }
+    ],
+
+    "17": [
+      {
+        "id": "soul-of-deceit",
+        "name": "Soul of Deceit",
+        "type": "passive",
+        "description": "Your thoughts can’t be read, and you can present false thoughts to magic that would determine if you are telling the truth."
+      }
+    ]
+  }
+}

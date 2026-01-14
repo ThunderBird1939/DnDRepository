@@ -1,0 +1,41 @@
+{
+  "id": "drakewarden",
+  "name": "Drakewarden",
+  "classId": "ranger",
+  "source": "FToD",
+  "description": "Drakewardens forge bonds with draconic spirits, fighting alongside a growing drake companion.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "drake-companion",
+        "name": "Drake Companion",
+        "type": "companion",
+        "description": "You summon a drake that grows in power as you gain levels."
+      }
+    ],
+    "7": [
+      {
+        "id": "bond-of-fang-and-scale",
+        "name": "Bond of Fang and Scale",
+        "type": "passive",
+        "description": "You and your drake gain elemental resistance and enhanced attacks."
+      }
+    ],
+    "11": [
+      {
+        "id": "drakes-breath",
+        "name": "Drake’s Breath",
+        "type": "activation",
+        "description": "Your drake exhales elemental energy."
+      }
+    ],
+    "15": [
+      {
+        "id": "perfected-bond",
+        "name": "Perfected Bond",
+        "type": "passive",
+        "description": "Your drake gains flight and stronger attacks."
+      }
+    ]
+  }
+}

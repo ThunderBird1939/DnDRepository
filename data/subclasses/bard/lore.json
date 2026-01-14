@@ -1,0 +1,46 @@
+{
+  "id": "lore",
+  "name": "College of Lore",
+  "classId": "bard",
+  "source": "Player's Handbook",
+  "description": "Bards of the College of Lore collect knowledge from across the multiverse, using wit, learning, and sharp words to outmaneuver their foes.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "bonus-proficiencies",
+        "name": "Bonus Proficiencies",
+        "type": "choice",
+        "description": "You gain proficiency in three skills of your choice.",
+        "choices": {
+          "choose": 3,
+          "from": "all-skills"
+        }
+      },
+      {
+        "id": "cutting-words",
+        "name": "Cutting Words",
+        "type": "reaction",
+        "description": "When a creature you can see within range makes an attack roll, ability check, or damage roll, you can use your reaction and expend one Bardic Inspiration die to subtract the number rolled from the creature’s roll."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "additional-magical-secrets",
+        "name": "Additional Magical Secrets",
+        "type": "system",
+        "description": "You learn two additional spells of your choice from any class’s spell list."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "peerless-skill",
+        "name": "Peerless Skill",
+        "type": "reaction",
+        "description": "When you make an ability check, you can expend one use of Bardic Inspiration to add the inspiration die to the roll."
+      }
+    ]
+  }
+}

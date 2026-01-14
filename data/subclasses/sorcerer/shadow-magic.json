@@ -1,0 +1,52 @@
+{
+  "id": "shadow-magic",
+  "name": "Shadow Magic",
+  "classId": "sorcerer",
+  "source": "XGE",
+
+  "description": "Your magic is infused with shadowfell energy, granting eerie resilience and spectral abilities.",
+
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "eyes-of-the-dark",
+        "name": "Eyes of the Dark",
+        "type": "passive",
+        "description": "You gain darkvision, and can cast darkness using sorcery points."
+      },
+      {
+        "id": "strength-of-the-grave",
+        "name": "Strength of the Grave",
+        "type": "reaction",
+        "description": "You can avoid being reduced to 0 hit points once per long rest."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "hound-of-ill-omen",
+        "name": "Hound of Ill Omen",
+        "type": "companion",
+        "description": "You summon a shadowy hound to harass a creature you target."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "shadow-walk",
+        "name": "Shadow Walk",
+        "type": "activation",
+        "description": "You can teleport between areas of dim light or darkness."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "umbral-form",
+        "name": "Umbral Form",
+        "type": "activation",
+        "description": "You transform into shadow, gaining resistance and movement benefits."
+      }
+    ]
+  }
+}

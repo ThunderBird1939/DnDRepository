@@ -1,0 +1,62 @@
+{
+  "id": "trickery",
+  "name": "Trickery Domain",
+  "classId": "cleric",
+  "source": "PHB",
+  "description": "Clerics of the Trickery Domain use misdirection, illusion, and stealth to undermine enemies and empower allies through cunning divine magic.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "trickery-spells",
+        "name": "Trickery Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["charm-person", "disguise-self"],
+          "3": ["mirror-image", "pass-without-trace"],
+          "5": ["blink", "dispel-magic"],
+          "7": ["dimension-door", "polymorph"],
+          "9": ["dominate-person", "modify-memory"]
+        }
+      },
+      {
+        "id": "blessing-of-the-trickster",
+        "name": "Blessing of the Trickster",
+        "type": "activation",
+        "description": "You can grant another creature advantage on Stealth checks for a time."
+      }
+    ],
+    "2": [
+      {
+        "id": "invoke-duplicity",
+        "name": "Channel Divinity: Invoke Duplicity",
+        "type": "channelDivinity",
+        "description": "You create an illusory duplicate of yourself that helps you cast spells and confuse enemies."
+      }
+    ],
+    "6": [
+      {
+        "id": "cloak-of-shadows",
+        "name": "Cloak of Shadows",
+        "type": "activation",
+        "description": "You can become invisible for a short duration."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-trickery",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra poison damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "improved-duplicity",
+        "name": "Improved Duplicity",
+        "type": "passive",
+        "description": "You can create more than one duplicate with Invoke Duplicity."
+      }
+    ]
+  }
+}

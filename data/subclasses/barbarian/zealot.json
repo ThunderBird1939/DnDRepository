@@ -1,0 +1,45 @@
+{
+  "id": "zealot",
+  "name": "Path of the Zealot",
+  "classId": "barbarian",
+  "source": "Xanathar's Guide to Everything",
+  "description": "Zealots are barbarians driven by divine fury. Their rage is sanctified by higher powers, allowing them to deal holy damage and defy death itself.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "divine-fury",
+        "name": "Divine Fury",
+        "type": "trigger",
+        "description": "While raging, the first creature you hit on each of your turns takes extra radiant or necrotic damage."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "fanatical-focus",
+        "name": "Fanatical Focus",
+        "type": "reaction",
+        "description": "If you fail a saving throw while raging, you can reroll it and must use the new roll."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "zealous-presence",
+        "name": "Zealous Presence",
+        "type": "activation",
+        "description": "As a bonus action, you unleash divine power that grants advantage on attack rolls and saving throws to allies within range for 1 round."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "rage-beyond-death",
+        "name": "Rage Beyond Death",
+        "type": "system",
+        "description": "While raging, having 0 hit points doesn’t knock you unconscious. You still make death saving throws, and you only die if your rage ends while you still have 0 hit points."
+      }
+    ]
+  }
+}

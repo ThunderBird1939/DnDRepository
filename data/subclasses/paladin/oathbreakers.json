@@ -1,0 +1,60 @@
+{
+  "id": "oathbreaker",
+  "name": "Oathbreaker",
+  "classId": "paladin",
+  "source": "DMG",
+  "description": "Paladins who abandon their sacred oaths embrace dark powers and corruption.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "oathbreaker-spells",
+        "name": "Oath Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific paladin levels.",
+        "spells": {
+          "3": ["hellish-rebuke", "inflict-wounds"],
+          "5": ["crown-of-madness", "darkness"],
+          "9": ["animate-dead", "bestow-curse"],
+          "13": ["blight", "confusion"],
+          "17": ["contagion", "dominate-person"]
+        }
+      },
+      {
+        "id": "control-undead",
+        "name": "Control Undead",
+        "type": "channelDivinity",
+        "description": "You seize control of undead creatures."
+      },
+      {
+        "id": "dreadful-aspect",
+        "name": "Dreadful Aspect",
+        "type": "channelDivinity",
+        "description": "You frighten nearby enemies."
+      }
+    ],
+    "7": [
+      {
+        "id": "aura-of-hate",
+        "name": "Aura of Hate",
+        "type": "passive",
+        "description": "You and nearby fiends and undead gain bonus damage."
+      }
+    ],
+    "15": [
+      {
+        "id": "supernatural-resistance",
+        "name": "Supernatural Resistance",
+        "type": "passive",
+        "description": "You gain resistance to nonmagical damage."
+      }
+    ],
+    "20": [
+      {
+        "id": "dread-lord",
+        "name": "Dread Lord",
+        "type": "activation",
+        "description": "You emanate an aura of darkness and fear."
+      }
+    ]
+  }
+}

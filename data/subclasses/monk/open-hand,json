@@ -1,0 +1,54 @@
+{
+  "id": "wildfire",
+  "name": "Circle of Wildfire",
+  "classId": "druid",
+  "source": "TCE",
+  "description": "Druids of the Circle of Wildfire wield destructive flames to bring about renewal, fighting alongside a primal wildfire spirit.",
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "wildfire-spirit",
+        "name": "Summon Wildfire Spirit",
+        "type": "companion",
+        "description": "You summon a wildfire spirit that fights and moves with you."
+      },
+      {
+        "id": "circle-spells-wildfire",
+        "name": "Circle Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific druid levels.",
+        "spells": {
+          "2": ["burning-hands", "cure-wounds"],
+          "3": ["flaming-sphere", "scorching-ray"],
+          "5": ["plant-growth", "revivify"],
+          "7": ["aura-of-life", "fire-shield"],
+          "9": ["flame-strike", "mass-cure-wounds"]
+        }
+      }
+    ],
+    "6": [
+      {
+        "id": "enhanced-bond",
+        "name": "Enhanced Bond",
+        "type": "passive",
+        "description": "Your spells and wildfire spirit become more powerful."
+      }
+    ],
+    "10": [
+      {
+        "id": "cauterizing-flames",
+        "name": "Cauterizing Flames",
+        "type": "reaction",
+        "description": "Fallen creatures leave behind healing or damaging flames."
+      }
+    ],
+    "14": [
+      {
+        "id": "blazing-revival",
+        "name": "Blazing Revival",
+        "type": "reaction",
+        "description": "When reduced to 0 hit points, you erupt in flame and revive."
+      }
+    ]
+  }
+}

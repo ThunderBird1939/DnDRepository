@@ -1,0 +1,41 @@
+{
+  "id": "four-elements",
+  "name": "Way of the Four Elements",
+  "classId": "monk",
+  "source": "PHB",
+  "description": "Monks of the Way of the Four Elements harness elemental ki to bend fire, water, earth, and air.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "elemental-disciplines",
+        "name": "Elemental Disciplines",
+        "type": "choice",
+        "description": "You learn magical disciplines that let you manipulate elemental forces using ki."
+      }
+    ],
+    "6": [
+      {
+        "id": "additional-disciplines-6",
+        "name": "Additional Disciplines",
+        "type": "choice",
+        "description": "You learn additional elemental disciplines."
+      }
+    ],
+    "11": [
+      {
+        "id": "additional-disciplines-11",
+        "name": "Additional Disciplines",
+        "type": "choice",
+        "description": "You learn additional elemental disciplines."
+      }
+    ],
+    "17": [
+      {
+        "id": "additional-disciplines-17",
+        "name": "Additional Disciplines",
+        "type": "choice",
+        "description": "You learn additional elemental disciplines."
+      }
+    ]
+  }
+}

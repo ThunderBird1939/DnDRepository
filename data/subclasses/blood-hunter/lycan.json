@@ -1,0 +1,60 @@
+{
+  "id": "lycan",
+  "name": "Order of the Lycan",
+  "classId": "blood-hunter",
+  "source": "Critical Role / Explorer's Guide to Wildemount",
+  "description": "Members of the Order of the Lycan undergo a controlled curse that allows them to assume a hybrid form, gaining feral power while struggling to maintain control over their inner beast.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "heightened-senses",
+        "name": "Heightened Senses",
+        "type": "passive",
+        "description": "You gain advantage on Wisdom (Perception) checks that rely on hearing or smell."
+      },
+      {
+        "id": "hybrid-transformation",
+        "name": "Hybrid Transformation",
+        "type": "toggle",
+        "description": "As a bonus action, you can transform into a hybrid lycanthropic form for a limited duration, gaining natural weapons and enhanced physical abilities."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "stalkers-predation",
+        "name": "Stalker’s Predation",
+        "type": "system",
+        "description": "While in your hybrid form, your movement speed increases and you can move along vertical surfaces and across liquids without falling."
+      }
+    ],
+
+    "11": [
+      {
+        "id": "advanced-transformation",
+        "name": "Advanced Transformation",
+        "type": "system",
+        "description": "Your hybrid form improves, granting increased damage, resilience, and greater control over your feral instincts."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "brand-of-the-lycan",
+        "name": "Brand of the Lycan",
+        "type": "system",
+        "description": "Your Brand of Castigation deals additional damage and imposes disadvantage on attacks made by the branded creature while you are in hybrid form."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "blood-curse-of-the-exiled",
+        "name": "Blood Curse of the Exiled",
+        "type": "system",
+        "description": "You gain a powerful blood curse that allows you to suppress or exploit lycanthropic transformations in others."
+      }
+    ]
+  }
+}

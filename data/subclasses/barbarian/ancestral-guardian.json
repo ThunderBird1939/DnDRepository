@@ -1,0 +1,45 @@
+{
+  "id": "ancestral-guardian",
+  "name": "Path of the Ancestral Guardian",
+  "classId": "barbarian",
+  "source": "Xanathar's Guide to Everything",
+  "description": "Barbarians who follow the Path of the Ancestral Guardian call upon the spirits of their ancestors to protect allies and hinder foes. These spectral warriors intercede in battle, turning rage into a shield for others.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "ancestral-protectors",
+        "name": "Ancestral Protectors",
+        "type": "system",
+        "description": "While raging, the first creature you hit on your turn is marked by ancestral spirits until the start of your next turn. That creature has disadvantage on attack rolls against creatures other than you, and when it hits a creature other than you, the target has resistance to the damage."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "spirit-shield",
+        "name": "Spirit Shield",
+        "type": "reaction",
+        "description": "When a creature you can see within 30 feet takes damage, you can use your reaction to reduce that damage by 2d6."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "consult-the-spirits",
+        "name": "Consult the Spirits",
+        "type": "utility",
+        "description": "You can cast augury or clairvoyance without expending a spell slot or material components. Once you cast either spell, you can’t do so again until you finish a short or long rest."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "vengeful-ancestors",
+        "name": "Vengeful Ancestors",
+        "type": "reaction",
+        "description": "When you use Spirit Shield to reduce damage, the attacker takes force damage equal to the damage prevented."
+      }
+    ]
+  }
+}

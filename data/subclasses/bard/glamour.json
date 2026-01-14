@@ -1,0 +1,42 @@
+{
+  "id": "glamour",
+  "name": "College of Glamour",
+  "classId": "bard",
+  "source": "Xanathar's Guide to Everything",
+  "description": "Bards of the College of Glamour draw on the beguiling magic of the Feywild, weaving performances that inspire devotion, movement, and awe.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "mantle-of-inspiration",
+        "name": "Mantle of Inspiration",
+        "type": "activation",
+        "description": "As a bonus action, you expend one use of Bardic Inspiration to grant temporary hit points and allow creatures to immediately move without provoking opportunity attacks."
+      },
+      {
+        "id": "enthralling-performance",
+        "name": "Enthralling Performance",
+        "type": "social",
+        "description": "After performing for at least 1 minute, you can attempt to charm humanoids who witnessed the performance."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "mantle-of-majesty",
+        "name": "Mantle of Majesty",
+        "type": "system",
+        "description": "As a bonus action, you assume a magically majestic presence, allowing you to cast command without expending a spell slot for 1 minute."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "unbreakable-majesty",
+        "name": "Unbreakable Majesty",
+        "type": "passive",
+        "description": "As a bonus action, you cloak yourself in fey magic, making it difficult for enemies to strike you or approach you."
+      }
+    ]
+  }
+}

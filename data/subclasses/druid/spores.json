@@ -1,0 +1,47 @@
+{
+  "id": "spores",
+  "name": "Circle of Spores",
+  "classId": "druid",
+  "source": "TCE",
+  "description": "Druids of the Circle of Spores embrace decay and rebirth, wielding fungal power to damage foes and animate the dead.",
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "halo-of-spores",
+        "name": "Halo of Spores",
+        "type": "reaction",
+        "description": "You deal necrotic damage to creatures that start their turn near you."
+      },
+      {
+        "id": "symbiotic-entity",
+        "name": "Symbiotic Entity",
+        "type": "activation",
+        "description": "You expend Wild Shape to gain temporary hit points and enhance your spores."
+      }
+    ],
+    "6": [
+      {
+        "id": "fungal-infestation",
+        "name": "Fungal Infestation",
+        "type": "reaction",
+        "description": "You animate fallen creatures briefly as fungal zombies."
+      }
+    ],
+    "10": [
+      {
+        "id": "spreading-spores",
+        "name": "Spreading Spores",
+        "type": "activation",
+        "description": "You create lingering clouds of damaging spores."
+      }
+    ],
+    "14": [
+      {
+        "id": "fungal-body",
+        "name": "Fungal Body",
+        "type": "passive",
+        "description": "You gain resistance to critical hits and immunity to several conditions."
+      }
+    ]
+  }
+}

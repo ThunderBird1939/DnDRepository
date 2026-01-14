@@ -1,0 +1,57 @@
+{
+  "id": "obligated-guardian",
+  "name": "Obligated Guardian",
+  "classId": "bound-vanguard",
+  "source": "homebrew",
+  "description": "Obligated Guardians are bound to act as living bulwarks. Their contract compels them to intercept blows, punish aggression, and stand between danger and those they protect.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "retaliatory-lash",
+        "name": "Retaliatory Lash",
+        "type": "reaction",
+        "description": "When you take damage from a creature within 5 feet of you, you may spend 1 Manifest Energy to make a melee weapon attack against the triggering creature. On a hit, deal normal weapon damage plus bonus force damage. This attack cannot benefit from Manifest Strike."
+      },
+      {
+        "id": "contract-mark",
+        "name": "Contract Mark",
+        "type": "system",
+        "description": "When a creature damages you, you may mark it until the end of its next turn. While marked, the creature has disadvantage on attacks against creatures other than you, and the first time it hits you again, reduce the damage."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "forced-interposition",
+        "name": "Forced Interposition",
+        "type": "reaction",
+        "description": "When an ally within 5 feet is hit by an attack, you may spend 1 Manifest Energy to swap places with that ally (if space allows) and become the target instead. You gain resistance to the triggering attack’s damage and may immediately use Guardian Intercept without additional Manifest Energy."
+      },
+      {
+        "id": "suppressive-pressure",
+        "name": "Suppressive Pressure",
+        "type": "activation",
+        "description": "As a bonus action, you may spend 1 Manifest Energy to emanate oppressive force until the start of your next turn. Creatures within 5 feet of you have their speed reduced, and if they hit you, they take force damage."
+      }
+    ],
+
+    "11": [
+      {
+        "id": "warden-warning",
+        "name": "Warden’s Warning",
+        "type": "reaction",
+        "description": "When a creature within range makes an attack roll against you, you may spend 1 Manifest Energy to force the creature to reroll the attack and use the lower result. If the attack still hits, you gain temporary hit points."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "refusal-to-fall",
+        "name": "Refusal to Fall",
+        "type": "reaction",
+        "description": "When you are reduced to 0 hit points but not killed outright, you may spend 2 Manifest Energy to instead drop to 1 hit point. Hostile creatures within 5 feet take thunder damage. Once you use this feature, you can’t use it again until you finish a long rest."
+      }
+    ]
+  }
+}

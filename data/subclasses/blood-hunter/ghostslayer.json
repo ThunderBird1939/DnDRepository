@@ -1,0 +1,42 @@
+{
+  "id": "whispers",
+  "name": "College of Whispers",
+  "classId": "bard",
+  "source": "Xanathar's Guide to Everything",
+  "description": "Bards of the College of Whispers manipulate fear and secrets, using psychological terror and stolen identities to dismantle foes from within.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "psychic-blades",
+        "name": "Psychic Blades",
+        "type": "trigger",
+        "description": "When you hit a creature with a weapon attack, you can expend one use of Bardic Inspiration to deal extra psychic damage to the target."
+      },
+      {
+        "id": "words-of-terror",
+        "name": "Words of Terror",
+        "type": "social",
+        "description": "If you speak with a humanoid alone for at least 1 minute, you can instill fear in it, causing it to be frightened of you for a duration."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "mantle-of-whispers",
+        "name": "Mantle of Whispers",
+        "type": "system",
+        "description": "When a humanoid dies within 30 feet of you, you can capture its shadow and magically assume its appearance and memories for a time."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "shadow-lore",
+        "name": "Shadow Lore",
+        "type": "activation",
+        "description": "As an action, you whisper a dark secret that psychically binds a creature, charming and frightening it for a duration."
+      }
+    ]
+  }
+}

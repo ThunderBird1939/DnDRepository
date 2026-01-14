@@ -1,0 +1,60 @@
+{
+  "id": "watchers",
+  "name": "Oath of the Watchers",
+  "classId": "paladin",
+  "source": "TCE",
+  "description": "Paladins of the Watchers guard the world against extraplanar threats.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "watchers-spells",
+        "name": "Oath Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific paladin levels.",
+        "spells": {
+          "3": ["alarm", "detect-magic"],
+          "5": ["moonbeam", "see-invisibility"],
+          "9": ["counterspell", "nondetection"],
+          "13": ["banishment", "freedom-of-movement"],
+          "17": ["hold-monster", "scrying"]
+        }
+      },
+      {
+        "id": "watchers-will",
+        "name": "Watcher’s Will",
+        "type": "channelDivinity",
+        "description": "You grant allies advantage on mental saving throws."
+      },
+      {
+        "id": "abjure-extraplanar",
+        "name": "Abjure the Extraplanar",
+        "type": "channelDivinity",
+        "description": "You turn extraplanar creatures."
+      }
+    ],
+    "7": [
+      {
+        "id": "aura-of-the-sentinel",
+        "name": "Aura of the Sentinel",
+        "type": "passive",
+        "description": "You and allies gain bonuses to initiative."
+      }
+    ],
+    "15": [
+      {
+        "id": "vigilant-rebuke",
+        "name": "Vigilant Rebuke",
+        "type": "reaction",
+        "description": "You damage creatures that force saving throws."
+      }
+    ],
+    "20": [
+      {
+        "id": "mortal-bulwark",
+        "name": "Mortal Bulwark",
+        "type": "activation",
+        "description": "You gain resistance and banish extraplanar foes."
+      }
+    ]
+  }
+}

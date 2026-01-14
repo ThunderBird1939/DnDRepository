@@ -1,0 +1,51 @@
+{
+  "id": "steadfast-sentinel",
+  "name": "Steadfast Sentinel",
+  "classId": "bound-vanguard",
+  "source": "homebrew",
+  "description": "Steadfast Sentinels become immovable anchors on the battlefield, fortifying allies, denying movement, and standing unbroken against overwhelming force.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "anchor-the-line",
+        "name": "Anchor the Line",
+        "type": "activation",
+        "description": "As a bonus action, you may spend 1 Manifest Energy to anchor yourself until the start of your next turn. While anchored, you cannot be knocked prone, you have advantage on Strength and Constitution saving throws, and hostile creatures within 5 feet of you have their speed reduced."
+      },
+      {
+        "id": "winged-shelter",
+        "name": "Winged Shelter",
+        "type": "reaction",
+        "description": "When an ally within 5 feet is hit by an attack, you may spend 1 Manifest Energy to grant that ally resistance to the triggering attack’s damage. If the ally still takes damage, you may move 5 feet toward the attacker without provoking opportunity attacks."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "interdict-movement",
+        "name": "Interdict Movement",
+        "type": "reaction",
+        "description": "When a creature within 10 feet attempts to leave a space you threaten, you may spend 1 Manifest Energy to force it to make a Strength saving throw. On a failure, its speed becomes 0 until the end of the turn; on a success, its speed is reduced."
+      }
+    ],
+
+    "11": [
+      {
+        "id": "guardian-bulwark",
+        "name": "Guardian Bulwark",
+        "type": "activation",
+        "description": "As an action, you may spend 2 Manifest Energy to create a defensive bulwark in a 10-foot radius centered on you until the start of your next turn. You and allies in the area gain a bonus to AC, and the first time each affected creature takes damage, that damage is reduced."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "lasting-presence",
+        "name": "Lasting Presence",
+        "type": "activation",
+        "description": "As a bonus action, you may spend 1 Manifest Energy to project an enduring presence for 1 minute (ending early if you are incapacitated). Allies within 5 feet gain a bonus to saving throws, and hostile creatures within 5 feet have disadvantage on checks to shove, grapple, or forcibly move creatures other than you."
+      }
+    ]
+  }
+}

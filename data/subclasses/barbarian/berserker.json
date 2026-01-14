@@ -1,0 +1,45 @@
+{
+  "id": "berserker",
+  "name": "Path of the Berserker",
+  "classId": "barbarian",
+  "source": "Player's Handbook",
+  "description": "Berserkers throw themselves into a frenzy of violence, sacrificing endurance for overwhelming offense.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "frenzy",
+        "name": "Frenzy",
+        "type": "toggle",
+        "description": "When you enter a rage, you can choose to go into a frenzy. While frenzied, you can make a single melee weapon attack as a bonus action on each of your turns after this one. When your rage ends, you suffer one level of exhaustion."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "mindless-rage",
+        "name": "Mindless Rage",
+        "type": "passive",
+        "description": "While raging, you are immune to being charmed or frightened. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "intimidating-presence",
+        "name": "Intimidating Presence",
+        "type": "action",
+        "description": "You can use your action to frighten a creature with your menacing presence."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "retaliation",
+        "name": "Retaliation",
+        "type": "reaction",
+        "description": "When you take damage from a creature within 5 feet of you, you can use your reaction to make a melee weapon attack against that creature."
+      }
+    ]
+  }
+}

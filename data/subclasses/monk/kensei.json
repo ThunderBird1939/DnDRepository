@@ -1,0 +1,41 @@
+{
+  "id": "kensei",
+  "name": "Way of the Kensei",
+  "classId": "monk",
+  "source": "XGE",
+  "description": "Kensei monks master weapons as extensions of their martial arts training.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "path-of-the-kensei",
+        "name": "Path of the Kensei",
+        "type": "passive",
+        "description": "You gain kensei weapons and defensive benefits."
+      }
+    ],
+    "6": [
+      {
+        "id": "one-with-the-blade",
+        "name": "One with the Blade",
+        "type": "passive",
+        "description": "Your weapons become magical and more lethal."
+      }
+    ],
+    "11": [
+      {
+        "id": "sharpen-the-blade",
+        "name": "Sharpen the Blade",
+        "type": "activation",
+        "description": "You can enhance your weapon’s attack and damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "unerring-accuracy",
+        "name": "Unerring Accuracy",
+        "type": "passive",
+        "description": "You can reroll a missed attack once per turn."
+      }
+    ]
+  }
+}

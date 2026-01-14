@@ -1,0 +1,62 @@
+{
+  "id": "storm-herald",
+  "name": "Path of the Storm Herald",
+  "classId": "barbarian",
+  "source": "Xanathar's Guide to Everything",
+  "description": "Storm Heralds channel the raw fury of elemental storms, surrounding themselves with a raging aura of desert heat, ocean lightning, or frozen tundra winds.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "storm-aura",
+        "name": "Storm Aura",
+        "type": "choice",
+        "description": "When you enter a rage, you activate a storm aura centered on you. Choose one environment.",
+        "options": [
+          {
+            "id": "desert",
+            "name": "Desert",
+            "description": "Each creature of your choice in the aura takes fire damage."
+          },
+          {
+            "id": "sea",
+            "name": "Sea",
+            "description": "Choose one creature in the aura; it must make a Dexterity saving throw or take lightning damage."
+          },
+          {
+            "id": "tundra",
+            "name": "Tundra",
+            "description": "Each creature of your choice in the aura gains temporary hit points."
+          }
+        ]
+      }
+    ],
+
+    "6": [
+      {
+        "id": "storm-soul",
+        "name": "Storm Soul",
+        "type": "passive",
+        "description": "You gain resistance or immunity to environmental effects associated with your chosen storm aura."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "shielding-storm",
+        "name": "Shielding Storm",
+        "type": "passive",
+        "description": "You extend the benefits of your Storm Soul to allies within your storm aura."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "raging-storm",
+        "name": "Raging Storm",
+        "type": "reaction",
+        "description": "Your storm reacts violently when creatures enter or attack within your aura, producing powerful elemental effects based on your environment."
+      }
+    ]
+  }
+}

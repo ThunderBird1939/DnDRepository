@@ -1,0 +1,50 @@
+{
+  "id": "land",
+  "name": "Circle of the Land",
+  "classId": "druid",
+  "source": "PHB",
+  "description": "Druids of the Circle of the Land are mystics and sages who draw magical power from a specific type of terrain, gaining expanded spellcasting tied to their chosen land.",
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "land-spells",
+        "name": "Circle Spells",
+        "type": "spell-table",
+        "description": "You gain additional spells based on the land you choose, and these spells are always prepared.",
+        "spells": {
+          "2": "varies-by-land"
+        }
+      },
+      {
+        "id": "natural-recovery",
+        "name": "Natural Recovery",
+        "type": "passive",
+        "description": "During a short rest, you can recover expended spell slots with a combined level equal to half your druid level."
+      }
+    ],
+    "6": [
+      {
+        "id": "lands-stride",
+        "name": "Land’s Stride",
+        "type": "passive",
+        "description": "Moving through nonmagical difficult terrain costs you no extra movement, and you have advantage against plants that impede movement."
+      }
+    ],
+    "10": [
+      {
+        "id": "natures-ward",
+        "name": "Nature’s Ward",
+        "type": "passive",
+        "description": "You are immune to poison and disease, and you can’t be charmed or frightened by elementals or fey."
+      }
+    ],
+    "14": [
+      {
+        "id": "natures-sanctuary",
+        "name": "Nature’s Sanctuary",
+        "type": "passive",
+        "description": "Beasts and plants must succeed on a saving throw to attack you."
+      }
+    ]
+  }
+}

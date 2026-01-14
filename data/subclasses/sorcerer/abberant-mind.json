@@ -1,0 +1,52 @@
+{
+  "id": "divine-soul",
+  "name": "Divine Soul",
+  "classId": "sorcerer",
+  "source": "XGE",
+
+  "description": "Your magic comes from a divine source, granting access to cleric spells and holy power.",
+
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "divine-magic",
+        "name": "Divine Magic",
+        "type": "spellcasting",
+        "description": "You learn an additional cleric spell and gain access to the cleric spell list."
+      },
+      {
+        "id": "favored-by-the-gods",
+        "name": "Favored by the Gods",
+        "type": "reaction",
+        "description": "You can add 2d4 to a failed saving throw or missed attack."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "empowered-healing",
+        "name": "Empowered Healing",
+        "type": "passive",
+        "description": "You can reroll healing dice using sorcery points."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "otherworldly-wings",
+        "name": "Otherworldly Wings",
+        "type": "passive",
+        "description": "You gain a flying speed."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "uneathly-recovery",
+        "name": "Unearthly Recovery",
+        "type": "activation",
+        "description": "You can regain hit points when near death."
+      }
+    ]
+  }
+}

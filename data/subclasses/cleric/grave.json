@@ -1,0 +1,68 @@
+{
+  "id": "grave",
+  "name": "Grave Domain",
+  "classId": "cleric",
+  "source": "XGE",
+  "description": "Clerics of the Grave Domain watch over the boundary between life and death, ensuring the dead rest and the living endure, while punishing those who pervert fate.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "grave-spells",
+        "name": "Grave Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["bane", "false-life"],
+          "3": ["gentle-repose", "ray-of-enfeeblement"],
+          "5": ["revivify", "vampiric-touch"],
+          "7": ["blight", "death-ward"],
+          "9": ["antilife-shell", "raise-dead"]
+        }
+      },
+      {
+        "id": "circle-of-mortality",
+        "name": "Circle of Mortality",
+        "type": "passive",
+        "description": "You are especially effective at restoring creatures near death, and you learn spare the dying cantrip (or gain an improved version)."
+      },
+      {
+        "id": "eyes-of-the-grave",
+        "name": "Eyes of the Grave",
+        "type": "activation",
+        "description": "You can sense the presence of undead within range a limited number of times."
+      }
+    ],
+    "2": [
+      {
+        "id": "path-to-the-grave",
+        "name": "Channel Divinity: Path to the Grave",
+        "type": "channelDivinity",
+        "description": "You curse a creature, making it vulnerable to the next instance of damage it takes."
+      }
+    ],
+    "6": [
+      {
+        "id": "sentinel-at-deaths-door",
+        "name": "Sentinel at Death’s Door",
+        "type": "reaction",
+        "description": "You can turn a critical hit against you or an ally into a normal hit."
+      }
+    ],
+    "8": [
+      {
+        "id": "potent-spellcasting",
+        "name": "Potent Spellcasting",
+        "type": "passive",
+        "description": "You add your Wisdom modifier to the damage you deal with any cleric cantrip."
+      }
+    ],
+    "17": [
+      {
+        "id": "keeper-of-souls",
+        "name": "Keeper of Souls",
+        "type": "passive",
+        "description": "When a creature dies near you, you can restore hit points to a creature you can see."
+      }
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "id": "nature",
+  "name": "Nature Domain",
+  "classId": "cleric",
+  "source": "PHB",
+  "description": "Clerics of the Nature Domain serve deities of the wild, blending divine power with primal forces to protect the natural world and command beasts and plants.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "nature-spells",
+        "name": "Nature Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["animal-friendship", "speak-with-animals"],
+          "3": ["barkskin", "spike-growth"],
+          "5": ["plant-growth", "wind-wall"],
+          "7": ["dominate-beast", "grasping-vine"],
+          "9": ["insect-plague", "tree-stride"]
+        }
+      },
+      {
+        "id": "acolyte-of-nature",
+        "name": "Acolyte of Nature",
+        "type": "choice",
+        "description": "You learn one druid cantrip of your choice and gain proficiency in one skill (Animal Handling, Nature, or Survival)."
+      },
+      {
+        "id": "bonus-proficiency-nature",
+        "name": "Bonus Proficiency",
+        "type": "passive",
+        "description": "You gain proficiency with heavy armor."
+      }
+    ],
+    "2": [
+      {
+        "id": "charm-animals-and-plants",
+        "name": "Channel Divinity: Charm Animals and Plants",
+        "type": "channelDivinity",
+        "description": "You can charm beasts and plants that fail a saving throw."
+      }
+    ],
+    "6": [
+      {
+        "id": "dampen-elements",
+        "name": "Dampen Elements",
+        "type": "reaction",
+        "description": "When you or a creature within range takes acid, cold, fire, lightning, or thunder damage, you can use your reaction to grant resistance to that instance of damage."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-nature",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra cold, fire, or lightning damage (choose when you gain this feature)."
+      }
+    ],
+    "17": [
+      {
+        "id": "master-of-nature",
+        "name": "Master of Nature",
+        "type": "activation",
+        "description": "You can command animals and plants, forcing a creature to obey you for a short time on a failed save."
+      }
+    ]
+  }
+}

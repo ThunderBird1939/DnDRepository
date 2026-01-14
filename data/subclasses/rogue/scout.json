@@ -1,0 +1,52 @@
+{
+  "id": "scout",
+  "name": "Scout",
+  "classId": "rogue",
+  "source": "XGE",
+
+  "description": "Scouts excel at mobility and survival, acting as skirmishers and wilderness operatives.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "skirmisher",
+        "name": "Skirmisher",
+        "type": "reaction",
+        "description": "When a creature ends its turn within 5 feet of you, you can use your reaction to move up to half your speed without provoking opportunity attacks."
+      },
+      {
+        "id": "survivalist",
+        "name": "Survivalist",
+        "type": "passive",
+        "description": "You gain proficiency in the Nature and Survival skills if you don’t already have it. Your proficiency bonus is doubled for any ability check you make using either skill."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "superior-mobility",
+        "name": "Superior Mobility",
+        "type": "passive",
+        "description": "Your walking speed increases by 10 feet."
+      }
+    ],
+
+    "13": [
+      {
+        "id": "ambush-master",
+        "name": "Ambush Master",
+        "type": "passive",
+        "description": "You grant yourself and allies bonuses to initiative and advantage during the first round of combat."
+      }
+    ],
+
+    "17": [
+      {
+        "id": "sudden-strike",
+        "name": "Sudden Strike",
+        "type": "passive",
+        "description": "You can make a second Sneak Attack in the same turn, provided it targets a different creature."
+      }
+    ]
+  }
+}

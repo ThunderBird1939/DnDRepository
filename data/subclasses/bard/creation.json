@@ -1,0 +1,45 @@
+{
+  "id": "creation",
+  "name": "College of Creation",
+  "classId": "bard",
+  "source": "Tasha's Cauldron of Everything",
+  "description": "Bards of the College of Creation believe the cosmos itself is a work of art. Through performance, they can shape reality, animate objects, and bring imagination to life.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "mote-of-potential",
+        "name": "Mote of Potential",
+        "type": "system",
+        "description": "When you grant Bardic Inspiration, you can also create a Mote of Potential that provides additional effects depending on how the die is used."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "animating-performance",
+        "name": "Animating Performance",
+        "type": "activation",
+        "description": "As an action, you can animate a Large or smaller nonmagical object to fight alongside you for 1 hour."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "performance-of-creation",
+        "name": "Performance of Creation",
+        "type": "system",
+        "description": "As an action, you can create a nonmagical object of your choice within range, with size and gold value limits based on your level."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "creative-crescendo",
+        "name": "Creative Crescendo",
+        "type": "system",
+        "description": "You can use Performance of Creation multiple times at once, creating more than one object with a single performance."
+      }
+    ]
+  }
+}

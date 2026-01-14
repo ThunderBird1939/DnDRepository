@@ -1,0 +1,58 @@
+{
+  "id": "wild-magic",
+  "name": "Wild Magic",
+  "classId": "sorcerer",
+  "source": "PHB",
+
+  "description": "Your innate magic comes from wild forces of chaos, causing unpredictable surges of arcane energy.",
+
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "wild-magic-surge",
+        "name": "Wild Magic Surge",
+        "type": "table",
+        "description": "Your spellcasting can unleash unpredictable magical effects.",
+        "table": {
+          "dice": "d100",
+          "rows": [
+            { "roll": "01–02", "effect": "Roll on this table at the start of each of your turns for the next minute." }
+          ]
+        }
+      },
+      {
+        "id": "tides-of-chaos",
+        "name": "Tides of Chaos",
+        "type": "activation",
+        "description": "You gain advantage on one attack roll, ability check, or saving throw. The DM can then force a Wild Magic Surge."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "bend-luck",
+        "name": "Bend Luck",
+        "type": "reaction",
+        "description": "You can spend sorcery points to roll 1d4 and apply the result as a bonus or penalty to a roll."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "controlled-chaos",
+        "name": "Controlled Chaos",
+        "type": "passive",
+        "description": "You roll twice on the Wild Magic Surge table and choose which result applies."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "spell-bombardment",
+        "name": "Spell Bombardment",
+        "type": "passive",
+        "description": "When you roll maximum damage for a spell, you can roll additional damage dice."
+      }
+    ]
+  }
+}

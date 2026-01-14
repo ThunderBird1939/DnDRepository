@@ -1,0 +1,64 @@
+{
+  "id": "wild-magic",
+  "name": "Path of Wild Magic",
+  "classId": "barbarian",
+  "source": "Tasha's Cauldron of Everything",
+  "description": "Barbarians who follow the Path of Wild Magic are suffused with unstable arcane power, unleashing unpredictable effects whenever they rage.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "magic-awareness",
+        "name": "Magic Awareness",
+        "type": "utility",
+        "description": "As an action, you can sense the presence of magic within 60 feet until the end of your next turn."
+      },
+      {
+        "id": "wild-surge",
+        "name": "Wild Surge",
+        "type": "table",
+        "description": "When you enter a rage, roll on the Wild Magic Surge table to determine the magical effect produced.",
+        "tableId": "wild-magic-barbarian-surge"
+      }
+    ],
+
+    "6": [
+      {
+        "id": "bolstering-magic",
+        "name": "Bolstering Magic",
+        "type": "choice",
+        "description": "You can bolster yourself or an ally with magical energy.",
+        "options": [
+          {
+            "id": "restore-slot",
+            "name": "Bolster Spellcasting",
+            "description": "Restore a spell slot to a creature."
+          },
+          {
+            "id": "bolster-roll",
+            "name": "Bolster Attack",
+            "description": "Add a bonus to an attack roll or ability check."
+          }
+        ]
+      }
+    ],
+
+    "10": [
+      {
+        "id": "unstable-backlash",
+        "name": "Unstable Backlash",
+        "type": "reaction",
+        "description": "When you take damage or fail a saving throw while raging, you can reroll on the Wild Magic Surge table and replace your current surge."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "controlled-surge",
+        "name": "Controlled Surge",
+        "type": "system",
+        "description": "When you roll on the Wild Magic Surge table, you can roll twice and choose which result to use."
+      }
+    ]
+  }
+}

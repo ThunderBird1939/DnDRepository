@@ -1,0 +1,46 @@
+{
+  "id": "assassin",
+  "name": "Assassin",
+  "classId": "rogue",
+  "source": "PHB",
+
+  "description": "Assassins are trained killers who specialize in infiltration, disguise, and delivering lethal strikes before their enemies can react.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "assassinate",
+        "name": "Assassinate",
+        "type": "passive",
+        "description": "Starting at 3rd level, you have advantage on attack rolls against any creature that hasn’t taken a turn in the combat yet. In addition, any hit you score against a creature that is surprised is a critical hit."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "infiltration-expertise",
+        "name": "Infiltration Expertise",
+        "type": "passive",
+        "description": "Starting at 9th level, you can unfailingly create false identities for yourself. You must spend seven days and 25 gp to establish the history, profession, and affiliations for an identity."
+      }
+    ],
+
+    "13": [
+      {
+        "id": "impostor",
+        "name": "Impostor",
+        "type": "passive",
+        "description": "At 13th level, you gain the ability to unerringly mimic another person’s speech, writing, and behavior after observing them for at least three hours."
+      }
+    ],
+
+    "17": [
+      {
+        "id": "death-strike",
+        "name": "Death Strike",
+        "type": "passive",
+        "description": "Starting at 17th level, when you attack and hit a creature that is surprised, it must make a Constitution saving throw. On a failed save, double the damage of your attack against the creature."
+      }
+    ]
+  }
+}

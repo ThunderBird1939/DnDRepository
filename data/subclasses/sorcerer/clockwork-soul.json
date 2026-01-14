@@ -1,0 +1,59 @@
+{
+  "id": "clockwork-soul",
+  "name": "Clockwork Soul",
+  "classId": "sorcerer",
+  "source": "TCE",
+
+  "description": "Your magic is bound to cosmic order, enforcing balance and inevitability.",
+
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "clockwork-spells",
+        "name": "Clockwork Spells",
+        "type": "spell-table",
+        "description": "You gain spells that reflect cosmic order.",
+        "spells": {
+          "1": ["alarm", "protection-from-evil-and-good"],
+          "3": ["aid", "lesser-restoration"],
+          "5": ["dispel-magic", "protection-from-energy"],
+          "7": ["freedom-of-movement", "summon-construct"],
+          "9": ["greater-restoration", "wall-of-force"]
+        }
+      },
+      {
+        "id": "restore-balance",
+        "name": "Restore Balance",
+        "type": "reaction",
+        "description": "You can negate advantage or disadvantage on a roll."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "bastion-of-law",
+        "name": "Bastion of Law",
+        "type": "activation",
+        "description": "You create protective wards using sorcery points."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "trance-of-order",
+        "name": "Trance of Order",
+        "type": "activation",
+        "description": "You enter a state of perfect predictability."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "clockwork-cavalcade",
+        "name": "Clockwork Cavalcade",
+        "type": "activation",
+        "description": "You summon constructs to repair and protect."
+      }
+    ]
+  }
+}

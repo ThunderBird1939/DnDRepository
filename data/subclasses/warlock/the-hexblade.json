@@ -1,0 +1,59 @@
+{
+  "id": "the-archfey",
+  "name": "The Archfey",
+  "classId": "warlock",
+  "source": "PHB",
+
+  "description": "You have made a pact with a powerful fey being, gaining beguiling magic and trickery.",
+
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "fey-presence",
+        "name": "Fey Presence",
+        "type": "activation",
+        "description": "You can charm or frighten creatures in a cube around you."
+      },
+      {
+        "id": "archfey-spells",
+        "name": "Expanded Spell List",
+        "type": "spell-table",
+        "description": "The Archfey lets you choose from an expanded list of spells.",
+        "spells": {
+          "1": ["faerie-fire", "sleep"],
+          "3": ["calm-emotions", "phantasmal-force"],
+          "5": ["blink", "plant-growth"],
+          "7": ["dominate-beast", "greater-invisibility"],
+          "9": ["dominate-person", "seeming"]
+        }
+      }
+    ],
+
+    "6": [
+      {
+        "id": "misty-escape",
+        "name": "Misty Escape",
+        "type": "reaction",
+        "description": "You can turn invisible and teleport when you take damage."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "beguiling-defenses",
+        "name": "Beguiling Defenses",
+        "type": "passive",
+        "description": "You are immune to being charmed and can reflect charm effects."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "dark-delirium",
+        "name": "Dark Delirium",
+        "type": "activation",
+        "description": "You banish a creature into a fey illusion realm."
+      }
+    ]
+  }
+}

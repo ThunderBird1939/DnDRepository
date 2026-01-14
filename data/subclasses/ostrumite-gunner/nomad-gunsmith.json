@@ -1,0 +1,55 @@
+{
+  "id": "nomad-gunsmith",
+  "name": "Nomad Gunsmith",
+  "classId": "ostrumite-gunner",
+  "source": "homebrew",
+  "description": "Nomad Gunsmiths fight while moving, adapting their Ostrumite weapons on the fly and turning terrain and momentum into weapons.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "mobile-calibration",
+        "name": "Mobile Calibration",
+        "type": "passive",
+        "description": "Your speed increases, standing costs less movement, and opportunity attacks against you are made at disadvantage."
+      },
+      {
+        "id": "trick-shot-protocol",
+        "name": "Trick Shot Protocol",
+        "type": "choice",
+        "description": "When you hit with a firearm attack, you may spend a charge to apply a special trick shot effect."
+      }
+    ],
+    "7": [
+      {
+        "id": "flow-of-the-dunes",
+        "name": "Flow of the Dunes",
+        "type": "passive",
+        "description": "Moving grants defensive bonuses, and you can disengage as a bonus action by spending a charge."
+      }
+    ],
+    "11": [
+      {
+        "id": "adaptive-fire",
+        "name": "Adaptive Fire",
+        "type": "passive",
+        "description": "At the start of your turn, choose a stance that alters speed, defense, or suppression."
+      }
+    ],
+    "15": [
+      {
+        "id": "break-contact",
+        "name": "Break Contact",
+        "type": "reaction",
+        "description": "When hit, you may spend a charge to reposition without provoking attacks, gaining advantage on your next shot."
+      }
+    ],
+    "18": [
+      {
+        "id": "master-of-motion",
+        "name": "Master of Motion",
+        "type": "passive",
+        "description": "Movement no longer provokes opportunity attacks, and you can fire while moving."
+      }
+    ]
+  }
+}

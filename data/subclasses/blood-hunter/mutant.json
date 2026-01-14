@@ -1,0 +1,60 @@
+{
+  "id": "mutant",
+  "name": "Order of the Mutant",
+  "classId": "blood-hunter",
+  "source": "Critical Role / Explorer's Guide to Wildemount",
+  "description": "Members of the Order of the Mutant enhance their bodies through forbidden alchemy, gaining powerful benefits at the cost of dangerous side effects.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "mutagen-crafting",
+        "name": "Mutagen Crafting",
+        "type": "system",
+        "description": "You learn to concoct mutagens—alchemical formulas that grant powerful benefits with accompanying drawbacks."
+      },
+      {
+        "id": "mutagen-use",
+        "name": "Mutagen Use",
+        "type": "activation",
+        "description": "As a bonus action, you can consume a mutagen, gaining its benefit and drawback until you finish a short or long rest."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "strange-metabolism",
+        "name": "Strange Metabolism",
+        "type": "reaction",
+        "description": "When you take damage or suffer a condition from a mutagen’s drawback, you can use your reaction to ignore that effect."
+      }
+    ],
+
+    "11": [
+      {
+        "id": "advanced-mutagen",
+        "name": "Advanced Mutagen",
+        "type": "system",
+        "description": "You unlock more potent mutagen formulas with stronger benefits and risks."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "persistent-mutagen",
+        "name": "Persistent Mutagen",
+        "type": "passive",
+        "description": "Your mutagens last longer and can remain active through short rests."
+      }
+    ],
+
+    "18": [
+      {
+        "id": "master-alchemist",
+        "name": "Master Alchemist",
+        "type": "system",
+        "description": "You can maintain multiple mutagens at once, mitigating some of their drawbacks."
+      }
+    ]
+  }
+}

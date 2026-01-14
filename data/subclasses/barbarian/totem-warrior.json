@@ -1,0 +1,102 @@
+{
+  "id": "totem-warrior",
+  "name": "Path of the Totem Warrior",
+  "classId": "barbarian",
+  "source": "Player's Handbook",
+  "description": "Totem Warriors draw on animal spirits for guidance and power, gaining abilities that reflect the traits of powerful beasts.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "spirit-seeker",
+        "name": "Spirit Seeker",
+        "type": "utility",
+        "description": "You can cast beast sense and speak with animals as rituals."
+      },
+      {
+        "id": "totem-spirit",
+        "name": "Totem Spirit",
+        "type": "choice",
+        "description": "You gain a totem spirit that grants you benefits while raging.",
+        "options": [
+          {
+            "id": "bear",
+            "name": "Bear",
+            "description": "While raging, you have resistance to all damage except psychic."
+          },
+          {
+            "id": "eagle",
+            "name": "Eagle",
+            "description": "While raging, enemies have disadvantage on opportunity attacks against you, and you can Dash as a bonus action."
+          },
+          {
+            "id": "wolf",
+            "name": "Wolf",
+            "description": "While raging, your allies have advantage on melee attack rolls against creatures within 5 feet of you."
+          }
+        ]
+      }
+    ],
+
+    "6": [
+      {
+        "id": "aspect-of-the-beast",
+        "name": "Aspect of the Beast",
+        "type": "choice",
+        "description": "You gain a magical benefit based on your chosen animal aspect.",
+        "options": [
+          {
+            "id": "bear",
+            "name": "Bear",
+            "description": "You gain double carrying capacity and advantage on Strength checks to push, pull, lift, or break objects."
+          },
+          {
+            "id": "eagle",
+            "name": "Eagle",
+            "description": "You can see up to 1 mile away with no difficulty and have advantage on Perception checks relying on sight."
+          },
+          {
+            "id": "wolf",
+            "name": "Wolf",
+            "description": "You can track creatures while traveling at a fast pace and move stealthily at a normal pace."
+          }
+        ]
+      }
+    ],
+
+    "10": [
+      {
+        "id": "spirit-walker",
+        "name": "Spirit Walker",
+        "type": "utility",
+        "description": "You can cast commune with nature as a ritual."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "totemic-attunement",
+        "name": "Totemic Attunement",
+        "type": "choice",
+        "description": "You gain a powerful feature based on your chosen totem spirit.",
+        "options": [
+          {
+            "id": "bear",
+            "name": "Bear",
+            "description": "Creatures within 5 feet of you have disadvantage on attack rolls against targets other than you."
+          },
+          {
+            "id": "eagle",
+            "name": "Eagle",
+            "description": "You can fly up to your movement speed while raging."
+          },
+          {
+            "id": "wolf",
+            "name": "Wolf",
+            "description": "You can knock a Large or smaller creature prone when you hit it with a melee attack."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "thief",
+  "name": "Thief",
+  "classId": "rogue",
+  "source": "PHB",
+
+  "description": "Thieves focus on agility, stealth, and the use of mundane items to overcome obstacles and outmaneuver foes.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "fast-hands",
+        "name": "Fast Hands",
+        "type": "passive",
+        "description": "Starting at 3rd level, you can use the bonus action granted by your Cunning Action to make a Dexterity (Sleight of Hand) check, use your thieves’ tools to disarm a trap or open a lock, or take the Use an Object action."
+      },
+      {
+        "id": "second-story-work",
+        "name": "Second-Story Work",
+        "type": "passive",
+        "description": "At 3rd level, you gain the ability to climb faster than normal. Climbing no longer costs you extra movement. In addition, when you make a running jump, the distance you cover increases by a number of feet equal to your Dexterity modifier."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "supreme-sneak",
+        "name": "Supreme Sneak",
+        "type": "passive",
+        "description": "Starting at 9th level, you have advantage on a Dexterity (Stealth) check if you move no more than half your speed on the same turn."
+      }
+    ],
+
+    "13": [
+      {
+        "id": "use-magic-device",
+        "name": "Use Magic Device",
+        "type": "passive",
+        "description": "By 13th level, you have learned enough about the workings of magic that you can improvise the use of items even when they are not intended for you. You ignore all class, race, and level requirements on the use of magic items."
+      }
+    ],
+
+    "17": [
+      {
+        "id": "thiefs-reflexes",
+        "name": "Thief’s Reflexes",
+        "type": "passive",
+        "description": "When you reach 17th level, you have become adept at laying ambushes and quickly escaping danger. You can take two turns during the first round of any combat. You take your first turn at your normal initiative and your second turn at your initiative minus 10."
+      }
+    ]
+  }
+}

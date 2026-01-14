@@ -1,0 +1,68 @@
+{
+  "id": "war",
+  "name": "War Domain",
+  "classId": "cleric",
+  "source": "PHB",
+  "description": "Clerics of the War Domain are battle priests who channel divine power through steel and strategy, empowering allies and striking down foes in the name of conquest and duty.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "war-spells",
+        "name": "War Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["divine-favor", "shield-of-faith"],
+          "3": ["magic-weapon", "spiritual-weapon"],
+          "5": ["crusaders-mantle", "spirit-guardians"],
+          "7": ["freedom-of-movement", "stoneskin"],
+          "9": ["flame-strike", "hold-monster"]
+        }
+      },
+      {
+        "id": "bonus-proficiencies-war",
+        "name": "Bonus Proficiencies",
+        "type": "passive",
+        "description": "You gain proficiency with martial weapons and heavy armor."
+      },
+      {
+        "id": "war-priest",
+        "name": "War Priest",
+        "type": "passive",
+        "description": "When you take the Attack action, you can make one weapon attack as a bonus action a limited number of times."
+      }
+    ],
+    "2": [
+      {
+        "id": "guided-strike",
+        "name": "Channel Divinity: Guided Strike",
+        "type": "channelDivinity",
+        "description": "You can gain a significant bonus to an attack roll after seeing the roll but before knowing the result."
+      }
+    ],
+    "6": [
+      {
+        "id": "war-gods-blessing",
+        "name": "Channel Divinity: War God's Blessing",
+        "type": "channelDivinity",
+        "description": "You can use your Channel Divinity to help an ally’s attack roll as a reaction."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-war",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra weapon damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "avatar-of-battle",
+        "name": "Avatar of Battle",
+        "type": "passive",
+        "description": "You gain resistance to bludgeoning, piercing, and slashing damage from nonmagical weapons."
+      }
+    ]
+  }
+}

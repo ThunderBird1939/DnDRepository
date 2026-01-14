@@ -1,0 +1,55 @@
+{
+  "id": "iron-vanguard",
+  "name": "Iron Vanguard",
+  "classId": "ostrumite-gunner",
+  "source": "homebrew",
+  "description": "Iron Vanguards reinforce their Ostrumite systems into layered plating and kinetic dampers, becoming immovable frontline bulwarks.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "ostrumite-plating",
+        "name": "Ostrumite Plating",
+        "type": "passive",
+        "description": "While wearing medium armor or wielding a shield, you gain increased AC and defensive benefits."
+      },
+      {
+        "id": "anchor-protocol",
+        "name": "Anchor Protocol",
+        "type": "activation",
+        "description": "As a bonus action, you become an immovable point, gaining save advantages and slowing nearby enemies."
+      }
+    ],
+    "7": [
+      {
+        "id": "frontline-control",
+        "name": "Frontline Control",
+        "type": "reaction",
+        "description": "Enemies provoke opportunity attacks from you even if they Disengage, and you can impose disadvantage when they attack allies."
+      }
+    ],
+    "11": [
+      {
+        "id": "reactive-countermeasures",
+        "name": "Reactive Countermeasures",
+        "type": "passive",
+        "description": "Your defensive reactions empower your next attack and force enemies back."
+      }
+    ],
+    "15": [
+      {
+        "id": "zone-of-denial",
+        "name": "Zone of Denial",
+        "type": "passive",
+        "description": "While anchored, enemies near you struggle to attack allies and trigger free counterattacks when entering your zone."
+      }
+    ],
+    "18": [
+      {
+        "id": "unbreakable-core",
+        "name": "Unbreakable Core",
+        "type": "passive",
+        "description": "Your damage reduction improves, attackers risk being stunned, and you regain charges when critically wounded."
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "arcane-trickster",
+  "name": "Arcane Trickster",
+  "classId": "rogue",
+  "source": "PHB",
+
+  "description": "Arcane Tricksters enhance their roguish skills with illusion and enchantment magic, weaving spells into stealth and deception.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "spellcasting",
+        "name": "Spellcasting",
+        "type": "spellcasting",
+        "description": "When you reach 3rd level, you gain the ability to cast spells. You learn mage hand and a limited selection of wizard spells focused on illusion and enchantment."
+      },
+      {
+        "id": "mage-hand-legerdemain",
+        "name": "Mage Hand Legerdemain",
+        "type": "passive",
+        "description": "Starting at 3rd level, you can cast mage hand invisibly and perform additional tasks with it, such as stowing objects or picking locks."
+      }
+    ],
+
+    "9": [
+      {
+        "id": "magical-ambush",
+        "name": "Magical Ambush",
+        "type": "passive",
+        "description": "Beginning at 9th level, if you are hidden from a creature when you cast a spell on it, the creature has disadvantage on any saving throw it makes against the spell this turn."
+      }
+    ],
+
+    "13": [
+      {
+        "id": "versatile-trickster",
+        "name": "Versatile Trickster",
+        "type": "activation",
+        "description": "At 13th level, you gain the ability to distract targets with your mage hand. As a bonus action, you can designate a creature distracted by your mage hand to gain advantage on attack rolls against it."
+      }
+    ],
+
+    "17": [
+      {
+        "id": "spell-thief",
+        "name": "Spell Thief",
+        "type": "reaction",
+        "description": "At 17th level, when a creature casts a spell that targets you, you can use your reaction to force the creature to make a saving throw. On a failure, the spell has no effect on you and you can cast it yourself."
+      }
+    ]
+  }
+}

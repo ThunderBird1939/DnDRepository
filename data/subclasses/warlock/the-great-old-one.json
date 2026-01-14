@@ -1,0 +1,59 @@
+{
+  "id": "the-fiend",
+  "name": "The Fiend",
+  "classId": "warlock",
+  "source": "PHB",
+
+  "description": "You have made a pact with a fiendish entity of the Lower Planes, gaining destructive power fueled by dark ambition.",
+
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "dark-ones-blessing",
+        "name": "Dark One’s Blessing",
+        "type": "passive",
+        "description": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to your Charisma modifier + your warlock level."
+      },
+      {
+        "id": "fiend-spells",
+        "name": "Expanded Spell List",
+        "type": "spell-table",
+        "description": "The Fiend lets you choose from an expanded list of spells when you learn a warlock spell.",
+        "spells": {
+          "1": ["burning-hands", "command"],
+          "3": ["blindness-deafness", "scorching-ray"],
+          "5": ["fireball", "stinking-cloud"],
+          "7": ["fire-shield", "wall-of-fire"],
+          "9": ["flame-strike", "hallow"]
+        }
+      }
+    ],
+
+    "6": [
+      {
+        "id": "dark-ones-own-luck",
+        "name": "Dark One’s Own Luck",
+        "type": "reaction",
+        "description": "You can add a d10 to an ability check or saving throw after seeing the roll but before knowing the outcome."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "fiendish-resilience",
+        "name": "Fiendish Resilience",
+        "type": "passive",
+        "description": "You can choose one damage type to gain resistance against until you choose a different one."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "hurl-through-hell",
+        "name": "Hurl Through Hell",
+        "type": "activation",
+        "description": "When you hit a creature, you can banish it briefly through the Lower Planes, dealing psychic damage."
+      }
+    ]
+  }
+}

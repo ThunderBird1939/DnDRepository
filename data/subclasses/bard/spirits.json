@@ -1,0 +1,43 @@
+{
+  "id": "spirits",
+  "name": "College of Spirits",
+  "classId": "bard",
+  "source": "Van Richten's Guide to Ravenloft",
+  "description": "Bards of the College of Spirits channel stories and legends from beyond the veil, invoking supernatural tales that manifest as powerful, unpredictable effects.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "guiding-whispers",
+        "name": "Guiding Whispers",
+        "type": "system",
+        "description": "You learn the guidance cantrip. It doesn’t count against the number of bard cantrips you know. You also learn the augury spell, which you can cast without expending a spell slot once per long rest."
+      },
+      {
+        "id": "tales-from-beyond",
+        "name": "Tales from Beyond",
+        "type": "table",
+        "description": "As a bonus action, you expend one use of Bardic Inspiration and roll on the Tales from Beyond table to determine a supernatural effect.",
+        "tableId": "tales-from-beyond"
+      }
+    ],
+
+    "6": [
+      {
+        "id": "spiritual-focus",
+        "name": "Spiritual Focus",
+        "type": "passive",
+        "description": "You can use a spiritual focus as a spellcasting focus for your bard spells, and you gain a bonus to healing or damage dealt by bard spells."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "mystical-connection",
+        "name": "Mystical Connection",
+        "type": "system",
+        "description": "When you roll on the Tales from Beyond table, you can roll twice and choose which result to use."
+      }
+    ]
+  }
+}

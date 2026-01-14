@@ -1,0 +1,41 @@
+{
+  "id": "sun-soul",
+  "name": "Way of the Sun Soul",
+  "classId": "monk",
+  "source": "XGE",
+  "description": "Sun Soul monks channel radiant energy into searing blasts and explosive light.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "radiant-sun-bolt",
+        "name": "Radiant Sun Bolt",
+        "type": "passive",
+        "description": "You can make ranged radiant attacks using monk abilities."
+      }
+    ],
+    "6": [
+      {
+        "id": "searing-arc-strike",
+        "name": "Searing Arc Strike",
+        "type": "activation",
+        "description": "You can cast burning effects by spending ki."
+      }
+    ],
+    "11": [
+      {
+        "id": "searing-sunburst",
+        "name": "Searing Sunburst",
+        "type": "activation",
+        "description": "You create a radiant explosion at range."
+      }
+    ],
+    "17": [
+      {
+        "id": "sun-shield",
+        "name": "Sun Shield",
+        "type": "reaction",
+        "description": "You shed light and burn attackers."
+      }
+    ]
+  }
+}

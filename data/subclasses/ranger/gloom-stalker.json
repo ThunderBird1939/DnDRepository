@@ -1,0 +1,60 @@
+{
+  "id": "gloom-stalker",
+  "name": "Gloom Stalker",
+  "classId": "ranger",
+  "source": "XGE",
+  "description": "Gloom Stalkers thrive in darkness, ambushing foes before they can react.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "gloom-stalker-spells",
+        "name": "Gloom Stalker Magic",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared.",
+        "spells": {
+          "3": ["disguise-self"],
+          "5": ["rope-trick"],
+          "9": ["fear"],
+          "13": ["greater-invisibility"],
+          "17": ["seeming"]
+        }
+      },
+      {
+        "id": "dread-ambusher",
+        "name": "Dread Ambusher",
+        "type": "passive",
+        "description": "You gain initiative bonuses and extra damage on the first round of combat."
+      },
+      {
+        "id": "umbral-sight",
+        "name": "Umbral Sight",
+        "type": "passive",
+        "description": "You gain darkvision and become invisible to creatures relying on darkvision."
+      }
+    ],
+    "7": [
+      {
+        "id": "iron-mind",
+        "name": "Iron Mind",
+        "type": "passive",
+        "description": "You gain proficiency in Wisdom saving throws."
+      }
+    ],
+    "11": [
+      {
+        "id": "stalkers-flurry",
+        "name": "Stalker’s Flurry",
+        "type": "passive",
+        "description": "You can make an extra attack when you miss."
+      }
+    ],
+    "15": [
+      {
+        "id": "shadowy-dodge",
+        "name": "Shadowy Dodge",
+        "type": "reaction",
+        "description": "You impose disadvantage on an attack roll made against you."
+      }
+    ]
+  }
+}

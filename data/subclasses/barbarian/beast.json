@@ -1,0 +1,62 @@
+{
+  "id": "beast",
+  "name": "Path of the Beast",
+  "classId": "barbarian",
+  "source": "Tasha's Cauldron of Everything",
+  "description": "Barbarians who follow the Path of the Beast allow their rage to physically transform them, manifesting bestial traits such as claws, fangs, or a powerful tail.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "form-of-the-beast",
+        "name": "Form of the Beast",
+        "type": "choice",
+        "description": "When you enter a rage, you choose one bestial form that lasts for the duration of the rage.",
+        "options": [
+          {
+            "id": "bite",
+            "name": "Bite",
+            "description": "Your mouth transforms into a bestial maw. Once per turn when you hit with this bite, you regain hit points."
+          },
+          {
+            "id": "claws",
+            "name": "Claws",
+            "description": "Each of your hands transforms into claws. When you take the Attack action, you can make one additional claw attack as part of the same action."
+          },
+          {
+            "id": "tail",
+            "name": "Tail",
+            "description": "You grow a lashing tail that can deal damage and be used to increase your AC as a reaction."
+          }
+        ]
+      }
+    ],
+
+    "6": [
+      {
+        "id": "bestial-soul",
+        "name": "Bestial Soul",
+        "type": "system",
+        "description": "Your natural weapons count as magical, and you gain enhanced mobility options such as climbing, swimming, or leaping while raging."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "infectious-fury",
+        "name": "Infectious Fury",
+        "type": "resource",
+        "description": "When you hit a creature with a natural weapon, you can force it to make a saving throw or take psychic damage or attack another target."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "call-the-hunt",
+        "name": "Call the Hunt",
+        "type": "activation",
+        "description": "You can empower allies with feral vigor, granting temporary hit points and bonus damage while you rage."
+      }
+    ]
+  }
+}

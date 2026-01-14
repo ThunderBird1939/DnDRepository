@@ -1,0 +1,55 @@
+{
+  "id": "moonforged-duelist",
+  "name": "Moonforged Duelist",
+  "classId": "ostrumite-gunner",
+  "source": "homebrew",
+  "description": "Moonforged Duelists synchronize their Ostrumite cores to lunar rhythms, striking with terrifying precision and chaining critical moments into decisive victories.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "lunar-calibration",
+        "name": "Lunar Calibration",
+        "type": "activation",
+        "description": "You adopt a lunar stance that grants different combat benefits. You may switch stances as a bonus action."
+      },
+      {
+        "id": "precision-strike",
+        "name": "Precision Strike",
+        "type": "passive",
+        "description": "Once per turn when you hit, you may spend 1 Ostrumite Charge to add damage or turn a 19 into a critical hit."
+      }
+    ],
+    "7": [
+      {
+        "id": "reactive-duelist",
+        "name": "Reactive Duelist",
+        "type": "reaction",
+        "description": "When a creature misses you or leaves your reach, you may spend 1 charge to make a melee attack. On a critical hit, you may immediately make a firearm attack."
+      }
+    ],
+    "11": [
+      {
+        "id": "exploit-opening",
+        "name": "Exploit Opening",
+        "type": "passive",
+        "description": "Your weapon attacks ignore resistance on critical hits, and your critical hit range expands."
+      }
+    ],
+    "15": [
+      {
+        "id": "perfect-timing",
+        "name": "Perfect Timing",
+        "type": "passive",
+        "description": "Once per turn when you miss, you may reroll the attack. Critical hits grant movement and restore charges."
+      }
+    ],
+    "18": [
+      {
+        "id": "lunar-execution",
+        "name": "Lunar Execution",
+        "type": "activation",
+        "description": "Once per short rest, you may declare an attack an automatic critical hit against a wounded or pressured target."
+      }
+    ]
+  }
+}

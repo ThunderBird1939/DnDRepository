@@ -1,0 +1,60 @@
+{
+  "id": "monster-slayer",
+  "name": "Monster Slayer",
+  "classId": "ranger",
+  "source": "XGE",
+  "description": "Monster Slayers specialize in identifying and eliminating supernatural threats.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "monster-slayer-spells",
+        "name": "Monster Slayer Magic",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared.",
+        "spells": {
+          "3": ["protection-from-poison"],
+          "5": ["zone-of-truth"],
+          "9": ["magic-circle"],
+          "13": ["banishment"],
+          "17": ["hold-monster"]
+        }
+      },
+      {
+        "id": "hunters-sense",
+        "name": "Hunter’s Sense",
+        "type": "activation",
+        "description": "You analyze a creature’s vulnerabilities."
+      },
+      {
+        "id": "slayers-prey",
+        "name": "Slayer’s Prey",
+        "type": "passive",
+        "description": "You designate a creature to take additional damage."
+      }
+    ],
+    "7": [
+      {
+        "id": "supernatural-defense",
+        "name": "Supernatural Defense",
+        "type": "passive",
+        "description": "You gain bonuses to saving throws against your prey."
+      }
+    ],
+    "11": [
+      {
+        "id": "magic-users-nemesis",
+        "name": "Magic-User’s Nemesis",
+        "type": "reaction",
+        "description": "You can disrupt spellcasting."
+      }
+    ],
+    "15": [
+      {
+        "id": "slayers-counter",
+        "name": "Slayer’s Counter",
+        "type": "reaction",
+        "description": "You retaliate when your prey forces a save."
+      }
+    ]
+  }
+}

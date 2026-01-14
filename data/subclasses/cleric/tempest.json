@@ -1,0 +1,68 @@
+{
+  "id": "tempest",
+  "name": "Tempest Domain",
+  "classId": "cleric",
+  "source": "PHB",
+  "description": "Clerics of the Tempest Domain channel divine wrath through thunder and lightning, crushing foes beneath storms and driving enemies back with explosive force.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "tempest-spells",
+        "name": "Tempest Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["fog-cloud", "thunderwave"],
+          "3": ["gust-of-wind", "shatter"],
+          "5": ["call-lightning", "sleet-storm"],
+          "7": ["control-water", "ice-storm"],
+          "9": ["destructive-wave", "insect-plague"]
+        }
+      },
+      {
+        "id": "bonus-proficiencies-tempest",
+        "name": "Bonus Proficiencies",
+        "type": "passive",
+        "description": "You gain proficiency with martial weapons and heavy armor."
+      },
+      {
+        "id": "wrath-of-the-storm",
+        "name": "Wrath of the Storm",
+        "type": "reaction",
+        "description": "When a creature hits you with a melee attack, you can deal lightning or thunder damage to it on a failed save."
+      }
+    ],
+    "2": [
+      {
+        "id": "destructive-wrath",
+        "name": "Channel Divinity: Destructive Wrath",
+        "type": "channelDivinity",
+        "description": "When you roll lightning or thunder damage, you can choose to deal maximum damage instead."
+      }
+    ],
+    "6": [
+      {
+        "id": "thunderbolt-strike",
+        "name": "Thunderbolt Strike",
+        "type": "passive",
+        "description": "When you deal lightning damage to a Large or smaller creature, you can push it."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-tempest",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra thunder damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "stormborn",
+        "name": "Stormborn",
+        "type": "passive",
+        "description": "You gain a flying speed while not underground or indoors."
+      }
+    ]
+  }
+}

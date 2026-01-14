@@ -1,0 +1,56 @@
+{
+  "id": "battlerager",
+  "name": "Path of the Battlerager",
+  "classId": "barbarian",
+  "source": "Sword Coast Adventurer's Guide",
+  "description": "Battleragers are brutal warriors who embrace spiked armor and reckless aggression, hurling themselves into battle with little regard for safety.",
+
+  "requirements": {
+    "race": ["dwarf"],
+    "note": "Race requirement is optional if your engine does not enforce racial locks."
+  },
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "battlerager-armor",
+        "name": "Battlerager Armor",
+        "type": "system",
+        "description": "You can use spiked armor as a weapon. While wearing spiked armor and raging, you can make a melee weapon attack with the spikes as a bonus action, dealing piercing damage."
+      },
+      {
+        "id": "spiked-retribution",
+        "name": "Spiked Retribution",
+        "type": "passive",
+        "description": "While you are raging and wearing spiked armor, creatures that grapple you or hit you with a melee attack take piercing damage."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "reckless-abandon",
+        "name": "Reckless Abandon",
+        "type": "trigger",
+        "description": "When you use Reckless Attack while raging, you gain temporary hit points equal to your Constitution modifier."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "battlerager-charge",
+        "name": "Battlerager Charge",
+        "type": "passive",
+        "description": "While raging, you can take the Dash action as a bonus action."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "spiked-retribution-improvement",
+        "name": "Improved Spiked Retribution",
+        "type": "passive",
+        "description": "The damage dealt by your spiked armor when creatures hit or grapple you increases."
+      }
+    ]
+  }
+}

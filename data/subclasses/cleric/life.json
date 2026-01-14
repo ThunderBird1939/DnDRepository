@@ -1,0 +1,68 @@
+{
+  "id": "life",
+  "name": "Life Domain",
+  "classId": "cleric",
+  "source": "PHB",
+  "description": "Clerics of the Life Domain are dedicated to healing and protection, channeling divine energy to restore allies and sustain life against all odds.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "life-spells",
+        "name": "Life Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["bless", "cure-wounds"],
+          "3": ["lesser-restoration", "spiritual-weapon"],
+          "5": ["beacon-of-hope", "revivify"],
+          "7": ["death-ward", "guardian-of-faith"],
+          "9": ["mass-cure-wounds", "raise-dead"]
+        }
+      },
+      {
+        "id": "bonus-proficiency-heavy-armor",
+        "name": "Bonus Proficiency",
+        "type": "passive",
+        "description": "You gain proficiency with heavy armor."
+      },
+      {
+        "id": "disciple-of-life",
+        "name": "Disciple of Life",
+        "type": "passive",
+        "description": "Your healing spells restore additional hit points."
+      }
+    ],
+    "2": [
+      {
+        "id": "preserve-life",
+        "name": "Channel Divinity: Preserve Life",
+        "type": "channelDivinity",
+        "description": "You restore hit points to creatures of your choice within range, distributing healing as needed."
+      }
+    ],
+    "6": [
+      {
+        "id": "blessed-healer",
+        "name": "Blessed Healer",
+        "type": "passive",
+        "description": "When you heal others with a spell, you regain hit points as well."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-life",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra radiant damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "supreme-healing",
+        "name": "Supreme Healing",
+        "type": "passive",
+        "description": "When you would roll dice to restore hit points with a spell, you instead use the highest number possible for each die."
+      }
+    ]
+  }
+}

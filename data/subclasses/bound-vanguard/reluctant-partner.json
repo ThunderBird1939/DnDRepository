@@ -1,0 +1,57 @@
+{
+  "id": "reluctant-partner",
+  "name": "Reluctant Partner",
+  "classId": "bound-vanguard",
+  "source": "homebrew",
+  "description": "Reluctant Partners fight alongside their bound entity with caution and precision, projecting pressure through space and denying enemies clean movement or positioning.",
+
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "manifest-locus",
+        "name": "Manifest Locus",
+        "type": "activation",
+        "description": "As a bonus action, you may spend 1 Manifest Energy to designate an unoccupied space within 10 feet as your Manifest Locus until the start of your next turn. The locus is treated as occupied by you for opportunity attacks, and enemies within 5 feet of it have disadvantage on checks made to Disengage. You may move the locus 5 feet when you move (no action)."
+      },
+      {
+        "id": "pincer-pressure",
+        "name": "Pincer Pressure",
+        "type": "trigger",
+        "description": "When a creature is within reach of both you and your Manifest Locus, you may spend 1 Manifest Energy to apply pressure until the start of your next turn. The creature cannot gain advantage on attack rolls and provokes opportunity attacks even if it Disengages."
+      }
+    ],
+
+    "7": [
+      {
+        "id": "coordinated-strike",
+        "name": "Coordinated Strike",
+        "type": "trigger",
+        "description": "When you hit a creature within 5 feet of your Manifest Locus, you may spend 1 Manifest Energy to deal bonus force damage and push or pull the target 5 feet. This movement does not provoke opportunity attacks."
+      },
+      {
+        "id": "shared-watch",
+        "name": "Shared Watch",
+        "type": "reaction",
+        "description": "When a creature within 10 feet of you or your Manifest Locus targets an ally with an attack, you may spend 1 Manifest Energy to impose disadvantage on the triggering attack roll. If the attack misses, you may move your Manifest Locus up to 5 feet."
+      }
+    ],
+
+    "11": [
+      {
+        "id": "encroaching-presence",
+        "name": "Encroaching Presence",
+        "type": "activation",
+        "description": "As a bonus action, you may spend 1 Manifest Energy to emanate pressure until the start of your next turn. The area within 5 feet of you and your Manifest Locus is difficult terrain for hostile creatures, and the first hostile creature that enters either area takes force damage."
+      }
+    ],
+
+    "15": [
+      {
+        "id": "fractured-flank",
+        "name": "Fractured Flank",
+        "type": "reaction",
+        "description": "When a creature moves between you and your Manifest Locus, you may spend 2 Manifest Energy to disrupt it. The creature must succeed on a Dexterity saving throw or have its speed become 0 until the end of the turn and take force damage; on a success, its speed is reduced."
+      }
+    ]
+  }
+}

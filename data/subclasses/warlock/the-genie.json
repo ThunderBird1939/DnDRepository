@@ -1,0 +1,46 @@
+{
+  "id": "the-genie",
+  "name": "The Genie",
+  "classId": "warlock",
+  "source": "TCE",
+
+  "description": "You have made a pact with a powerful genie, gaining elemental power and a magical vessel.",
+
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "genies-vessel",
+        "name": "Genie’s Vessel",
+        "type": "system",
+        "description": "You gain a magical vessel tied to your patron and elemental damage bonuses."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "elemental-gift",
+        "name": "Elemental Gift",
+        "type": "activation",
+        "description": "You gain flight or other elemental movement options."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "sanctuary-vessel",
+        "name": "Sanctuary Vessel",
+        "type": "passive",
+        "description": "Your vessel becomes a safe haven for you and allies."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "limited-wish",
+        "name": "Limited Wish",
+        "type": "activation",
+        "description": "You can request powerful spell effects without casting them."
+      }
+    ]
+  }
+}

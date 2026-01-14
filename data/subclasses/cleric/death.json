@@ -1,0 +1,62 @@
+{
+  "id": "death",
+  "name": "Death Domain",
+  "classId": "cleric",
+  "source": "DMG",
+  "description": "Clerics of the Death Domain embody necromantic power and ruthless inevitability, draining life and commanding the dead. This domain is often used for villainous clerics but is official.",
+  "featuresByLevel": {
+    "1": [
+      {
+        "id": "death-spells",
+        "name": "Death Domain Spells",
+        "type": "spell-table",
+        "description": "You always have certain spells prepared at specific cleric levels.",
+        "spells": {
+          "1": ["false-life", "ray-of-sickness"],
+          "3": ["blindness-deafness", "ray-of-enfeeblement"],
+          "5": ["animate-dead", "vampiric-touch"],
+          "7": ["blight", "death-ward"],
+          "9": ["antilife-shell", "cloudkill"]
+        }
+      },
+      {
+        "id": "reaper",
+        "name": "Reaper",
+        "type": "passive",
+        "description": "You can target an additional creature with certain necromancy cantrips."
+      }
+    ],
+    "2": [
+      {
+        "id": "touch-of-death",
+        "name": "Channel Divinity: Touch of Death",
+        "type": "channelDivinity",
+        "description": "You can add a large amount of necrotic damage to a melee attack."
+      }
+    ],
+    "6": [
+      {
+        "id": "inescapable-destruction",
+        "name": "Inescapable Destruction",
+        "type": "passive",
+        "description": "Your necrotic damage ignores resistance."
+      }
+    ],
+    "8": [
+      {
+        "id": "divine-strike-death",
+        "name": "Divine Strike",
+        "type": "passive",
+        "description": "Once on each of your turns when you hit with a weapon attack, you deal extra necrotic damage."
+      }
+    ],
+    "17": [
+      {
+        "id": "improved-reaper",
+        "name": "Improved Reaper",
+        "type": "passive",
+        "description": "Your Reaper feature improves, letting you affect stronger necromancy spells."
+      }
+    ]
+  }
+}
