@@ -344,7 +344,30 @@ function applyInfusionEffects() {
   });
 }
 
+function checkArcaneShotUnlocks(prevLevel, newLevel) {
+  if (
+    character.class?.id !== "fighter" ||
+    character.subclass?.id !== "arcane-archer"
+  ) return;
 
+  ensureArcaneShotState();
+
+  const prevMax = getMaxArcaneShotsKnown(prevLevel);
+  const newMax  = getMaxArcaneShotsKnown(newLevel);
+
+  if (newMax <= prevMax) return;
+
+  const known = character.combat.arcaneShot.knownShots.size;
+  const toChoose = newMax - known;
+
+  if (toChoose > 0) {
+    character.pendingChoices ??= {};
+    character.pendingChoices.arcaneShots = { choose: toChoose };
+
+    character.resolvedChoices ??= {};
+    character.resolvedChoices.arcaneShots = false;
+  }
+}
 
 function renderInfusions() {
   const artificerInfusions = allInfusions; // ✅ FIX
@@ -710,6 +733,14 @@ function getMaxActiveInfusions(level) {
   return 0;
 }
 
+function getMaxArcaneShotsKnown(level) {
+  if (level >= 15) return 5;
+  if (level >= 10) return 4;
+  if (level >= 7)  return 3;
+  if (level >= 3)  return 2;
+  return 0;
+}
+
 function updateFighterUI() {
   const block = document.getElementById("fighterResources");
   if (!block) return;
@@ -814,87 +845,93 @@ function updateArcaneShotActiveUI() {
 }
 
 async function initArcaneShotKnownUI() {
-  const block = document.getElementById("knownArcaneShotsBlock");
+  const block  = document.getElementById("knownArcaneShotsBlock");
   const select = document.getElementById("arcaneShotsLearnSelect");
-  const hint = document.getElementById("arcaneShotsHint");
+  const hint   = document.getElementById("arcaneShotsHint");
 
   if (
     !block ||
     character.class?.id !== "fighter" ||
-    character.subclass?.id !== "arcane-archer" ||
-    !character.combat?.arcaneShot
+    character.subclass?.id !== "arcane-archer"
   ) {
-    if (block) block.hidden = true;
-    arcaneShotChoices?.destroy?.();
-    arcaneShotChoices = null;
-    return;
-  }
-  await loadArcaneShots();
-
-  character.combat.arcaneShot.knownShots ??= new Set();
-  const known = character.combat.arcaneShot.knownShots;
-
-  const pending = character.pendingChoices?.arcaneShots;
-  const choose = pending?.choose ?? 0;
-
-  // 🔑 Only show learning UI when learning is required
-  if (!pending || character.resolvedChoices?.arcaneShots) {
     block.hidden = true;
     arcaneShotChoices?.destroy?.();
     arcaneShotChoices = null;
     return;
   }
 
+  ensureArcaneShotState();
+  await loadArcaneShots();
+
+  const maxKnown = getMaxArcaneShotsKnown(character.level);
+  const known = character.combat.arcaneShot.knownShots;
+
+  // 🔑 Nothing to learn
+  if (known.size >= maxKnown) {
+    if (character.pendingChoices?.arcaneShots) {
+  delete character.pendingChoices.arcaneShots;
+}
+    character.resolvedChoices.arcaneShots = true;
+    block.hidden = true;
+    arcaneShotChoices?.destroy?.();
+    arcaneShotChoices = null;
+    return;
+  }
+
+  // 👇 learning UI shows
   block.hidden = false;
 
-  // Populate dropdown
+  const remaining = maxKnown - known.size;
+  hint.textContent = `Choose ${remaining} Arcane Shot option(s).`;
+
   select.innerHTML = "";
+
   ALL_ARCANE_SHOTS
     .filter(s => (s.level ?? 0) <= character.level)
     .forEach(s => {
       const opt = document.createElement("option");
       opt.value = s.id;
       opt.textContent = s.name;
+
+      if (known.has(s.id)) opt.selected = true;
       select.appendChild(opt);
     });
 
-  // Reset Choices
   arcaneShotChoices?.destroy?.();
   arcaneShotChoices = new Choices(select, {
     removeItemButton: true,
-    maxItemCount: choose,
+    maxItemCount: maxKnown,
     shouldSort: false,
     searchEnabled: true
   });
 
-  arcaneShotChoices.setChoiceByValue([...known]);
-
-  const remaining = Math.max(0, choose - known.size);
-  hint.textContent = remaining
-    ? `Choose ${remaining} Arcane Shot option(s).`
-    : `Arcane Shots learned.`;
-
   select.onchange = () => {
-    const vals = Array.from(select.selectedOptions).map(o => o.value);
-    character.combat.arcaneShot.knownShots = new Set(vals);
+    const selected = arcaneShotChoices.getValue(true);
 
-    const rem = Math.max(0, choose - vals.length);
-    hint.textContent = rem
-      ? `Choose ${rem} Arcane Shot option(s).`
-      : `Arcane Shots learned.`;
+    // 🔑 MERGE — never replace
+    selected.forEach(id => known.add(id));
 
-    // Auto-complete learning
-    if (vals.length >= choose) {
+    const left = maxKnown - known.size;
+    hint.textContent =
+      left > 0
+        ? `Choose ${left} Arcane Shot option(s).`
+        : `Arcane Shots learned.`;
+
+    if (left <= 0) {
       delete character.pendingChoices.arcaneShots;
       character.resolvedChoices.arcaneShots = true;
-      block.hidden = true;
+
       arcaneShotChoices.destroy();
       arcaneShotChoices = null;
+      block.hidden = true;
 
-       updateArcaneShotActiveUI();
+      updateArcaneShotActiveUI();
+      renderArcaneShotDetails();
+      renderArcaneShotUseDropdown();
     }
   };
 }
+
 
 function ensureArcaneShotState() {
   character.combat ??= {};
@@ -1634,6 +1671,7 @@ function applyRaceToCharacter(race) {
 function runPendingChoiceFlow() {
   if (character.pendingChoices?.skills) {
     renderSkillChoice(character);
+    return;
   }
 
   if (character.pendingChoices?.choiceFeature) {
@@ -1651,7 +1689,13 @@ function runPendingChoiceFlow() {
     openSubclassModal(character.pendingSubclassChoice);
     return;
   }
+
+  if (character.pendingChoices?.arcaneShots) {
+    initArcaneShotKnownUI();
+    return;
+  }
 }
+
 
 /* =========================
    Tool Choice Modal
@@ -2148,6 +2192,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
   // update single source of truth
   character.level = lvl;
+  checkArcaneShotUnlocks(prevLevel, lvl);
   const indomitableBtn = document.getElementById("indomitableBtn");
   const indomitableStatus = document.getElementById("indomitableStatus");
 
@@ -2158,7 +2203,6 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
       i.usesUsed++;
       updateFighterButtons();
-      
     };
   }
 
@@ -2407,5 +2451,10 @@ updateArcaneArcherVisibility();
     el.style.display = "none";
     el.style.pointerEvents = "none";
   }
+  // 🔓 DEBUG EXPORTS (temporary)
+window.getMaxArcaneShotsKnown = getMaxArcaneShotsKnown;
+window.checkArcaneShotUnlocks = checkArcaneShotUnlocks;
+window.ensureArcaneShotState = ensureArcaneShotState;
+
 });
 });
