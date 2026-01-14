@@ -82,8 +82,8 @@ export const character = {
    weapons: new Set(),
    tools: new Set(),
    skills: new Set(),
-   languages: new Set(),     // ← NEW
-   vehicles: new Set()       // ← NEW
+   languages: new Set(),    
+   vehicles: new Set()      
    },
 
 

@@ -16,7 +16,7 @@ export function spellIdFromTitle(title) {
 export function artificerPrepLimit(character) {
   const intScore = character.abilities?.int ?? 10;
   const intMod = Math.floor((intScore - 10) / 2);
-  const level = character.class?.level ?? 1;
+  const level = character.level ?? 1;
 
   return Math.max(1, intMod + Math.floor(level / 2));
 }

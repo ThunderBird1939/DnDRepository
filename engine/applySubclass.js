@@ -100,6 +100,40 @@ if (
       "When you hit with a magic weapon or your Steel Defender hits, you can deal extra force damage or restore hit points."
   };
 }
+/* =========================
+   ARCANE ARCHER: ARCANE SHOT CORE
+========================= */
+if (
+  subclassData.id === "arcane-archer" &&
+  character.class?.id === "fighter"
+) {
+  character.combat ??= {};
+  character.pendingChoices ??= {};
+  character.resolvedChoices ??= {};
+
+  // Preserve existing known shots if re-applying
+  const existingKnown =
+    character.combat.arcaneShot?.knownShots ?? new Set();
+
+  // ✅ Initialize Arcane Shot FIRST
+  character.combat.arcaneShot = {
+    usesMax: 2,
+    usesUsed: character.combat.arcaneShot?.usesUsed ?? 0,
+    knownShots: existingKnown,
+    selectedShot: null
+  };
+
+  // ✅ THEN decide if the choice modal is needed
+  if (
+    character.level >= 3 &&
+    !character.resolvedChoices.arcaneShots &&
+    character.combat.arcaneShot.knownShots.size === 0 &&
+    !character.pendingChoices.arcaneShots
+  ) {
+    character.pendingChoices.arcaneShots = { choose: 2 };
+  }
+}
+
 
   /* =========================
      FEATURES (LEVEL AWARE)

@@ -207,6 +207,7 @@ if (levelData?.choices) {
       character.pendingChoices[key] = cfg;
     }
   });
+  
 }
   console.log("applyClass complete:", character);
 }

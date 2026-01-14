@@ -32,8 +32,6 @@ if (armor) {
   ac = armor.baseAC;
 
   const profs = [...(character.proficiencies?.armor || [])];
-  character.combat.armorPenalty = false;
-  character.combat.strPenalty = false; // 👈 NEW
 
  const isArcaneArmor = !!character.combat?.arcaneArmor;
 

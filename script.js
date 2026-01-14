@@ -129,16 +129,6 @@ async function initLanguageSelect() {
   syncLanguagesUI();
 }
 
-function initIndomitable() {
-  if (character.class?.id !== "fighter") return;
-  if (character.level < 9) return;
-
-  character.combat.indomitable ??= {
-    usesMax: character.level >= 13 ? 2 : 1,
-    usesUsed: 0
-  };
-}
-
 function applyBackground(bg) {
   const parsed = parseBackground(bg);
 
@@ -793,6 +783,207 @@ function updateFighterButtons() {
   }
 }
 
+async function loadArcaneShots() {
+  if (ALL_ARCANE_SHOTS.length) return ALL_ARCANE_SHOTS;
+
+  const res = await fetch("./data/arcaneShots.json");
+  if (!res.ok) {
+    console.error("Failed to load arcaneShots.json", res.status);
+    return [];
+  }
+
+  ALL_ARCANE_SHOTS = await res.json();
+  return ALL_ARCANE_SHOTS;
+}
+
+function updateArcaneShotActiveUI() {
+  const block = document.getElementById("activeArcaneShotsBlock");
+  if (!block) return;
+
+  const hasKnownShots =
+    character.class?.id === "fighter" &&
+    character.subclass?.id === "arcane-archer" &&
+    character.combat?.arcaneShot?.knownShots?.size > 0;
+
+  block.hidden = !hasKnownShots;
+
+  if (hasKnownShots) {
+    renderArcaneShotUseDropdown();
+    renderArcaneShotDetails();
+  }
+}
+
+async function initArcaneShotKnownUI() {
+  const block = document.getElementById("knownArcaneShotsBlock");
+  const select = document.getElementById("arcaneShotsLearnSelect");
+  const hint = document.getElementById("arcaneShotsHint");
+
+  if (
+    !block ||
+    character.class?.id !== "fighter" ||
+    character.subclass?.id !== "arcane-archer" ||
+    !character.combat?.arcaneShot
+  ) {
+    if (block) block.hidden = true;
+    arcaneShotChoices?.destroy?.();
+    arcaneShotChoices = null;
+    return;
+  }
+  await loadArcaneShots();
+
+  character.combat.arcaneShot.knownShots ??= new Set();
+  const known = character.combat.arcaneShot.knownShots;
+
+  const pending = character.pendingChoices?.arcaneShots;
+  const choose = pending?.choose ?? 0;
+
+  // 🔑 Only show learning UI when learning is required
+  if (!pending || character.resolvedChoices?.arcaneShots) {
+    block.hidden = true;
+    arcaneShotChoices?.destroy?.();
+    arcaneShotChoices = null;
+    return;
+  }
+
+  block.hidden = false;
+
+  // Populate dropdown
+  select.innerHTML = "";
+  ALL_ARCANE_SHOTS
+    .filter(s => (s.level ?? 0) <= character.level)
+    .forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = s.id;
+      opt.textContent = s.name;
+      select.appendChild(opt);
+    });
+
+  // Reset Choices
+  arcaneShotChoices?.destroy?.();
+  arcaneShotChoices = new Choices(select, {
+    removeItemButton: true,
+    maxItemCount: choose,
+    shouldSort: false,
+    searchEnabled: true
+  });
+
+  arcaneShotChoices.setChoiceByValue([...known]);
+
+  const remaining = Math.max(0, choose - known.size);
+  hint.textContent = remaining
+    ? `Choose ${remaining} Arcane Shot option(s).`
+    : `Arcane Shots learned.`;
+
+  select.onchange = () => {
+    const vals = Array.from(select.selectedOptions).map(o => o.value);
+    character.combat.arcaneShot.knownShots = new Set(vals);
+
+    const rem = Math.max(0, choose - vals.length);
+    hint.textContent = rem
+      ? `Choose ${rem} Arcane Shot option(s).`
+      : `Arcane Shots learned.`;
+
+    // Auto-complete learning
+    if (vals.length >= choose) {
+      delete character.pendingChoices.arcaneShots;
+      character.resolvedChoices.arcaneShots = true;
+      block.hidden = true;
+      arcaneShotChoices.destroy();
+      arcaneShotChoices = null;
+
+       updateArcaneShotActiveUI();
+    }
+  };
+}
+
+function ensureArcaneShotState() {
+  character.combat ??= {};
+
+  if (!character.combat.arcaneShot) {
+    character.combat.arcaneShot = {
+      usesMax: 2,
+      usesUsed: 0,
+      knownShots: new Set(),
+      activeShot: null
+    };
+  }
+
+  // Repair if it ever got serialized
+  if (!(character.combat.arcaneShot.knownShots instanceof Set)) {
+    character.combat.arcaneShot.knownShots =
+      new Set(character.combat.arcaneShot.knownShots ?? []);
+  }
+}
+function updateArcaneArcherVisibility() {
+  const block = document.getElementById("arcaneArcherBlock");
+  if (!block) return;
+
+  const isArcaneArcher =
+    character.class?.id === "fighter" &&
+    character.subclass?.id === "arcane-archer";
+
+  block.hidden = !isArcaneArcher;
+}
+
+function renderArcaneShotUseDropdown() {
+  ensureArcaneShotState(); 
+
+  const select = document.getElementById("arcaneShotSelect");
+  if (!select) return;
+
+  select.innerHTML = `<option value="">— Select Shot —</option>`;
+
+  character.combat.arcaneShot.knownShots.forEach(id => {
+    const shot = ALL_ARCANE_SHOTS.find(s => s.id === id);
+    if (!shot) return;
+
+    const opt = document.createElement("option");
+    opt.value = shot.id;
+    opt.textContent = shot.name;
+    select.appendChild(opt);
+  });
+
+  select.onchange = () => {
+    character.combat.arcaneShot.activeShot = select.value || null;
+    renderArcaneShotDetails();
+  };
+}
+
+
+function renderArcaneShotDetails() {
+  const list = document.getElementById("arcaneShotDetailsList");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  // Guard: only show for Arcane Archer with known shots
+  if (
+    character.class?.id !== "fighter" ||
+    character.subclass?.id !== "arcane-archer" ||
+    !character.combat?.arcaneShot ||
+    !character.combat.arcaneShot.knownShots ||
+    character.combat.arcaneShot.knownShots.size === 0
+  ) {
+    return;
+  }
+
+  character.combat.arcaneShot.knownShots.forEach(id => {
+    const shot = ALL_ARCANE_SHOTS.find(s => s.id === id);
+    if (!shot) return;
+
+    const row = document.createElement("div");
+    row.className = "feature";
+
+    row.innerHTML = `
+      <strong>${shot.name}</strong>
+      <div class="muted">Level ${shot.level}</div>
+      <div>${shot.description}</div>
+    `;
+
+    list.appendChild(row);
+  });
+}
+
 function updateSteelDefenderUI() {
   const block = document.getElementById("steelDefenderBlock");
   const select = document.getElementById("steelDefenderInfo");
@@ -1118,7 +1309,8 @@ let infusionChoices = null;
 let backgrounds = [];
 let ALL_TOOLS = [];
 let activeChoiceFeature = null;
-
+let ALL_ARCANE_SHOTS = [];
+let arcaneShotChoices = null;
 /* =========================
    Ability Math
 ========================= */
@@ -1442,7 +1634,6 @@ function applyRaceToCharacter(race) {
 function runPendingChoiceFlow() {
   if (character.pendingChoices?.skills) {
     renderSkillChoice(character);
-    return;
   }
 
   if (character.pendingChoices?.choiceFeature) {
@@ -1458,9 +1649,9 @@ function runPendingChoiceFlow() {
 
   if (character.pendingSubclassChoice && !character.subclass) {
     openSubclassModal(character.pendingSubclassChoice);
+    return;
   }
 }
-
 
 /* =========================
    Tool Choice Modal
@@ -1945,6 +2136,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     updateArmorerModeUI();
     updateWeaponLockUI();
     runPendingChoiceFlow();
+    updateArcaneArcherVisibility();
   });
 
 
@@ -1966,8 +2158,10 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
       i.usesUsed++;
       updateFighterButtons();
+      
     };
   }
+
 
   // snapshot infusion state (because applyClass may touch pendingChoices)
   const prevInfusions = {
@@ -2020,6 +2214,9 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
   // This is what opens subclass/tool/skill/infusion modals
   runPendingChoiceFlow();
+  initArcaneShotKnownUI();
+  renderArcaneShotDetails();
+  renderArcaneShotUseDropdown();
 });
 
 
@@ -2067,6 +2264,13 @@ window.addEventListener("subclass-updated", async () => {
   applyInfusionEffects();
   renderAttacks();        
   updateWeaponLockUI();
+  runPendingChoiceFlow();
+  initArcaneShotKnownUI();
+  updateArcaneArcherVisibility();
+  renderArcaneShotUseDropdown();
+  renderArcaneShotDetails();
+  updateArcaneShotActiveUI();
+
 });
 
 document
@@ -2182,5 +2386,26 @@ updateArmorLockText();
 syncDetailButtons();
 updateArmorerModeUI();
 updateWeaponLockUI();
+initArcaneShotKnownUI();
+renderArcaneShotDetails();
+renderArcaneShotUseDropdown();
+updateArcaneArcherVisibility();
 
+// HARD RESET ALL BACKDROPS — prevents invisible click shields
+[
+  "modalBackdrop",
+  "toolChoiceBackdrop",
+  "subclassBackdrop",
+  "infusionBackdrop",
+  "choiceFeatureBackdrop",
+  "languageChoiceBackdrop",
+  "spellDetailBackdrop"
+].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.hidden = true;
+    el.style.display = "none";
+    el.style.pointerEvents = "none";
+  }
+});
 });

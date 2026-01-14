@@ -1,3 +1,21 @@
+/* FORCE hidden attribute to actually hide elements */
+[hidden] {
+  display: none !important;
+  pointer-events: none !important;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.subclass-block,
+.feature,
+.fighter-feature {
+  position: relative;
+  z-index: 1;
+}
+
 /* =========================
    BASE
 ========================= */
@@ -337,4 +355,12 @@ details ul {
   font-size: 0.85rem;
   color: #555;
   line-height: 1.35;
+}
+.choice-row {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  background: #f5f5f5;
+  margin-bottom: 6px;
 }

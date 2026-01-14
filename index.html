@@ -249,8 +249,34 @@
         <span id="indomitableStatus" class="muted"></span>
       </div>
     </div>
+  <div id="arcaneArcherBlock" hidden class="subclass-block">
+    <h4>Arcane Archer</h4>
 
+    <!-- Known Arcane Shots (learning only) -->
+    <div id="knownArcaneShotsBlock" hidden>
+      <label>
+        Known Arcane Shots
+        <select id="arcaneShotsLearnSelect" multiple></select>
+      </label>
+      <p id="arcaneShotsHint" class="muted"></p>
+    </div>
 
+    <!-- Active Arcane Shot (always visible once learned) -->
+    <div id="activeArcaneShotsBlock" hidden>
+      <label>
+        Active Arcane Shot
+        <select id="arcaneShotSelect">
+          <option value="">— Select Shot —</option>
+        </select>
+      </label>
+
+      <div id="arcaneShotDetailsList">—</div>
+    </div>
+  </div>
+
+  <!-- Combat UI (keep as-is) -->
+  <div class="fighter-feature">
+    <label>
       <h3>Tools</h3>
       <div id="toolsList">—</div>
     </section>
@@ -399,15 +425,6 @@
   <button id="confirmTool" disabled>Confirm</button>
 </div>
 <div id="toolChoiceBackdrop" hidden class="modal-backdrop"></div>
-
-<!-- Infusion Choice -->
-<div id="infusionChoiceModal" hidden class="modal">
-  <h3 id="infusionChoiceTitle">Choose Infusions</h3>
-  <p id="infusionChoiceHint">Select the infusions you learn.</p>
-  <div id="infusionChoiceOptions"></div>
-  <button id="confirmInfusions" disabled>Confirm</button>
-</div>
-<div id="infusionBackdrop" hidden class="modal-backdrop"></div>
 
 <!-- Skill Choice -->
 <div id="modalBackdrop" class="modal-backdrop" hidden></div>

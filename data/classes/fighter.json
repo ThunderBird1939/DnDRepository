@@ -47,10 +47,10 @@
           "description": "You adopt a particular style of fighting as your specialty."
         },
         {
-          "id": "second-wind",
-          "name": "Second Wind",
-          "type": "active",
-          "description": "You have a limited well of stamina that you can draw on to protect yourself from harm."
+        "id": "second-wind",
+        "name": "Second Wind",
+        "type": "bonus-action",
+        "description": "You can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again."
         }
       ]
     },
@@ -58,10 +58,10 @@
     "2": {
       "features": [
         {
-          "id": "action-surge",
-          "name": "Action Surge",
-          "type": "active",
-          "description": "You can push yourself beyond your normal limits for a moment."
+        "id": "action-surge",
+        "name": "Action Surge",
+        "type": "active",
+        "description": "On your turn, you can take one additional action. Once you use this feature, you must finish a short or long rest before you can use it again."
         }
       ]
     },
@@ -132,10 +132,10 @@
     "9": {
       "features": [
         {
-          "id": "indomitable-1",
-          "name": "Indomitable",
-          "type": "reaction",
-          "description": "You can reroll a saving throw that you fail."
+        "id": "indomitable-1",
+        "name": "Indomitable",
+        "type": "reaction",
+        "description": "When you fail a saving throw, you can reroll it and must use the new roll. Once you use this feature, you must finish a long rest before you can use it again."
         }
       ]
     },
