@@ -32,7 +32,7 @@ import {
 } from "./ui/manifestEnergy.js";
 import { initDispositionUI } from "./ui/disposition.js";
 import { renderManifestTechniques } from "./ui/manifestTechniques.js";
-
+import { exportCharacterPdf } from "./ui/exportPdf.js";
 /* =========================
    Helpers
 ========================= */
@@ -2360,7 +2360,9 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     };
   }
 
-
+document.getElementById("exportPdfBtn")?.addEventListener("click", () => {
+  exportCharacterPdf();
+});
   // snapshot infusion state (because applyClass may touch pendingChoices)
   const prevInfusions = {
     known: new Set(character.infusions?.known ?? []),
@@ -2427,6 +2429,18 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   initDispositionUI();
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("exportPdfBtn");
+  if (!btn) {
+    console.warn("Export PDF button not found");
+    return;
+  }
+
+  btn.addEventListener("click", () => {
+    console.log("Export PDF clicked");
+    exportCharacterPdf();
+  });
+});
 
   /* ===== Event wiring ===== */
   window.addEventListener("weapons-changed", renderAttacks)
