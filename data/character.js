@@ -123,6 +123,9 @@ spellcasting: {
   available: new Set(),       // known spells (wizard book, sorcerer known, etc.)
   prepared: new Set(),        // prepared spells
   alwaysPrepared: new Set(),  // subclass/domain spells
+  
+  /* 🔑 LEARNING CONTROL */
+  spellsToLearn: 0,           // wizard: spells to add to book this level
 
   /* 🔑 SPELL SLOTS */
   slotsPerLevel: [],          // array from spellSlots JSON

@@ -29,24 +29,38 @@ export async function renderPreparedSpells() {
       ? wizardPrepLimit(character)
       : artificerPrepLimit(character);
 
-  // 🔑 Max spell level comes from slots, NOT class math
+  // 🔒 Clamp prepared count
+  if (prepared.size > limit) {
+    character.spellcasting.prepared = new Set(
+      [...prepared].slice(0, limit)
+    );
+  }
+
+  // 🔑 Max spell level comes from slots
   const maxLevel =
     character.spellcasting?.slotsPerLevel
       ?.map((n, i) => (n > 0 ? i + 1 : null))
       .filter(Boolean)
       .pop() ?? 0;
 
-
-  // 🔑 Load class spell list (same source as spellList.js)
   const res = await fetch(`./data/spells/${character.class.id}.json`);
   const spells = await res.json();
+
+  // 🔑 Wizard: only spells in spellbook
+  let sourceSpells = spells;
+  if (character.class.id === "wizard") {
+    const book = character.spellcasting.available ?? new Set();
+    sourceSpells = spells.filter(spell =>
+      book.has(spellIdFromTitle(spell.title))
+    );
+  }
 
   // Header
   const header = document.createElement("p");
   header.innerHTML = `<strong>${prepared.size} / ${limit}</strong> prepared`;
   container.appendChild(header);
 
-  spells.forEach(spell => {
+  sourceSpells.forEach(spell => {
     const id = spellIdFromTitle(spell.title);
 
     // Skip cantrips
@@ -64,6 +78,7 @@ export async function renderPreparedSpells() {
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.checked = prepared.has(id);
+
     if (!cb.checked && prepared.size >= limit) {
       cb.disabled = true;
     }
@@ -80,7 +95,6 @@ export async function renderPreparedSpells() {
       }
 
       renderPreparedSpells();
-      // 🔑 update highlighting
       window.dispatchEvent(new Event("prepared-spells-updated"));
     };
 

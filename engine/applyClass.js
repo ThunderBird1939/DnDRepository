@@ -150,6 +150,37 @@ export async function applyClass(character, classData, level = 1) {
       character.spellcasting.slotsPerLevel = [];
     }
   }
+// =========================
+// 🧙 Wizard: Spellbook Learning (CHOICE-BASED)
+// =========================
+if (classData.id === "wizard") {
+  const sc = character.spellcasting;
+
+  sc.available ??= new Set();
+  sc.prepared ??= new Set();
+
+  // First time wizard
+  if (!sc._wizardInitialized) {
+    sc.spellsToLearn = 6;
+    sc._wizardInitialized = true;
+  } else {
+    sc.spellsToLearn += 2;
+  }
+
+  // 🔑 PENDING CHOICE
+  if (sc.spellsToLearn > 0) {
+    character.pendingChoices ??= {};
+    character.pendingChoices.spells = {
+      choose: sc.spellsToLearn
+    };
+
+    character.resolvedChoices ??= {};
+    character.resolvedChoices.spells = false;
+  }
+} else {
+  character.spellcasting.spellsToLearn = 0;
+}
+
 
   /* =========================
     FEATURES (LEVEL AWARE)

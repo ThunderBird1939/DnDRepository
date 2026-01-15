@@ -15,6 +15,8 @@ import { renderPreparedSpells } from "./ui/preparedSpells.js";
 import { openDetail } from "./ui/router.js";
 import { renderAlwaysPreparedSpells } from "./ui/alwaysPreparedSpells.js";
 import { calculateArmorClass } from "./engine/calculateArmorClass.js";
+import { renderCantripsKnown } from "./ui/cantripsKnown.js";
+import { renderSpellbook } from "./ui/spellbook.js";
 
 /* =========================
    Helpers
@@ -1209,9 +1211,11 @@ function updateWeaponLockUI() {
 
 function renderAllSpellUI() {
   renderSpellcasting();
+  renderSpellbook();
   renderAlwaysPreparedSpells();
   renderPreparedSpells();
   renderSpellList();
+  renderCantripsKnown();
 }
 
 function updateEldritchCannonUI() {
@@ -1783,7 +1787,11 @@ function runPendingChoiceFlow() {
     renderSkillChoice(character);
     return;
   }
-
+  
+  if (character.pendingChoices?.spells) {
+    renderSpellbook();
+    return;
+  }
   if (character.pendingChoices?.choiceFeature) {
     const { feature, source } = character.pendingChoices.choiceFeature;
     openChoiceFeatureModal(feature, source);
@@ -2409,6 +2417,10 @@ window.addEventListener("combat-updated", () => {
   if (character.class?.id === "fighter") {
     updateFighterButtons();
   }
+});
+window.addEventListener("spellbook-updated", () => {
+  renderPreparedSpells();
+  renderSpellList(); // optional but recommended
 });
 
 window.addEventListener("subclass-updated", async () => {
