@@ -1,45 +1,51 @@
 {
-  "id": "school-of-transmutation",
-  "name": "School of Transmutation",
+  "id": "bladesinging",
+  "name": "Bladesinging",
   "classId": "wizard",
-  "source": "PHB",
+  "source": "TCE",
 
-  "description": "Transmuters alter matter, energy, and physical properties through magic.",
+  "description": "Bladesingers master a tradition of wizardry that incorporates swordplay and dance, blending magic with melee combat.",
 
   "featuresByLevel": {
     "2": [
       {
-        "id": "minor-alchemy",
-        "name": "Minor Alchemy",
+        "id": "training-in-war-and-song",
+        "name": "Training in War and Song",
+        "type": "system",
+        "description": "You gain proficiency with light armor, one type of one-handed melee weapon of your choice, and Performance. You also gain proficiency in Bladesinger tools."
+      },
+      {
+        "id": "bladesong",
+        "name": "Bladesong",
         "type": "activation",
-        "description": "You can temporarily transform materials."
+        "description": "You can invoke a magical song to gain bonuses to AC, speed, Constitution saves, and Acrobatics checks."
       }
     ],
 
     "6": [
       {
-        "id": "transmuters-stone",
-        "name": "Transmuter’s Stone",
-        "type": "system",
-        "description": "You create a magical stone granting various benefits."
+        "id": "extra-attack",
+        "name": "Extra Attack",
+        "type": "passive",
+        "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn. One of those attacks can be a cantrip."
       }
     ],
 
     "10": [
       {
-        "id": "shapechanger",
-        "name": "Shapechanger",
-        "type": "passive",
-        "description": "You can cast polymorph on yourself without expending a spell slot."
+        "id": "song-of-defense",
+        "name": "Song of Defense",
+        "type": "reaction",
+        "description": "You can expend a spell slot to reduce damage you take while your Bladesong is active."
       }
     ],
 
     "14": [
       {
-        "id": "master-transmuter",
-        "name": "Master Transmuter",
-        "type": "activation",
-        "description": "You can consume your Transmuter’s Stone for powerful effects."
+        "id": "song-of-victory",
+        "name": "Song of Victory",
+        "type": "passive",
+        "description": "You add your Intelligence modifier to the damage of your melee weapon attacks while your Bladesong is active."
       }
     ]
   }

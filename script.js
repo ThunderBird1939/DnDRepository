@@ -1779,19 +1779,22 @@ function applyRaceToCharacter(race) {
   if (speedInput) speedInput.value = character.combat.baseSpeed;
 }
 
-/* =========================
-   Pending Choice Flow
-========================= */
 function runPendingChoiceFlow() {
   if (character.pendingChoices?.skills) {
     renderSkillChoice(character);
     return;
   }
-  
+
+  if (character.pendingSubclassChoice && !character.subclass) {
+    openSubclassModal(character.pendingSubclassChoice);
+    return;
+  }
+
   if (character.pendingChoices?.spells) {
     renderSpellbook();
     return;
   }
+
   if (character.pendingChoices?.choiceFeature) {
     const { feature, source } = character.pendingChoices.choiceFeature;
     openChoiceFeatureModal(feature, source);
@@ -1803,17 +1806,11 @@ function runPendingChoiceFlow() {
     return;
   }
 
-  if (character.pendingSubclassChoice && !character.subclass) {
-    openSubclassModal(character.pendingSubclassChoice);
-    return;
-  }
-
   if (character.pendingChoices?.arcaneShots) {
     initArcaneShotKnownUI();
     return;
   }
 }
-
 
 /* =========================
    Tool Choice Modal
@@ -1883,6 +1880,11 @@ if (title && pending.label) {
   if (!modal || !backdrop || !optionsDiv || !confirmBtn) return;
 
   const res = await fetch(`./data/${pending.source}/index.json`);
+  if (!res.ok) {
+    console.error("Failed to load subclass index:", pending.source);
+    return;
+}
+
   const subclasses = await res.json();
 
   optionsDiv.innerHTML = "";
@@ -1905,6 +1907,11 @@ if (title && pending.label) {
   confirmBtn.onclick = async () => {
     if (!selected) return;
     const res = await fetch(`./data/${pending.source}/${selected.id}.json`);
+  if (!res.ok) {
+    console.error("Failed to load subclass:", selected.id);
+    return;
+  }
+
     const data = await res.json();
     applySubclass(character, data);
 

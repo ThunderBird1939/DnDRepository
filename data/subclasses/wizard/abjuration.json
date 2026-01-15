@@ -1,45 +1,51 @@
 {
-  "id": "the-genie",
-  "name": "The Genie",
-  "classId": "warlock",
-  "source": "TCE",
+  "id": "abjuration",
+  "name": "School of Abjuration",
+  "classId": "wizard",
+  "source": "PHB",
 
-  "description": "You have made a pact with a powerful genie, gaining elemental power and a magical vessel.",
+  "description": "The School of Abjuration emphasizes magic that blocks, banishes, or protects. Abjurers are masters of defensive magic.",
 
   "featuresByLevel": {
-    "1": [
+    "2": [
       {
-        "id": "genies-vessel",
-        "name": "Genie’s Vessel",
+        "id": "abjuration-savant",
+        "name": "Abjuration Savant",
+        "type": "passive",
+        "description": "The gold and time you must spend to copy an abjuration spell into your spellbook is halved."
+      },
+      {
+        "id": "arcane-ward",
+        "name": "Arcane Ward",
         "type": "system",
-        "description": "You gain a magical vessel tied to your patron and elemental damage bonuses."
+        "description": "You can weave a protective ward around yourself that absorbs damage whenever you cast an abjuration spell of 1st level or higher."
       }
     ],
 
     "6": [
       {
-        "id": "elemental-gift",
-        "name": "Elemental Gift",
-        "type": "activation",
-        "description": "You gain flight or other elemental movement options."
+        "id": "projected-ward",
+        "name": "Projected Ward",
+        "type": "reaction",
+        "description": "When a creature you can see within 30 feet takes damage, you can use your reaction to cause your Arcane Ward to absorb that damage."
       }
     ],
 
     "10": [
       {
-        "id": "sanctuary-vessel",
-        "name": "Sanctuary Vessel",
+        "id": "improved-abjuration",
+        "name": "Improved Abjuration",
         "type": "passive",
-        "description": "Your vessel becomes a safe haven for you and allies."
+        "description": "When you cast an abjuration spell that requires you to make an ability check as part of casting the spell, add your proficiency bonus to that check."
       }
     ],
 
     "14": [
       {
-        "id": "limited-wish",
-        "name": "Limited Wish",
-        "type": "activation",
-        "description": "You can request powerful spell effects without casting them."
+        "id": "spell-resistance",
+        "name": "Spell Resistance",
+        "type": "passive",
+        "description": "You have advantage on saving throws against spells, and resistance to the damage of spells."
       }
     ]
   }

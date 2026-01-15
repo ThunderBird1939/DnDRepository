@@ -1,45 +1,51 @@
 {
-  "id": "school-of-illusion",
-  "name": "School of Illusion",
+  "id": "necromancy",
+  "name": "School of Necromancy",
   "classId": "wizard",
   "source": "PHB",
 
-  "description": "Illusionists manipulate perception and reality through deceptive magic.",
+  "description": "Necromancers study the magic of life, death, and undeath, manipulating vitality and the forces that animate the dead.",
 
   "featuresByLevel": {
     "2": [
       {
-        "id": "improved-minor-illusion",
-        "name": "Improved Minor Illusion",
+        "id": "necromancy-savant",
+        "name": "Necromancy Savant",
         "type": "passive",
-        "description": "You learn an enhanced version of the minor illusion cantrip."
+        "description": "The gold and time you must spend to copy a necromancy spell into your spellbook is halved."
+      },
+      {
+        "id": "grim-harvest",
+        "name": "Grim Harvest",
+        "type": "system",
+        "description": "When you kill one or more creatures with a spell of 1st level or higher, you regain hit points."
       }
     ],
 
     "6": [
       {
-        "id": "malleable-illusions",
-        "name": "Malleable Illusions",
-        "type": "activation",
-        "description": "You can reshape illusions without recasting them."
+        "id": "undead-thralls",
+        "name": "Undead Thralls",
+        "type": "system",
+        "description": "You add additional undead to spells that create them, and your undead gain bonuses to hit points and damage."
       }
     ],
 
     "10": [
       {
-        "id": "illusory-self",
-        "name": "Illusory Self",
-        "type": "reaction",
-        "description": "You create an illusory duplicate to avoid damage."
+        "id": "inured-to-undeath",
+        "name": "Inured to Undeath",
+        "type": "passive",
+        "description": "You have resistance to necrotic damage, and your hit point maximum can’t be reduced."
       }
     ],
 
     "14": [
       {
-        "id": "illusory-reality",
-        "name": "Illusory Reality",
+        "id": "command-undead",
+        "name": "Command Undead",
         "type": "activation",
-        "description": "You make parts of your illusions real."
+        "description": "You can attempt to seize control of an undead creature."
       }
     ]
   }

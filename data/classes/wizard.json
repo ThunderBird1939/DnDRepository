@@ -68,15 +68,10 @@
     },
 
     "2": {
-      "features": [
-        {
-          "id": "arcane-tradition",
-          "name": "Arcane Tradition",
-          "type": "subclass",
-          "description": "Choose an Arcane Tradition that shapes your approach to magic.",
-          "optionsSource": "subclasses/wizard"
-        }
-      ]
+      "subclass": {
+        "label": "Arcane Tradition",
+        "optionsSource": "subclasses/wizard"
+      }
     },
 
     "4": {
@@ -95,7 +90,7 @@
         {
           "id": "tradition-feature-6",
           "name": "Arcane Tradition Feature",
-          "type": "subclass",
+          "type": "system",
           "description": "You gain a feature granted by your Arcane Tradition."
         }
       ]
@@ -117,7 +112,7 @@
         {
           "id": "tradition-feature-10",
           "name": "Arcane Tradition Feature",
-          "type": "subclass",
+          "type": "system",
           "description": "You gain an additional feature from your Arcane Tradition."
         }
       ]
@@ -139,7 +134,7 @@
         {
           "id": "tradition-feature-14",
           "name": "Arcane Tradition Feature",
-          "type": "subclass",
+          "type": "system",
           "description": "You gain a powerful feature from your Arcane Tradition."
         }
       ]

@@ -239,20 +239,21 @@ if (classData.id === "wizard") {
     };
   }
 
-  /* =========================
-     SUBCLASS UNLOCK (LEVEL 3)
-  ========================= */
-  Object.entries(classData.levels || {}).forEach(([lvl, data]) => {
-    if (Number(lvl) > level) return;
-    if (!data.subclass) return;
-    if (character.subclass || character.resolvedChoices?.subclass) return;
+/* =========================
+   SUBCLASS UNLOCK (LEVEL-BASED)
+========================= */
+Object.entries(classData.levels || {}).forEach(([lvl, data]) => {
+  if (Number(lvl) > character.level) return;
+  if (!data.subclass) return;
+  if (character.subclass) return;
 
-    character.pendingSubclassChoice = {
-      classId: classData.id,
-      label: data.subclass.label,
-      source: data.subclass.optionsSource
-    };
-  });
+  character.pendingSubclassChoice ??= {
+    classId: classData.id,
+    label: data.subclass.label,
+    source: data.subclass.optionsSource
+  };
+});
+
 
   /* =========================
      CLAMP PREPARED SPELLS

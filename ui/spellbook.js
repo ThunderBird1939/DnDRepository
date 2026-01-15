@@ -77,19 +77,21 @@ export async function renderSpellbook() {
     };
 
     confirm.onclick = () => {
-      [...select.selectedOptions].forEach(opt => {
+    [...select.selectedOptions].forEach(opt => {
         learned.add(opt.value);
-      });
+    });
 
-      sc.spellsToLearn = 0;
+    sc.spellsToLearn = 0;
 
-      // 🔑 RESOLVE PENDING CHOICE (IMPORTANT)
-      delete character.pendingChoices?.spells;
-      character.resolvedChoices.spells = true;
+    // 🔑 Resolve the pending choice
+    delete character.pendingChoices?.spells;
+    character.resolvedChoices.spells = true;
 
-      renderSpellbook();
-      window.dispatchEvent(new Event("spellbook-updated"));
+    renderSpellbook();
+    window.dispatchEvent(new Event("spellbook-updated"));
+
     };
+
 
     learnBlock.append(hint, select, confirm);
     el.appendChild(learnBlock);

@@ -1,45 +1,51 @@
 {
-  "id": "school-of-conjuration",
-  "name": "School of Conjuration",
+  "id": "divination",
+  "name": "School of Divination",
   "classId": "wizard",
   "source": "PHB",
 
-  "description": "Conjurers specialize in summoning creatures and objects from elsewhere.",
+  "description": "Diviners are masters of foresight, using magic to glimpse the future and alter fate.",
 
   "featuresByLevel": {
     "2": [
       {
-        "id": "minor-conjuration",
-        "name": "Minor Conjuration",
-        "type": "activation",
-        "description": "You can conjure a small, nonmagical object in your hand."
+        "id": "divination-savant",
+        "name": "Divination Savant",
+        "type": "passive",
+        "description": "The gold and time you must spend to copy a divination spell into your spellbook is halved."
+      },
+      {
+        "id": "portent",
+        "name": "Portent",
+        "type": "system",
+        "description": "You roll two d20s and record the numbers rolled. You can replace any attack roll, saving throw, or ability check made by you or a creature you can see with one of these foretelling rolls."
       }
     ],
 
     "6": [
       {
-        "id": "benign-transposition",
-        "name": "Benign Transposition",
-        "type": "activation",
-        "description": "You can teleport or swap places with a willing creature."
+        "id": "expert-divination",
+        "name": "Expert Divination",
+        "type": "passive",
+        "description": "Casting divination spells of 2nd level or higher restores a spell slot of a lower level."
       }
     ],
 
     "10": [
       {
-        "id": "focused-conjuration",
-        "name": "Focused Conjuration",
-        "type": "passive",
-        "description": "Your concentration on conjuration spells can’t be broken by damage."
+        "id": "the-third-eye",
+        "name": "The Third Eye",
+        "type": "activation",
+        "description": "You gain one of several enhanced sensory abilities, such as darkvision or ethereal sight."
       }
     ],
 
     "14": [
       {
-        "id": "durable-summons",
-        "name": "Durable Summons",
-        "type": "passive",
-        "description": "Creatures you summon gain additional hit points."
+        "id": "greater-portent",
+        "name": "Greater Portent",
+        "type": "system",
+        "description": "You roll three d20s for your Portent feature instead of two."
       }
     ]
   }
