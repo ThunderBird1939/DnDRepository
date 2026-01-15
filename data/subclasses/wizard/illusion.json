@@ -1,0 +1,46 @@
+{
+  "id": "school-of-illusion",
+  "name": "School of Illusion",
+  "classId": "wizard",
+  "source": "PHB",
+
+  "description": "Illusionists manipulate perception and reality through deceptive magic.",
+
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "improved-minor-illusion",
+        "name": "Improved Minor Illusion",
+        "type": "passive",
+        "description": "You learn an enhanced version of the minor illusion cantrip."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "malleable-illusions",
+        "name": "Malleable Illusions",
+        "type": "activation",
+        "description": "You can reshape illusions without recasting them."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "illusory-self",
+        "name": "Illusory Self",
+        "type": "reaction",
+        "description": "You create an illusory duplicate to avoid damage."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "illusory-reality",
+        "name": "Illusory Reality",
+        "type": "activation",
+        "description": "You make parts of your illusions real."
+      }
+    ]
+  }
+}

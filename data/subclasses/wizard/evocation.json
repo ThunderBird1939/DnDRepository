@@ -1,0 +1,46 @@
+{
+  "id": "school-of-evocation",
+  "name": "School of Evocation",
+  "classId": "wizard",
+  "source": "PHB",
+
+  "description": "Evokers focus on raw magical power, shaping destructive energy to devastating effect.",
+
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "sculpt-spells",
+        "name": "Sculpt Spells",
+        "type": "passive",
+        "description": "You can protect allies from your evocation spells."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "potent-cantrip",
+        "name": "Potent Cantrip",
+        "type": "passive",
+        "description": "Your damaging cantrips still affect creatures that succeed on saving throws."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "empowered-evocation",
+        "name": "Empowered Evocation",
+        "type": "passive",
+        "description": "You add your Intelligence modifier to evocation spell damage."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "overchannel",
+        "name": "Overchannel",
+        "type": "activation",
+        "description": "You maximize damage on lower-level evocation spells at great personal risk."
+      }
+    ]
+  }
+}

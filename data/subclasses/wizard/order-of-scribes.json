@@ -1,0 +1,52 @@
+{
+  "id": "order-of-scribes",
+  "name": "Order of Scribes",
+  "classId": "wizard",
+  "source": "TCE",
+
+  "description": "Wizards of the Order of Scribes awaken their spellbooks as magical companions.",
+
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "wizardly-quill",
+        "name": "Wizardly Quill",
+        "type": "system",
+        "description": "You conjure a magical quill that aids in spell transcription."
+      },
+      {
+        "id": "awakened-spellbook",
+        "name": "Awakened Spellbook",
+        "type": "system",
+        "description": "Your spellbook becomes a sentient magical focus."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "manifest-mind",
+        "name": "Manifest Mind",
+        "type": "activation",
+        "description": "You conjure a spectral mind that casts spells for you."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "master-scrivener",
+        "name": "Master Scrivener",
+        "type": "passive",
+        "description": "You create powerful spell scrolls with reduced cost."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "one-with-the-word",
+        "name": "One with the Word",
+        "type": "reaction",
+        "description": "You negate damage by sacrificing spells."
+      }
+    ]
+  }
+}

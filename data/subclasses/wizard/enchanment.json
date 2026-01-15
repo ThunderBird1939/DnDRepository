@@ -1,0 +1,46 @@
+{
+  "id": "school-of-enchantment",
+  "name": "School of Enchantment",
+  "classId": "wizard",
+  "source": "PHB",
+
+  "description": "Enchanters bend minds and manipulate emotions through magical influence.",
+
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "hypnotic-gaze",
+        "name": "Hypnotic Gaze",
+        "type": "activation",
+        "description": "You incapacitate a creature with a mesmerizing stare."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "instinctive-charm",
+        "name": "Instinctive Charm",
+        "type": "reaction",
+        "description": "You redirect attacks aimed at you to another creature."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "split-enchantment",
+        "name": "Split Enchantment",
+        "type": "passive",
+        "description": "Your enchantment spells can target an additional creature."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "alter-memories",
+        "name": "Alter Memories",
+        "type": "activation",
+        "description": "You erase or rewrite memories of charmed creatures."
+      }
+    ]
+  }
+}

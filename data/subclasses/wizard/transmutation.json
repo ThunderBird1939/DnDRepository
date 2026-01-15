@@ -1,0 +1,46 @@
+{
+  "id": "school-of-transmutation",
+  "name": "School of Transmutation",
+  "classId": "wizard",
+  "source": "PHB",
+
+  "description": "Transmuters alter matter, energy, and physical properties through magic.",
+
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "minor-alchemy",
+        "name": "Minor Alchemy",
+        "type": "activation",
+        "description": "You can temporarily transform materials."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "transmuters-stone",
+        "name": "Transmuter’s Stone",
+        "type": "system",
+        "description": "You create a magical stone granting various benefits."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "shapechanger",
+        "name": "Shapechanger",
+        "type": "passive",
+        "description": "You can cast polymorph on yourself without expending a spell slot."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "master-transmuter",
+        "name": "Master Transmuter",
+        "type": "activation",
+        "description": "You can consume your Transmuter’s Stone for powerful effects."
+      }
+    ]
+  }
+}

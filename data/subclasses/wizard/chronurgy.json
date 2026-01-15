@@ -1,0 +1,52 @@
+{
+  "id": "chronurgy-magic",
+  "name": "Chronurgy Magic",
+  "classId": "wizard",
+  "source": "EGtW",
+
+  "description": "Chronurgists manipulate the flow of time itself, bending fate, delaying effects, and rewriting outcomes.",
+
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "chronal-shift",
+        "name": "Chronal Shift",
+        "type": "reaction",
+        "description": "You can magically exert limited control over the flow of time around a creature. When a creature you can see makes an attack roll, ability check, or saving throw, you can force it to reroll and use the new result."
+      },
+      {
+        "id": "temporal-awareness",
+        "name": "Temporal Awareness",
+        "type": "passive",
+        "description": "You add your Intelligence modifier to your initiative rolls."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "momentary-stasis",
+        "name": "Momentary Stasis",
+        "type": "activation",
+        "description": "You can force a creature to make a Constitution saving throw or be restrained in a bubble of temporal energy, becoming incapacitated until the end of your next turn."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "arcane-abeyance",
+        "name": "Arcane Abeyance",
+        "type": "system",
+        "description": "You can condense a spell into a mote of energy, allowing another creature to release the spell later without expending a spell slot."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "convergent-future",
+        "name": "Convergent Future",
+        "type": "reaction",
+        "description": "You can decide whether a creature’s attack roll, saving throw, or ability check succeeds or fails. Using this feature gives you a level of exhaustion."
+      }
+    ]
+  }
+}

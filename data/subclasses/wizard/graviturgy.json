@@ -1,0 +1,46 @@
+{
+  "id": "graviturgy-magic",
+  "name": "Graviturgy Magic",
+  "classId": "wizard",
+  "source": "EGtW",
+
+  "description": "Graviturgists manipulate the fundamental forces of gravity, altering weight, movement, and destructive force.",
+
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "adjust-density",
+        "name": "Adjust Density",
+        "type": "activation",
+        "description": "You can magically alter the weight of a creature or object, either increasing its mass to hinder movement or reducing it to enhance speed."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "gravity-well",
+        "name": "Gravity Well",
+        "type": "passive",
+        "description": "When you cast a spell that affects a creature, you can move that creature 5 feet to an unoccupied space if it is willing or fails a saving throw."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "violent-attraction",
+        "name": "Violent Attraction",
+        "type": "reaction",
+        "description": "You can intensify gravity around a creature, increasing the damage it takes from a fall or from a ranged attack."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "event-horizon",
+        "name": "Event Horizon",
+        "type": "activation",
+        "description": "You create a powerful gravitational field that damages and restrains creatures in a large area around you."
+      }
+    ]
+  }
+}

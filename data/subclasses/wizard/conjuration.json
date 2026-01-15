@@ -1,0 +1,46 @@
+{
+  "id": "school-of-conjuration",
+  "name": "School of Conjuration",
+  "classId": "wizard",
+  "source": "PHB",
+
+  "description": "Conjurers specialize in summoning creatures and objects from elsewhere.",
+
+  "featuresByLevel": {
+    "2": [
+      {
+        "id": "minor-conjuration",
+        "name": "Minor Conjuration",
+        "type": "activation",
+        "description": "You can conjure a small, nonmagical object in your hand."
+      }
+    ],
+
+    "6": [
+      {
+        "id": "benign-transposition",
+        "name": "Benign Transposition",
+        "type": "activation",
+        "description": "You can teleport or swap places with a willing creature."
+      }
+    ],
+
+    "10": [
+      {
+        "id": "focused-conjuration",
+        "name": "Focused Conjuration",
+        "type": "passive",
+        "description": "Your concentration on conjuration spells can’t be broken by damage."
+      }
+    ],
+
+    "14": [
+      {
+        "id": "durable-summons",
+        "name": "Durable Summons",
+        "type": "passive",
+        "description": "Creatures you summon gain additional hit points."
+      }
+    ]
+  }
+}
