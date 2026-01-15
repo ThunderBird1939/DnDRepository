@@ -1,6 +1,6 @@
 [
   { "id": "abjuration", "name": "School of Abjuration" },
-  { "id": "bladesing", "name": "Bladesinging" },
+  { "id": "bladesinging", "name": "Bladesinging" },
   { "id": "chronurgy", "name": "Chronurgy Magic" },
   { "id": "conjuration", "name": "School of Conjuration" },
   { "id": "divination", "name": "School of Divination" },
