@@ -1,6 +1,5 @@
 import { character } from "../data/character.js";
 import {
-  maxArtificerSpellLevel,
   spellLevelFromTags,
   isCantripFromTags,
   spellIdFromTitle
@@ -31,7 +30,11 @@ export async function renderSpellList() {
   const prepared = character.spellcasting.prepared;
   const alwaysPrepared = character.spellcasting.alwaysPrepared;
 
-  const maxSpellLevel = maxArtificerSpellLevel(character.level);
+  const maxSpellLevel =
+  character.spellcasting?.slotsPerLevel
+    ?.map((n, i) => (n > 0 ? i + 1 : null))
+    .filter(Boolean)
+    .pop() ?? 0;
 
   // 🔑 Load class spell list
   const res = await fetch(`./data/spells/${character.class.id}.json`);
@@ -59,12 +62,15 @@ export async function renderSpellList() {
       level = 0;
     } else {
       level = spellLevelFromTags(spell.tags);
+
+      // 🔑 hard cap by slots
       if (level === null || level > maxSpellLevel) return;
     }
 
     byLevel[level] ??= [];
     byLevel[level].push({ spell, id });
   });
+
 
   const levels = Object.keys(byLevel)
     .map(Number)

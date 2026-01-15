@@ -106,20 +106,31 @@ export const character = {
   features: [],
 
   /* =========================
-     SPELLCASTING
-  ========================= */
-  spellcasting: {
-    enabled: false,
-    ability: null,
-    type: null,
-    focus: [],
-    ritual: false,
+   SPELLCASTING
+========================= */
+spellcasting: {
+  enabled: false,
+  ability: null,
+  type: null,
+  focus: [],
+  ritual: false,
 
-    prepared: new Set(),
-    alwaysPrepared: new Set(),
-    available: new Set()
-  },
+  /* 🔑 CANTRIPS */
+  cantripsKnown: 0,
+  cantrips: new Set(),
 
+  /* 🔑 SPELLS */
+  available: new Set(),       // known spells (wizard book, sorcerer known, etc.)
+  prepared: new Set(),        // prepared spells
+  alwaysPrepared: new Set(),  // subclass/domain spells
+
+  /* 🔑 SPELL SLOTS */
+  slotsPerLevel: [],          // array from spellSlots JSON
+  slots: {
+    max: {},
+    used: {}
+  }
+},
   /* =========================
      INFUSIONS
   ========================= */

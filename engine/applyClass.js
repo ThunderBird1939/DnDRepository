@@ -1,213 +1,258 @@
-export function applyClass(character, classData, level = 1) {
-if (!classData) return;
+export async function applyClass(character, classData, level = 1) {
+  if (!classData) return;
 
-/* =========================
-    ENSURE STRUCTURE (CRITICAL)
- ========================= */
+  /* =========================
+      ENSURE STRUCTURE (CRITICAL)
+   ========================= */
 
-character.class ??= {};
-character.features ??= [];
+  character.class ??= {};
+  character.features ??= [];
 
-character.proficiencies ??= {};
-character.proficiencies.armor ??= new Set();
-character.proficiencies.weapons ??= new Set();
-character.proficiencies.skills ??= new Set();
+  character.proficiencies ??= {};
+  character.proficiencies.armor ??= new Set();
+  character.proficiencies.weapons ??= new Set();
+  character.proficiencies.skills ??= new Set();
 
-character.pendingChoices ??= {};
-character.resolvedChoices ??= {};
+  character.pendingChoices ??= {};
+  character.resolvedChoices ??= {};
 
-character.savingThrows ??= {
-str: false,
-dex: false,
-con: false,
-int: false,
-wis: false,
-cha: false
-};
+  character.savingThrows ??= {
+    str: false,
+    dex: false,
+    con: false,
+    int: false,
+    wis: false,
+    cha: false
+  };
 
-character.spellcasting ??= {
-enabled: false,
-ability: null,
-type: null,
-focus: [],
-ritual: false,
-prepared: new Set(),
-alwaysPrepared: new Set(),
-available: new Set()
-};
+  character.spellcasting ??= {
+    enabled: false,
+    ability: null,
+    type: null,
+    focus: [],
+    ritual: false,
 
-/* =========================
-    CLASS CORE
- ========================= */
-character.class.id = classData.id;
-character.class.name = classData.name;
-character.class.level = level;
+    // 🔑 SPELL DATA
+    cantripsKnown: 0,
+    cantrips: new Set(),
 
-/* =========================
-    HIT DIE
- ========================= */
-character.hp.hitDie = classData.hitDie;
+    available: new Set(),
+    prepared: new Set(),
+    alwaysPrepared: new Set(),
 
-/* =========================
-    SAVING THROWS
- ========================= */
-Object.keys(character.savingThrows).forEach(stat => {
-character.savingThrows[stat] = false;
-});
+    slotsPerLevel: [],
+    slots: {
+      max: {},
+      used: {}
+    }
+  };
 
-classData.savingThrows.forEach(stat => {
-character.savingThrows[stat] = true;
-});
+  /* =========================
+      CLASS CORE
+   ========================= */
+  character.class.id = classData.id;
+  character.class.name = classData.name;
+  character.class.level = level;
 
-/* =========================
-    ARMOR & WEAPONS
- ========================= */
-classData.proficiencies?.armor?.forEach(p =>
-character.proficiencies.armor.add(p)
-);
+  /* =========================
+      HIT DIE
+   ========================= */
+  character.hp.hitDie = classData.hitDie;
 
-classData.proficiencies?.weapons?.forEach(p =>
-character.proficiencies.weapons.add(p)
-);
+  /* =========================
+      SAVING THROWS
+   ========================= */
+  Object.keys(character.savingThrows).forEach(stat => {
+    character.savingThrows[stat] = false;
+  });
 
-/* =========================
-  SKILL CHOICES (ONCE)
-========================= */
-if (
-classData.skillChoices &&
-!character.pendingChoices.skills &&
-!character.resolvedChoices.skills
-) {
-character.pendingChoices.skills = {
-choose: classData.skillChoices.choose,
-from: [...classData.skillChoices.from],
-source: classData.id
-};
-}
+  classData.savingThrows.forEach(stat => {
+    character.savingThrows[stat] = true;
+  });
 
+  /* =========================
+      ARMOR & WEAPONS
+   ========================= */
+  classData.proficiencies?.armor?.forEach(p =>
+    character.proficiencies.armor.add(p)
+  );
 
+  classData.proficiencies?.weapons?.forEach(p =>
+    character.proficiencies.weapons.add(p)
+  );
 
-/* =========================
-    SPELLCASTING
- ========================= */
-if (classData.spellcasting) {
-character.spellcasting.enabled = true;
-character.spellcasting.ability = classData.spellcasting.ability;
-character.spellcasting.type = classData.spellcasting.type;
-character.spellcasting.focus = classData.spellcasting.focus ?? [];
-character.spellcasting.ritual = classData.spellcasting.ritual ?? false;
-} else if (character.class.id !== "artificer") {
-character.spellcasting.enabled = false;
-}
+  /* =========================
+    SKILL CHOICES (ONCE)
+  ========================= */
+  if (
+    classData.skillChoices &&
+    !character.pendingChoices.skills &&
+    !character.resolvedChoices.skills
+  ) {
+    character.pendingChoices.skills = {
+      choose: classData.skillChoices.choose,
+      from: [...classData.skillChoices.from],
+      source: classData.id
+    };
+  }
 
+  /* =========================
+      SPELLCASTING
+   ========================= */
+  if (classData.spellcasting) {
+    character.spellcasting.enabled = true;
+    character.spellcasting.ability = classData.spellcasting.ability;
+    character.spellcasting.type = classData.spellcasting.type;
+    character.spellcasting.focus = classData.spellcasting.focus ?? [];
+    character.spellcasting.ritual = classData.spellcasting.ritual ?? false;
+  } else if (character.class.id !== "artificer") {
+    character.spellcasting.enabled = false;
+  }
 
-/* =========================
-  FEATURES (LEVEL AWARE)
-========================= */
-if (classData.levels && typeof classData.levels === "object") {
-Object.entries(classData.levels).forEach(([lvl, data]) => {
-if (Number(lvl) > level) return;
-if (!Array.isArray(data.features)) return;
+  /* =========================
+     CANTRIPS KNOWN (UNIVERSAL)
+  ========================= */
+  if (character.spellcasting.enabled) {
+    try {
+      const res = await fetch(
+        `./data/cantripsKnown/${character.class.id}.json`
+      );
 
-data.features.forEach(feature => {
-// 🚫 Skip subclass placeholders once a subclass exists
-if (
+      if (res.ok) {
+        const table = await res.json();
+        character.spellcasting.cantripsKnown =
+          table[String(level)] ?? 0;
+      } else {
+        character.spellcasting.cantripsKnown = 0;
+      }
+    } catch {
+      character.spellcasting.cantripsKnown = 0;
+    }
 
-feature.type === "subclass" &&
-character.subclass
-) {
-return;
-}
-if (
-feature.type === "choice" &&
-!character.features.some(f => f.parentFeature === feature.id)
-) {
-// 🚫 SKIP Artificer Infuse Item — handled by infusion dropdown UI
-if (
-character.class.id === "artificer" &&
-feature.id === "infuse-item"
-) {
-return;
-}
+    character.spellcasting.cantrips ??= new Set();
+  }
 
-character.pendingChoices.choiceFeature = {
-feature,
-source: classData.id
-};
-return;
-}
+  /* =========================
+     SPELL SLOTS (CLASS-DRIVEN)
+  ========================= */
+  if (character.spellcasting.enabled) {
+    try {
+      const res = await fetch(
+        `./data/spellSlots/${character.class.id}.json`
+      );
+      if (res.ok) {
+        const table = await res.json();
+        character.spellcasting.slotsPerLevel =
+          table[String(level)] ?? [];
+      }
+    } catch (e) {
+      console.warn("No spell slots for class:", character.class.id);
+      character.spellcasting.slotsPerLevel = [];
+    }
+  }
 
+  /* =========================
+    FEATURES (LEVEL AWARE)
+  ========================= */
+  if (classData.levels && typeof classData.levels === "object") {
+    Object.entries(classData.levels).forEach(([lvl, data]) => {
+      if (Number(lvl) > level) return;
+      if (!Array.isArray(data.features)) return;
 
+      data.features.forEach(feature => {
+        // 🚫 Skip subclass placeholders once a subclass exists
+        if (feature.type === "subclass" && character.subclass) return;
 
+        if (
+          feature.type === "choice" &&
+          !character.features.some(f => f.parentFeature === feature.id)
+        ) {
+          // 🚫 Skip Artificer Infuse Item
+          if (
+            character.class.id === "artificer" &&
+            feature.id === "infuse-item"
+          ) {
+            return;
+          }
 
-if (!character.features.some(f => f.id === feature.id)) {
-character.features.push({
-...feature,
-source: classData.id,
-level: Number(lvl)
-});
-}
-});
-});
-}
+          character.pendingChoices.choiceFeature = {
+            feature,
+            source: classData.id
+          };
+          return;
+        }
 
-/* =========================
-  INFUSION LEARN (LEVEL 2)
-========================= */
-if (
-character.class.id === "artificer" &&
-level >= 2 &&
-!character.resolvedChoices.infusions &&
-!character.pendingChoices.infusions
-) {
-character.pendingChoices.infusions = {
-choose: 4, // Artificer learns 4 at level 2
-source: "artificer"
-};
-}
+        if (!character.features.some(f => f.id === feature.id)) {
+          character.features.push({
+            ...feature,
+            source: classData.id,
+            level: Number(lvl)
+          });
+        }
+      });
+    });
+  }
 
-/* =========================
-   SUBCLASS UNLOCK (LEVEL 3 ONCE)
- ========================= */
-if (
-level >= 3 &&
-classData.levels?.["3"]?.subclass &&
-!character.subclass &&
-!character.resolvedChoices?.subclass
-) {
-character.pendingSubclassChoice = {
-classId: classData.id,
-label: classData.levels["3"].subclass.label,
-source: classData.levels["3"].subclass.optionsSource
-};
-}
+  /* =========================
+    INFUSION LEARN (LEVEL 2)
+  ========================= */
+  if (
+    character.class.id === "artificer" &&
+    level >= 2 &&
+    !character.resolvedChoices.infusions &&
+    !character.pendingChoices.infusions
+  ) {
+    character.pendingChoices.infusions = {
+      choose: 4,
+      source: "artificer"
+    };
+  }
 
-// 🔒 Clamp prepared spells if prep limit changed
-if (character.spellcasting?.prepared) {
-const limit = Math.max(
-1,
-Math.floor((character.abilities.int - 10) / 2) +
-Math.floor(level / 2)
-);
+  /* =========================
+     SUBCLASS UNLOCK (LEVEL 3)
+  ========================= */
+  Object.entries(classData.levels || {}).forEach(([lvl, data]) => {
+    if (Number(lvl) > level) return;
+    if (!data.subclass) return;
+    if (character.subclass || character.resolvedChoices?.subclass) return;
 
-const prepared = [...character.spellcasting.prepared];
-if (prepared.length > limit) {
-character.spellcasting.prepared = new Set(prepared.slice(0, limit));
-}
-}
-// 🔧 Normalize level-based choices into pendingChoices
-character.pendingChoices ??= {};
-character.resolvedChoices ??= {};
+    character.pendingSubclassChoice = {
+      classId: classData.id,
+      label: data.subclass.label,
+      source: data.subclass.optionsSource
+    };
+  });
 
-const levelData = classData.levels[level];
+  /* =========================
+     CLAMP PREPARED SPELLS
+  ========================= */
+  if (character.spellcasting?.prepared) {
+    const limit = Math.max(
+      1,
+      Math.floor((character.abilities.int - 10) / 2) +
+        Math.floor(level / 2)
+    );
 
-if (levelData?.choices) {
-Object.entries(levelData.choices).forEach(([key, cfg]) => {
-if (!character.resolvedChoices[key]) {
-character.pendingChoices[key] = cfg;
-}
-});
-  
-}
-console.log("applyClass complete:", character);
+    const prepared = [...character.spellcasting.prepared];
+    if (prepared.length > limit) {
+      character.spellcasting.prepared = new Set(
+        prepared.slice(0, limit)
+      );
+    }
+  }
+
+  /* =========================
+     LEVEL-BASED CHOICES
+  ========================= */
+  const levelData = classData.levels[level];
+
+  if (levelData?.choices) {
+    Object.entries(levelData.choices).forEach(([key, cfg]) => {
+      if (!character.resolvedChoices[key]) {
+        character.pendingChoices[key] = cfg;
+      }
+    });
+  }
+
+  console.log("applyClass complete:", character);
 }

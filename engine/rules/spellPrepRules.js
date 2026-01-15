@@ -31,6 +31,32 @@ export function maxArtificerSpellLevel(level = 1) {
   if (level <= 12) return 4;
   return 5;
 }
+/**
+ * Wizard prepared spell limit
+ * = INT mod + wizard level (min 1)
+ */
+export function wizardPrepLimit(character) {
+  const intScore = character.abilities?.int ?? 10;
+  const intMod = Math.floor((intScore - 10) / 2);
+  const level = character.level ?? 1;
+
+  return Math.max(1, intMod + level);
+}
+
+/**
+ * Max spell level Wizard can cast
+ */
+export function maxWizardSpellLevel(level = 1) {
+  if (level >= 17) return 9;
+  if (level >= 15) return 8;
+  if (level >= 13) return 7;
+  if (level >= 11) return 6;
+  if (level >= 9) return 5;
+  if (level >= 7) return 4;
+  if (level >= 5) return 3;
+  if (level >= 3) return 2;
+  return 1;
+}
 
 /**
  * Extract numeric spell level from tags

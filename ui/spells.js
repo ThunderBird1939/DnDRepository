@@ -5,13 +5,6 @@ import { openSpellDetail } from "./spellDetailModal.js";
 function cap(s) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
 }
-
-async function loadSlots() {
-  const res = await fetch("./data/spellSlots/artificer.json");
-  if (!res.ok) return null;
-  return res.json();
-}
-
 export async function renderSpellcasting() {
   const summary = document.getElementById("spellcastingSummary");
   const slotsDiv = document.getElementById("spellSlots");
@@ -37,41 +30,45 @@ export async function renderSpellcasting() {
   `;
 
   // ===== Spell Slots (display only) =====
-  const slotsTable = await loadSlots();
-  if (slotsTable) {
-    const row = slotsTable[String(character.level)];
-    if (row) {
-      const table = document.createElement("table");
-      table.style.borderCollapse = "collapse";
+    const row = character.spellcasting.slotsPerLevel;
+    if (row && row.length) {
+    const table = document.createElement("table");
+    table.style.borderCollapse = "collapse";
 
-      const header = document.createElement("tr");
-      ["Lvl", "0", "1", "2", "3", "4", "5"].forEach(h => {
-        const th = document.createElement("th");
-        th.textContent = h;
-        th.style.padding = "0.25rem 0.5rem";
-        header.appendChild(th);
-      });
-      table.appendChild(header);
+    const header = document.createElement("tr");
 
-      const tr = document.createElement("tr");
+    // Character level column
+    const thLvl = document.createElement("th");
+    thLvl.textContent = "Lvl";
+    thLvl.style.padding = "0.25rem 0.5rem";
+    header.appendChild(thLvl);
 
-      // Character level column
-      const lvl = document.createElement("td");
-      lvl.textContent = character.level;
-      lvl.style.padding = "0.25rem 0.5rem";
-      tr.appendChild(lvl);
+    // Spell level headers (1 → N)
+    row.forEach((_, i) => {
+      const th = document.createElement("th");
+      th.textContent = i + 1;
+      th.style.padding = "0.25rem 0.5rem";
+      header.appendChild(th);
+    });
 
-      // Level 0–5 data (0 = cantrips known)
-      row.forEach(n => {
-        const td = document.createElement("td");
-        td.textContent = n || "—";
-        td.style.padding = "0.25rem 0.5rem";
-        tr.appendChild(td);
-      });
+    table.appendChild(header);
 
-      table.appendChild(tr);
-      slotsDiv.appendChild(table);
-    }
+    const tr = document.createElement("tr");
+
+    const lvl = document.createElement("td");
+    lvl.textContent = character.level;
+    lvl.style.padding = "0.25rem 0.5rem";
+    tr.appendChild(lvl);
+
+    row.forEach(n => {
+      const td = document.createElement("td");
+      td.textContent = n || "—";
+      td.style.padding = "0.25rem 0.5rem";
+      tr.appendChild(td);
+    });
+
+    table.appendChild(tr);
+    slotsDiv.appendChild(table);
   }
 
   // ===== Always Prepared Spells (subclass) =====
@@ -94,9 +91,10 @@ row.onclick = e => {
     console.warn("Spell not found:", spellId);
     return;
   }
-
   openSpellDetail(spell);
 };
+alwaysDiv.appendChild(row);
+
   });
 }
 }

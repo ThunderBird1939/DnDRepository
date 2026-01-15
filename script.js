@@ -595,32 +595,68 @@ async function getSpellSlotsForClass(classId, level) {
 
   return table[level] ?? {};
 }
+async function loadCantripsKnown(classId, level) {
+  try {
+    const res = await fetch(
+      `./data/cantripsKnown/${classId}.json`
+    );
+    if (!res.ok) return 0;
+
+    const table = await res.json();
+    return table[String(level)] ?? 0;
+  } catch {
+    return 0;
+  }
+}
 
 async function initSpellSlots() {
   if (!character.spellcasting?.enabled) return;
 
-  character.spellcasting.slots ??= {
-    max: {},
-    used: {}
-  };
+  /* =========================
+     CANTRIPS (SEPARATE SYSTEM)
+  ========================= */
+  character.spellcasting.cantrips ??= new Set();
 
-  const slotsByLevel = await getSpellSlotsForClass(
-    character.class.id,
-    character.level
-  );
+  character.spellcasting.cantripsKnown =
+    await loadCantripsKnown(
+      character.class.id,
+      character.level
+    );
 
-  // Reset max slots 
+  // Clamp known cantrips if level dropped
+  if (
+    character.spellcasting.cantrips.size >
+    character.spellcasting.cantripsKnown
+  ) {
+    character.spellcasting.cantrips = new Set(
+      [...character.spellcasting.cantrips].slice(
+        0,
+        character.spellcasting.cantripsKnown
+      )
+    );
+  }
+
+  /* =========================
+     SPELL SLOTS (LEVEL 1–9)
+  ========================= */
   character.spellcasting.slots.max = {};
+  character.spellcasting.slots.used ??= {};
 
-  for (const [lvl, count] of Object.entries(slotsByLevel)) {
+  const slotsByLevel =
+    character.spellcasting.slotsPerLevel ?? [];
+
+  slotsByLevel.forEach((count, i) => {
+    const lvl = i + 1;
+
     character.spellcasting.slots.max[lvl] = count;
     character.spellcasting.slots.used[lvl] ??= 0;
 
     if (character.spellcasting.slots.used[lvl] > count) {
       character.spellcasting.slots.used[lvl] = count;
     }
-  }
+  });
 }
+
 
 function renderSpellSlots() {
   const el = document.getElementById("spellSlots");
@@ -2214,7 +2250,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   };
 
     const classData = await loadClass(e.target.value);
-    applyClass(character, classData, level);
+    await applyClass(character, classData, level);
     character.infusions ??= { known: new Set(), active: new Set() };
 
     // Restore known
@@ -2293,7 +2329,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
   // Re-apply class up to the new level (adds new features, sets pendingSubclassChoice, etc.)
   const classData = await loadClass(character.class.id);
-  applyClass(character, classData, lvl);
+  await applyClass(character, classData, lvl);
 
   // Re-apply subclass (adds any new subclass features / always-prepared spells for this level)
   if (character._subclassData) {
@@ -2315,8 +2351,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderFeatures();
   renderSkills();
   renderExpertiseToggles();
-  renderAllSpellUI();
   await initSpellSlots();
+  renderAllSpellUI();
   renderSpellSlots();
   initFighterResources();
   renderInfusions();

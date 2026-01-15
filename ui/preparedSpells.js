@@ -1,7 +1,7 @@
 import { character } from "../data/character.js";
 import {
   artificerPrepLimit,
-  maxArtificerSpellLevel,
+  wizardPrepLimit,
   spellIdFromTitle,
   spellLevelFromTags,
   isCantripFromTags
@@ -24,8 +24,18 @@ export async function renderPreparedSpells() {
   const prepared = character.spellcasting.prepared;
   const alwaysPrepared = character.spellcasting.alwaysPrepared;
 
-  const limit = artificerPrepLimit(character);
-  const maxLevel = maxArtificerSpellLevel(character.level);
+  const limit =
+    character.class.id === "wizard"
+      ? wizardPrepLimit(character)
+      : artificerPrepLimit(character);
+
+  // 🔑 Max spell level comes from slots, NOT class math
+  const maxLevel =
+    character.spellcasting?.slotsPerLevel
+      ?.map((n, i) => (n > 0 ? i + 1 : null))
+      .filter(Boolean)
+      .pop() ?? 0;
+
 
   // 🔑 Load class spell list (same source as spellList.js)
   const res = await fetch(`./data/spells/${character.class.id}.json`);
