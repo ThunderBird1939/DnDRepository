@@ -104,7 +104,7 @@
         {
           "id": "expertise",
           "name": "Expertise",
-          "type": "choice",
+          "type": "passive",
           "description": "Choose two skill proficiencies. Your proficiency bonus is doubled for any ability check you make with them."
         }
       ]
@@ -165,7 +165,7 @@
         {
           "id": "expertise-10",
           "name": "Expertise",
-          "type": "choice",
+          "type": "passive",
           "description": "Choose two additional skill proficiencies to gain expertise."
         }
       ]

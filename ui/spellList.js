@@ -49,6 +49,7 @@ export async function renderSpellList() {
     return;
   }
 
+  
   /* =========================
      Group spells by level
   ========================= */
@@ -125,3 +126,136 @@ export async function renderSpellList() {
     container.appendChild(details);
   });
 }
+/**
+ * Render Spells Known (Bard / Sorcerer / Warlock)
+ * - Checkbox selection
+ * - Enforces spellsKnown limit
+ * - Mutates spellcasting.available
+ */
+export async function renderSpellsKnown() {
+  const el = document.getElementById("spellsKnownList");
+  if (!el) return;
+
+  el.innerHTML = "";
+
+  const sc = character.spellcasting;
+
+  // 🎵 Known-spell casters only
+  if (
+    !sc?.enabled ||
+    !["bard", "sorcerer", "warlock"].includes(character.class?.id)
+  ) {
+    el.textContent = "—";
+    return;
+  }
+
+  sc.available ??= new Set();
+
+  const known = sc.available;
+  const toChoose = sc.spellsKnown ?? 0;
+
+  // Max spell level from slots
+  const maxSpellLevel =
+    sc.slotsPerLevel
+      ?.map((n, i) => (n > 0 ? i + 1 : null))
+      .filter(Boolean)
+      .pop() ?? 0;
+
+  const res = await fetch(`./data/spells/${character.class.id}.json`);
+  if (!res.ok) {
+    el.textContent = "Spell data missing.";
+    return;
+  }
+
+  const spells = await res.json();
+
+  // 🚫 No cantrips here
+  const eligible = spells
+    .filter(s => !isCantripFromTags(s.tags))
+    .filter(s => spellLevelFromTags(s.tags) <= maxSpellLevel)
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  /* =========================
+     HEADER
+  ========================= */
+  const header = document.createElement("p");
+  header.innerHTML = `<strong>${known.size} / ${toChoose}</strong> spells known`;
+  el.appendChild(header);
+
+  /* =========================
+     LEARN SPELLS (DROPDOWN)
+  ========================= */
+  const remaining = toChoose - known.size;
+
+  if (remaining > 0) {
+    const learnBlock = document.createElement("div");
+    learnBlock.className = "spells-known-learn";
+
+    const hint = document.createElement("div");
+    hint.className = "muted";
+    hint.textContent = `Choose ${remaining} spell${remaining > 1 ? "s" : ""}.`;
+
+    const select = document.createElement("select");
+    select.multiple = true;
+
+    eligible
+      .filter(s => !known.has(spellIdFromTitle(s.title)))
+      .forEach(spell => {
+        const opt = document.createElement("option");
+        opt.value = spellIdFromTitle(spell.title);
+        opt.textContent = spell.title;
+        select.appendChild(opt);
+      });
+
+    const confirm = document.createElement("button");
+    confirm.textContent = "Learn Spells";
+    confirm.disabled = true;
+
+    select.onchange = () => {
+      confirm.disabled = select.selectedOptions.length !== remaining;
+    };
+
+    confirm.onclick = () => {
+      [...select.selectedOptions].forEach(opt => {
+        known.add(opt.value);
+      });
+
+      // 🔑 resolve pending choice
+      delete character.pendingChoices?.spells;
+      character.resolvedChoices.spells = true;
+
+      renderSpellsKnown();
+    };
+
+    learnBlock.append(hint, select, confirm);
+    el.appendChild(learnBlock);
+  }
+
+  /* =========================
+     KNOWN SPELLS LIST
+  ========================= */
+  if (known.size === 0) {
+    const empty = document.createElement("div");
+    empty.className = "muted";
+    empty.textContent = "No spells known.";
+    el.appendChild(empty);
+    return;
+  }
+
+  const list = document.createElement("div");
+  list.className = "spells-known-list";
+
+  eligible
+    .filter(spell => known.has(spellIdFromTitle(spell.title)))
+    .forEach(spell => {
+      const row = document.createElement("div");
+      row.className = "spell-row";
+      row.textContent = spell.title;
+      row.style.cursor = "pointer";
+      row.onclick = () => openSpellDetail(spell);
+      list.appendChild(row);
+    });
+
+  el.appendChild(list);
+}
+

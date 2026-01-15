@@ -157,6 +157,22 @@ if (
   }
 }
 
+/* =========================
+   COLLEGE OF LORE: BONUS SKILLS
+========================= */
+if (
+  subclassData.id === "lore" &&
+  character.class?.id === "bard" &&
+  character.level >= 3 &&
+  !character.resolvedChoices?.loreBonusSkills
+) {
+  character.pendingChoices.skills = {
+    choose: 3,
+    from: "any",
+    source: "lore"
+  };
+}
+
 
 
   /* =========================

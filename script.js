@@ -10,7 +10,11 @@ import { applySubclass } from "./engine/applySubclass.js";
 import { renderSkillChoice } from "./ui/skillChoice.js";
 import { renderFeatures } from "./ui/features.js";
 import { renderSpellcasting } from "./ui/spells.js";
-import { renderSpellList } from "./ui/spellList.js";
+import {
+  renderSpellList,
+  renderSpellsKnown
+} from "./ui/spellList.js";
+
 import { renderPreparedSpells } from "./ui/preparedSpells.js";
 import { openDetail } from "./ui/router.js";
 import { renderAlwaysPreparedSpells } from "./ui/alwaysPreparedSpells.js";
@@ -1216,6 +1220,7 @@ function renderAllSpellUI() {
   renderPreparedSpells();
   renderSpellList();
   renderCantripsKnown();
+  renderSpellsKnown();
 }
 
 function updateEldritchCannonUI() {
@@ -1791,7 +1796,11 @@ function runPendingChoiceFlow() {
   }
 
   if (character.pendingChoices?.spells) {
-    renderSpellbook();
+    if (character.class.id === "wizard") {
+      renderSpellbook();
+    } else {
+      renderSpellsKnown();
+    }
     return;
   }
 

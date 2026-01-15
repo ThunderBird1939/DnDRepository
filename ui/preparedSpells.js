@@ -10,6 +10,10 @@ import {
 export async function renderPreparedSpells() {
   const container = document.getElementById("preparedSpells");
   if (!container) return;
+  if (character.class.id === "bard") {
+    container.textContent = "Bards do not prepare spells.";
+    return;
+  }
 
   container.innerHTML = "";
 

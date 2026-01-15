@@ -180,6 +180,24 @@ if (classData.id === "wizard") {
 } else {
   character.spellcasting.spellsToLearn = 0;
 }
+/* =========================
+   BARD SPELLCASTING (KNOWN)
+========================= */
+if (classData.id === "bard") {
+  character.spellcasting.enabled = true;
+  character.spellcasting.type = "full";
+  character.spellcasting.ability = "cha";
+
+  character.spellcasting.available ??= new Set(); // known spells
+  character.spellcasting.prepared = null;         // ❗ bards do NOT prepare
+
+  // Cantrips
+  character.spellcasting.cantripsKnown ??= 2; // level 1
+  character.spellcasting.cantrips ??= new Set();
+
+  // Known spells
+  character.spellcasting.spellsKnown ??= 4; // level 1 bard
+}
 
 
   /* =========================

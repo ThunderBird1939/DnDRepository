@@ -1,13 +1,38 @@
 function formatSkillName(skill) {
   return skill
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, s => s.toUpperCase());
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, c => c.toUpperCase());
 }
 
-export function renderSkillChoice(character) {
+export async function renderSkillChoice(character) {
   const pending = character.pendingChoices?.skills;
   if (!pending) return;
 
+  /* =========================
+     Resolve options
+  ========================= */
+  let options;
+
+  if (pending.from === "any") {
+    const res = await fetch("./data/skills.json");
+    if (!res.ok) {
+      console.error("Failed to load skills.json");
+      return;
+    }
+    const skills = await res.json();
+    options = skills.map(s => s.id);
+  } else {
+    options = pending.from;
+  }
+
+  if (!Array.isArray(options)) {
+    console.error("Invalid skill options:", pending);
+    return;
+  }
+
+  /* =========================
+     Modal Elements
+  ========================= */
   const modal = document.getElementById("skillChoiceModal");
   const backdrop = document.getElementById("modalBackdrop");
   const title = document.getElementById("skillChoiceTitle");
@@ -20,19 +45,27 @@ export function renderSkillChoice(character) {
     return;
   }
 
-  // Show modal
+  /* =========================
+     Show modal
+  ========================= */
   modal.hidden = false;
   backdrop.hidden = false;
 
   optionsDiv.innerHTML = "";
   confirmBtn.disabled = true;
 
-  title.textContent = `Choose ${pending.choose} Skills`;
+  title.textContent = `Choose ${pending.choose} Skill${pending.choose > 1 ? "s" : ""}`;
   hint.textContent = `Select ${pending.choose} from the list below.`;
 
   const selected = new Set();
 
-  pending.from.forEach(skill => {
+  /* =========================
+     Render options
+  ========================= */
+  options.forEach(skill => {
+    // Skip already-known skills
+    if (character.proficiencies.skills?.has(skill)) return;
+
     const label = document.createElement("label");
     label.style.display = "block";
 
@@ -61,20 +94,29 @@ export function renderSkillChoice(character) {
     optionsDiv.appendChild(label);
   });
 
+  /* =========================
+     Confirm
+  ========================= */
 confirmBtn.onclick = () => {
-  // 🔒 Hard set skills (do NOT just add)
-  character.proficiencies.skills = new Set(selected);
+  character.proficiencies.skills ??= new Set();
+  selected.forEach(skill => character.proficiencies.skills.add(skill));
 
-  // ✅ mark choice resolved
-  character.pendingChoices.skills = null;
+  // ✅ resolve correct choice
   character.resolvedChoices ??= {};
-  character.resolvedChoices.skills = true;
+
+  if (pending.source === "lore") {
+    character.resolvedChoices.loreBonusSkills = true;
+  } else {
+    character.resolvedChoices.skills = true;
+  }
+
+  delete character.pendingChoices.skills;
 
   modal.hidden = true;
   backdrop.hidden = true;
 
-  // 🔔 notify rest of app
   window.dispatchEvent(new Event("skills-updated"));
+  window.dispatchEvent(new Event("features-updated"));
 };
 
 }
