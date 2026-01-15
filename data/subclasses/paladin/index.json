@@ -1,0 +1,9 @@
+[
+  { "id": "ancients", "name": "Oath of the Ancients" },
+  { "id": "conquest", "name": "Oath of Conquest" },
+  { "id": "devotion", "name": "Oath of Devotion" },
+  { "id": "oathbreakers", "name": "Oathbreaker" },
+  { "id": "redemption", "name": "Oath of Redemption" },
+  { "id": "vengence", "name": "Oath of Vengeance" },
+  { "id": "watchers", "name": "Oath of the Watchers" }
+]

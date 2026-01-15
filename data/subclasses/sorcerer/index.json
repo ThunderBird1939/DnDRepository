@@ -1,0 +1,9 @@
+[
+  { "id": "abberant-mind", "name": "Aberrant Mind" },
+  { "id": "clockwork-soul", "name": "Clockwork Soul" },
+  { "id": "divine-soul", "name": "Divine Soul" },
+  { "id": "draconic-bloodline", "name": "Draconic Bloodline" },
+  { "id": "shadow-magic", "name": "Shadow Magic" },
+  { "id": "storm-sorcery", "name": "Storm Sorcery" },
+  { "id": "wild-magic", "name": "Wild Magic" }
+]

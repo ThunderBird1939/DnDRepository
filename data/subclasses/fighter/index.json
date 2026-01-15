@@ -1,11 +1,12 @@
 [
-  { "id": "champion", "name": "Champion", "source": "PHB", "file": "champion.json" },
-  { "id": "battle-master", "name": "Battle Master", "source": "PHB", "file": "battle-master.json" },
-  { "id": "eldritch-knight", "name": "Eldritch Knight", "source": "PHB", "file": "eldritch-knight.json" },
-  { "id": "arcane-archer", "name": "Arcane Archer", "source": "XGtE", "file": "arcane-archer.json" },
-  { "id": "cavalier", "name": "Cavalier", "source": "XGtE", "file": "cavalier.json" },
-  { "id": "samurai", "name": "Samurai", "source": "XGtE", "file": "samurai.json" },
-  { "id": "psi-warrior", "name": "Psi Warrior", "source": "TCoE", "file": "psi-warrior.json" },
-  { "id": "rune-knight", "name": "Rune Knight", "source": "TCoE", "file": "rune-knight.json" },
-  { "id": "echo-knight", "name": "Echo Knight", "source": "EGtW", "file": "echo-knight.json" }
+  { "id": "arcane-archer", "name": "Arcane Archer" },
+  { "id": "banneret", "name": "Banneret" },
+  { "id": "battle-master", "name": "Battle Master" },
+  { "id": "cavalier", "name": "Cavalier" },
+  { "id": "champion", "name": "Champion" },
+  { "id": "echo-knight", "name": "Echo Knight" },
+  { "id": "eldritch-knight", "name": "Eldritch Knight" },
+  { "id": "psi-warrior", "name": "Psi Warrior" },
+  { "id": "rune-knight", "name": "Rune Knight" },
+  { "id": "samurai", "name": "Samurai" }
 ]

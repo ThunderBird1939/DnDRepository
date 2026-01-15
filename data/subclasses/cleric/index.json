@@ -1,0 +1,16 @@
+[
+  { "id": "arcana", "name": "Arcana Domain" },
+  { "id": "death", "name": "Death Domain" },
+  { "id": "forge", "name": "Forge Domain" },
+  { "id": "grave", "name": "Grave Domain" },
+  { "id": "knowledge", "name": "Knowledge Domain" },
+  { "id": "life", "name": "Life Domain" },
+  { "id": "light", "name": "Light Domain" },
+  { "id": "nature", "name": "Nature Domain" },
+  { "id": "order", "name": "Order Domain" },
+  { "id": "peace", "name": "Peace Domain" },
+  { "id": "tempest", "name": "Tempest Domain" },
+  { "id": "trickery", "name": "Trickery Domain" },
+  { "id": "twilight", "name": "Twilight Domain" },
+  { "id": "war", "name": "War Domain" }
+]

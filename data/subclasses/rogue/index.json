@@ -1,3 +1,10 @@
 [
-  { "id": "phantom", "name": "Phantom", "source": "TCoE", "file": "phantom.json" }
+  { "id": "arcane-trickster", "name": "Arcane Trickster" },
+  { "id": "assassin", "name": "Assassin" },
+  { "id": "mastermind", "name": "Mastermind" },
+  { "id": "phantom", "name": "Phantom" },
+  { "id": "scout", "name": "Scout" },
+  { "id": "soulknife", "name": "Soulknife" },
+  { "id": "swashbuckler", "name": "Swashbuckler" },
+  { "id": "thief", "name": "Thief" }
 ]

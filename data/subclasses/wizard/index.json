@@ -1,0 +1,14 @@
+[
+  { "id": "abjuration", "name": "School of Abjuration" },
+  { "id": "bladesing", "name": "Bladesinging" },
+  { "id": "chronurgy", "name": "Chronurgy Magic" },
+  { "id": "conjuration", "name": "School of Conjuration" },
+  { "id": "divination", "name": "School of Divination" },
+  { "id": "enchantment", "name": "School of Enchantment" },
+  { "id": "evocation", "name": "School of Evocation" },
+  { "id": "graviturgy", "name": "Graviturgy Magic" },
+  { "id": "illusion", "name": "School of Illusion" },
+  { "id": "necromancy", "name": "School of Necromancy" },
+  { "id": "order-of-scribes", "name": "Order of Scribes" },
+  { "id": "transmutation", "name": "School of Transmutation" }
+]

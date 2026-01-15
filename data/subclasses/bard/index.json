@@ -1,0 +1,10 @@
+[
+  { "id": "creation", "name": "College of Creation" },
+  { "id": "eloquence", "name": "College of Eloquence" },
+  { "id": "glamour", "name": "College of Glamour" },
+  { "id": "lore", "name": "College of Lore" },
+  { "id": "spirits", "name": "College of Spirits" },
+  { "id": "swords", "name": "College of Swords" },
+  { "id": "valor", "name": "College of Valor" },
+  { "id": "whispers", "name": "College of Whispers" }
+]

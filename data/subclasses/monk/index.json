@@ -1,0 +1,10 @@
+[
+  { "id": "astral-self", "name": "Way of the Astral Self" },
+  { "id": "drunken-master", "name": "Way of the Drunken Master" },
+  { "id": "four-elements", "name": "Way of the Four Elements" },
+  { "id": "kensei", "name": "Way of the Kensei" },
+  { "id": "mercy", "name": "Way of Mercy" },
+  { "id": "open-hand", "name": "Way of the Open Hand" },
+  { "id": "shadow", "name": "Way of Shadow" },
+  { "id": "sun-soul", "name": "Way of the Sun Soul" }
+]

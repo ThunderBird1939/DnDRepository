@@ -1,0 +1,10 @@
+[
+  { "id": "beast-master", "name": "Beast Master" },
+  { "id": "drakewarden", "name": "Drakewarden" },
+  { "id": "fey-wanderer", "name": "Fey Wanderer" },
+  { "id": "gloom-stalker", "name": "Gloom Stalker" },
+  { "id": "horizon-walker", "name": "Horizon Walker" },
+  { "id": "hunter", "name": "Hunter" },
+  { "id": "monster-slayer", "name": "Monster Slayer" },
+  { "id": "swarmkeeper", "name": "Swarmkeeper" }
+]

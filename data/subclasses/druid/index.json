@@ -1,0 +1,9 @@
+[
+  { "id": "dreams", "name": "Circle of Dreams" },
+  { "id": "land", "name": "Circle of the Land" },
+  { "id": "moon", "name": "Circle of the Moon" },
+  { "id": "shepherd", "name": "Circle of the Shepherd" },
+  { "id": "spores", "name": "Circle of Spores" },
+  { "id": "stars", "name": "Circle of Stars" },
+  { "id": "wildfire", "name": "Circle of Wildfire" }
+]

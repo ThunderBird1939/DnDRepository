@@ -1,0 +1,11 @@
+[
+  { "id": "ancestral-guardian", "name": "Ancestral Guardian" },
+  { "id": "battlerager", "name": "Battlerager" },
+  { "id": "beast", "name": "Path of the Beast" },
+  { "id": "berserker", "name": "Berserker" },
+  { "id": "giant", "name": "Path of the Giant" },
+  { "id": "storm-herald", "name": "Storm Herald" },
+  { "id": "totem-warrior", "name": "Totem Warrior" },
+  { "id": "wild-magic", "name": "Wild Magic" },
+  { "id": "zealot", "name": "Zealot" }
+]

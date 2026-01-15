@@ -1,0 +1,8 @@
+[
+  { "id": "archfey", "name": "The Archfey" },
+  { "id": "fiend", "name": "The Fiend" },
+  { "id": "genie", "name": "The Genie" },
+  { "id": "great-old-one", "name": "The Great Old One" },
+  { "id": "hexblade", "name": "The Hexblade" },
+  { "id": "undead", "name": "The Undead" }
+]
