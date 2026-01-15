@@ -244,3 +244,23 @@ details ul {
   font-weight: bold;
   color: #4a6898;
 }
+.expertise-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.expertise-toggle.active {
+  opacity: 1;
+}
+.resource-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+.resource-row button {
+  width: 28px;
+  height: 28px;
+}

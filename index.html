@@ -89,6 +89,8 @@
           <option value="rogue">Rogue</option>
           <option value="wizard">Wizard</option>
           <option value="bard">Bard</option>
+          <option value="ostrumite-gunner">Ostrumite Gunner</option>
+
         </select>
 
         <!-- ➕ Class Detail -->
@@ -301,6 +303,7 @@
 
 
     <!-- ================= Weapons ================= -->
+     
     <section class="panel">
       <h2>Weapons</h2>
       <select id="weaponsSelect" multiple></select>
@@ -319,6 +322,26 @@
         <tbody></tbody>
       </table>
     </section>
+<!-- ================= Ostrumite Charges ================= -->
+      <div
+        id="ostrumiteChargesPanel"
+        class="panel"
+        hidden
+      >
+        <h3>Ostrumite Charges</h3>
+
+        <div class="resource-row">
+          <button id="ostrumiteMinus">−</button>
+          <span id="ostrumiteCurrent">0</span>
+          /
+          <span id="ostrumiteMax">0</span>
+          <button id="ostrumitePlus">+</button>
+        </div>
+
+        <small class="hint">
+          Recharges on a short rest.
+        </small>
+      </div>
 
     <!-- ================= Hit Points ================= -->
     <section class="panel">

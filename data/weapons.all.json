@@ -653,5 +653,35 @@
     "properties": [],
     "cost": "6 gp",
     "weight": "4 lb"
-  }
+  },
+  {
+  "id": "ostrumite-gunblade-prototype",
+  "name": "Ostrumite Gunblade (Prototype)",
+  "category": "Martial Hybrid",
+  "damage": [
+    { "dice": "1d8", "type": "Slashing" }
+  ],
+  "alternateFire": {
+    "mode": "Firearm",
+    "damage": [
+      { "dice": "1d10", "type": "Piercing" }
+    ],
+    "range": "60/180"
+  },
+  "properties": [
+    "Versatile (1d10)",
+    "Special",
+    "Ostrumite",
+    "Ammunition"
+  ],
+  "special": {
+    "description": "This weapon can be used as either a melee weapon or a firearm. Switching modes requires no action. Certain features and modifications interact differently depending on the active mode.",
+    "misfire": {
+      "threshold": 1,
+      "effect": "On a natural 1, the weapon misfires, dealing 1d6 force damage to the wielder and becoming jammed until cleared."
+    }
+  },
+  "cost": "—",
+  "weight": "6 lb"
+}
 ]

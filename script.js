@@ -21,6 +21,11 @@ import { renderAlwaysPreparedSpells } from "./ui/alwaysPreparedSpells.js";
 import { calculateArmorClass } from "./engine/calculateArmorClass.js";
 import { renderCantripsKnown } from "./ui/cantripsKnown.js";
 import { renderSpellbook } from "./ui/spellbook.js";
+import { initWeaponMods } from "./ui/weaponMods.js";
+import {
+  updateOstrumiteCharges,
+  bindOstrumiteChargeControls
+} from "./ui/ostrumiteCharges.js";
 
 /* =========================
    Helpers
@@ -2293,6 +2298,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     }
 
     // 🔥 THIS WAS MISSING 🔥
+    updateOstrumiteCharges();
+    bindOstrumiteChargeControls();
     renderSavingThrows();
     renderFeatures();
     updateSpellcastingVisibility();
@@ -2317,7 +2324,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     runPendingChoiceFlow();
     updateArcaneArcherVisibility();
     renderSoulTrinkets();
-
+    initWeaponMods(character);
   });
 
 
@@ -2371,6 +2378,8 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   checkInfusionUnlocks(prevLevel, lvl);
 
   // UI refresh
+  updateOstrumiteCharges();
+  bindOstrumiteChargeControls();
   renderSavingThrows();
   renderFeatures();
   renderSkills();
@@ -2401,6 +2410,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   initArcaneShotKnownUI();
   renderArcaneShotDetails();
   renderArcaneShotUseDropdown();
+  initWeaponMods(character);
 });
 
 
@@ -2412,7 +2422,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     renderFeatures();     
     runPendingChoiceFlow(); 
   });
-
+window.addEventListener("abilities-updated", updateOstrumiteCharges);
 window.addEventListener("features-updated", () => {
   renderFeatures();
   renderSavingThrows();
@@ -2461,6 +2471,7 @@ window.addEventListener("subclass-updated", async () => {
   renderArcaneShotDetails();
   updateArcaneShotActiveUI();
   renderSoulTrinkets();
+  initWeaponMods(character);
 });
 
 document
@@ -2583,6 +2594,8 @@ renderArcaneShotDetails();
 renderArcaneShotUseDropdown();
 updateArcaneArcherVisibility();
 renderSoulTrinkets();
+initWeaponMods(character);
+
 
 
 // HARD RESET ALL BACKDROPS — prevents invisible click shields

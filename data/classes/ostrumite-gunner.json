@@ -1,8 +1,8 @@
 {
-  "id": "ostrumite-vanguard",
-  "name": "Ostrumite Vanguard",
+  "id": "ostrumite-gunner",
+  "name": "Ostrumite Gunner",
   "shortDescription": "Martial inventors who wield a living gunblade powered by unstable magical crystal.",
-  "description": "Ostrumite Vanguards bond to a volatile crystal weapon that fuses steel and firearm into a single system. Through innovation, risk, and precision, they turn instability into overwhelming force.",
+  "description": "Ostrumite Gunners bond to a volatile crystal weapon that fuses steel and firearm into a single system. Through innovation, risk, and precision, they turn instability into overwhelming force.",
 
   "hitDie": 10,
   "primaryAbility": ["dex", "str"],
@@ -28,9 +28,7 @@
     ]
   },
 
-  "spellcasting": {
-    "type": "none"
-  },
+  "spellcasting": null,
 
   "resources": {
     "ostrumiteCharges": {
@@ -85,11 +83,11 @@
     "3": {
       "features": [
         {
-          "id": "vanguard-path",
-          "name": "Vanguard Path",
+          "id": "gunner-path",
+          "name": "Gunner Path",
           "type": "subclass",
           "description": "Choose a specialization that defines how you fight with your Ostrumite weapon.",
-          "optionsSource": "subclasses/ostrumite-vanguard"
+          "optionsSource": "subclasses/ostrumite-gunner"
         }
       ]
     },
@@ -111,7 +109,7 @@
           "id": "reactive-shot",
           "name": "Reactive Shot",
           "type": "reaction",
-          "description": "When a creature misses you, leaves your reach, or attacks an ally you can see, you may make a firearm attack as a reaction by spending 1 charge."
+          "description": "When a creature misses you, leaves your reach, or attacks an ally you can see, you may make a firearm attack as a reaction by spending 1 Ostrumite Charge."
         }
       ]
     },
@@ -166,7 +164,7 @@
           "id": "perfect-synchronization",
           "name": "Perfect Synchronization",
           "type": "passive",
-          "description": "When combat begins and you have no charges, you regain a portion automatically."
+          "description": "When combat begins and you have no Ostrumite Charges, you regain a portion automatically."
         }
       ]
     },

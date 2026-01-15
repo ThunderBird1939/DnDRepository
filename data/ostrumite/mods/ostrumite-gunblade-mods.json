@@ -1,0 +1,184 @@
+{
+  "weaponId": "ostrumite-gunblade-prototype",
+  "slots": ["barrel", "edge", "core", "stabilizer"],
+
+  "mods": [
+
+
+    {
+      "id": "rifled-barrel",
+      "name": "Rifled Barrel",
+      "slot": "barrel",
+      "tier": "basic",
+      "description": "Improves shot stability and effective range.",
+      "effects": {
+        "firearm": {
+          "rangeBonus": "20/60"
+        }
+      }
+    },
+
+    {
+      "id": "scatter-barrel",
+      "name": "Scatter Barrel",
+      "slot": "barrel",
+      "tier": "basic",
+      "description": "Fires a wide blast at close range.",
+      "effects": {
+        "firearm": {
+          "closeRange": "15 ft cone",
+          "damageDice": "1d8",
+          "damageType": "Piercing"
+        }
+      },
+      "overcharge": {
+        "cost": 1,
+        "effect": "Targets in cone take +1d6 damage."
+      }
+    },
+
+    {
+      "id": "arc-pulse-barrel",
+      "name": "Arc Pulse Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "description": "Shots crackle with unstable force.",
+      "effects": {
+        "firearm": {
+          "damageType": "Force"
+        }
+      },
+      "misfire": {
+        "increaseThreshold": 1
+      }
+    },
+
+
+    {
+      "id": "serrated-edge",
+      "name": "Serrated Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "description": "Jagged blade designed to tear through armor.",
+      "effects": {
+        "melee": {
+          "onHit": "Target takes 1d4 slashing damage at start of its next turn."
+        }
+      }
+    },
+
+    {
+      "id": "charged-edge",
+      "name": "Charged Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "description": "The blade hums with stored Ostrumite energy.",
+      "effects": {
+        "melee": {
+          "damageBonus": "1d6 lightning"
+        }
+      },
+      "overcharge": {
+        "cost": 1,
+        "effect": "Lightning damage chains to a creature within 10 ft."
+      }
+    },
+
+    {
+      "id": "phase-edge",
+      "name": "Phase Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "description": "The blade partially phases out of reality.",
+      "effects": {
+        "melee": {
+          "ignoreResistance": true
+        }
+      }
+    },
+
+
+    {
+      "id": "efficient-core",
+      "name": "Efficient Core",
+      "slot": "core",
+      "tier": "basic",
+      "description": "Optimized energy flow reduces charge strain.",
+      "effects": {
+        "charges": {
+          "refundOnOvercharge": 1
+        }
+      }
+    },
+
+    {
+      "id": "unstable-core",
+      "name": "Unstable Core",
+      "slot": "core",
+      "tier": "basic",
+      "description": "Raw Ostrumite output dramatically increases power.",
+      "effects": {
+        "overcharge": {
+          "damageBonus": "1d8"
+        }
+      },
+      "misfire": {
+        "increaseThreshold": 1
+      }
+    },
+
+    {
+      "id": "living-core",
+      "name": "Living Core",
+      "slot": "core",
+      "tier": "advanced",
+      "description": "The core reacts instinctively to combat stress.",
+      "effects": {
+        "charges": {
+          "regenOnKill": 1
+        }
+      }
+    },
+
+
+    {
+      "id": "gyro-stabilizer",
+      "name": "Gyro Stabilizer",
+      "slot": "stabilizer",
+      "tier": "basic",
+      "description": "Mechanical stabilizers dampen recoil and vibration.",
+      "effects": {
+        "misfire": {
+          "reduceChance": 1
+        }
+      }
+    },
+
+    {
+      "id": "counterbalance-rig",
+      "name": "Counterbalance Rig",
+      "slot": "stabilizer",
+      "tier": "basic",
+      "description": "Recoil momentum is redirected into movement.",
+      "effects": {
+        "reaction": {
+          "afterShot": "Move 5 ft without provoking opportunity attacks."
+        }
+      }
+    },
+
+    {
+      "id": "sentinel-array",
+      "name": "Sentinel Array",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "description": "Reactive targeting crystals predict enemy movement.",
+      "effects": {
+        "reaction": {
+          "extraReactiveShot": true
+        }
+      }
+    }
+
+  ]
+}

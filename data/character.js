@@ -123,7 +123,7 @@ spellcasting: {
   available: new Set(),       // known spells (wizard book, sorcerer known, etc.)
   prepared: new Set(),        // prepared spells
   alwaysPrepared: new Set(),  // subclass/domain spells
-  
+
   /* 🔑 LEARNING CONTROL */
   spellsToLearn: 0,           // wizard: spells to add to book this level
 
@@ -167,6 +167,12 @@ spellcasting: {
   ========================= */
   combat: {
     baseAc: 10,
-    speed: 30
+    speed: 30,
+
+      // Ostrumite (Gunner only)
+  ostrumiteCharges: {
+    current: 0,
+    max: 0
+  }
   }
 };
