@@ -7,9 +7,13 @@
   "hitDie": 10,
   "primaryAbility": ["str", "dex"],
   "secondaryAbility": "con",
-  "manifestAbility": ["cha", "wis"],
 
-  "savingThrows": ["str-or-dex", "con"],
+  "manifestAbility": {
+    "choose": ["cha", "wis"],
+    "default": "cha"
+  },
+
+  "savingThrows": ["str", "con"],
 
   "proficiencies": {
     "armor": ["light", "medium", "shields"],
@@ -29,9 +33,7 @@
     ]
   },
 
-  "spellcasting": {
-    "type": "none"
-  },
+  "spellcasting": null,
 
   "resources": {
     "manifestEnergy": {
@@ -52,11 +54,11 @@
     "1": {
       "features": [
         {
-          "id": "martial-foundation",
-          "name": "Martial Foundation",
+          "id": "fighting-style",
+          "name": "Fighting Style",
           "type": "choice",
-          "optionsSource": "fighting-styles",
-          "description": "You gain one Fighting Style, as the Fighter class."
+          "optionsSource": "fighting-styles/fighter",
+          "description": "You adopt a particular style of fighting as your specialty."
         },
         {
           "id": "halphas-contracted-presence",

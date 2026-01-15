@@ -26,6 +26,12 @@ import {
   updateOstrumiteCharges,
   bindOstrumiteChargeControls
 } from "./ui/ostrumiteCharges.js";
+import {
+  updateManifestEnergy,
+  bindManifestEnergyControls
+} from "./ui/manifestEnergy.js";
+import { initDispositionUI } from "./ui/disposition.js";
+import { renderManifestTechniques } from "./ui/manifestTechniques.js";
 
 /* =========================
    Helpers
@@ -2298,6 +2304,9 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     }
 
     // 🔥 THIS WAS MISSING 🔥
+    renderManifestTechniques();
+    updateManifestEnergy();
+    bindManifestEnergyControls();
     updateOstrumiteCharges();
     bindOstrumiteChargeControls();
     renderSavingThrows();
@@ -2325,6 +2334,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     updateArcaneArcherVisibility();
     renderSoulTrinkets();
     initWeaponMods(character);
+    initDispositionUI();
   });
 
 
@@ -2378,6 +2388,9 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   checkInfusionUnlocks(prevLevel, lvl);
 
   // UI refresh
+  renderManifestTechniques();
+  updateManifestEnergy();
+  bindManifestEnergyControls();
   updateOstrumiteCharges();
   bindOstrumiteChargeControls();
   renderSavingThrows();
@@ -2411,6 +2424,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderArcaneShotDetails();
   renderArcaneShotUseDropdown();
   initWeaponMods(character);
+  initDispositionUI();
 });
 
 
@@ -2431,6 +2445,7 @@ window.addEventListener("features-updated", updateSteelDefenderUI);
 document
   .getElementById("steelDefenderInfo")
   ?.addEventListener("change", updateSteelDefenderUI);
+window.addEventListener("level-updated", renderManifestTechniques);
 
 window.addEventListener("combat-updated", async () => {
   await updateCombat();
@@ -2472,6 +2487,8 @@ window.addEventListener("subclass-updated", async () => {
   updateArcaneShotActiveUI();
   renderSoulTrinkets();
   initWeaponMods(character);
+  updateManifestEnergy();
+  initDispositionUI();
 });
 
 document
@@ -2507,6 +2524,8 @@ document.getElementById("actionSurgeBtn").onclick = () => {
 
   window.dispatchEvent(new Event("combat-updated"));
 };
+window.addEventListener("abilities-updated", updateManifestEnergy);
+window.addEventListener("level-updated", updateManifestEnergy);
 
 document
   .getElementById("backgroundSelect")
@@ -2522,7 +2541,7 @@ document
     runPendingChoiceFlow(); // opens language modal
     syncDetailButtons();
   });
-
+window.addEventListener("level-updated", initDispositionUI);
 window.addEventListener("rest-long", renderSpellSlots);
   document.getElementById("shortRestBtn").onclick = applyShortRest;
   document.getElementById("longRestBtn").onclick = applyLongRest;
@@ -2595,6 +2614,9 @@ renderArcaneShotUseDropdown();
 updateArcaneArcherVisibility();
 renderSoulTrinkets();
 initWeaponMods(character);
+updateManifestEnergy();
+initDispositionUI();
+
 
 
 

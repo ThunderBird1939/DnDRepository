@@ -264,3 +264,45 @@ details ul {
   width: 28px;
   height: 28px;
 }
+.resource-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+.resource-row button {
+  width: 28px;
+  height: 28px;
+}
+.manifest-technique {
+  border-bottom: 1px solid #333;
+  padding: 0.5rem 0;
+}
+
+.manifest-technique h4 {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.manifest-technique .cost {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.manifest-technique .tech-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.manifest-technique ul {
+  margin: 0.25rem 0 0 1rem;
+}
+
+.manifest-technique .scaling {
+  display: block;
+  opacity: 0.7;
+}

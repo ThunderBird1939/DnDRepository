@@ -82,16 +82,30 @@
 
       <label>
         Class
-        <select id="classSelect">
-          <option value="">— Select Class —</option>
-          <option value="artificer">Artificer</option>
-          <option value="fighter">Fighter</option>
-          <option value="rogue">Rogue</option>
-          <option value="wizard">Wizard</option>
-          <option value="bard">Bard</option>
-          <option value="ostrumite-gunner">Ostrumite Gunner</option>
+      <select id="classSelect">
+        <option value="">— Select Class —</option>
 
-        </select>
+        <!-- Core PHB Classes -->
+        <option value="barbarian">Barbarian</option>
+        <option value="bard">Bard</option>
+        <option value="cleric">Cleric</option>
+        <option value="druid">Druid</option>
+        <option value="fighter">Fighter</option>
+        <option value="monk">Monk</option>
+        <option value="paladin">Paladin</option>
+        <option value="ranger">Ranger</option>
+        <option value="rogue">Rogue</option>
+        <option value="sorcerer">Sorcerer</option>
+        <option value="warlock">Warlock</option>
+        <option value="wizard">Wizard</option>
+
+        <!-- Official Non-PHB -->
+        <option value="artificer">Artificer</option>
+
+        <!-- Homebrew -->
+        <option value="ostrumite-gunner">Ostrumite Gunner</option>
+        <option value="bound-vanguard">Bound Vanguard</option>
+      </select>
 
         <!-- ➕ Class Detail -->
         <button
@@ -189,6 +203,28 @@
     </section>
 
     <!-- ================= Spellcasting ================= -->
+     <!-- ================= Disposition ================= -->
+<section class="panel" id="dispositionPanel" hidden>
+  <h2>Disposition</h2>
+
+  <select id="dispositionSelect">
+    <option value="">— Choose Disposition —</option>
+    <option value="obligated-guardian">Obligated Guardian</option>
+    <option value="reluctant-partner">Reluctant Partner</option>
+    <option value="engaged-companion">Engaged Companion</option>
+    <option value="steadfast-sentinel">Steadfast Sentinel</option>
+  </select>
+
+  <p id="dispositionDescription" class="hint"></p>
+</section>
+
+<!-- ================= Manifest Techniques ================= -->
+<section class="panel" id="manifestTechniquesPanel" hidden>
+  <h2>Manifest Techniques</h2>
+  <div id="manifestTechniquesList"></div>
+</section>
+
+
     <section class="panel" id="infusionsPanel" hidden>
   <h2>Infusions</h2>
 
@@ -340,6 +376,26 @@
 
         <small class="hint">
           Recharges on a short rest.
+        </small>
+      </div>
+<!-- ================= Manifest Energy ================= -->
+      <div
+        id="manifestEnergyPanel"
+        class="panel"
+        hidden
+      >
+        <h3>Manifest Energy</h3>
+
+        <div class="resource-row">
+          <button id="manifestMinus">−</button>
+          <span id="manifestCurrent">0</span>
+          /
+          <span id="manifestMax">0</span>
+          <button id="manifestPlus">+</button>
+        </div>
+
+        <small class="hint">
+          Restores on a long rest.
         </small>
       </div>
 

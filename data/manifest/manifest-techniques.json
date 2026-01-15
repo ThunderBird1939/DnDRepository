@@ -1,0 +1,418 @@
+[
+  {
+    "id": "manifest-strike",
+    "name": "Manifest Strike",
+    "type": "triggered",
+    "trigger": "onHit",
+    "cost": 1,
+    "limit": "oncePerTurn",
+    "tags": ["universal"],
+    "options": [
+      "Deal +1d6 force or thunder damage",
+      "Push the target 5 ft",
+      "Reduce the damage you take from the target’s next attack by 1d6"
+    ],
+    "scaling": {
+      "level13": "Bonus damage becomes 1d8"
+    }
+  },
+
+  {
+    "id": "wingburst",
+    "name": "Wingburst",
+    "type": "action",
+    "cost": 2,
+    "area": "10-ft cube centered on you",
+    "save": "con",
+    "tags": ["universal"],
+    "effect": "Creatures take 2d8 thunder damage and are pushed 10 ft on a failed save; half damage and no push on a success.",
+    "scaling": {
+      "level11": "+1d8 damage",
+      "level17": "+1d8 damage"
+    }
+  },
+
+  {
+    "id": "phantom-step",
+    "name": "Phantom Step",
+    "type": "bonus",
+    "cost": 1,
+    "range": "15 ft",
+    "tags": ["universal", "mobility"],
+    "limitations": [
+      "Must remain on the ground",
+      "Cannot pass through solid barriers"
+    ],
+    "effect": "You teleport up to 15 ft without provoking opportunity attacks."
+  },
+
+  {
+    "id": "screeching-pulse",
+    "name": "Screeching Pulse",
+    "type": "action",
+    "cost": 1,
+    "range": "30 ft",
+    "save": "wis",
+    "tags": ["universal"],
+    "effect": "Target takes 2d6 psychic or thunder damage and has disadvantage on its next attack roll on a failed save; half damage on a success.",
+    "scaling": {
+      "level11": "+1d6 damage",
+      "level17": "+1d6 damage"
+    }
+  },
+
+  {
+    "id": "pressing-aura",
+    "name": "Pressing Aura",
+    "type": "bonus",
+    "cost": 1,
+    "duration": "until start of your next turn",
+    "tags": ["universal", "control"],
+    "effect": "Enemies within 5 ft have disadvantage on checks to move away; the first enemy that leaves your reach provokes an opportunity attack even if it Disengages."
+  },
+
+  {
+    "id": "veil-of-the-watcher",
+    "name": "Veil of the Watcher",
+    "type": "reaction",
+    "cost": 1,
+    "trigger": "targetedByAttack",
+    "tags": ["universal", "defense"],
+    "effect": "You impose disadvantage on the triggering attack roll. Must be used before the roll."
+  },
+
+  {
+    "id": "grasping-shadow",
+    "name": "Grasping Shadow",
+    "type": "bonus",
+    "cost": 1,
+    "range": "10 ft",
+    "save": "str",
+    "tags": ["universal", "control"],
+    "effect": "On a failed save, the creature’s speed is reduced by 10 ft and it has disadvantage on its next opportunity attack until the end of its next turn."
+  },
+
+  {
+    "id": "flicker-guard",
+    "name": "Flicker Guard",
+    "type": "reaction",
+    "cost": 1,
+    "trigger": "takeDamage",
+    "tags": ["universal", "defense"],
+    "effect": "Reduce damage by 1d6 + your Manifest Ability modifier. If reduced to 0, you may move 5 ft without provoking opportunity attacks."
+  },
+
+  {
+    "id": "rending-surge",
+    "name": "Rending Surge",
+    "type": "triggered",
+    "trigger": "onHit",
+    "cost": 2,
+    "tags": ["universal", "offense"],
+    "effect": "Deal +2d6 force damage, or knock a Large or smaller target prone instead."
+  },
+
+  {
+    "id": "retaliatory-lash",
+    "name": "Retaliatory Lash",
+    "type": "reaction",
+    "cost": 1,
+    "trigger": "takeDamage",
+    "tags": ["disposition:obligated-guardian"],
+    "effect": "Make a melee weapon attack dealing normal damage +1d6 force. Cannot apply Manifest Strike.",
+    "scaling": {
+      "level11": "+1d6 force",
+      "level17": "+1d6 force"
+    }
+  },
+
+  {
+    "id": "contract-mark",
+    "name": "Contract Mark",
+    "type": "triggered",
+    "cost": 1,
+    "trigger": "damaged",
+    "tags": ["disposition:obligated-guardian"],
+    "effect": "Mark the creature. Its attacks against others have disadvantage; the first time it hits you again, reduce damage by 1d6. Only one creature may be marked."
+  },
+
+  {
+    "id": "forced-interposition",
+    "name": "Forced Interposition",
+    "type": "reaction",
+    "cost": 1,
+    "range": "5 ft",
+    "tags": ["disposition:obligated-guardian"],
+    "effect": "Swap places with an ally and become the target. Gain resistance and may use Guardian Intercept without extra ME."
+  },
+
+  {
+    "id": "suppressive-pressure",
+    "name": "Suppressive Pressure",
+    "type": "bonus",
+    "cost": 1,
+    "duration": "until start of your next turn",
+    "tags": ["disposition:obligated-guardian"],
+    "effect": "Creatures within 5 ft have speed reduced by 10 ft. If they hit you, they take force damage equal to your Manifest Ability modifier."
+  },
+
+  {
+    "id": "refusal-to-fall",
+    "name": "Refusal to Fall",
+    "type": "reaction",
+    "cost": 2,
+    "limit": "oncePerLongRest",
+    "tags": ["disposition:obligated-guardian"],
+    "effect": "When reduced to 0 HP, drop to 1 HP instead and hostile creatures within 5 ft take 2d8 thunder damage."
+  },
+
+  {
+    "id": "wardens-warning",
+    "name": "Warden’s Warning",
+    "type": "reaction",
+    "cost": 1,
+    "range": "30 ft",
+    "tags": ["disposition:obligated-guardian"],
+    "effect": "The attacker rerolls and takes the lower result. If the attack still hits, you gain temporary HP equal to your Manifest Ability modifier."
+  },
+ {
+    "id": "manifest-locus",
+    "name": "Manifest Locus",
+    "type": "bonus",
+    "cost": 1,
+    "range": "10 ft",
+    "duration": "until start of your next turn",
+    "tags": ["disposition:reluctant-partner"],
+    "effect": "Designate an unoccupied space as a Manifest Locus. The space is treated as occupied by you for opportunity attacks. Enemies within 5 ft of the locus have disadvantage on checks to Disengage. You may move the locus 5 ft when you move."
+  },
+
+  {
+    "id": "pincer-pressure",
+    "name": "Pincer Pressure",
+    "type": "triggered",
+    "cost": 1,
+    "trigger": "creatureBetweenYouAndLocus",
+    "tags": ["disposition:reluctant-partner"],
+    "effect": "The creature cannot gain advantage on attack rolls and provokes opportunity attacks even if it Disengages until the start of your next turn."
+  },
+
+  {
+    "id": "coordinated-strike",
+    "name": "Coordinated Strike",
+    "type": "triggered",
+    "cost": 1,
+    "trigger": "onHitNearLocus",
+    "tags": ["disposition:reluctant-partner"],
+    "effect": "Deal +1d8 force damage and push or pull the target 5 ft without provoking opportunity attacks.",
+    "scaling": {
+      "level17": "+1d8 damage"
+    }
+  },
+
+  {
+    "id": "shared-watch",
+    "name": "Shared Watch",
+    "type": "reaction",
+    "cost": 1,
+    "trigger": "allyTargeted",
+    "tags": ["disposition:reluctant-partner"],
+    "effect": "Impose disadvantage on the triggering attack. If the attack misses, you may move your Manifest Locus up to 5 ft."
+  },
+
+  {
+    "id": "encroaching-presence",
+    "name": "Encroaching Presence",
+    "type": "bonus",
+    "cost": 1,
+    "duration": "until start of your next turn",
+    "tags": ["disposition:reluctant-partner"],
+    "effect": "The area within 5 ft of you and your Manifest Locus is difficult terrain for hostile creatures. The first hostile creature that enters either area takes force damage equal to your Manifest Ability modifier."
+  },
+
+  {
+    "id": "fractured-flank",
+    "name": "Fractured Flank",
+    "type": "reaction",
+    "cost": 2,
+    "trigger": "creatureMovesBetween",
+    "save": "dex",
+    "tags": ["disposition:reluctant-partner"],
+    "effect": "On a failed save, the creature’s speed becomes 0 and it takes 2d6 force damage. On a success, its speed is reduced by 10 ft."
+  },
+ {
+    "id": "talon-dash",
+    "name": "Talon Dash",
+    "type": "bonus",
+    "cost": 1,
+    "tags": ["disposition:engaged-companion"],
+    "effect": "Move up to 20 ft in a straight line without provoking opportunity attacks. The first creature you hit this turn takes +1d6 force damage.",
+    "scaling": {
+      "level11": "+1d6 damage",
+      "level17": "+1d6 damage"
+    }
+  },
+
+  {
+    "id": "predators-leap",
+    "name": "Predator’s Leap",
+    "type": "triggered",
+    "cost": 1,
+    "trigger": "onHit",
+    "tags": ["disposition:engaged-companion"],
+    "effect": "You may move up to 10 ft toward another hostile creature. If you end adjacent, you gain advantage on your next attack against it this turn."
+  },
+
+  {
+    "id": "momentum-surge",
+    "name": "Momentum Surge",
+    "type": "bonus",
+    "cost": 2,
+    "duration": "until end of turn",
+    "tags": ["disposition:engaged-companion"],
+    "effect": "When you reduce a creature to 0 HP or score a critical hit, you may make one additional weapon attack. This attack cannot trigger this effect again."
+  },
+
+  {
+    "id": "raptors-focus",
+    "name": "Raptor’s Focus",
+    "type": "bonus",
+    "cost": 1,
+    "duration": "until start of your next turn",
+    "tags": ["disposition:engaged-companion"],
+    "effect": "Choose a creature within 30 ft. You have advantage on opportunity attacks against it, and it has disadvantage on attacks against creatures other than you while within your reach."
+  },
+
+  {
+    "id": "wind-carried-strike",
+    "name": "Wind-Carried Strike",
+    "type": "triggered",
+    "cost": 1,
+    "trigger": "onMiss",
+    "tags": ["disposition:engaged-companion"],
+    "effect": "You may move 5 ft and reroll the attack against the same target, using the new roll."
+  },
+
+  {
+    "id": "skyfall-descent",
+    "name": "Skyfall Descent",
+    "type": "action",
+    "cost": 2,
+    "range": "self (jump 20 ft)",
+    "save": "dex",
+    "tags": ["disposition:engaged-companion"],
+    "effect": "Creatures within 5 ft of your landing point take 2d8 force damage and are knocked prone on a failed save; half damage and no prone on a success.",
+    "scaling": {
+      "level11": "+1d8 damage",
+      "level17": "+1d8 damage"
+    }
+  },
+  {
+    "id": "anchor-the-line",
+    "name": "Anchor the Line",
+    "type": "bonus",
+    "cost": 1,
+    "duration": "until start of your next turn",
+    "tags": ["disposition:steadfast-sentinel"],
+    "effect": "You cannot be knocked prone, have advantage on Strength and Constitution saving throws, and hostile creatures within 5 ft have their speed reduced by 10 ft."
+  },
+
+  {
+    "id": "winged-shelter",
+    "name": "Winged Shelter",
+    "type": "reaction",
+    "cost": 1,
+    "range": "5 ft",
+    "tags": ["disposition:steadfast-sentinel"],
+    "effect": "The ally gains resistance to the triggering attack’s damage. If they still take damage, you may move 5 ft toward the attacker without provoking opportunity attacks."
+  },
+
+  {
+    "id": "interdict-movement",
+    "name": "Interdict Movement",
+    "type": "reaction",
+    "cost": 1,
+    "range": "10 ft",
+    "save": "str",
+    "tags": ["disposition:steadfast-sentinel"],
+    "effect": "On a failed save, the creature’s speed becomes 0. On a success, its speed is reduced by 10 ft."
+  },
+
+  {
+    "id": "guardian-bulwark",
+    "name": "Guardian Bulwark",
+    "type": "action",
+    "cost": 2,
+    "area": "10-ft radius",
+    "duration": "until start of your next turn",
+    "tags": ["disposition:steadfast-sentinel"],
+    "effect": "You and allies gain +1 AC. The first time each affected creature takes damage, reduce that damage by your Manifest Ability modifier."
+  },
+
+  {
+    "id": "stand-unbroken",
+    "name": "Stand Unbroken",
+    "type": "reaction",
+    "cost": 2,
+    "trigger": "failSave",
+    "tags": ["disposition:steadfast-sentinel"],
+    "effect": "Reroll the saving throw and use the new result. If it succeeds, you gain temporary HP equal to your Bound Vanguard level."
+  },
+
+  {
+    "id": "lasting-presence",
+    "name": "Lasting Presence",
+    "type": "bonus",
+    "cost": 1,
+    "duration": "1 minute",
+    "tags": ["disposition:steadfast-sentinel"],
+    "effect": "Allies within 5 ft gain +1 to saving throws. Hostile creatures within 5 ft have disadvantage on checks to shove, grapple, or forcibly move creatures other than you."
+  },
+{
+    "id": "sovereign-strike",
+    "name": "Sovereign Strike",
+    "type": "triggered",
+    "cost": 0,
+    "limit": "oncePerTurn",
+    "tags": ["disposition:unleashed-will"],
+    "effect": "Deal +2d8 force damage. The target cannot take reactions until the start of its next turn."
+  },
+
+  {
+    "id": "shattering-advance",
+    "name": "Shattering Advance",
+    "type": "bonus",
+    "cost": 1,
+    "tags": ["disposition:unleashed-will"],
+    "effect": "Move up to 30 ft in a straight line, moving through hostile creatures’ spaces. The first hostile creature you pass through takes 2d8 force damage and must succeed on a Strength save or be knocked prone."
+  },
+
+  {
+    "id": "relentless-manifestation",
+    "name": "Relentless Manifestation",
+    "type": "passive",
+    "cost": 0,
+    "tags": ["disposition:unleashed-will"],
+    "effect": "The first ME you spend each turn costs 0. You may apply Manifest Strike twice per turn. Does not stack with other cost-reduction effects."
+  },
+
+  {
+    "id": "dominion-aura",
+    "name": "Dominion Aura",
+    "type": "bonus",
+    "cost": 1,
+    "area": "10-ft radius",
+    "duration": "until Unleashed Will ends",
+    "tags": ["disposition:unleashed-will"],
+    "effect": "Hostile creatures have disadvantage on attack rolls against creatures other than you and disadvantage on saving throws against your Manifest Techniques."
+  },
+
+  {
+    "id": "final-intercession",
+    "name": "Final Intercession",
+    "type": "reaction",
+    "cost": 0,
+    "trigger": "dropToZero",
+    "tags": ["disposition:unleashed-will"],
+    "effect": "You drop to 1 HP instead and the triggering creature takes 3d10 force damage. Unleashed Will ends and you gain 1 level of exhaustion."
+  }
+]

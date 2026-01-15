@@ -1,4 +1,10 @@
 export const character = {
+   /* =========================
+   BOUND VANGUARD STATE
+========================= */
+   disposition: null,          // e.g. "obligated-guardian"
+   dispositionLocked: false,   // for Unleashed Will, etc.
+
   /* =========================
      IDENTITY
   ========================= */
@@ -165,14 +171,24 @@ spellcasting: {
   /* =========================
      COMBAT
   ========================= */
-  combat: {
-    baseAc: 10,
-    speed: 30,
+   combat: {
+   baseAc: 10,
+   speed: 30,
 
-      // Ostrumite (Gunner only)
-  ostrumiteCharges: {
-    current: 0,
-    max: 0
-  }
-  }
-};
+   /* =========================
+      OSTRUMITE GUNNER
+   ========================= */
+   ostrumiteCharges: {
+      current: 0,
+      max: 0
+   },
+
+   /* =========================
+      BOUND VANGUARD
+   ========================= */
+   manifestEnergy: {
+      current: 0,
+      max: 0
+   }
+   }
+}
