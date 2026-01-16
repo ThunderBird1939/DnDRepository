@@ -1,17 +1,20 @@
 export const character = {
    /* =========================
-   BOUND VANGUARD STATE
-========================= */
+      BOUND VANGUARD STATE
+   ========================= */
    disposition: null,          // e.g. "obligated-guardian"
    dispositionLocked: false,   // for Unleashed Will, etc.
 
-  /* =========================
-     IDENTITY
-  ========================= */
-  name: "",
+   /* =========================
+      IDENTITY
+   ========================= */
+   name: "",
 
-  race: null,
-  raceSource: null,
+   race: {
+   id: null,     // e.g. "elf"
+   name: null    // e.g. "Elf"
+   },
+   raceSource: null,
 
   /* =========================
      CLASS (NO DEFAULTS)

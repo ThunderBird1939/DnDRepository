@@ -36,6 +36,26 @@ import { exportCharacterPdf } from "./ui/exportPdf.js";
 /* =========================
    Helpers
 ========================= */
+// 🔑 DEBUG + UI EXPORT BINDING
+window.exportTest = () => {
+  console.log("exportTest() called");
+  exportCharacterPdf();
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("exportPdfBtn");
+
+  if (!btn) {
+    console.warn("Export PDF button not found");
+    return;
+  }
+
+  btn.addEventListener("click", () => {
+    console.log("Export PDF button clicked");
+    exportCharacterPdf();
+  });
+});
+
 const ELDRITCH_CANNON_DESCRIPTIONS = {
   "force-ballista":
     "The cannon makes a ranged spell attack, dealing force damage and pushing the target up to 5 feet away.",
@@ -144,6 +164,17 @@ async function initLanguageSelect() {
   });
 
   syncLanguagesUI();
+}
+function bindCharacterNameInput() {
+  const input = document.getElementById("name");
+  if (!input) return;
+
+  // hydrate from state
+  input.value = character.name || "";
+
+  input.oninput = e => {
+    character.name = e.target.value;
+  };
 }
 
 function applyBackground(bg) {
@@ -1761,39 +1792,86 @@ function renderRaceDetails(race) {
 }
 
 function applyRaceToCharacter(race) {
+  if (!race) return;
+
+  /* =========================
+     STORE RACE (SOURCE OF TRUTH)
+  ========================= */
+  character.race = {
+    id: race.id,
+    name: race.name,
+    contents: race.contents
+  };
+
+  character.raceSource = race.source ?? null;
+
+  /* =========================
+     RESET RACE-DERIVED STATE
+  ========================= */
   appliedRaceAsi = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
-  character.combat.baseSpeed = 30;
+  character.combat.speed = 30;
 
-  race.contents.forEach(line => {
-    if (!line.startsWith("property")) return;
-    const [, label, value] = line.split("|").map(s => s.trim());
+  character.features ??= [];
 
-    if (label === "Ability Scores" && !value.includes("choose")) {
-      value.split(";").forEach(p => {
-        const [stat, amt] = p.trim().split(" ");
-        appliedRaceAsi[stat.slice(0, 3).toLowerCase()] = Number(amt);
-      });
+  // 🔥 Remove old race features if switching races
+  character.features = character.features.filter(f => f.source !== "race");
+
+  /* =========================
+     PARSE RACE CONTENTS
+  ========================= */
+  race.contents.forEach((line, index) => {
+    if (
+      !line.startsWith("property") &&
+      !line.startsWith("description")
+    ) return;
+
+    const [type, name, value] = line
+      .split("|")
+      .map(s => s.trim());
+
+    /* =========================
+       APPLY MECHANICS (PROPERTY ONLY)
+    ========================= */
+    if (type === "property") {
+      if (name === "Ability Scores" && value && !value.includes("choose")) {
+        value.split(";").forEach(p => {
+          const [stat, amt] = p.trim().split(" ");
+          appliedRaceAsi[stat.slice(0, 3).toLowerCase()] = Number(amt);
+        });
+      }
+
+      if (name === "Speed" && value) {
+        const m = value.match(/(\d+)/);
+        if (m) character.combat.speed = Number(m[1]);
+      }
     }
 
-    if (label === "Speed") {
-  // Walking speed
-  const walkMatch = value.match(/(\d+)\s*ft/);
-  if (walkMatch) {
-    character.combat.baseSpeed = Number(walkMatch[1]);
-  }
-
-  // Flying speed (optional)
-  const flyMatch = value.match(/fly\s*(\d+)/i);
-  if (flyMatch) {
-    character.combat.baseFlySpeed = Number(flyMatch[1]);
-  }
-}
-
+    /* =========================
+       STORE AS FEATURE (UI + PDF)
+    ========================= */
+    character.features.push({
+      id: `race-${race.id}-${index}`,
+      name,
+      description: value || "",
+      source: "race",
+      level: 0,
+      category: type // "property" | "description"
+    });
   });
 
+  /* =========================
+     UPDATE UI STATE
+  ========================= */
   const speedInput = document.getElementById("speed");
-  if (speedInput) speedInput.value = character.combat.baseSpeed;
+  if (speedInput) speedInput.value = character.combat.speed;
+
+  // 🔔 Notify the rest of the app
+  window.dispatchEvent(new Event("features-updated"));
+
+  console.log("Race applied:", character.race);
 }
+
+
 
 function runPendingChoiceFlow() {
   if (character.pendingChoices?.skills) {
@@ -2263,6 +2341,7 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
 
     applyRaceToCharacter(race);
     renderRaceDetails(race);
+    bindCharacterNameInput();
     updateRaceBonusDisplay();
     recalcAllAbilities();
     await updateCombat();
@@ -2283,6 +2362,9 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     known: new Set(character.infusions?.known ?? []),
     active: new Set(character.infusions?.active ?? [])
   };
+document.getElementById("name")?.addEventListener("input", e => {
+  character.name = e.target.value.trim();
+});
 
     const classData = await loadClass(e.target.value);
     await applyClass(character, classData, level);
@@ -2360,9 +2442,6 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
     };
   }
 
-document.getElementById("exportPdfBtn")?.addEventListener("click", () => {
-  exportCharacterPdf();
-});
   // snapshot infusion state (because applyClass may touch pendingChoices)
   const prevInfusions = {
     known: new Set(character.infusions?.known ?? []),
@@ -2427,19 +2506,6 @@ document.getElementById("exportPdfBtn")?.addEventListener("click", () => {
   renderArcaneShotUseDropdown();
   initWeaponMods(character);
   initDispositionUI();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("exportPdfBtn");
-  if (!btn) {
-    console.warn("Export PDF button not found");
-    return;
-  }
-
-  btn.addEventListener("click", () => {
-    console.log("Export PDF clicked");
-    exportCharacterPdf();
-  });
 });
 
   /* ===== Event wiring ===== */

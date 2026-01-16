@@ -5,6 +5,7 @@ export function buildPdfCharacterData(character) {
   return {
     name: character.name,
     class: character.class?.name,
+    subclass: character.subclass?.name,
     level: character.level,
     background: character.background?.name,
     species: character.race?.name,
@@ -22,6 +23,17 @@ export function buildPdfCharacterData(character) {
       current: character.hp.current
     },
 
-    classFeatures: character.features.map(f => f.name)
+    // 🔑 THESE ARE NOW RELIABLE
+   raceFeatures: {
+  properties: character.features.filter(
+    f => f.source === "race" && f.category === "property"
+  ),
+  descriptions: character.features.filter(
+    f => f.source === "race" && f.category === "description"
+  )
+},
+    classFeatures: character.features.filter(f => f.source === character.class?.id),
+    subclassFeatures: character.features.filter(f => f.source === character.subclass?.id)
   };
 }
+
