@@ -15,7 +15,7 @@ const POSITIONS = {
     background: { x: 40,  y: 740 },
     species:    { x: 40,  y: 715 }
   },
-
+  proficiencyBonus: { x: 50, y: 625},
   abilities: {
     str: { x: 66,  y: 553 },
     dex: { x: 66,  y: 433 },
@@ -33,24 +33,24 @@ const POSITIONS = {
     cha: { x: 145, y: 290 }
   },
   skills: {
-    acrobatics: { x: 260, y: 555 },
-    animalHandling: { x: 260, y: 540 },
-    arcana: { x: 260, y: 525 },
-    athletics: { x: 260, y: 510 },
-    deception: { x: 260, y: 495 },
-    history: { x: 260, y: 480 },
-    insight: { x: 260, y: 465 },
-    intimidation: { x: 260, y: 450 },
-    investigation: { x: 260, y: 435 },
-    medicine: { x: 260, y: 420 },
-    nature: { x: 260, y: 405 },
-    perception: { x: 260, y: 390 },
-    performance: { x: 260, y: 375 },
-    persuasion: { x: 260, y: 360 },
-    religion: { x: 260, y: 345 },
-    sleightOfHand: { x: 260, y: 330 },
-    stealth: { x: 260, y: 315 },
-    survival: { x: 260, y: 300 }
+    acrobatics: { x: 20, y: 380 },//Done
+    animalHandling: { x: 130, y: 400 },
+    arcana: { x: 130, y: 580 }, 
+    athletics: { x: 20, y: 500 },//done
+    deception: { x: 130, y: 225 },
+    history: { x: 130, y: 565 },
+    insight: { x: 130, y: 388 },
+    intimidation: { x: 130, y: 210 },
+    investigation: { x: 130, y: 550 },
+    medicine: { x: 130, y: 375 },
+    nature: { x: 130, y: 538 },
+    perception: { x: 130, y: 360 },
+    performance: { x: 130, y: 195 },
+    persuasion: { x: 130, y: 180 },
+    religion: { x: 130, y: 520 },
+    sleightOfHand: { x: 20, y: 365 },
+    stealth: { x: 20, y: 350 },
+    survival: { x: 130, y: 345 }
   },
   combat: {
     ac:         { x: 335, y: 730 },
@@ -166,6 +166,22 @@ export async function exportCharacterPdf() {
 
     draw(text, pos.x, pos.y, 10);
   }
+  /* =========================
+    PROFICIENCY BONUS
+  ========================= */
+  if (typeof data.proficiencyBonus === "number") {
+    const profText =
+      data.proficiencyBonus >= 0
+        ? `+${data.proficiencyBonus}`
+        : String(data.proficiencyBonus);
+
+    draw(
+      profText,
+      POSITIONS.proficiencyBonus.x,
+      POSITIONS.proficiencyBonus.y,
+      12
+    );
+  }
 
   /* =========================
      COMBAT
@@ -175,23 +191,41 @@ export async function exportCharacterPdf() {
   draw(data.speed,      POSITIONS.combat.speed.x, POSITIONS.combat.speed.y, 12);
   draw(data.hitPoints?.current, POSITIONS.combat.hpCurrent.x, POSITIONS.combat.hpCurrent.y);
   draw(data.hitPoints?.max,     POSITIONS.combat.hpMax.x,     POSITIONS.combat.hpMax.y);
+
   /* =========================
     SKILL PROFICIENCY DOTS
   ========================= */
-  const skills = character.skills || {};
+  const skillProficiencies = character.proficiencies?.skills ?? new Set();
+  const skillExpertise = character.proficiencies?.expertise ?? new Set();
 
   for (const [skill, pos] of Object.entries(POSITIONS.skills)) {
-    const isProficient = skills[skill]?.proficient;
+    const isProficient = skillProficiencies.has(skill);
+    const isExpert = skillExpertise.has(skill);
 
+    // ❌ No proficiency → draw nothing
+    if (!isProficient && !isExpert) continue;
+
+    // ● Proficient dot
     page.drawCircle({
       x: pos.x,
       y: pos.y,
-      size: 4,
-      borderWidth: 1,
-      borderColor: rgb(0, 0, 0),
-      color: isProficient ? rgb(0, 0, 0) : undefined
+      size: 3,
+      color: rgb(0, 0, 0)
     });
+
+    // ◎ Expertise ring
+    if (isExpert) {
+      page.drawCircle({
+        x: pos.x,
+        y: pos.y,
+        size: 6,
+        borderWidth: 1,
+        borderColor: rgb(0, 0, 0)
+      });
+    }
   }
+
+
 
 /* =========================
    CLASS FEATURES
