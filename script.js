@@ -2404,11 +2404,20 @@ function updateHitPoints() {
   const hitDie = character.hp?.hitDie || Number(hitDieInput.value) || 8;
   const avgPerLevel = Math.floor(hitDie / 2) + 1;
 
-  const maxHp = hitDie + conMod + (level - 1) * (avgPerLevel + conMod);
+  const maxHp = Math.max(
+    1,
+    hitDie + conMod + (level - 1) * (avgPerLevel + conMod)
+  );
 
-  maxHpEl.textContent = Math.max(1, maxHp);
+  character.hp ??= {};
+  character.hp.hitDie = hitDie;
+  character.hp.max = maxHp;
+
+  // UI display
+  maxHpEl.textContent = maxHp;
   totalHitDiceEl.textContent = level;
 }
+
 
 /* =========================
    Ability input listeners
