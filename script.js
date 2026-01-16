@@ -36,6 +36,54 @@ import { exportCharacterPdf } from "./ui/exportPdf.js";
 /* =========================
    Helpers
 ========================= */
+const FEAT_LEVELS = [4, 8, 12, 16, 19];
+
+function canChooseFeat() {
+  const lvl = character.level || 1;
+  return FEAT_LEVELS.includes(lvl) && character.feats.lastFeatLevelTaken !== lvl;
+}
+
+function parseFeatRequirements(feat) {
+  const propLine = feat.contents.find(c => c.startsWith("property | Type/Prerequisites |"));
+  if (!propLine) return { minLevel: 0 };
+
+  const match = propLine.match(/\((.*?)\)/);
+  if (!match) return { minLevel: 0 };
+
+  const text = match[1];
+  const levelMatch = text.match(/Lvl\s*(\d+)/i);
+  const minLevel = levelMatch ? parseInt(levelMatch[1], 10) : 0;
+
+  return { minLevel, raw: text };
+}
+
+function reconcileFeatsForLevel(level) {
+  if (!character.feats?.active) return;
+
+  // Remove feats taken at levels above current level
+  character.feats.active = character.feats.active.filter(feat => feat.level <= level);
+
+  // Recalculate lastFeatLevelTaken
+  character.feats.lastFeatLevelTaken = character.feats.active.reduce(
+    (max, feat) => Math.max(max, feat.level),
+    0
+  );
+}
+
+/* =========================
+   Feats – Data Loader
+========================= */
+let FEATS_DATA = [];
+
+async function loadFeats() {
+  try {
+    const res = await fetch("./data/feats.json");
+    FEATS_DATA = await res.json();
+  } catch (e) {
+    console.error("Failed to load feats.json", e);
+  }
+}
+
 // 🔑 DEBUG + UI EXPORT BINDING
 window.exportTest = () => {
   console.log("exportTest() called");
@@ -347,6 +395,33 @@ function renderActiveInfusions() {
     }
 
     container.appendChild(row);
+  });
+}
+
+/* =========================
+   Feats – Rendering
+========================= */
+function renderActiveFeats() {
+  const el = document.getElementById("activeCharacterFeats");
+  if (!el) return;
+
+  el.innerHTML = "";
+
+  if (!character.feats.active.length) {
+    el.textContent = "—";
+    return;
+  }
+
+  character.feats.active.forEach(feat => {
+    const div = document.createElement("div");
+    div.className = "active-feat";
+    div.innerHTML = `
+      <strong>${feat.title}</strong>
+      ${feat.contents
+        .map(line => `<p>${line}</p>`)
+        .join("")}
+    `;
+    el.appendChild(div);
   });
 }
 
@@ -1874,6 +1949,11 @@ function applyRaceToCharacter(race) {
 
 
 function runPendingChoiceFlow() {
+
+  if (canChooseFeat()) { character.pendingChoices.feat = true;
+    openFeatChoiceModal(); 
+    return; }
+
   if (character.pendingChoices?.skills) {
     renderSkillChoice(character);
     return;
@@ -1882,6 +1962,10 @@ function runPendingChoiceFlow() {
   if (character.pendingSubclassChoice && !character.subclass) {
     openSubclassModal(character.pendingSubclassChoice);
     return;
+  }
+
+  function levelGrantsFeat(level) { 
+    return [4, 8, 12, 16, 19].includes(level);
   }
 
   if (character.pendingChoices?.spells) {
@@ -2017,6 +2101,73 @@ if (title && pending.label) {
     backdrop.hidden = true;
 
     window.dispatchEvent(new Event("subclass-updated"));
+  };
+}
+
+function openFeatChoiceModal() {
+  const modal = document.getElementById("featModal");
+  const backdrop = document.getElementById("featBackdrop");
+  const optionsDiv = document.getElementById("featOptions");
+  const confirmBtn = document.getElementById("confirmFeat");
+
+  if (!modal || !backdrop || !optionsDiv || !confirmBtn) return;
+
+  optionsDiv.innerHTML = "";
+  confirmBtn.disabled = true;
+  modal.hidden = false;
+  backdrop.hidden = false;
+
+  let selectedFeat = null;
+
+  const availableFeats = FEATS_DATA.filter(feat => {
+    const { minLevel } = parseFeatRequirements(feat);
+    return character.level >= minLevel;
+  });
+
+  if (availableFeats.length === 0) {
+    optionsDiv.innerHTML = `<p>No feats available at this level.</p>`;
+    return;
+  }
+
+  availableFeats.forEach(feat => {
+    const div = document.createElement("div");
+    div.className = "feat-option";
+    div.innerHTML = `
+      <strong>${feat.title}</strong>
+      <p>${feat.contents?.[0] ?? ""}</p>
+    `;
+
+    div.onclick = () => {
+      document
+        .querySelectorAll(".feat-option")
+        .forEach(e => e.classList.remove("selected"));
+      div.classList.add("selected");
+      selectedFeat = feat;
+      confirmBtn.disabled = false;
+    };
+
+    optionsDiv.appendChild(div);
+  });
+
+  confirmBtn.onclick = () => {
+    if (!selectedFeat) return;
+
+    character.feats.active.push({
+      title: selectedFeat.title,
+      contents: selectedFeat.contents,
+      source: selectedFeat.source,
+      level: character.level
+    });
+
+    character.feats.lastFeatLevelTaken = character.level;
+    delete character.pendingChoices.feat;
+    character.resolvedChoices.feat = true;
+
+    modal.hidden = true;
+    backdrop.hidden = true;
+
+    renderActiveFeats();
+    runPendingChoiceFlow();
   };
 }
 
@@ -2279,6 +2430,7 @@ function updateHitPoints() {
    Init
 ========================= */
 window.addEventListener("DOMContentLoaded", async () => {
+  await loadFeats();
   initWeaponAndSpellSelects();
 
   document
@@ -2405,6 +2557,7 @@ document.getElementById("name")?.addEventListener("input", e => {
     updateHitPoints();
     updateProfBonusUI();
     await updateCombat();
+    renderActiveFeats();
     renderAttacks();
     updateFighterUI();
     syncDetailButtons();
@@ -2428,6 +2581,7 @@ document.getElementById("name")?.addEventListener("input", e => {
 
   // update single source of truth
   character.level = lvl;
+  reconcileFeatsForLevel(lvl);
   checkArcaneShotUnlocks(prevLevel, lvl);
   const indomitableBtn = document.getElementById("indomitableBtn");
   const indomitableStatus = document.getElementById("indomitableStatus");
@@ -2488,6 +2642,7 @@ document.getElementById("name")?.addEventListener("input", e => {
   await loadAllTools();
   renderToolDropdown();
   await updateCombat();
+  renderActiveFeats();
   applyInfusionEffects();
   renderAttacks();
   updateFighterUI();
@@ -2686,6 +2841,7 @@ updateProfBonusUI();
 renderSavingThrows();
 updateArmorLockText();
 syncDetailButtons();
+renderActiveFeats();
 updateArmorerModeUI();
 updateWeaponLockUI();
 initArcaneShotKnownUI();

@@ -115,6 +115,13 @@ export const character = {
   features: [],
 
   /* =========================
+   CHARACTER FEATS 
+ ========================= */ 
+   feats: { active: [], // array of feat objects 
+   lastFeatLevelTaken: 0 // track last level where a feat was chosen
+   },
+
+  /* =========================
    SPELLCASTING
 ========================= */
 spellcasting: {

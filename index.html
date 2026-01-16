@@ -15,7 +15,6 @@
 </head>
 
 <body>
-<body>
 
 <button id="exportPdfBtn" class="primary">
   Export Character Sheet (PDF)
@@ -341,6 +340,20 @@
       <div id="arcaneShotDetailsList">—</div>
     </div>
   </div>
+
+  <section id="characterFeats"> 
+    <h3>Character Feats</h3>
+    <div id="activeCharacterFeats"></div>
+  </section>
+
+  <!-- Feat Choice Modal -->
+  <div id="featModal" hidden class="modal">
+    <h2>Choose a Feat</h2>
+    <div id="featOptions" class="scroll-panel"></div>
+    <button id="confirmFeat" disabled>Confirm Feat</button>
+  </div>
+  <div id="featBackdrop" hidden class="modal-backdrop"></div>
+
   <h3>Tools</h3>
   <div id="toolsList">—</div>
 

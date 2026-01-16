@@ -306,3 +306,59 @@ details ul {
   display: block;
   opacity: 0.7;
 }
+
+.scroll-panel {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #444;
+  padding: 8px;
+}
+
+.feat-option {
+  border: 1px solid #666;
+  padding: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.feat-option.selected {
+  background: #d1d1d1;
+  border-color: #9cf;
+}
+
+#characterFeats {
+  margin-top: 1rem;
+}
+
+.active-feat {
+  border: 1px solid #888;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: #f9f9f9;
+}
+
+.active-feat strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+#confirmFeat {
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #5a8dee;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#confirmFeat:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+#confirmFeat:hover:not(:disabled) {
+  background-color: #3f73d8;
+}
