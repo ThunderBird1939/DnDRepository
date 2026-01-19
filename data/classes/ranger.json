@@ -18,7 +18,7 @@
   "skillChoices": {
     "choose": 3,
     "from": [
-      "animalHandling",
+      "animal-handling",
       "athletics",
       "insight",
       "investigation",

@@ -69,6 +69,50 @@ function reconcileFeatsForLevel(level) {
     0
   );
 }
+character.languages ??= [];
+
+document.getElementById("addLanguageBtn")?.addEventListener("click", () => {
+  const select = document.getElementById("languageSelect");
+  const lang = select?.value;
+  if (!lang) return;
+
+  if (!character.languages.includes(lang)) {
+    character.languages.push(lang);
+    renderLanguages();
+  }
+
+  select.value = "";
+});
+
+function renderLanguages() {
+  const container = document.getElementById("knownLanguages");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  character.languages.forEach(lang => {
+    const pill = document.createElement("span");
+    pill.className = "language-pill";
+    pill.textContent = lang;
+
+    const remove = document.createElement("button");
+    remove.textContent = "×";
+    remove.onclick = () => {
+      character.languages = character.languages.filter(l => l !== lang);
+      renderLanguages();
+    };
+
+    pill.appendChild(remove);
+    container.appendChild(pill);
+  });
+}
+async function loadJson(path) {
+  const res = await fetch(path);
+  if (!res.ok) {
+    throw new Error(`Failed to load ${path}`);
+  }
+  return await res.json();
+}
 
 /* =========================
    Feats – Data Loader
@@ -134,85 +178,7 @@ function updateArmorLockUI() {
     shieldToggle.disabled = locked;
   }
 }
-function parseBackground(bg) {
-  const parsed = {
-    skills: [],
-    languages: null,
-    features: [],
-    equipment: []
-  };
 
-  bg.contents.forEach(line => {
-    // Skills
-    if (line.includes("Skill Proficiencies:")) {
-      parsed.skills = line
-        .split(":")[1]
-        .split(",")
-        .map(s => s.trim().toLowerCase().replace(/\s+/g, ""));
-    }
-
-    // Equipment (display only)
-    if (line.includes("Equipment:")) {
-      parsed.equipment = line
-        .split(":")[1]
-        .split(",")
-        .map(s => s.trim());
-    }
-
-    // Feature
-    if (line.startsWith("Feature:")) {
-      const name = line.replace("Feature:", "").trim();
-      parsed.features.push({
-        id: name.toLowerCase().replace(/\s+/g, "-"),
-        name,
-        source: "background"
-      });
-    }
-  });
-
-  return parsed;
-}
-let languageChoices;
-
-async function initLanguageSelect() {
-  const el = document.getElementById("languageSelect");
-  if (!el) return;
-
-  el.innerHTML = "";
-
-  const res = await fetch("./data/languages.json");
-  if (!res.ok) {
-    console.error("Failed to load languages.json");
-    return;
-  }
-
-  const languages = await res.json();
-
-  languages.forEach(lang => {
-    const opt = document.createElement("option");
-    opt.value = lang; // "common"
-    opt.textContent = lang
-      .split("-")
-      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" "); // "Deep Speech"
-
-    el.appendChild(opt);
-  });
-
-  languageChoices = new Choices(el, {
-    removeItemButton: true,
-    shouldSort: false,
-    placeholderValue: "Select languages"
-  });
-
-  el.addEventListener("change", () => {
-    character.proficiencies.languages = new Set(
-      [...el.selectedOptions].map(o => o.value)
-    );
-  });
-
-  syncLanguagesUI();
-}
 function bindCharacterNameInput() {
   const input = document.getElementById("name");
   if (!input) return;
@@ -226,38 +192,80 @@ function bindCharacterNameInput() {
 }
 
 function applyBackground(bg) {
-  const parsed = parseBackground(bg);
+  if (!bg) return;
 
-  /* ===== Identity ===== */
+  // 🔒 ENSURE SETS EXIST
+  character.proficiencies ??= {};
+  character.proficiencies.skills ??= new Set();
+  character.proficiencies.tools ??= new Set();
+
+
+  /* =========================
+     STORE BACKGROUND
+  ========================= */
   character.background = {
     id: bg.id,
-    name: bg.title,
-    source: "background"
+    name: bg.name,
+    source: bg.source ?? "background"
   };
 
-  /* ===== Skills ===== */
-  parsed.skills.forEach(skill => {
+  /* =========================
+     RESET OLD BACKGROUND DATA
+  ========================= */
+  character.features = character.features.filter(
+    f => f.source !== "background"
+  );
+
+  /* =========================
+     SKILL PROFICIENCIES
+  ========================= */
+  bg.skillProficiencies?.forEach(skill => {
     character.proficiencies.skills.add(skill);
   });
 
-  /* ===== Languages ===== */
-  if (parsed.languages) {
-    character.pendingChoices.languages = {
-      ...parsed.languages,
-      source: "background"
-    };
-  }
-
-  /* ===== Features ===== */
-  parsed.features.forEach(f => {
-    if (!character.features.some(x => x.id === f.id)) {
-      character.features.push(f);
-    }
+  /* =========================
+     TOOL PROFICIENCIES
+  ========================= */
+  bg.toolProficiencies?.forEach(tool => {
+    character.proficiencies.tools.add(tool);
   });
 
-  /* ===== Equipment (display only) ===== */
-  character.backgroundEquipment = parsed.equipment;
+  /* =========================
+     FEAT (BACKGROUND FEAT)
+  ========================= */
+  if (bg.feat) {
+    character.feats ??= { active: [], lastFeatLevelTaken: 0 };
 
+    if (!character.feats.active.some(f => f.id === bg.feat)) {
+      character.feats.active.push({
+        id: bg.feat,
+        title: bg.feat
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, c => c.toUpperCase()),
+        source: "background",
+        level: 1
+      });
+    }
+  }
+
+  /* =========================
+     FEATURES
+  ========================= */
+  bg.features?.forEach(f => {
+    character.features.push({
+      ...f,
+      source: "background",
+      level: 0
+    });
+  });
+
+  /* =========================
+     EQUIPMENT (DISPLAY ONLY)
+  ========================= */
+  character.backgroundEquipmentOptions =
+    bg.equipmentOptions ?? [];
+
+  window.dispatchEvent(new Event("features-updated"));
   window.dispatchEvent(new Event("background-applied"));
 }
 
@@ -402,6 +410,9 @@ function renderActiveInfusions() {
    Feats – Rendering
 ========================= */
 function renderActiveFeats() {
+  character.feats ??= {};
+  character.feats.active ??= [];
+
   const el = document.getElementById("activeCharacterFeats");
   if (!el) return;
 
@@ -415,15 +426,18 @@ function renderActiveFeats() {
   character.feats.active.forEach(feat => {
     const div = document.createElement("div");
     div.className = "active-feat";
+
+    const lines = Array.isArray(feat.contents) ? feat.contents : [];
+
     div.innerHTML = `
       <strong>${feat.title}</strong>
-      ${feat.contents
-        .map(line => `<p>${line}</p>`)
-        .join("")}
+      ${lines.map(line => `<p>${line}</p>`).join("")}
     `;
+
     el.appendChild(div);
   });
 }
+
 
 function populateBackgroundDropdown() {
   const select = document.getElementById("backgroundSelect");
@@ -434,11 +448,45 @@ function populateBackgroundDropdown() {
   backgrounds.forEach(bg => {
     const opt = document.createElement("option");
     opt.value = bg.id;
-    opt.textContent = bg.title;
+    opt.textContent = bg.name;
     select.appendChild(opt);
   });
 }
 
+let magicItemChoices = null;
+
+export function initMagicItemSelect() {
+  const select = document.getElementById("magicItemsSelect");
+  if (!select || magicItemChoices) return;
+
+  select.innerHTML = "";
+
+  ALL_MAGIC_ITEMS.forEach(item => {
+    const opt = document.createElement("option");
+
+    const id = item.title.toLowerCase().replace(/\s+/g, "-");
+    opt.value = id;
+    opt.textContent = item.title;
+
+    select.appendChild(opt);
+  });
+
+  magicItemChoices = new Choices(select, {
+    removeItemButton: true,
+    searchEnabled: true,
+    placeholder: true,
+    placeholderValue: "Select magic items..."
+  });
+
+  select.addEventListener("change", () => {
+    character.items.inventory = Array.from(
+      select.selectedOptions
+    ).map(o => o.value);
+
+    renderAttunementUI();
+    window.dispatchEvent(new Event("items-changed"));
+  });
+}
 
 function applyInfusionEffects() {
   character.infusions.targets ??= {};
@@ -731,6 +779,45 @@ async function loadCantripsKnown(classId, level) {
     return 0;
   }
 }
+function renderAttunementUI() {
+  const container = document.getElementById("attunedItems");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const attunable = character.items.inventory
+    .map(id => ALL_MAGIC_ITEMS.find(i =>
+      i.title.toLowerCase().replace(/\s+/g, "-") === id
+    ))
+    .filter(i => i?.tags.includes("attunement"));
+
+  attunable.forEach(item => {
+    const id = item.title.toLowerCase().replace(/\s+/g, "-");
+
+    const label = document.createElement("label");
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = character.items.attuned.includes(id);
+
+    cb.onchange = () => {
+      if (cb.checked) {
+        if (character.items.attuned.length >= 3) {
+          alert("You can only attune to 3 items.");
+          cb.checked = false;
+          return;
+        }
+        character.items.attuned.push(id);
+      } else {
+        character.items.attuned =
+          character.items.attuned.filter(x => x !== id);
+      }
+    };
+
+    label.appendChild(cb);
+    label.append(` ${item.title}`);
+    container.appendChild(label);
+  });
+}
 
 async function initSpellSlots() {
   if (!character.spellcasting?.enabled) return;
@@ -829,16 +916,6 @@ function renderSpellSlots() {
     row.appendChild(plusBtn);
 
     el.appendChild(row);
-  });
-}
-
-function syncLanguagesUI() {
-  if (!languageChoices) return;
-
-  languageChoices.removeActiveItems();
-
-  character.proficiencies.languages.forEach(langId => {
-    languageChoices.setChoiceByValue(langId);
   });
 }
 
@@ -1192,6 +1269,38 @@ function renderSoulTrinkets() {
       trinkets.current--;
       renderSoulTrinkets();
     }
+  };
+}
+function normalizeWeapon(w) {
+  const props = {};
+  let damage = { dice: "—", type: "—" };
+  let properties = [];
+
+  (w.contents || []).forEach(line => {
+    const parts = line.split("|").map(s => s.trim());
+    if (parts[0] !== "property") return;
+
+    const label = parts[1];
+    const value = parts[2];
+
+    if (label === "Damage") {
+      const match = value.match(/(\d+d\d+)\s*(\w+)/i);
+      if (match) {
+        damage = { dice: match[1], type: match[2] };
+      }
+    }
+
+    if (label === "Properties") {
+      properties = value.split(",").map(p => p.trim());
+    }
+  });
+
+  return {
+    id: w.title.toLowerCase().replace(/\s+/g, "-"),
+    name: w.title,
+    damage,
+    properties,
+    tags: w.tags || []
   };
 }
 
@@ -1584,6 +1693,7 @@ let ALL_TOOLS = [];
 let activeChoiceFeature = null;
 let ALL_ARCANE_SHOTS = [];
 let arcaneShotChoices = null;
+let ALL_MAGIC_ITEMS = [];
 /* =========================
    Ability Math
 ========================= */
@@ -1688,6 +1798,9 @@ async function openChoiceFeatureModal(feature, sourceClass) {
   modal.hidden = false;
   backdrop.hidden = false;
 }
+async function loadMagicItems() {
+  ALL_MAGIC_ITEMS = await loadJson("./data/magic-items.json");
+}
 
 
 function closeChoiceFeatureModal() {
@@ -1738,8 +1851,9 @@ if (stealthLabel) {
   document
     .querySelectorAll(".skills input[type=checkbox]")
     .forEach(cb => {
-      const key = cb.id.replace("skill-", "");
+      const key = cb.dataset.skillId;
       cb.checked = character.proficiencies.skills.has(key);
+
 
       // ✅ RE-ENABLE after choice is made
       cb.disabled = false;
@@ -1818,34 +1932,43 @@ async function initRaces() {
 ========================= */
 async function initBackgrounds() {
   const res = await fetch("./data/backgrounds.json");
-  const data = await res.json();
+  if (!res.ok) throw new Error("Failed to load normalized backgrounds");
 
-  backgrounds = data.map((b, i) => ({
-    id: i,
-    title: b.title,
-    contents: b.contents
-  }));
+  backgrounds = await res.json();
 }
+
 
 
 function renderBackgroundDetails(bg) {
   const el = document.getElementById("backgroundDetails");
-  if (!el) return;
+  if (!el || !bg) return;
 
   el.innerHTML = "";
 
-  bg.contents.forEach(line => {
-    const div = document.createElement("div");
-    div.textContent = line;
-    el.appendChild(div);
-  });
+  if (bg.skillProficiencies?.length) {
+    el.innerHTML += `<div><strong>Skills:</strong> ${bg.skillProficiencies.join(", ")}</div>`;
+  }
+
+  if (bg.toolProficiencies?.length) {
+    el.innerHTML += `<div><strong>Tools:</strong> ${bg.toolProficiencies.join(", ")}</div>`;
+  }
+
+  if (bg.feat) {
+    el.innerHTML += `<div><strong>Feat:</strong> ${bg.feat}</div>`;
+  }
+
+  if (bg.equipmentOptions?.length) {
+    el.innerHTML += `<div><strong>Equipment:</strong><br>${bg.equipmentOptions.join("<br>")}</div>`;
+  }
 }
+
 
 function populateRaceDropdown() {
   const select = document.getElementById("raceSelect");
   if (!select) return;
 
   select.innerHTML = `<option value="">— Select Race —</option>`;
+
   races.forEach(r => {
     const opt = document.createElement("option");
     opt.value = r.id;
@@ -1853,6 +1976,7 @@ function populateRaceDropdown() {
     select.appendChild(opt);
   });
 }
+
 
 function renderRaceDetails(race) {
   const el = document.getElementById("raceDetails");
@@ -2314,11 +2438,13 @@ if (flyBlock && flyInput) {
 
 function getWeaponAbilityMod(weapon) {
   const props = weapon.properties || [];
-  const category = weapon.category?.toLowerCase() || "";
+  const tags = weapon.tags || [];
 
-  if (category.includes("ranged")) return abilityMod(getAbilityScore("dex"));
+  if (tags.includes("ranged weapon")) {
+    return abilityMod(getAbilityScore("dex"));
+  }
 
-  if (props.some(p => String(p).toLowerCase().includes("finesse"))) {
+  if (props.some(p => p.toLowerCase().includes("finesse"))) {
     return Math.max(
       abilityMod(getAbilityScore("str")),
       abilityMod(getAbilityScore("dex"))
@@ -2396,8 +2522,9 @@ function renderAttacks() {
 
 
   const attackBonus = abilityBonus + prof + infusionBonus;
-  const damageDice = weapon.damage?.[0]?.dice || "—";
-  const damageType = weapon.damage?.[0]?.type || "—";
+  const damageDice = weapon.damage.dice;
+  const damageType = weapon.damage.type;
+
 
   const row = document.createElement("tr");
   row.innerHTML = `
@@ -2816,7 +2943,7 @@ window.addEventListener("rest-long", renderSpellSlots);
   fetch("./data/weapons.all.json")
     .then(r => r.json())
     .then(d => {
-      ALL_WEAPONS = d;
+      ALL_WEAPONS = d.map(w => normalizeWeapon(w));
       renderAttacks();
     });
   /* ===== Equipment UI Sync ===== */
@@ -2858,8 +2985,6 @@ await updateCombat();
 applyInfusionEffects(); 
 renderAttacks();        
 updateFighterUI();
-initLanguageSelect();
-syncLanguagesUI();
 updateArmorLockUI();
 initFighterResources();
 await loadAllTools();
@@ -2883,6 +3008,8 @@ renderSoulTrinkets();
 initWeaponMods(character);
 updateManifestEnergy();
 initDispositionUI();
+await loadMagicItems();
+initMagicItemSelect();
 
 
 

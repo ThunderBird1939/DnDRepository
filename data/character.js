@@ -166,6 +166,13 @@ spellcasting: {
     armor: null,
     shield: false
   },
+  /* =========================
+     MAGIC ITEMS
+  ========================= */
+  items: {
+    inventory: [],   // array of item IDs
+    attuned: []      // subset of inventory IDs
+  },
 
   /* =========================
      WEAPONS

@@ -12,6 +12,19 @@ async function loadWeaponsIndex() {
   WEAPONS_INDEX = await res.json();
   return WEAPONS_INDEX;
 }
+let PDF_MAGIC_ITEMS = null;
+
+async function loadPdfMagicItems() {
+  if (PDF_MAGIC_ITEMS) return PDF_MAGIC_ITEMS;
+
+  const res = await fetch("./data/magic-items.json");
+  if (!res.ok) {
+    throw new Error("Failed to load magic items for PDF");
+  }
+
+  PDF_MAGIC_ITEMS = await res.json();
+  return PDF_MAGIC_ITEMS;
+}
 
 /* =========================
    SPELL HELPERS (CLASS JSON FORMAT)
@@ -272,6 +285,26 @@ export async function buildPdfCharacterData(character) {
   const raceSize = character.race?.contents
     ? extractRaceProperty(character.race.contents, "Size")
     : "";
+  const feats = (character.feats?.active ?? []).map(f => ({
+    name: f.title,
+    source: f.source,
+    level: f.level
+  }));
+
+  const allMagicItems = await loadPdfMagicItems();
+
+  const magicItems = (character.items?.inventory ?? []).map(id => {
+    const item = allMagicItems.find(i =>
+      i.title.toLowerCase().replace(/\s+/g, "-") === id
+    );
+
+    if (!item) return null;
+
+    return {
+      name: item.title,
+      attuned: character.items.attuned.includes(id)
+    };
+  }).filter(Boolean);
 
     /* =========================
      RETURN SNAPSHOT
@@ -295,6 +328,7 @@ export async function buildPdfCharacterData(character) {
 
     proficiencyBonus: profBonus,
     passivePerception,
+    feats,
 
     armorClass: character.combat?.armorClass,
     initiative: abilityMod(getAbilityScore("dex")),
@@ -334,6 +368,7 @@ export async function buildPdfCharacterData(character) {
     availableSpells,
 
     armorProficiencies,
-    tools
+    tools,
+    magicItems
   };
 }

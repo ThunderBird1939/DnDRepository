@@ -158,7 +158,21 @@ spellLists: {
       medium: { x: 99,  y: 130 },
       heavy:  { x: 143, y: 130 },
       shield: { x: 182, y: 130 }
-    }
+    },
+  feats: {
+    startX: 415,
+    startY: 180,     
+    lineHeight: 14,
+    maxWidth: 260,
+    minY: 25
+  },
+  items: {
+    startX: 425,
+    startY: 365,
+    lineHeight: 12,
+    maxWidth: 600,
+    minY: 200
+  }
 
 };
 function drawDebugGrid(page, font) {
@@ -659,6 +673,63 @@ for (const tool of data.tools ?? []) {
       color: rgb(0, 0, 0)
     });
   }
+// ⭐ FEATS (dedicated box)
+if (data.feats?.length) {
+  let y = POSITIONS.feats.startY;
+
+  for (const feat of data.feats) {
+    if (y < POSITIONS.feats.minY) break;
+
+    const label =
+      feat.source === "level"
+        ? `${feat.name} (Lv ${feat.level})`
+        : feat.name;
+
+    draw(
+      `• ${label}`,
+      POSITIONS.feats.startX,
+      y,
+      9,
+      page1 // ✅ explicitly draw on page 1
+    );
+
+    y -= POSITIONS.feats.lineHeight;
+  }
+}
+// ✨ MAGIC ITEMS (uses POSITIONS.items)
+if (data.magicItems?.length) {
+  let y = POSITIONS.items.startY;
+
+  draw(
+    "Magic Items",
+    POSITIONS.items.startX,
+    y,
+    12,
+    page2
+  );
+
+  y -= POSITIONS.items.lineHeight + 4;
+
+  for (const item of data.magicItems) {
+    if (y < POSITIONS.items.minY) break;
+
+    const label = item.attuned
+      ? `• ${item.name} (Attuned)`
+      : `• ${item.name}`;
+
+    draw(
+      label,
+      POSITIONS.items.startX,
+      y,
+      9,
+      page2
+    );
+
+    y -= POSITIONS.items.lineHeight;
+  }
+}
+
+
 
   /* =========================
      SAVE

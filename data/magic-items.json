@@ -1,0 +1,164 @@
+[
+  {
+    "count": 1,
+    "color": "#2f7d5a",
+    "title": "Aegis of Spirit Projection",
+    "icon": "shield",
+    "icon_back": "shield",
+    "contents": [
+      "subtitle | Shield",
+      "property | Rarity | Rare",
+      "property | Attunement | Required",
+      "property | AC Bonus | +2",
+      "property | Uses | 2 / Long Rest",
+      "rule",
+      "text | This polished shield bears a faceted green gem that hums with restrained arcane force.",
+      "description | Verdant Deployment | As an action, you may place the shield on the ground in an unoccupied space within 5 feet of you, expending 1 use. When deployed, it projects a 10-foot-long, 5-foot-high wall of force extending in a straight line from the shield. The wall provides full cover and lasts for 1 minute, until destroyed, or until you dismiss it (no action).",
+      "description | Wall Statistics | The wall has AC equal to 10 + your spellcasting ability modifier (or Intelligence if none), 3d8 hit points, and is immune to poison and psychic damage.",
+      "description | Threshold Resistance | A creature attempting to pass through the wall must succeed on a Strength or Wisdom saving throw (DC = 8 + your proficiency bonus + your spellcasting modifier) or have its movement reduced to 0 for that turn."
+    ],
+    "tags": ["item", "magic", "shield", "rare", "attunement", "force"]
+  },
+  {
+    "count": 1,
+    "color": "#1e1e1e",
+    "title": "Crumb, the Watchful Crow",
+    "icon": "crow",
+    "icon_back": "crow",
+    "contents": [
+      "subtitle | Magical Companion",
+      "property | Creature Type | Tiny Beast",
+      "property | AC | 13",
+      "property | Hit Points | 15",
+      "property | Saves | Automatically succeeds on Dexterity saves",
+      "rule",
+      "text | Crumb is an unusually intelligent crow with unsettling awareness and a taste for misdirection.",
+      "description | Bonded Companion | Crumb obeys simple verbal commands and acts on your initiative without requiring an action.",
+      "description | Rogue’s Assistant | While Crumb is within 30 feet of you, you gain advantage on one Dexterity (Stealth) or Wisdom (Perception) check per short rest.",
+      "description | Harassing Strike | As a bonus action, Crumb can harass a creature within 5 feet of it, granting you advantage on the next attack roll you make against that creature before the end of your turn.",
+      "description | Eyes of the Crow | Crumb can scout up to 300 feet away. While scouting, you can use an action to see and hear through its senses until the start of your next turn."
+    ],
+    "tags": ["item", "magic", "companion", "scouting", "utility"]
+  },
+  {
+    "count": 1,
+    "color": "#0b0b0b",
+    "title": "Mask of the Dead Star",
+    "icon": "mask",
+    "icon_back": "mask",
+    "contents": [
+      "subtitle | Wondrous Item",
+      "property | Rarity | Rare",
+      "property | Attunement | Required",
+      "rule",
+      "text | This pitch-black mask devours light, its surface reflecting nothing.",
+      "description | Event Horizon | Light is subtly absorbed in a 5-foot radius around you. The space you occupy is considered one light level dimmer than its surroundings.",
+      "description | Singular Focus | While maintaining concentration on a spell, you have advantage on Constitution saving throws made to maintain concentration. While doing so, you have disadvantage on Wisdom (Perception) checks."
+    ],
+    "tags": ["item", "magic", "wondrous item", "rare", "attunement", "concentration"]
+  },
+  {
+    "count": 1,
+    "color": "#4a3a6a",
+    "title": "Spellbook of Dunamancy",
+    "icon": "spellbook",
+    "icon_back": "spellbook",
+    "contents": [
+      "subtitle | Wondrous Item",
+      "property | Rarity | Legendary",
+      "property | Attunement | Required",
+      "property | Focus | Arcane Focus",
+      "rule",
+      "text | This ancient spellbook hums with gravitational tension, its ink drifting across the pages.",
+      "description | Arcane Focus | This spellbook functions as both a spellbook and an arcane focus.",
+      "description | Forbidden Casting | Once per long rest, you may attempt to cast a spell from this book even if you cannot normally cast spells of that level. For each spell level above your highest available spell slot, you take 1d4 necrotic damage and gain 1 level of exhaustion (maximum of 5).",
+      "description | Included Spells | 4th: Spirit of Death, Gravity Sinkhole. 5th: Negative Energy Flood, Wall of Light. 6th: Gravity Fissure. 7th: Tether Essence."
+    ],
+    "tags": ["item", "magic", "wondrous item", "legendary", "attunement", "spellbook", "dunamancy"]
+  },
+  {
+    "count": 1,
+    "color": "#7a2e2e",
+    "title": "Ostrumite Gunblade (Prototype)",
+    "icon": "crossed-swords",
+    "icon_back": "crossed-swords",
+    "contents": [
+      "subtitle | Weapon",
+      "property | Damage (Melee) | 1d8 Slashing",
+      "property | Damage (Firearm) | 1d10 Piercing",
+      "property | Range (Firearm) | 30/60 ft.",
+      "property | Properties | Versatile (1d10), Special, Ostrumite, Ammunition",
+      "property | Type | Martial Weapon, Hybrid Weapon",
+      "property | Weight | 6 lb.",
+      "property | Rarity | Very Rare",
+      "rule",
+      "description | Hybrid Weapon | The Ostrumite Gunblade functions as both a melee weapon and a firearm. You may choose which mode to use each time you make an attack.",
+      "description | Ostrumite Core (Prototype) | When you roll a 1–3 on an attack with the firearm mode, roll a d6. On a 1–2, the weapon misfires and the firearm mode cannot be used until the end of your next turn. On a 3–6, no additional effect occurs.",
+      "text | The blade hums softly, vibrating against the hilt. When fired, the sound resembles a thunderclap trapped inside steel."
+    ],
+    "tags": ["item", "magic", "martial weapon", "melee weapon", "ranged weapon", "hybrid weapon", "firearm", "very rare", "ostrumite"]
+  },
+  {
+    "count": 1,
+    "color": "#bfa85a",
+    "title": "Ring of Protection",
+    "icon": "ring",
+    "icon_back": "ring",
+    "contents": [
+      "subtitle | Ring",
+      "property | Rarity | Rare",
+      "property | Attunement | Required",
+      "property | Bonus | +1 AC",
+      "rule",
+      "description | Protective Ward | While wearing this ring, you gain a +1 bonus to Armor Class."
+    ],
+    "tags": ["item", "magic", "ring", "rare", "attunement", "defense"]
+  },
+  {
+    "count": 1,
+    "color": "#6c7dd1",
+    "title": "Quick Lunar Ring",
+    "icon": "ring",
+    "icon_back": "ring",
+    "contents": [
+      "subtitle | Ring",
+      "property | Rarity | Uncommon",
+      "property | Attunement | Required",
+      "rule",
+      "description | Lunar Agility | While it is night or you are under moonlight, you gain a +1 bonus to attack rolls and your walking speed increases by 5 feet."
+    ],
+    "tags": ["item", "magic", "ring", "uncommon", "attunement", "mobility"]
+  },
+  {
+    "count": 1,
+    "color": "#8a5fd3",
+    "title": "Ring of Spell Storing",
+    "icon": "ring",
+    "icon_back": "ring",
+    "contents": [
+      "subtitle | Ring",
+      "property | Rarity | Rare",
+      "property | Attunement | Required",
+      "property | Capacity | 1 Spell (Level 1–3)",
+      "rule",
+      "description | Stored Spell | This ring can store a single spell of 1st, 2nd, or 3rd level cast into it. While wearing the ring, you can cast the stored spell without expending a spell slot. The spell uses the original caster’s spellcasting ability."
+    ],
+    "tags": ["item", "magic", "ring", "rare", "attunement", "spell"]
+  },
+  {
+    "count": 1,
+    "color": "#4b6b3c",
+    "title": "Quiver of the Unerring Hunt",
+    "icon": "quiver",
+    "icon_back": "quiver",
+    "contents": [
+      "subtitle | Wondrous Item",
+      "property | Rarity | Uncommon",
+      "property | Attunement | Not Required",
+      "rule",
+      "description | Tracking Arrows | Arrows drawn from this quiver subtly adjust their trajectory. When you hit a creature with a ranged weapon attack using ammunition from this quiver, you have advantage on Wisdom (Survival) checks to track that creature for the next 24 hours.",
+      "description | Unerring Path | Once per long rest, when you miss a ranged weapon attack using ammunition from this quiver, you may reroll the attack roll and use the new result."
+    ],
+    "tags": ["item", "magic", "wondrous item", "uncommon", "ranged", "tracking"]
+  }
+]

@@ -53,10 +53,6 @@
 
       <div id="raceDetails"></div>
       <label>
-  Languages
-  <select id="languageSelect" multiple></select>
-</label>
-
       <section class="panel">
         <h2>Background</h2>
 
@@ -75,8 +71,38 @@
         </label>
 
         <div id="backgroundDetails"></div>
-      </section>
+<section class="panel">
+  <h2>Languages</h2>
 
+  <select id="languageSelect" multiple size="10">
+    <optgroup label="Standard Languages">
+      <option value="common">Common</option>
+      <option value="dwarvish">Dwarvish</option>
+      <option value="elvish">Elvish</option>
+      <option value="giant">Giant</option>
+      <option value="gnomish">Gnomish</option>
+      <option value="goblin">Goblin</option>
+      <option value="halfling">Halfling</option>
+      <option value="orc">Orc</option>
+    </optgroup>
+
+    <optgroup label="Exotic Languages">
+      <option value="abyssal">Abyssal</option>
+      <option value="celestial">Celestial</option>
+      <option value="deep-speech">Deep Speech</option>
+      <option value="draconic">Draconic</option>
+      <option value="infernal">Infernal</option>
+      <option value="primordial">Primordial</option>
+      <option value="sylvan">Sylvan</option>
+      <option value="undercommon">Undercommon</option>
+    </optgroup>
+
+    <optgroup label="Special">
+      <option value="druidic">Druidic</option>
+      <option value="thieves-cant">Thieves’ Cant</option>
+    </optgroup>
+  </select>
+</section>
     <!-- ================= Class & Level ================= -->
     <section class="panel">
       <h2>Class & Level</h2>
@@ -155,27 +181,26 @@
     <section class="panel">
       <h2>Skills</h2>
 
-      <div class="skills">
-        <label><input type="checkbox" id="skill-acrobatics" /> Acrobatics (DEX)</label>
-        <label><input type="checkbox" id="skill-animalHandling" /> Animal Handling (WIS)</label>
-        <label><input type="checkbox" id="skill-arcana" /> Arcana (INT)</label>
-        <label><input type="checkbox" id="skill-athletics" /> Athletics (STR)</label>
-        <label><input type="checkbox" id="skill-deception" /> Deception (CHA)</label>
-        <label><input type="checkbox" id="skill-history" /> History (INT)</label>
-        <label><input type="checkbox" id="skill-insight" /> Insight (WIS)</label>
-        <label><input type="checkbox" id="skill-intimidation" /> Intimidation (CHA)</label>
-        <label><input type="checkbox" id="skill-investigation" /> Investigation (INT)</label>
-        <label><input type="checkbox" id="skill-medicine" /> Medicine (WIS)</label>
-        <label><input type="checkbox" id="skill-nature" /> Nature (INT)</label>
-        <label><input type="checkbox" id="skill-perception" /> Perception (WIS)</label>
-        <label><input type="checkbox" id="skill-performance" /> Performance (CHA)</label>
-        <label><input type="checkbox" id="skill-persuasion" /> Persuasion (CHA)</label>
-        <label><input type="checkbox" id="skill-religion" /> Religion (INT)</label>
-        <label><input type="checkbox" id="skill-sleightOfHand" /> Sleight of Hand (DEX)</label>
-        <label><input type="checkbox" id="skill-stealth" /> Stealth (DEX)</label>
-        <label><input type="checkbox" id="skill-survival" /> Survival (WIS)</label>
-      </div>
-    </section>
+    <div class="skills">
+      <label><input type="checkbox" id="skill-acrobatics" data-skill-id="acrobatics" /> Acrobatics (DEX)</label>
+      <label><input type="checkbox" id="skill-animal-handling" data-skill-id="animal-handling" /> Animal Handling (WIS)</label>
+      <label><input type="checkbox" id="skill-arcana" data-skill-id="arcana" /> Arcana (INT)</label>
+      <label><input type="checkbox" id="skill-athletics" data-skill-id="athletics" /> Athletics (STR)</label>
+      <label><input type="checkbox" id="skill-deception" data-skill-id="deception" /> Deception (CHA)</label>
+      <label><input type="checkbox" id="skill-history" data-skill-id="history" /> History (INT)</label>
+      <label><input type="checkbox" id="skill-insight" data-skill-id="insight" /> Insight (WIS)</label>
+      <label><input type="checkbox" id="skill-intimidation" data-skill-id="intimidation" /> Intimidation (CHA)</label>
+      <label><input type="checkbox" id="skill-investigation" data-skill-id="investigation" /> Investigation (INT)</label>
+      <label><input type="checkbox" id="skill-medicine" data-skill-id="medicine" /> Medicine (WIS)</label>
+      <label><input type="checkbox" id="skill-nature" data-skill-id="nature" /> Nature (INT)</label>
+      <label><input type="checkbox" id="skill-perception" data-skill-id="perception" /> Perception (WIS)</label>
+      <label><input type="checkbox" id="skill-performance" data-skill-id="performance" /> Performance (CHA)</label>
+      <label><input type="checkbox" id="skill-persuasion" data-skill-id="persuasion" /> Persuasion (CHA)</label>
+      <label><input type="checkbox" id="skill-religion" data-skill-id="religion" /> Religion (INT)</label>
+      <label><input type="checkbox" id="skill-sleight-of-hand" data-skill-id="sleight-of-hand" /> Sleight of Hand (DEX)</label>
+      <label><input type="checkbox" id="skill-stealth" data-skill-id="stealth" /> Stealth (DEX)</label>
+      <label><input type="checkbox" id="skill-survival" data-skill-id="survival" /> Survival (WIS)</label>
+    </div>
 
     <!-- Skill choice mount (DO NOT REMOVE) -->
     <div id="skillChoiceMount"></div>
@@ -521,6 +546,14 @@
     </section>
 
   </section>
+<section class="panel">
+  <h2>Magic Items</h2>
+
+  <select id="magicItemsSelect" multiple></select>
+
+  <h3>Attuned Items</h3>
+  <div id="attunedItems"></div>
+</section>
 
   <!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
   <section id="detailView" class="detail-view" hidden></section>
@@ -572,19 +605,6 @@
   <div id="choiceFeatureOptions"></div>
 
   <button id="confirmChoiceFeature" disabled>Confirm</button>
-</div>
-
-<!-- =========================
-     Language Choice Modal
-========================= -->
-<div id="languageChoiceBackdrop" class="modal-backdrop" hidden></div>
-
-<div id="languageChoiceModal" class="modal" hidden>
-  <h3>Select Languages</h3>
-
-  <div id="languageChoiceOptions"></div>
-
-  <button id="confirmLanguage" disabled>Confirm</button>
 </div>
 
 <!-- ================= Scripts ================= -->

@@ -24,7 +24,7 @@
     "choose": 3,
     "from": [
       "acrobatics",
-      "animalHandling",
+      "animal-handling",
       "arcana",
       "athletics",
       "deception",
@@ -38,7 +38,7 @@
       "performance",
       "persuasion",
       "religion",
-      "sleightOfHand",
+      "sleight-of-hand",
       "stealth",
       "survival"
     ]

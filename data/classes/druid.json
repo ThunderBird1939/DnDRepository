@@ -29,7 +29,7 @@
     "choose": 2,
     "from": [
       "arcana",
-      "animalHandling",
+      "animal-handling",
       "insight",
       "medicine",
       "nature",

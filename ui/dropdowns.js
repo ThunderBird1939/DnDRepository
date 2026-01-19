@@ -11,11 +11,8 @@ async function loadJson(path) {
 }
 
 export async function initWeaponAndSpellSelects() {
-  /* ======================
-     Weapons ONLY
-     ====================== */
   const weaponsSelect = document.getElementById("weaponsSelect");
-  if (!weaponsSelect) return; // ✅ defensive guard
+  if (!weaponsSelect) return;
 
   if (!weaponChoices) {
     const weapons = await loadJson("./data/weapons.all.json");
@@ -24,8 +21,12 @@ export async function initWeaponAndSpellSelects() {
 
     weapons.forEach(w => {
       const opt = document.createElement("option");
-      opt.value = w.id;
-      opt.textContent = w.name;
+
+      const id = w.title.toLowerCase().replace(/\s+/g, "-");
+
+      opt.value = id;
+      opt.textContent = w.title;
+
       weaponsSelect.appendChild(opt);
     });
 
@@ -41,8 +42,8 @@ export async function initWeaponAndSpellSelects() {
         weaponsSelect.selectedOptions
       ).map(o => o.value);
 
-      // 🔔 notify the app that weapons changed
       window.dispatchEvent(new Event("weapons-changed"));
     });
   }
 }
+
