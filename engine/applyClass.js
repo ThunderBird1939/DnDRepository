@@ -105,9 +105,10 @@ export async function applyClass(character, classData, level = 1) {
     character.spellcasting.type = classData.spellcasting.type;
     character.spellcasting.focus = classData.spellcasting.focus ?? [];
     character.spellcasting.ritual = classData.spellcasting.ritual ?? false;
-  } else if (character.class.id !== "artificer") {
-    character.spellcasting.enabled = false;
-  }
+    } else {
+      character.spellcasting.enabled = false;
+    }
+
 
   /* =========================
      CANTRIPS KNOWN (UNIVERSAL)
@@ -150,6 +151,83 @@ export async function applyClass(character, classData, level = 1) {
       character.spellcasting.slotsPerLevel = [];
     }
   }
+  /* =========================
+  🛠️ ARTIFICER SPELL ACCESS
+  (populate sc.available with ALL eligible prepared spells)
+========================= */
+if (classData.id === "artificer") {
+  const sc = character.spellcasting;
+
+  // Always reset the eligible pool on class apply
+  sc.available = new Set();
+
+  // Keep these if they already exist (selected cantrips / prepared today)
+  sc.prepared ??= new Set();
+  sc.cantrips ??= new Set();
+
+  // Robust spell-level parsing (handles level, spellLevel, tags, etc.)
+  const getSpellLevel = (spell) => {
+    // Common fields
+    if (spell.level !== undefined && spell.level !== null && spell.level !== "")
+      return Number(spell.level);
+
+    if (spell.spellLevel !== undefined && spell.spellLevel !== null && spell.spellLevel !== "")
+      return Number(spell.spellLevel);
+
+    // Tags fallback (very common)
+    const tags = Array.isArray(spell.tags) ? spell.tags.map(String) : [];
+
+    if (tags.some(t => t.toLowerCase().includes("cantrip"))) return 0;
+
+    // Look for "1st-level", "2nd-level", etc.
+    const lvlTag = tags.find(t => /(\d)(st|nd|rd|th)[ -]?level/i.test(t));
+    if (lvlTag) {
+      const m = lvlTag.match(/(\d)(st|nd|rd|th)[ -]?level/i);
+      if (m) return Number(m[1]);
+    }
+
+    return NaN; // unknown
+  };
+
+  try {
+    const res = await fetch("./data/spells/artificer.json");
+    if (!res.ok) throw new Error(`artificer spells fetch failed (${res.status})`);
+
+    const spells = await res.json();
+
+    // ✅ Determine max spell level available (fallback if slots table is weird)
+    const maxSpellLevelFromSlots =
+      Array.isArray(sc.slotsPerLevel)
+        ? (sc.slotsPerLevel.findLastIndex(slots => Number(slots) > 0) + 1)
+        : 0;
+
+    const maxSpellLevel = maxSpellLevelFromSlots > 0
+      ? maxSpellLevelFromSlots
+      : Math.ceil(level / 2); // artificer half-caster fallback
+
+    spells.forEach(spell => {
+      const id =
+        spell.id ??
+        spell.title?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+      if (!id) return;
+
+      const lvl = getSpellLevel(spell);
+      if (!Number.isFinite(lvl)) return;
+
+      // 🔥 IMPORTANT:
+      // We only want the FULL prepared spell LIST here,
+      // NOT the selected cantrips and NOT the prepared-today set.
+      if (lvl >= 1 && lvl <= maxSpellLevel) {
+        sc.available.add(id);
+      }
+    });
+
+  } catch (e) {
+    console.warn("Failed to load artificer spells", e);
+  }
+}
+
 // =========================
 // 🧙 Wizard: Spellbook Learning (CHOICE-BASED)
 // =========================

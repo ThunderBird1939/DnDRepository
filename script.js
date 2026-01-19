@@ -1589,7 +1589,7 @@ let arcaneShotChoices = null;
 ========================= */
 function getAbilityScore(stat) {
   const base = Number(character.abilities?.[stat] ?? 10);
-  const race = Number(appliedRaceAsi?.[stat] ?? 0);
+  const race = Number(character.appliedRaceAsi?.[stat] ?? 0);
   return base + race;
 }
 async function openChoiceFeatureModal(feature, sourceClass) {
@@ -1883,9 +1883,12 @@ function applyRaceToCharacter(race) {
   /* =========================
      RESET RACE-DERIVED STATE
   ========================= */
-  appliedRaceAsi = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
-  character.combat.speed = 30;
+  const newRaceAsi = {
+    str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0
+  };
 
+
+  character.combat.speed = 30;
   character.features ??= [];
 
   // 🔥 Remove old race features if switching races
@@ -1897,24 +1900,31 @@ function applyRaceToCharacter(race) {
   race.contents.forEach((line, index) => {
     if (
       !line.startsWith("property") &&
-      !line.startsWith("description")
+      !line.startsWith("Description") &&
+      !line.startsWith("Race Trait")
     ) return;
 
-    const [type, name, value] = line
+    const [rawType, rawName, rawValue] = line
       .split("|")
       .map(s => s.trim());
+
+    const type = rawType;   // "property" | "Description" | "Race Trait"
+    const name = rawName;
+    const value = rawValue || "";
 
     /* =========================
        APPLY MECHANICS (PROPERTY ONLY)
     ========================= */
     if (type === "property") {
+      // Ability Score Increases
       if (name === "Ability Scores" && value && !value.includes("choose")) {
         value.split(";").forEach(p => {
           const [stat, amt] = p.trim().split(" ");
-          appliedRaceAsi[stat.slice(0, 3).toLowerCase()] = Number(amt);
+          newRaceAsi[stat.slice(0, 3).toLowerCase()] = Number(amt);
         });
       }
 
+      // Speed
       if (name === "Speed" && value) {
         const m = value.match(/(\d+)/);
         if (m) character.combat.speed = Number(m[1]);
@@ -1924,15 +1934,23 @@ function applyRaceToCharacter(race) {
     /* =========================
        STORE AS FEATURE (UI + PDF)
     ========================= */
-    character.features.push({
-      id: `race-${race.id}-${index}`,
-      name,
-      description: value || "",
-      source: "race",
-      level: 0,
-      category: type // "property" | "description"
-    });
+    if (type === "Race Trait") {
+      character.features.push({
+        id: `race-${race.id}-${index}`,
+        name,
+        description: value,
+        source: "race",
+        level: 0,
+        category: "race-trait"
+      });
+    }
   });
+
+  /* =========================
+     STORE RACIAL ASI (DO NOT APPLY)
+  ========================= */
+  appliedRaceAsi = { ...newRaceAsi };          // <-- updates your global UI store
+  character.appliedRaceAsi = { ...newRaceAsi }; // <-- keeps PDF + everything else correct
 
   /* =========================
      UPDATE UI STATE
@@ -1943,8 +1961,12 @@ function applyRaceToCharacter(race) {
   // 🔔 Notify the rest of the app
   window.dispatchEvent(new Event("features-updated"));
 
-  console.log("Race applied:", character.race);
+  console.log("Race applied:", {
+    race: character.race.name,
+    racialASI: character.appliedRaceAsi
+  });
 }
+
 
 
 

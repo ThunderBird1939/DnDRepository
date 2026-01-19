@@ -2,22 +2,26 @@ import { character } from "../data/character.js";
 import { buildPdfCharacterData } from "../engine/pdfExport.js";
 
 const { PDFDocument, rgb, StandardFonts } = PDFLib;
-const DEBUG_GRID = false; // ← toggle this on/off
+const DEBUG_GRID = true; // ← toggle this on/off
 
 /* =========================
    PDF POSITIONS
 ========================= */
 const POSITIONS = {
   header: {
-    name:       { x: 40,  y: 760 },
+    name:       { x: 25,  y: 760 },
     class:      { x: 160, y: 740 },
     subclass:   { x: 160, y: 715 },
     level:      { x: 280, y: 742 },
-    background: { x: 40,  y: 740 },
-    species:    { x: 40,  y: 715 }
+    background: { x: 25,  y: 740 },
+    species:    { x: 25,  y: 715 }
   },
 
-  proficiencyBonus: { x: 50, y: 625 },
+  proficiencyBonus: { x: 50, y: 630 },
+
+  passivePerception: {x: 545,y: 645},
+
+  raceSize: {x: 435,y: 645},
 
   abilities: {
     str: { x: 66,  y: 553 },
@@ -28,10 +32,10 @@ const POSITIONS = {
     cha: { x: 175, y: 280 }
   },
   skills: {
-    acrobatics:      { x: 20,  y: 380 },
+    acrobatics:      { x: 22,  y: 380 },
     animalHandling:  { x: 130, y: 400 },
     arcana:          { x: 130, y: 580 },
-    athletics:       { x: 20,  y: 500 },
+    athletics:       { x: 22,  y: 500 },
     deception:       { x: 130, y: 225 },
     history:         { x: 130, y: 565 },
     insight:         { x: 130, y: 388 },
@@ -43,9 +47,17 @@ const POSITIONS = {
     performance:     { x: 130, y: 195 },
     persuasion:      { x: 130, y: 180 },
     religion:        { x: 130, y: 520 },
-    sleightOfHand:   { x: 20,  y: 365 },
-    stealth:         { x: 20,  y: 350 },
+    sleightOfHand:   { x: 22,  y: 365 },
+    stealth:         { x: 22,  y: 350 },
     survival:        { x: 130, y: 345 }
+  },
+  savingThrows: {
+    str: { x: 22, y: 520 },
+    dex: { x: 22, y: 400 },
+    con: { x: 22, y: 252 },
+    int: { x: 130, y: 598 },
+    wis: { x: 130, y: 422 },
+    cha: { x: 130, y: 245 }
   },
 
   abilityMods: {
@@ -77,9 +89,9 @@ const POSITIONS = {
 
   spellcastingPage2: {
     ability:  { x: 30, y: 760 }, // INT / WIS / CHA
-    modifier: { x: 20, y: 730 }, // +3
-    attack:   { x: 20, y: 700 }, // +5
-    saveDC:   { x: 20, y: 670 }  // 13
+    modifier: { x: 20, y: 725 }, // +3
+    attack:   { x: 20, y: 670 }, // +5
+    saveDC:   { x: 20, y: 700 }  // 13
   },
   spellSlotsPage2: {
     startY: 695,
@@ -97,25 +109,57 @@ const POSITIONS = {
       7: { x: 360 },
       8: { x: 360 },
       9: { x: 360 }
-    },
+    }
+  },
+spellLists: {
+  spells: {
+    nameX: 50,
+    levelX: 25,
+    timeX: 155,
+    rangeX: 190,
+    ritualX: 265,
+    concX: 245,
+
+    startY: 600,
+    lineHeight: 20,
+    minY: 25
+  }
   },
 
-
-
-  features: {
-    class: {
-      startX: 240,
-      startY: 420,
-      lineHeight: 11,
-      minY: 335
+    features: {
+      race: {
+        maxX: 400,
+        startX: 230,
+        startY: 180,
+        lineHeight: 14,
+        minY: 25
+      },
+      class: {
+        startX: 240,
+        startY: 420,
+        lineHeight: 11,
+        minY: 335
+      },
+      subclass: {
+        startX: 410,
+        startY: 420,
+        lineHeight: 11,
+        minY: 335
+      }
     },
-    subclass: {
-      startX: 410,
-      startY: 420,
-      lineHeight: 11,
-      minY: 335
+    tools: {
+    x: 25,
+    startY: 45,
+    lineHeight: 10,
+    minY: 20
+  },
+    armorDots: {
+      light:  { x: 64,  y: 130 },
+      medium: { x: 99,  y: 130 },
+      heavy:  { x: 143, y: 130 },
+      shield: { x: 182, y: 130 }
     }
-  }
+
 };
 function drawDebugGrid(page, font) {
   const PAGE_WIDTH = 600;
@@ -204,6 +248,7 @@ export async function exportCharacterPdf() {
   draw(data.level, POSITIONS.header.level.x, POSITIONS.header.level.y);
   draw(data.background, POSITIONS.header.background.x, POSITIONS.header.background.y);
   draw(data.species, POSITIONS.header.species.x, POSITIONS.header.species.y);
+  draw(data.raceSize, POSITIONS.raceSize.x, POSITIONS.raceSize.y, 10);
 
   /* =========================
      ABILITIES + MODS
@@ -213,6 +258,7 @@ export async function exportCharacterPdf() {
     const mod = abilityMod(score);
     draw(mod >= 0 ? `+${mod}` : mod, POSITIONS.abilityMods[key].x, POSITIONS.abilityMods[key].y);
   }
+    draw(data.passivePerception,POSITIONS.passivePerception.x,POSITIONS.passivePerception.y,12);
 
   /* =========================
      PROF BONUS
@@ -264,6 +310,45 @@ export async function exportCharacterPdf() {
         borderColor: rgb(0, 0, 0)
       });
     }
+  }
+  /* =========================
+   SKILL NUMBERS
+========================= */
+
+for (const [skill, pos] of Object.entries(POSITIONS.skills)) {
+  const skillData = data.skills?.[skill];
+  if (!skillData) continue;
+
+  const bonus = skillData.bonus;
+  if (bonus === undefined || bonus === null) continue;
+
+  const text =
+    bonus >= 0 ? `+${bonus}` : `${bonus}`;
+
+  // Draw number just to the right of the dot
+  draw(
+    text,
+    pos.x + 12,   // ← spacing from dot (tuned for your sheet)
+    pos.y - 3,    // ← vertical alignment tweak
+    8,
+    page1
+  );
+}
+
+  /* =========================
+    SAVING THROW PROFICIENCY DOTS
+  ========================= */
+
+  const saveProficiencies = new Set(data.savingThrows || []);
+  for (const [ability, pos] of Object.entries(POSITIONS.savingThrows)) {
+    if (!saveProficiencies.has(ability)) continue;
+
+    page1.drawCircle({
+      x: pos.x,
+      y: pos.y,
+      size: 3,
+      color: rgb(0, 0, 0)
+    });
   }
 
   /* =========================
@@ -355,11 +440,139 @@ if (character.spellcasting?.enabled && data.spellSlots) {
     );
   }
 }
-
+  /* =========================
+    COMBINED SPELL LIST
+  ========================= */
+  const spells = [
+    ...(data.cantrips ?? []).map(s => ({ ...s, _sort: 0 })),
+    ...(data.availableSpells ?? []).map(s => ({ ...s, _sort: 1 }))
+  ].sort((a, b) => {
+    if (a._sort !== b._sort) return a._sort - b._sort;
+    return (a.name ?? "").localeCompare(b.name ?? "");
+  });
 
   /* =========================
-     FEATURES
+    SPELL LISTS (PAGE 2)
   ========================= */
+
+  let y = POSITIONS.spellLists.spells.startY;
+
+  for (const spell of spells) {
+    if (y < POSITIONS.spellLists.spells.minY) break;
+
+    // Spell Name
+    draw(spell.name, POSITIONS.spellLists.spells.nameX, y, 8, page2);
+
+    // Level (C / 1 / 2 / etc.)
+    if (spell.level) {
+      draw(
+        spell.level,
+        POSITIONS.spellLists.spells.levelX,
+        y,
+        8,
+        page2
+      );
+    }
+
+    // Casting Time
+    if (spell.castingTime) {
+      draw(
+        spell.castingTime,
+        POSITIONS.spellLists.spells.timeX,
+        y,
+        6,
+        page2
+      );
+    }
+    if (spell.range) {
+      draw(
+        spell.range,
+        POSITIONS.spellLists.spells.rangeX,
+        y,
+        6,
+        page2
+      );
+    }
+
+// ● Ritual
+if (spell.ritual) {
+  page2.drawCircle({
+    x: POSITIONS.spellLists.spells.ritualX + 2,
+    y: y + 3,
+    size: 2,
+    color: rgb(0, 0, 0)
+  });
+}
+
+// ● Concentration
+if (spell.concentration) {
+  page2.drawCircle({
+    x: POSITIONS.spellLists.spells.concX + 2,
+    y: y + 3,
+    size: 2,
+    color: rgb(0, 0, 0)
+  });
+}
+    y -= POSITIONS.spellLists.spells.lineHeight;
+  }
+
+  /* =========================
+    FEATURES
+  ========================= */
+
+  // 🧬 RACE TRAITS (NAME + DESCRIPTION)
+  let yRace = POSITIONS.features.race.startY;
+
+  const NAME_GAP = 6;        // space after trait name
+  const DESC_LINE_GAP = 6;   // tight paragraph leading
+  const TRAIT_GAP = 6;       // space between traits
+
+  for (const f of data.raceTraits || []) {
+    if (yRace < POSITIONS.features.race.minY) break;
+
+    /* ===== Trait Name ===== */
+    draw(
+      f.name,
+      POSITIONS.features.race.startX,
+      yRace,
+      6
+    );
+
+    yRace -= NAME_GAP;
+
+    /* ===== Trait Description ===== */
+    if (f.description) {
+      const fontSize = 5;
+      const maxWidth = 150;
+      const xText = POSITIONS.features.race.startX + 6;
+
+      const words = f.description.split(" ");
+      let line = "";
+
+      for (const word of words) {
+        const testLine = line + word + " ";
+        const testWidth = font.widthOfTextAtSize(testLine, fontSize);
+
+        if (testWidth > maxWidth) {
+          draw(line, xText, yRace, fontSize);
+          yRace -= DESC_LINE_GAP;
+          line = word + " ";
+        } else {
+          line = testLine;
+        }
+      }
+
+      if (line.trim()) {
+        draw(line, xText, yRace, fontSize);
+        yRace -= DESC_LINE_GAP;
+      }
+    }
+
+    /* ===== Space Between Traits ===== */
+    yRace -= TRAIT_GAP;
+  }
+
+  // 📘 CLASS FEATURES
   let yClass = POSITIONS.features.class.startY;
   for (const f of data.classFeatures || []) {
     if (yClass < POSITIONS.features.class.minY) break;
@@ -367,11 +580,84 @@ if (character.spellcasting?.enabled && data.spellSlots) {
     yClass -= POSITIONS.features.class.lineHeight;
   }
 
+  // 🧙 SUBCLASS FEATURES
   let ySub = POSITIONS.features.subclass.startY;
   for (const f of data.subclassFeatures || []) {
     if (ySub < POSITIONS.features.subclass.minY) break;
     draw(`• ${f.name}`, POSITIONS.features.subclass.startX, ySub, 8);
     ySub -= POSITIONS.features.subclass.lineHeight;
+  }
+/* =========================
+   TOOLS (PAGE 1 – Two Column)
+========================= */
+
+let yTools = POSITIONS.tools.startY;
+const colGap = POSITIONS.tools.colGap ?? 140; // distance between columns
+let col = 0;
+
+for (const tool of data.tools ?? []) {
+  if (yTools < POSITIONS.tools.minY) break;
+
+  const x =
+    POSITIONS.tools.x +
+    col * colGap;
+
+  draw(
+    tool.replace(/-tools$/, "").replace(/-/g, " "),
+    x,
+    yTools,
+    8,
+    page1
+  );
+
+  col++;
+
+  // After 2 items → new row
+  if (col === 2) {
+    col = 0;
+    yTools -= POSITIONS.tools.lineHeight;
+  }
+}
+
+  /* =========================
+    ARMOR PROFICIENCY DOTS
+  ========================= */
+  const armor = new Set(data.armorProficiencies ?? []);
+
+  if (armor.has("light")) {
+    page1.drawCircle({
+      x: POSITIONS.armorDots.light.x,
+      y: POSITIONS.armorDots.light.y,
+      size: 3,
+      color: rgb(0, 0, 0)
+    });
+  }
+
+  if (armor.has("medium")) {
+    page1.drawCircle({
+      x: POSITIONS.armorDots.medium.x,
+      y: POSITIONS.armorDots.medium.y,
+      size: 3,
+      color: rgb(0, 0, 0)
+    });
+  }
+
+  if (armor.has("heavy")) {
+    page1.drawCircle({
+      x: POSITIONS.armorDots.heavy.x,
+      y: POSITIONS.armorDots.heavy.y,
+      size: 3,
+      color: rgb(0, 0, 0)
+    });
+  }
+
+  if (armor.has("shields")) {
+    page1.drawCircle({
+      x: POSITIONS.armorDots.shield.x,
+      y: POSITIONS.armorDots.shield.y,
+      size: 3,
+      color: rgb(0, 0, 0)
+    });
   }
 
   /* =========================

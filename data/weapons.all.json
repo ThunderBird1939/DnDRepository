@@ -666,7 +666,7 @@
     "damage": [
       { "dice": "1d10", "type": "Piercing" }
     ],
-    "range": "60/180"
+    "range": "30/60"
   },
   "properties": [
     "Versatile (1d10)",
