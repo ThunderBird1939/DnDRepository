@@ -172,6 +172,23 @@ if (
     source: "lore"
   };
 }
+/* =========================
+   COLLEGE OF LORE: ADDITIONAL MAGICAL SECRETS
+========================= */
+if (
+  subclassData.id === "lore" &&
+  character.class?.id === "bard" &&
+  character.level >= 6 &&
+  !character.resolvedChoices?.magicalSecrets &&
+  !character.pendingChoices?.magicalSecrets
+) {
+  character.pendingChoices.magicalSecrets = {
+    choose: 2,
+    from: "any",           // any class spell list
+    countsAs: "bard",      // spellcasting ability + focus
+    source: "lore"
+  };
+}
 
 
 
