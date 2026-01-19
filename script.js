@@ -5,7 +5,7 @@ import { character } from "./data/character.js";
 window.character = character;
 import { initWeaponAndSpellSelects } from "./ui/dropdowns.js";
 import { loadClass } from "./data/classloader.js";
-import { applyClass } from "./engine/applyClass.js";
+import { applyClass } from "/engine/applyClass.js";
 import { applySubclass } from "./engine/applySubclass.js";
 import { renderSkillChoice } from "./ui/skillChoice.js";
 import { renderFeatures } from "./ui/features.js";
@@ -2096,9 +2096,14 @@ function applyRaceToCharacter(race) {
 
 function runPendingChoiceFlow() {
 
-  if (canChooseFeat()) { character.pendingChoices.feat = true;
-    openFeatChoiceModal(); 
-    return; }
+  if (
+    canChooseFeat() &&
+    !character.pendingChoices?.spells
+  ) {
+    character.pendingChoices.feat = true;
+    openFeatChoiceModal();
+    return;
+  }
 
   if (character.pendingChoices?.skills) {
     renderSkillChoice(character);
@@ -2114,7 +2119,10 @@ function runPendingChoiceFlow() {
     return [4, 8, 12, 16, 19].includes(level);
   }
 
-  if (character.pendingChoices?.spells) {
+  if (
+    character.pendingChoices?.spells ||
+    character.pendingChoices?.magicalSecrets
+  ) {
     if (character.class.id === "wizard") {
       renderSpellbook();
     } else {
@@ -2122,6 +2130,7 @@ function runPendingChoiceFlow() {
     }
     return;
   }
+
 
   if (character.pendingChoices?.choiceFeature) {
     const { feature, source } = character.pendingChoices.choiceFeature;

@@ -172,6 +172,7 @@ if (
     source: "lore"
   };
 }
+
 /* =========================
    COLLEGE OF LORE: ADDITIONAL MAGICAL SECRETS
 ========================= */
@@ -189,8 +190,6 @@ if (
     source: "lore"
   };
 }
-
-
 
   /* =========================
      FEATURES (LEVEL AWARE)

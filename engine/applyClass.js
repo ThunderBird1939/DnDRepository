@@ -266,16 +266,34 @@ if (classData.id === "bard") {
   character.spellcasting.type = "full";
   character.spellcasting.ability = "cha";
 
-  character.spellcasting.available ??= new Set(); // known spells
-  character.spellcasting.prepared = null;         // ❗ bards do NOT prepare
+  character.spellcasting.available ??= new Set();
+  character.spellcasting.prepared = null;
 
-  // Cantrips
-  character.spellcasting.cantripsKnown ??= 2; // level 1
-  character.spellcasting.cantrips ??= new Set();
+  // ✅ Load spells-known table (ONCE per level)
+  try {
+    const res = await fetch(`./data/spellsKnown/bard.json`);
+    if (res.ok) {
+      const table = await res.json();
+      character.spellcasting.spellsKnown =
+        table[String(level)] ?? 0;
+    } else {
+      character.spellcasting.spellsKnown = 0;
+    }
+  } catch {
+    character.spellcasting.spellsKnown = 0;
+  }
+}// Base bard spells-known table already loaded above
 
-  // Known spells
-  character.spellcasting.spellsKnown ??= 4; // level 1 bard
+// 📚 College of Lore: Additional Magical Secrets (+2 at level 6+)
+if (
+  character.class.id === "bard" &&
+  character.subclass?.id === "lore" &&
+  level >= 6
+) {
+  character.spellcasting.spellsKnown += 2;
 }
+
+
 
 
   /* =========================
@@ -290,11 +308,14 @@ if (classData.id === "bard") {
         // 🚫 Skip subclass placeholders once a subclass exists
         if (feature.type === "subclass" && character.subclass) return;
 
+        // =========================
+        // CHOICE FEATURES (generic)
+        // =========================
         if (
           feature.type === "choice" &&
           !character.features.some(f => f.parentFeature === feature.id)
         ) {
-          // 🚫 Skip Artificer Infuse Item
+          // 🚫 Skip Artificer Infuse Item (handled elsewhere)
           if (
             character.class.id === "artificer" &&
             feature.id === "infuse-item"
@@ -309,16 +330,36 @@ if (classData.id === "bard") {
           return;
         }
 
+        // =========================
+        // ADD FEATURE ONCE
+        // =========================
         if (!character.features.some(f => f.id === feature.id)) {
           character.features.push({
             ...feature,
             source: classData.id,
             level: Number(lvl)
           });
+
+          // =========================
+          // 🎵 BARD MAGICAL SECRETS
+          // (class feature only)
+          // =========================
+          if (
+            classData.id === "bard" &&
+            feature.id.startsWith("magical-secrets") &&
+            !character.resolvedChoices?.[feature.id]
+          ) {
+            character.pendingChoices.spells = {
+              choose: feature.choose ?? 2,
+              from: "any",
+              source: feature.id
+            };
+          }
         }
       });
     });
   }
+
 
   /* =========================
     INFUSION LEARN (LEVEL 2)

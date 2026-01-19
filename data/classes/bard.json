@@ -167,7 +167,15 @@
           "name": "Expertise",
           "type": "passive",
           "description": "Choose two additional skill proficiencies to gain expertise."
-        }
+        },
+        {
+        "id": "magical-secrets-10",
+        "name": "Magical Secrets",
+        "type": "spell-choice",
+        "choose": 2,
+        "from": "any",
+        "description": "You learn two spells of your choice from any class. These spells count as bard spells for you."
+       }
       ]
     },
 
