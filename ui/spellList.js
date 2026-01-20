@@ -6,12 +6,9 @@ import {
 } from "../engine/rules/spellPrepRules.js";
 import { openSpellDetail } from "./spellDetailModal.js";
 
-/**
- * Render Available Spells (READ-ONLY)
- * - Click: open spell detail modal
- * - Visually marks prepared & always-prepared spells
- * - Does NOT modify prepared spell state
- */
+/* ======================================================
+   READ-ONLY SPELL LIST (click to view details)
+====================================================== */
 export async function renderSpellList() {
   const container = document.getElementById("spellList");
   if (!container) return;
@@ -23,7 +20,6 @@ export async function renderSpellList() {
     return;
   }
 
-  // Ensure state exists (read-only use)
   character.spellcasting.prepared ??= new Set();
   character.spellcasting.alwaysPrepared ??= new Set();
 
@@ -31,12 +27,11 @@ export async function renderSpellList() {
   const alwaysPrepared = character.spellcasting.alwaysPrepared;
 
   const maxSpellLevel =
-  character.spellcasting?.slotsPerLevel
-    ?.map((n, i) => (n > 0 ? i + 1 : null))
-    .filter(Boolean)
-    .pop() ?? 0;
+    character.spellcasting?.slotsPerLevel
+      ?.map((n, i) => (n > 0 ? i + 1 : null))
+      .filter(Boolean)
+      .pop() ?? 0;
 
-  // 🔑 Load class spell list
   const choice =
     character.pendingChoices?.magicalSecrets ??
     character.pendingChoices?.spells ??
@@ -44,100 +39,71 @@ export async function renderSpellList() {
 
   const allowAnyList = choice?.from === "any";
 
+  let spells = [];
 
-let spells = [];
+  if (allowAnyList) {
+    const classIds = [
+      "bard", "cleric", "paladin", "ranger",
+      "sorcerer", "warlock", "wizard", "artificer", "druid"
+    ];
 
-if (allowAnyList) {
-  // 🔑 Magical Secrets → load ALL spell lists
-  const classIds = [
-    "bard","cleric","paladin","ranger",
-    "sorcerer","warlock","wizard","artificer","druid"
-  ];
-
-  for (const cid of classIds) {
-    const r = await fetch(`../data/spells/${cid}.json`);
-    if (!r.ok) continue;
-    const data = await r.json();
-    spells.push(...data);
+    for (const cid of classIds) {
+      const r = await fetch(`../data/spells/${cid}.json`);
+      if (!r.ok) continue;
+      spells.push(...await r.json());
+    }
+  } else {
+    const r = await fetch(`../data/spells/${character.class.id}.json`);
+    if (!r.ok) {
+      container.textContent = "Spell data missing.";
+      return;
+    }
+    spells = await r.json();
   }
-} else {
-  // Normal behavior (unchanged)
-  const res = await fetch(`../data/spells/${character.class.id}.json`);
-  if (!res.ok) {
-    el.textContent = "Spell data missing.";
-    return;
-  }
-  spells = await res.json();
-}
 
-  /* =========================
-    Deduplicate spells
-  ========================= */
+  // DEDUPE
   const seen = new Set();
-
-  spells = spells.filter(spell => {
-    const id = spellIdFromTitle(spell.title);
+  spells = spells.filter(s => {
+    const id = spellIdFromTitle(s.title);
     if (seen.has(id)) return false;
     seen.add(id);
     return true;
   });
 
-  
-  /* =========================
-     Group spells by level
-  ========================= */
   const byLevel = {};
 
   spells.forEach(spell => {
-    const id = spellIdFromTitle(spell.title);
+    const lvl = isCantripFromTags(spell.tags) ? 0 : spellLevelFromTags(spell.tags);
+    if (lvl === null || lvl > maxSpellLevel) return;
 
-    let level;
-    if (isCantripFromTags(spell.tags)) {
-      level = 0;
-    } else {
-      level = spellLevelFromTags(spell.tags);
-
-      // 🔑 hard cap by slots
-      if (level === null || level > maxSpellLevel) return;
-    }
-
-    byLevel[level] ??= [];
-    byLevel[level].push({ spell, id });
+    byLevel[lvl] ??= [];
+    byLevel[lvl].push(spell);
   });
 
-
-  const levels = Object.keys(byLevel)
-    .map(Number)
-    .sort((a, b) => a - b);
+  const levels = Object.keys(byLevel).map(Number).sort((a, b) => a - b);
 
   if (!levels.length) {
     container.textContent = "No spells available.";
     return;
   }
 
-  /* =========================
-     Render
-  ========================= */
   levels.forEach(level => {
     const details = document.createElement("details");
     if (level === 0) details.open = true;
 
     const summary = document.createElement("summary");
-    summary.textContent =
-      level === 0 ? "Cantrips" : `Level ${level} Spells`;
-
-    details.appendChild(summary);
+    summary.textContent = level === 0 ? "Cantrips" : `Level ${level} Spells`;
 
     const ul = document.createElement("ul");
 
     byLevel[level]
-      .sort((a, b) => a.spell.title.localeCompare(b.spell.title))
-      .forEach(({ spell, id }) => {
+      .sort((a, b) => a.title.localeCompare(b.title))
+      .forEach(spell => {
+        const id = spellIdFromTitle(spell.title);
         const li = document.createElement("li");
         li.textContent = spell.title;
         li.style.cursor = "pointer";
 
-        // Visual state only
         if (alwaysPrepared.has(id)) {
           li.textContent += " (always prepared)";
           li.classList.add("prepared");
@@ -145,26 +111,22 @@ if (allowAnyList) {
           li.classList.add("prepared");
         }
 
-        // 📖 Click = view spell details only
         li.onclick = e => {
           e.preventDefault();
-          e.stopPropagation();
           openSpellDetail(spell);
         };
 
         ul.appendChild(li);
       });
 
-    details.appendChild(ul);
+    details.append(summary, ul);
     container.appendChild(details);
   });
 }
-/**
- * Render Spells Known (Bard / Sorcerer / Warlock)
- * - Checkbox selection
- * - Enforces spellsKnown limit
- * - Mutates spellcasting.available
- */
+
+/* ======================================================
+   SPELLS KNOWN (Bard / Sorcerer / Warlock) + Search picker
+====================================================== */
 export async function renderSpellsKnown() {
   const el = document.getElementById("spellsKnownList");
   if (!el) return;
@@ -183,25 +145,20 @@ export async function renderSpellsKnown() {
   sc.available ??= new Set();
   const known = sc.available;
 
-  /* =========================
-     Pending choice context
-  ========================= */
   const choice =
     character.pendingChoices?.magicalSecrets ??
     character.pendingChoices?.spells ??
     null;
 
   const isMagicalSecrets =
-  choice?.source === "magical-secrets" ||
-  choice?.source === "lore";
+    choice?.source === "magical-secrets" ||
+    choice?.source === "lore";
+
   const allowAnyList = choice?.from === "any";
 
   const maxKnown = sc.spellsKnown ?? 0;
   const remaining = maxKnown - known.size;
 
-  /* =========================
-     Max spell level
-  ========================= */
   const maxSpellLevel =
     sc.slotsPerLevel
       ?.map((n, i) => (n > 0 ? i + 1 : null))
@@ -209,7 +166,7 @@ export async function renderSpellsKnown() {
       .pop() ?? 0;
 
   /* =========================
-     Load spell lists
+     LOAD SPELL DATA
   ========================= */
   let spells = [];
 
@@ -232,71 +189,142 @@ export async function renderSpellsKnown() {
     }
     spells = await r.json();
   }
+
   /* =========================
-    Deduplicate spells (IMPORTANT)
+     DEDUPE
   ========================= */
   const seen = new Set();
-
-  spells = spells.filter(spell => {
-    const id = spellIdFromTitle(spell.title);
+  spells = spells.filter(s => {
+    const id = spellIdFromTitle(s.title);
     if (seen.has(id)) return false;
     seen.add(id);
     return true;
   });
 
   /* =========================
-     Eligible spells
+     HEADER
   ========================= */
+  const header = document.createElement("p");
+  header.innerHTML = `<strong>${known.size} / ${maxKnown}</strong> spells known`;
+  el.appendChild(header);
+
+  /* =========================
+     SPELL PICKER (SEARCHABLE)
+  ========================= */
+  if (remaining > 0) {
   const eligible = spells
     .filter(s => !isCantripFromTags(s.tags))
     .filter(s => spellLevelFromTags(s.tags) <= maxSpellLevel)
     .filter(s => !known.has(spellIdFromTitle(s.title)))
     .sort((a, b) => a.title.localeCompare(b.title));
 
-  /* =========================
-     Header
-  ========================= */
-  const header = document.createElement("p");
- header.innerHTML = `<strong>${known.size} / ${maxKnown}</strong> spells known`;
-  el.appendChild(header);
+  const learn = document.createElement("div");
+  learn.className = "spells-known-learn";
 
-  /* =========================
-     Learn UI
-  ========================= */
-  if (remaining > 0) {
-    const learn = document.createElement("div");
-    learn.className = "spells-known-learn";
+  const hint = document.createElement("div");
+  hint.className = "muted";
+  hint.textContent = `Choose ${remaining} spell${remaining > 1 ? "s" : ""}.`;
 
-    const hint = document.createElement("div");
-    hint.className = "muted";
-    hint.textContent = `Choose ${remaining} spell${remaining > 1 ? "s" : ""}.`;
+  const search = document.createElement("input");
+  search.type = "text";
+  search.placeholder = "Search spells...";
+  search.className = "spell-search";
 
-    const select = document.createElement("select");
-    select.multiple = true;
+  const dropdown = document.createElement("div");
+  dropdown.className = "spell-dropdown";
+  dropdown.hidden = true;
 
-    eligible.forEach(spell => {
-      const opt = document.createElement("option");
-      opt.value = spellIdFromTitle(spell.title);
-      opt.textContent = spell.title;
-      select.appendChild(opt);
+  const chips = document.createElement("div");
+  chips.className = "spell-selected-chips";
+
+  const counter = document.createElement("div");
+  counter.className = "muted";
+
+  const learnBtn = document.createElement("button");
+  learnBtn.textContent = "Learn Spells";
+  learnBtn.disabled = true;
+
+  const selected = new Set();
+
+  function updateUI() {
+    counter.textContent = `${selected.size} / ${remaining} selected`;
+    learnBtn.disabled = selected.size !== remaining;
+    renderChips();
+  }
+
+  function renderChips() {
+    chips.innerHTML = "";
+    selected.forEach(id => {
+      const spell = spells.find(s => spellIdFromTitle(s.title) === id);
+      if (!spell) return;
+
+      const chip = document.createElement("span");
+      chip.className = "spell-chip";
+      chip.textContent = spell.title;
+
+      const remove = document.createElement("button");
+      remove.textContent = "×";
+      remove.onclick = () => {
+        selected.delete(id);
+        updateUI();
+        renderDropdown(search.value);
+      };
+
+      chip.appendChild(remove);
+      chips.appendChild(chip);
     });
+  }
 
-    const confirm = document.createElement("button");
-    confirm.textContent = "Learn Spells";
-    confirm.disabled = true;
+  function renderDropdown(filter = "") {
+    dropdown.innerHTML = "";
+    const q = filter.toLowerCase();
 
-    select.onchange = () => {
-      confirm.disabled = select.selectedOptions.length !== remaining;
-    };
+    eligible
+      .filter(s => !selected.has(spellIdFromTitle(s.title)))
+      .filter(s => s.title.toLowerCase().includes(q))
+      .slice(0, 30)
+      .forEach(spell => {
+        const id = spellIdFromTitle(spell.title);
 
-    confirm.onclick = () => {
-      [...select.selectedOptions].forEach(opt => {
-        known.add(opt.value);
+        const row = document.createElement("div");
+        row.className = "spell-dropdown-row";
+        row.textContent = spell.title;
+
+        row.onclick = () => {
+          if (selected.size >= remaining) return;
+          selected.add(id);
+          updateUI();
+          renderDropdown(search.value);
+        };
+
+        dropdown.appendChild(row);
       });
 
-    if (isMagicalSecrets) {
-      // 🔑 Magical Secrets permanently increases spells known
+    dropdown.hidden = dropdown.children.length === 0;
+  }
 
+  search.onfocus = () => {
+    renderDropdown(search.value);
+    dropdown.hidden = false;
+  };
+
+  search.oninput = () => {
+    renderDropdown(search.value);
+    dropdown.hidden = false;
+  };
+
+  document.addEventListener(
+    "click",
+    e => {
+      if (!learn.contains(e.target)) dropdown.hidden = true;
+    },
+    { once: true }
+  );
+
+  learnBtn.onclick = () => {
+    selected.forEach(id => known.add(id));
+
+    if (isMagicalSecrets) {
       delete character.pendingChoices.magicalSecrets;
       character.resolvedChoices.magicalSecrets = true;
     } else {
@@ -304,31 +332,46 @@ export async function renderSpellsKnown() {
       character.resolvedChoices.spells = true;
     }
 
+    renderSpellsKnown();
+  };
 
-      renderSpellsKnown();
-    };
+  updateUI();
 
-    learn.append(hint, select, confirm);
-    el.appendChild(learn);
+  learn.append(hint, search, dropdown, chips, counter, learnBtn);
+  el.appendChild(learn);
   }
 
   /* =========================
-     Known spells list
+     KNOWN SPELLS (SOURCE OF TRUTH)
   ========================= */
-  const list = document.createElement("div");
-  list.className = "spells-known-list";
+  const knownHeader = document.createElement("div");
+  knownHeader.className = "muted";
+  knownHeader.style.marginTop = "10px";
+  knownHeader.textContent = "Known spells:";
+  el.appendChild(knownHeader);
 
-  spells
-    .filter(spell => known.has(spellIdFromTitle(spell.title)))
+  const knownList = document.createElement("div");
+  knownList.className = "spells-known-list";
+
+  [...known]
+    .map(id => spells.find(s => spellIdFromTitle(s.title) === id))
+    .filter(Boolean)
+    .sort((a, b) => a.title.localeCompare(b.title))
     .forEach(spell => {
       const row = document.createElement("div");
       row.className = "spell-row";
       row.textContent = spell.title;
+      row.style.cursor = "pointer";
       row.onclick = () => openSpellDetail(spell);
-      list.appendChild(row);
+      knownList.appendChild(row);
     });
 
-  el.appendChild(list);
+  if (!knownList.children.length) {
+    const empty = document.createElement("div");
+    empty.className = "muted";
+    empty.textContent = "No spells known.";
+    el.appendChild(empty);
+  } else {
+    el.appendChild(knownList);
+  }
 }
-
-

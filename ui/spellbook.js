@@ -3,9 +3,9 @@ import { openSpellDetail } from "./spellDetailModal.js";
 import {
   spellIdFromTitle,
   spellLevelFromTags,
-  isCantripFromTags        // ✅ ADD
+  isCantripFromTags,
+  maxWizardSpellLevel
 } from "../engine/rules/spellPrepRules.js";
-import { maxWizardSpellLevel } from "../engine/rules/spellPrepRules.js";
 
 export async function renderSpellbook() {
   const el = document.getElementById("spellbookList");
@@ -15,7 +15,7 @@ export async function renderSpellbook() {
 
   const sc = character.spellcasting;
 
-  // 🧙 Wizard-only
+  // 🧙 Wizard only
   if (!sc?.enabled || character.class?.id !== "wizard") {
     el.textContent = "—";
     return;
@@ -27,79 +27,153 @@ export async function renderSpellbook() {
   const learned = sc.available;
   const toLearn = sc.spellsToLearn ?? 0;
 
-  const res = await fetch(`./data/spells/${character.class.id}.json`);
-  const spells = await res.json();
+  // Load full wizard spell list
+  const res = await fetch(`./data/spells/wizard.json`);
+  if (!res.ok) {
+    el.textContent = "Spell data missing.";
+    return;
+  }
+
+  const allSpells = await res.json();
 
   const maxLevel = maxWizardSpellLevel(character.level);
 
-  // 🚫 EXCLUDE CANTRIPS FROM SPELLBOOK ENTIRELY
-  const eligible = spells
-    .filter(s => !isCantripFromTags(s.tags))                 // ✅ FIX
+  // ❗ Wizard spellbook never includes cantrips
+  const eligible = allSpells
+    .filter(s => !isCantripFromTags(s.tags))
     .filter(s => spellLevelFromTags(s.tags) <= maxLevel)
     .sort((a, b) => a.title.localeCompare(b.title));
 
   /* =========================
-     📘 SPELLBOOK HEADER
+     📘 HEADER
   ========================= */
   const header = document.createElement("p");
   header.innerHTML = `<strong>Spellbook</strong> (${learned.size} known)`;
   el.appendChild(header);
 
   /* =========================
-     ➕ LEARN SPELLS (DROPDOWN)
+     📚 LEARN SPELLS UI
   ========================= */
-  if (toLearn > 0) {
-    const learnBlock = document.createElement("div");
-    learnBlock.className = "spellbook-learn";
+if (toLearn > 0) {
+  const learnBlock = document.createElement("div");
+  learnBlock.className = "spellbook-learn";
 
-    const hint = document.createElement("div");
-    hint.className = "muted";
-    hint.textContent = `Choose ${toLearn} spell${toLearn > 1 ? "s" : ""} to add to your spellbook.`;
+  const hint = document.createElement("div");
+  hint.className = "muted";
+  hint.textContent = `Choose ${toLearn} spell${toLearn > 1 ? "s" : ""} to add to your spellbook.`;
 
-    const select = document.createElement("select");
-    select.multiple = true;
+  const search = document.createElement("input");
+  search.type = "text";
+  search.placeholder = "Search spells...";
+  search.className = "spell-search";
 
-    eligible
-      .filter(s => !learned.has(spellIdFromTitle(s.title)))
-      .forEach(spell => {
-        const opt = document.createElement("option");
-        opt.value = spellIdFromTitle(spell.title);
-        opt.textContent = spell.title;
-        select.appendChild(opt);
-      });
+  const dropdown = document.createElement("div");
+  dropdown.className = "spell-dropdown";
 
-    const confirm = document.createElement("button");
-    confirm.textContent = "Add to Spellbook";
-    confirm.disabled = true;
+  const selectedList = document.createElement("div");
+  selectedList.className = "spell-selected-list";
 
-    select.onchange = () => {
-      confirm.disabled = select.selectedOptions.length !== toLearn;
-    };
+  const selected = new Set();
 
-    confirm.onclick = () => {
-    [...select.selectedOptions].forEach(opt => {
-        learned.add(opt.value);
+  const confirm = document.createElement("button");
+  confirm.textContent = "Add to Spellbook";
+  confirm.disabled = true;
+
+  function updateConfirm() {
+    confirm.disabled = selected.size !== toLearn;
+  }
+
+  function renderSelected() {
+    selectedList.innerHTML = "";
+    selected.forEach(id => {
+      const spell = eligible.find(
+        s => spellIdFromTitle(s.title) === id
+      );
+      if (!spell) return;
+
+      const row = document.createElement("div");
+      row.className = "spell-selected-row";
+      row.textContent = spell.title;
+
+      const remove = document.createElement("button");
+      remove.textContent = "×";
+      remove.onclick = () => {
+        selected.delete(id);
+        renderSelected();
+        renderDropdown(search.value);
+        updateConfirm();
+      };
+
+      row.appendChild(remove);
+      selectedList.appendChild(row);
     });
+  }
+
+function renderDropdown(filter = "") {
+  dropdown.innerHTML = "";
+
+  eligible
+    .filter(s => !selected.has(spellIdFromTitle(s.title)))
+    .filter(s =>
+      s.title.toLowerCase().includes(filter.toLowerCase())
+    )
+    .slice(0, 30)
+    .forEach(spell => {
+      const row = document.createElement("div");
+      row.className = "spell-dropdown-row";
+      row.textContent = spell.title;
+
+      row.onclick = () => {
+        if (selected.size >= toLearn) return;
+        selected.add(spellIdFromTitle(spell.title));
+        search.value = "";
+        renderSelected();
+        renderDropdown();
+        updateConfirm();
+      };
+
+      dropdown.appendChild(row);
+    });
+}
+
+
+  search.oninput = () => renderDropdown(search.value);
+  search.onfocus = () => {
+    renderDropdown(search.value);
+  };
+
+  confirm.onclick = () => {
+    selected.forEach(id => learned.add(id));
 
     sc.spellsToLearn = 0;
-
-    // 🔑 Resolve the pending choice
-    delete character.pendingChoices?.spells;
+    delete character.pendingChoices.spells;
     character.resolvedChoices.spells = true;
 
     renderSpellbook();
     window.dispatchEvent(new Event("spellbook-updated"));
+  };
 
-    };
+  learnBlock.append(
+    hint,
+    search,
+    dropdown,
+    selectedList,
+    confirm
+  );
+  el.appendChild(learnBlock);
+}
 
-
-    learnBlock.append(hint, select, confirm);
-    el.appendChild(learnBlock);
-  }
 
   /* =========================
-     📖 KNOWN SPELLS LIST
+     📖 KNOWN SPELLS LIST (FIXED)
+     Source of truth = learned IDs
   ========================= */
+  const knownHeader = document.createElement("div");
+  knownHeader.className = "muted";
+  knownHeader.style.marginTop = "10px";
+  knownHeader.textContent = "Known spells:";
+  el.appendChild(knownHeader);
+
   if (learned.size === 0) {
     const empty = document.createElement("div");
     empty.className = "muted";
@@ -111,8 +185,10 @@ export async function renderSpellbook() {
   const list = document.createElement("div");
   list.className = "spellbook-known";
 
-  eligible
-    .filter(spell => learned.has(spellIdFromTitle(spell.title)))
+  [...learned]
+    .map(id => eligible.find(s => spellIdFromTitle(s.title) === id))
+    .filter(Boolean)
+    .sort((a, b) => a.title.localeCompare(b.title))
     .forEach(spell => {
       const row = document.createElement("div");
       row.className = "spellbook-row";

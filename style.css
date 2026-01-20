@@ -377,3 +377,62 @@ details ul {
 select:disabled {
   opacity: 0.6;
 }
+.spell-search {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 6px;
+}
+
+.spell-search-list {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #444;
+  padding: 4px;
+}
+
+.spell-search-row {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  cursor: pointer;
+}
+.spell-dropdown {
+  border: 1px solid #444;
+  background: #fff;
+  max-height: 240px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+
+.spell-dropdown-row {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.spell-dropdown-row:hover {
+  background: rgba(154,107,255,0.15);
+}
+
+.spell-selected-chips {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.spell-chip {
+  background: rgba(154,107,255,0.2);
+  border: 1px solid #9a6bff;
+  padding: 2px 6px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.spell-chip button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
