@@ -1,184 +1,3980 @@
 {
-  "weaponId": "ostrumite-gunblade-prototype",
-  "slots": ["barrel", "edge", "core", "stabilizer"],
-
-  "mods": [
-
-
+  "focus": "ostrumite-capacitor",
+  "aesthetic": "lunar-night-purple-clear",
+  "rules": {
+    "firearmBaseDamageSource": "core",
+    "craftingTimeByTier": {
+      "basic": "4 hours",
+      "advanced": "12 hours",
+      "legendary": "ritual / quest only"
+    },
+    "barrelCannotSetBaseDamage": true,
+    "bladeAlwaysReplacesBaseBlade": true
+  },
+  "slots": [
+    "core",
+    "barrel",
+    "blade",
+    "edge",
+    "stabilizer"
+  ],
+  "tiers": {
+    "basic": {
+      "minLevel": 1,
+      "craftTime": "4 hours"
+    },
+    "advanced": {
+      "minLevel": 9,
+      "craftTime": "12 hours"
+    },
+    "legendary": {
+      "minLevel": 13,
+      "craftTime": "ritual / quest only"
+    }
+  },
+  "materials": [
     {
-      "id": "rifled-barrel",
-      "name": "Rifled Barrel",
-      "slot": "barrel",
+      "id": "raw-ostrumite-shard",
+      "name": "Raw Ostrumite Shard",
+      "gp": 25
+    },
+    {
+      "id": "refined-ostrumite-lens",
+      "name": "Refined Ostrumite Lens",
+      "gp": 125
+    },
+    {
+      "id": "lunar-faceted-ostrumite",
+      "name": "Lunar-Faceted Ostrumite",
+      "gp": 500
+    },
+    {
+      "id": "moon-silver-wire",
+      "name": "Moon-Silver Wire",
+      "gp": 15
+    },
+    {
+      "id": "nightglass-tubing",
+      "name": "Nightglass Tubing",
+      "gp": 40
+    },
+    {
+      "id": "star-iron-ring",
+      "name": "Star-Iron Ring",
+      "gp": 60
+    },
+    {
+      "id": "arcane-conduit-rod",
+      "name": "Arcane Conduit Rod",
+      "gp": 75
+    },
+    {
+      "id": "charged-filament",
+      "name": "Charged Filament",
+      "gp": 35
+    },
+    {
+      "id": "gyro-rune",
+      "name": "Gyro Rune",
+      "gp": 30
+    },
+    {
+      "id": "anchor-crystal",
+      "name": "Anchor Crystal",
+      "gp": 35
+    },
+    {
+      "id": "void-resonance-dust",
+      "name": "Void Resonance Dust",
+      "gp": 90
+    },
+    {
+      "id": "lunar-resonance-dust",
+      "name": "Lunar Resonance Dust",
+      "gp": 90
+    },
+    {
+      "id": "gravitic-sigil",
+      "name": "Gravitic Sigil",
+      "gp": 110
+    },
+    {
+      "id": "harmonic-glyph",
+      "name": "Harmonic Glyph",
+      "gp": 110
+    },
+    {
+      "id": "fate-touched-glass",
+      "name": "Fate-Touched Glass",
+      "gp": 180
+    }
+  ],
+  "mods": [
+    {
+      "id": "nocturne-core",
+      "name": "Nocturne Core",
+      "slot": "core",
       "tier": "basic",
-      "description": "Improves shot stability and effective range.",
+      "tags": [
+        "lunar",
+        "night"
+      ],
+      "description": "Capacitor hums in dim light; steadier discharge after dusk.",
       "effects": {
+        "charges": {
+          "regenInDimLight": 1
+        },
         "firearm": {
-          "rangeBonus": "20/60"
+          "baseDamage": "1d8",
+          "damageType": "Force"
         }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 55
       }
     },
-
+    {
+      "id": "crescent-core",
+      "name": "Crescent Core",
+      "slot": "core",
+      "tier": "basic",
+      "tags": [
+        "lunar"
+      ],
+      "description": "Balanced lunar cycle: reliable output, low strain.",
+      "effects": {
+        "misfire": {
+          "reduceChance": 1
+        },
+        "firearm": {
+          "baseDamage": "1d8",
+          "damageType": "Force"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          },
+          {
+            "id": "lunar-resonance-dust",
+            "name": "Lunar Resonance Dust",
+            "qty": 1,
+            "gp_each": 90
+          }
+        ],
+        "cost_gp": 145
+      }
+    },
+    {
+      "id": "waxing-core",
+      "name": "Waxing Core",
+      "slot": "core",
+      "tier": "basic",
+      "tags": [
+        "lunar"
+      ],
+      "description": "Power ramps as combat continues.",
+      "effects": {
+        "firearm": {
+          "rampDamage": "+1d4 on 2nd hit each turn",
+          "baseDamage": "1d8",
+          "damageType": "Force"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 55
+      }
+    },
+    {
+      "id": "waning-core",
+      "name": "Waning Core",
+      "slot": "core",
+      "tier": "basic",
+      "tags": [
+        "lunar"
+      ],
+      "description": "Conserves energy; efficient overcharge.",
+      "effects": {
+        "overcharge": {
+          "costReduction": 1
+        },
+        "firearm": {
+          "baseDamage": "1d8",
+          "damageType": "Force"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 55
+      }
+    },
+    {
+      "id": "violet-lattice-core",
+      "name": "Violet Lattice Core",
+      "slot": "core",
+      "tier": "basic",
+      "tags": [
+        "crystal",
+        "ostrumite"
+      ],
+      "description": "Clear-amethyst lattice improves stability.",
+      "effects": {
+        "misfire": {
+          "reduceChance": 1
+        },
+        "charges": {
+          "maxBonus": 1
+        },
+        "firearm": {
+          "baseDamage": "1d8",
+          "damageType": "Force"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 55
+      }
+    },
+    {
+      "id": "eclipse-core",
+      "name": "Eclipse Core",
+      "slot": "core",
+      "tier": "advanced",
+      "tags": [
+        "lunar",
+        "void",
+        "radiant"
+      ],
+      "description": "Alternates radiant and void pulses.",
+      "effects": {
+        "firearm": {
+          "damageTypeChoice": [
+            "Radiant",
+            "Necrotic"
+          ],
+          "baseDamage": "1d10",
+          "damageType": "Radiant / Necrotic"
+        }
+      },
+      "overcharge": {
+        "overcharge": {
+          "cost": 1,
+          "effect": "+1d8 (type matches)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 155
+      }
+    },
+    {
+      "id": "tidemoon-core",
+      "name": "Tidemoon Core",
+      "slot": "core",
+      "tier": "advanced",
+      "tags": [
+        "gravity",
+        "lunar"
+      ],
+      "description": "Releases power in tidal gravity waves.",
+      "effects": {
+        "firearm": {
+          "pushPullOnHit": "10 ft (choose push or pull)",
+          "baseDamage": "1d10",
+          "damageType": "Force"
+        }
+      },
+      "overcharge": {
+        "overcharge": {
+          "cost": 1,
+          "effect": "Push/Pull becomes 20 ft"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          },
+          {
+            "id": "lunar-resonance-dust",
+            "name": "Lunar Resonance Dust",
+            "qty": 1,
+            "gp_each": 90
+          },
+          {
+            "id": "gravitic-sigil",
+            "name": "Gravitic Sigil",
+            "qty": 1,
+            "gp_each": 110
+          }
+        ],
+        "cost_gp": 355
+      }
+    },
+    {
+      "id": "umbra-core",
+      "name": "Umbra Core",
+      "slot": "core",
+      "tier": "advanced",
+      "tags": [
+        "night",
+        "void"
+      ],
+      "description": "Shadowed force channel; shots dim the air.",
+      "effects": {
+        "firearm": {
+          "ignoreCover": "half-cover",
+          "baseDamage": "1d10",
+          "damageType": "Necrotic"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          },
+          {
+            "id": "void-resonance-dust",
+            "name": "Void Resonance Dust",
+            "qty": 1,
+            "gp_each": 90
+          }
+        ],
+        "cost_gp": 245
+      }
+    },
+    {
+      "id": "fullmoon-core",
+      "name": "Fullmoon Core",
+      "slot": "core",
+      "tier": "advanced",
+      "tags": [
+        "lunar",
+        "radiant"
+      ],
+      "description": "Peak lunar output; bright, clean impacts.",
+      "effects": {
+        "firearm": {
+          "damageBonus": "1d6 radiant (1/turn)",
+          "baseDamage": "1d10",
+          "damageType": "Radiant"
+        }
+      },
+      "overcharge": {
+        "overcharge": {
+          "cost": 1,
+          "effect": "Add +1d6 radiant (stacks once)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          },
+          {
+            "id": "lunar-resonance-dust",
+            "name": "Lunar Resonance Dust",
+            "qty": 1,
+            "gp_each": 90
+          }
+        ],
+        "cost_gp": 245
+      }
+    },
+    {
+      "id": "gravitic-core",
+      "name": "Gravitic Core",
+      "slot": "core",
+      "tier": "advanced",
+      "tags": [
+        "gravity"
+      ],
+      "description": "Mass-tuned capacitor; impacts feel heavier.",
+      "effects": {
+        "firearm": {
+          "onHit": "Target makes STR save or is knocked prone (1/turn)",
+          "baseDamage": "1d10",
+          "damageType": "Force"
+        }
+      },
+      "overcharge": {
+        "overcharge": {
+          "cost": 1,
+          "effect": "Prone save at disadvantage"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9,
+        "subclass": "siegebreak-engineer"
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          },
+          {
+            "id": "gravitic-sigil",
+            "name": "Gravitic Sigil",
+            "qty": 1,
+            "gp_each": 110
+          }
+        ],
+        "cost_gp": 265
+      }
+    },
+    {
+      "id": "resonance-core",
+      "name": "Resonance Core",
+      "slot": "core",
+      "tier": "advanced",
+      "tags": [
+        "song",
+        "echo"
+      ],
+      "description": "Harmonic matrix resonates with spoken magic.",
+      "effects": {
+        "reaction": {
+          "whenAllyCasts": "Gain +1 charge (1/round)"
+        },
+        "firearm": {
+          "baseDamage": "1d10",
+          "damageType": "Psychic"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9,
+        "subclass": "nomad-gunsmith"
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          },
+          {
+            "id": "harmonic-glyph",
+            "name": "Harmonic Glyph",
+            "qty": 1,
+            "gp_each": 110
+          }
+        ],
+        "cost_gp": 265
+      }
+    },
+    {
+      "id": "nightglass-core",
+      "name": "Nightglass Core",
+      "slot": "core",
+      "tier": "advanced",
+      "tags": [
+        "night",
+        "crystal"
+      ],
+      "description": "Perfect clarity; energy holds shape longer.",
+      "effects": {
+        "firearm": {
+          "rangeBonus": "20/60",
+          "baseDamage": "1d10",
+          "damageType": "Force"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 2,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 155
+      }
+    },
+    {
+      "id": "voidtide-core",
+      "name": "Voidtide Core",
+      "slot": "core",
+      "tier": "legendary",
+      "tags": [
+        "void",
+        "night"
+      ],
+      "description": "Reality-bending night crystal heart.",
+      "effects": {
+        "firearm": {
+          "ignoreCover": "three-quarters cover",
+          "baseDamage": "2d8",
+          "damageType": "Necrotic"
+        },
+        "misfire": {
+          "increaseThreshold": 1
+        }
+      },
+      "overcharge": {
+        "overcharge": {
+          "cost": 2,
+          "effect": "+2d8 force"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "fateglass-core",
+      "name": "Fateglass Core",
+      "slot": "core",
+      "tier": "legendary",
+      "tags": [
+        "fate",
+        "lunar"
+      ],
+      "description": "Probability-sensitive lattice fractures outcomes.",
+      "effects": {
+        "reaction": {
+          "oncePerRest": "Force a reroll of a hit creature\u2019s next save"
+        },
+        "firearm": {
+          "baseDamage": "1d12",
+          "damageType": "Force"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "starfall-core",
+      "name": "Starfall Core",
+      "slot": "core",
+      "tier": "legendary",
+      "tags": [
+        "astral",
+        "lunar"
+      ],
+      "description": "Condensed astral crystal matrix; shots glitter like falling stars.",
+      "effects": {
+        "firearm": {
+          "critEffect": "On crit, splash 1d6 force to creature within 10 ft",
+          "baseDamage": "2d8",
+          "damageType": "Force"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "moonstill-core",
+      "name": "Moonstill Core",
+      "slot": "core",
+      "tier": "legendary",
+      "tags": [
+        "lunar",
+        "stillness"
+      ],
+      "description": "The capacitor\u2019s center is perfectly still.",
+      "effects": {
+        "concentration": {
+          "advantage": true
+        },
+        "movement": {
+          "cannotBeMoved": "1/round"
+        },
+        "firearm": {
+          "baseDamage": "2d8",
+          "damageType": "Force"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13,
+        "subclass": "iron-vanguard"
+      }
+    },
+    {
+      "id": "umbrafold-barrel",
+      "name": "Umbrafold Barrel",
+      "slot": "barrel",
+      "tier": "basic",
+      "tags": [
+        "night",
+        "stealth"
+      ],
+      "description": "Dark refraction reduces visible discharge.",
+      "effects": {
+        "firearm": {
+          "stealthAdvantage": true
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 125
+      }
+    },
+    {
+      "id": "prismfold-barrel",
+      "name": "Prismfold Barrel",
+      "slot": "barrel",
+      "tier": "basic",
+      "tags": [
+        "crystal"
+      ],
+      "description": "Splits energy into controlled arcs.",
+      "effects": {
+        "firearm": {
+          "damageTypeChoice": [
+            "Force",
+            "Psychic"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 125
+      }
+    },
+    {
+      "id": "longglow-barrel",
+      "name": "Longglow Barrel",
+      "slot": "barrel",
+      "tier": "basic",
+      "tags": [
+        "lunar"
+      ],
+      "description": "Sustains charge over distance.",
+      "effects": {
+        "firearm": {
+          "rangeBonus": "30/90"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 125
+      }
+    },
     {
       "id": "scatter-barrel",
       "name": "Scatter Barrel",
       "slot": "barrel",
       "tier": "basic",
-      "description": "Fires a wide blast at close range.",
+      "tags": [
+        "blast"
+      ],
+      "description": "Wide close-range cone.",
       "effects": {
         "firearm": {
           "closeRange": "15 ft cone",
-          "damageDice": "1d8",
-          "damageType": "Piercing"
-        }
-      },
-      "overcharge": {
-        "cost": 1,
-        "effect": "Targets in cone take +1d6 damage."
-      }
-    },
-
-    {
-      "id": "arc-pulse-barrel",
-      "name": "Arc Pulse Barrel",
-      "slot": "barrel",
-      "tier": "advanced",
-      "description": "Shots crackle with unstable force.",
-      "effects": {
-        "firearm": {
           "damageType": "Force"
         }
       },
-      "misfire": {
-        "increaseThreshold": 1
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 125
       }
     },
-
-
+    {
+      "id": "needlepoint-barrel",
+      "name": "Needlepoint Barrel",
+      "slot": "barrel",
+      "tier": "basic",
+      "tags": [
+        "precision"
+      ],
+      "description": "Tight beam for called shots.",
+      "effects": {
+        "firearm": {
+          "onHit": "Ignore disadvantage at long range"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 125
+      }
+    },
+    {
+      "id": "impact-bore",
+      "name": "Impact Bore",
+      "slot": "barrel",
+      "tier": "basic",
+      "tags": [
+        "force"
+      ],
+      "description": "Heavy muzzle impulse knocks targets back.",
+      "effects": {
+        "firearm": {
+          "pushOnHit": "5 ft (1/turn)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 125
+      }
+    },
+    {
+      "id": "echo-repeater-barrel",
+      "name": "Echo Repeater Barrel",
+      "slot": "barrel",
+      "tier": "basic",
+      "tags": [
+        "echo"
+      ],
+      "description": "A faint second pulse follows the first.",
+      "effects": {
+        "firearm": {
+          "onHit": "+1d4 force (1/turn)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 125
+      }
+    },
+    {
+      "id": "moonflare-barrel",
+      "name": "Moonflare Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "lunar",
+        "radiant"
+      ],
+      "description": "Radiant lunar bursts ignite the air.",
+      "effects": {
+        "firearm": {
+          "damageType": "Radiant"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 225
+      }
+    },
+    {
+      "id": "gravpulse-barrel",
+      "name": "Gravpulse Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "gravity"
+      ],
+      "description": "Distorts space around discharge.",
+      "effects": {
+        "firearm": {
+          "pullOnHit": "5 ft (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 225
+      }
+    },
+    {
+      "id": "starlens-barrel",
+      "name": "Starlens Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "astral"
+      ],
+      "description": "Curves shots along star-lines.",
+      "effects": {
+        "firearm": {
+          "ignoreCover": "half-cover"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 225
+      }
+    },
+    {
+      "id": "nightglass-barrel",
+      "name": "Nightglass Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "crystal",
+        "night"
+      ],
+      "description": "Transparent crystal channel with perfect clarity.",
+      "effects": {
+        "firearm": {
+          "rangeBonus": "20/60",
+          "misfire": {
+            "reduceChance": 1
+          }
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 225
+      }
+    },
+    {
+      "id": "riftline-barrel",
+      "name": "Riftline Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "void"
+      ],
+      "description": "Line shot that slices through a path.",
+      "effects": {
+        "firearm": {
+          "line": "30 ft line",
+          "damageType": "Force"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          },
+          {
+            "id": "void-resonance-dust",
+            "name": "Void Resonance Dust",
+            "qty": 1,
+            "gp_each": 90
+          }
+        ],
+        "cost_gp": 315
+      }
+    },
+    {
+      "id": "chorus-barrel",
+      "name": "Chorus Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "song"
+      ],
+      "description": "Harmonic pulse rattles resolve.",
+      "effects": {
+        "firearm": {
+          "onHit": "Target makes WIS save or has disadvantage on next attack (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 225
+      }
+    },
+    {
+      "id": "comet-burst-barrel",
+      "name": "Comet Burst Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "astral",
+        "blast"
+      ],
+      "description": "Explosive star-burst impact.",
+      "effects": {
+        "firearm": {
+          "onHit": "Splash 1d6 force to creature within 5 ft (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 225
+      }
+    },
+    {
+      "id": "bloodmoon-barrel",
+      "name": "Bloodmoon Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "lunar"
+      ],
+      "description": "Shots leave violet afterimages that mark prey.",
+      "effects": {
+        "firearm": {
+          "onHit": "Target is marked; next hit deals +1d6 (until end of your next turn) (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          }
+        ],
+        "cost_gp": 225
+      }
+    },
+    {
+      "id": "oracle-barrel",
+      "name": "Oracle Barrel",
+      "slot": "barrel",
+      "tier": "advanced",
+      "tags": [
+        "fate"
+      ],
+      "description": "Predictive refraction favors true strikes.",
+      "effects": {
+        "firearm": {
+          "critRange": 19
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "star-iron-ring",
+            "name": "Star-Iron Ring",
+            "qty": 1,
+            "gp_each": 60
+          },
+          {
+            "id": "fate-touched-glass",
+            "name": "Fate-Touched Glass",
+            "qty": 1,
+            "gp_each": 180
+          }
+        ],
+        "cost_gp": 405
+      }
+    },
+    {
+      "id": "void-channel-barrel",
+      "name": "Void Channel Barrel",
+      "slot": "barrel",
+      "tier": "legendary",
+      "tags": [
+        "void"
+      ],
+      "description": "Shots partially exit reality.",
+      "effects": {
+        "firearm": {
+          "ignoreCover": "three-quarters cover"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "blackmoon-barrel",
+      "name": "Blackmoon Barrel",
+      "slot": "barrel",
+      "tier": "legendary",
+      "tags": [
+        "gravity",
+        "void"
+      ],
+      "description": "Localized gravity collapse on impact.",
+      "effects": {
+        "firearm": {
+          "onHit": "Target makes STR save or is restrained until start of its next turn (1/turn)"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "moonshard-prism-barrel",
+      "name": "Moonshard Prism Barrel",
+      "slot": "barrel",
+      "tier": "legendary",
+      "tags": [
+        "lunar",
+        "radiant"
+      ],
+      "description": "Moonshard splits beams into reflected arcs.",
+      "effects": {
+        "firearm": {
+          "damageTypeChoice": [
+            "Radiant",
+            "Force",
+            "Psychic"
+          ],
+          "chainOnCrit": "15 ft"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "starfall-rail-barrel",
+      "name": "Starfall Rail Barrel",
+      "slot": "barrel",
+      "tier": "legendary",
+      "tags": [
+        "astral",
+        "precision"
+      ],
+      "description": "A rail-like lance of starlight.",
+      "effects": {
+        "firearm": {
+          "rangeBonus": "40/120"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "hollow-night-barrel",
+      "name": "Hollow Night Barrel",
+      "slot": "barrel",
+      "tier": "legendary",
+      "tags": [
+        "night"
+      ],
+      "description": "The shot arrives with silence and cold.",
+      "effects": {
+        "firearm": {
+          "onHit": "Target can\u2019t take reactions until start of its next turn (1/turn)"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "fatefracture-barrel",
+      "name": "Fatefracture Barrel",
+      "slot": "barrel",
+      "tier": "legendary",
+      "tags": [
+        "fate"
+      ],
+      "description": "Beams flicker between possible impacts.",
+      "effects": {
+        "reaction": {
+          "oncePerRest": "Turn a miss into a hit"
+        },
+        "firearm": {}
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "dagger-blade",
+      "name": "Dagger Blade",
+      "slot": "blade",
+      "tier": "basic",
+      "tags": [
+        "blade",
+        "finesse"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Small crystal dagger form.",
+      "effects": {
+        "melee": {
+          "damage": "1d4",
+          "properties": [
+            "finesse",
+            "light",
+            "thrown(20/60)"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 80
+      }
+    },
+    {
+      "id": "shortsword-blade",
+      "name": "Shortsword Blade",
+      "slot": "blade",
+      "tier": "basic",
+      "tags": [
+        "blade",
+        "finesse"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Compact violet-clear shortsword form.",
+      "effects": {
+        "melee": {
+          "damage": "1d6",
+          "properties": [
+            "finesse",
+            "light"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 80
+      }
+    },
+    {
+      "id": "rapier-blade",
+      "name": "Rapier Blade",
+      "slot": "blade",
+      "tier": "basic",
+      "tags": [
+        "blade",
+        "duel"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Thin thrusting rapier grown from clear amethyst.",
+      "effects": {
+        "melee": {
+          "damage": "1d8",
+          "properties": [
+            "finesse"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 80
+      }
+    },
+    {
+      "id": "longsword-blade",
+      "name": "Longsword Blade",
+      "slot": "blade",
+      "tier": "basic",
+      "tags": [
+        "blade"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Balanced longsword assembly.",
+      "effects": {
+        "melee": {
+          "damage": "1d8",
+          "properties": [
+            "versatile(1d10)"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 80
+      }
+    },
+    {
+      "id": "scimitar-blade",
+      "name": "Scimitar Blade",
+      "slot": "blade",
+      "tier": "basic",
+      "tags": [
+        "blade"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Curved scimitar crescent form.",
+      "effects": {
+        "melee": {
+          "damage": "1d6",
+          "properties": [
+            "finesse"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 80
+      }
+    },
+    {
+      "id": "handaxe-blade",
+      "name": "Handaxe Blade",
+      "slot": "blade",
+      "tier": "basic",
+      "tags": [
+        "blade"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Compact cleaving axe form.",
+      "effects": {
+        "melee": {
+          "damage": "1d6",
+          "properties": [
+            "light",
+            "thrown(20/60)"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 80
+      }
+    },
+    {
+      "id": "warhammer-blade",
+      "name": "Warhammer Blade",
+      "slot": "blade",
+      "tier": "basic",
+      "tags": [
+        "blade"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Crystalline hammerhead for armor cracking.",
+      "effects": {
+        "melee": {
+          "damage": "1d8",
+          "properties": [
+            "versatile(1d10)"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 80
+      }
+    },
+    {
+      "id": "spear-blade",
+      "name": "Spear Blade",
+      "slot": "blade",
+      "tier": "basic",
+      "tags": [
+        "blade",
+        "reach"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Spearpoint crystal form.",
+      "effects": {
+        "melee": {
+          "damage": "1d6",
+          "properties": [
+            "thrown(20/60)",
+            "versatile(1d8)"
+          ]
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 80
+      }
+    },
+    {
+      "id": "greatsword-blade",
+      "name": "Greatsword Blade",
+      "slot": "blade",
+      "tier": "advanced",
+      "tags": [
+        "blade",
+        "heavy"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Massive two-handed blade; slow, decisive arcs.",
+      "effects": {
+        "melee": {
+          "damage": "2d6",
+          "properties": [
+            "heavy",
+            "two-handed"
+          ]
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 180
+      }
+    },
+    {
+      "id": "greataxe-blade",
+      "name": "Greataxe Blade",
+      "slot": "blade",
+      "tier": "advanced",
+      "tags": [
+        "blade",
+        "heavy"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Heavy cleaver built for brutal chops.",
+      "effects": {
+        "melee": {
+          "damage": "1d12",
+          "properties": [
+            "heavy",
+            "two-handed"
+          ]
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 180
+      }
+    },
+    {
+      "id": "glaive-blade",
+      "name": "Glaive Blade",
+      "slot": "blade",
+      "tier": "advanced",
+      "tags": [
+        "blade",
+        "reach"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Polearm blade grown long and thin.",
+      "effects": {
+        "melee": {
+          "damage": "1d10",
+          "properties": [
+            "heavy",
+            "reach",
+            "two-handed"
+          ]
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 180
+      }
+    },
+    {
+      "id": "halberd-blade",
+      "name": "Halberd Blade",
+      "slot": "blade",
+      "tier": "advanced",
+      "tags": [
+        "blade",
+        "reach"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Hooked poleblade for control.",
+      "effects": {
+        "melee": {
+          "damage": "1d10",
+          "properties": [
+            "heavy",
+            "reach",
+            "two-handed"
+          ]
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 180
+      }
+    },
+    {
+      "id": "crescent-blade",
+      "name": "Crescent Blade",
+      "slot": "blade",
+      "tier": "advanced",
+      "tags": [
+        "blade",
+        "lunar"
+      ],
+      "replaceBaseBlade": true,
+      "description": "A waxing-moon crescent blade that favors momentum.",
+      "effects": {
+        "melee": {
+          "damage": "1d8",
+          "properties": [
+            "finesse",
+            "versatile(1d10)"
+          ]
+        },
+        "movement": {
+          "afterMeleeHit": "Move 5 ft (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9,
+        "subclass": "moonforged-duelist"
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 180
+      }
+    },
+    {
+      "id": "chainblade",
+      "name": "Chainblade",
+      "slot": "blade",
+      "tier": "advanced",
+      "tags": [
+        "blade",
+        "exotic"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Segmented blade snaps and recoils like a living thing.",
+      "effects": {
+        "melee": {
+          "damage": "1d8",
+          "properties": [
+            "reach(10 ft)",
+            "two-handed"
+          ],
+          "special": "On hit, pull target 5 ft (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 180
+      }
+    },
+    {
+      "id": "nightglass-blade",
+      "name": "Nightglass Blade",
+      "slot": "blade",
+      "tier": "advanced",
+      "tags": [
+        "blade",
+        "night"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Clear-dark blade that drinks torchlight.",
+      "effects": {
+        "melee": {
+          "damage": "1d8",
+          "properties": [
+            "finesse"
+          ],
+          "damageType": "Necrotic (choose per attack)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "nightglass-tubing",
+            "name": "Nightglass Tubing",
+            "qty": 1,
+            "gp_each": 40
+          },
+          {
+            "id": "moon-silver-wire",
+            "name": "Moon-Silver Wire",
+            "qty": 1,
+            "gp_each": 15
+          }
+        ],
+        "cost_gp": 180
+      }
+    },
+    {
+      "id": "voidglass-blade",
+      "name": "Voidglass Blade",
+      "slot": "blade",
+      "tier": "legendary",
+      "tags": [
+        "blade",
+        "void"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Planar-cutting voidglass edge.",
+      "effects": {
+        "melee": {
+          "damage": "2d6",
+          "properties": [
+            "finesse",
+            "two-handed"
+          ],
+          "ignoreResistance": true
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "moonreaver-blade",
+      "name": "Moonreaver Blade",
+      "slot": "blade",
+      "tier": "legendary",
+      "tags": [
+        "blade",
+        "lunar"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Consumes reflected light; strikes shimmer violet.",
+      "effects": {
+        "melee": {
+          "damage": "2d6",
+          "properties": [
+            "heavy",
+            "two-handed"
+          ],
+          "onCrit": "+2d6 radiant"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "timefracture-blade",
+      "name": "Timefracture Blade",
+      "slot": "blade",
+      "tier": "legendary",
+      "tags": [
+        "blade",
+        "fate"
+      ],
+      "replaceBaseBlade": true,
+      "description": "Temporal slicing edge; wounds arrive a heartbeat late.",
+      "effects": {
+        "melee": {
+          "damage": "2d6",
+          "properties": [
+            "finesse",
+            "two-handed"
+          ],
+          "onHit": "Delayed 1d6 force at start of target\u2019s next turn (1/turn)"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "razor-edge",
+      "name": "Razor Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "tags": [
+        "edge"
+      ],
+      "description": "Perfectly faceted cutting surface.",
+      "effects": {
+        "melee": {
+          "damageBonus": "1d4 slashing"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
+      }
+    },
     {
       "id": "serrated-edge",
       "name": "Serrated Edge",
       "slot": "edge",
       "tier": "basic",
-      "description": "Jagged blade designed to tear through armor.",
+      "tags": [
+        "edge",
+        "bleed"
+      ],
+      "description": "Micro-serrations tear, leaving lingering wounds.",
       "effects": {
         "melee": {
-          "onHit": "Target takes 1d4 slashing damage at start of its next turn."
+          "onHit": "Target takes 1d4 slashing at start of its next turn (1/turn)"
         }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
       }
     },
-
     {
       "id": "charged-edge",
       "name": "Charged Edge",
       "slot": "edge",
       "tier": "basic",
-      "description": "The blade hums with stored Ostrumite energy.",
+      "tags": [
+        "edge",
+        "lightning"
+      ],
+      "description": "Lightning trapped in the lattice bites on impact.",
       "effects": {
         "melee": {
           "damageBonus": "1d6 lightning"
         }
       },
-      "overcharge": {
-        "cost": 1,
-        "effect": "Lightning damage chains to a creature within 10 ft."
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
       }
     },
-
+    {
+      "id": "frostveil-edge",
+      "name": "Frostveil Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "tags": [
+        "edge",
+        "cold"
+      ],
+      "description": "Cold lunar shimmer numbs muscle.",
+      "effects": {
+        "melee": {
+          "onHit": "Target\u2019s speed -10 ft until start of your next turn (1/turn)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
+      }
+    },
+    {
+      "id": "ember-edge",
+      "name": "Ember Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "tags": [
+        "edge",
+        "fire"
+      ],
+      "description": "Violet sparks ignite shallow cuts.",
+      "effects": {
+        "melee": {
+          "damageBonus": "1d4 fire"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
+      }
+    },
+    {
+      "id": "hook-edge",
+      "name": "Hook Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "tags": [
+        "edge",
+        "control"
+      ],
+      "description": "Hooks catch armor seams and wrists.",
+      "effects": {
+        "melee": {
+          "onCrit": "Target drops one held item (STR save negates)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
+      }
+    },
+    {
+      "id": "mirror-edge",
+      "name": "Mirror Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "tags": [
+        "edge",
+        "lunar"
+      ],
+      "description": "Reflective facets punish predictable foes.",
+      "effects": {
+        "reaction": {
+          "whenMissedByMelee": "Make a melee attack (1/round)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
+      }
+    },
+    {
+      "id": "echo-edge",
+      "name": "Echo Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "tags": [
+        "edge",
+        "echo"
+      ],
+      "description": "Second strike resonates stronger.",
+      "effects": {
+        "melee": {
+          "onHit": "If you hit the same target again before end of your next turn, add +1d6 force (1/turn)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
+      }
+    },
+    {
+      "id": "shardbite-edge",
+      "name": "Shardbite Edge",
+      "slot": "edge",
+      "tier": "basic",
+      "tags": [
+        "edge",
+        "crystal"
+      ],
+      "description": "Shards fracture into the wound.",
+      "effects": {
+        "melee": {
+          "onHit": "Target has disadvantage on its next CON save (1/turn)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 60
+      }
+    },
+    {
+      "id": "vibro-edge",
+      "name": "Vibro Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "phase"
+      ],
+      "description": "High-frequency vibration slips through defenses.",
+      "effects": {
+        "melee": {
+          "ignoreResistance": true
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
     {
       "id": "phase-edge",
       "name": "Phase Edge",
       "slot": "edge",
       "tier": "advanced",
-      "description": "The blade partially phases out of reality.",
+      "tags": [
+        "edge",
+        "void"
+      ],
+      "description": "Part of the blade phases; strikes ignore mundane barriers.",
       "effects": {
         "melee": {
-          "ignoreResistance": true
-        }
-      }
-    },
-
-
-    {
-      "id": "efficient-core",
-      "name": "Efficient Core",
-      "slot": "core",
-      "tier": "basic",
-      "description": "Optimized energy flow reduces charge strain.",
-      "effects": {
-        "charges": {
-          "refundOnOvercharge": 1
-        }
-      }
-    },
-
-    {
-      "id": "unstable-core",
-      "name": "Unstable Core",
-      "slot": "core",
-      "tier": "basic",
-      "description": "Raw Ostrumite output dramatically increases power.",
-      "effects": {
-        "overcharge": {
-          "damageBonus": "1d8"
+          "ignoreNonmagicalArmor": true
         }
       },
-      "misfire": {
-        "increaseThreshold": 1
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
       }
     },
-
     {
-      "id": "living-core",
-      "name": "Living Core",
-      "slot": "core",
+      "id": "grav-edge",
+      "name": "Grav Edge",
+      "slot": "edge",
       "tier": "advanced",
-      "description": "The core reacts instinctively to combat stress.",
+      "tags": [
+        "edge",
+        "gravity"
+      ],
+      "description": "Cuts carry weight; enemies feel pinned.",
       "effects": {
-        "charges": {
-          "regenOnKill": 1
+        "melee": {
+          "onHit": "Target STR save or knocked prone (1/turn)"
         }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
       }
     },
-
-
+    {
+      "id": "thunder-edge",
+      "name": "Thunder Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "thunder"
+      ],
+      "description": "Shockwaves burst from the cut.",
+      "effects": {
+        "melee": {
+          "onHit": "Push target 10 ft (STR save negates) (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
+    {
+      "id": "discord-edge",
+      "name": "Discord Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "song"
+      ],
+      "description": "A dissonant hum disrupts balance.",
+      "effects": {
+        "melee": {
+          "onHit": "Target WIS save or has disadvantage on next attack (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9,
+        "subclass": "moonforged-duelist"
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
+    {
+      "id": "bloodmoon-edge",
+      "name": "Bloodmoon Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "lunar",
+        "bleed"
+      ],
+      "description": "Bleeding intensifies under moonlight.",
+      "effects": {
+        "melee": {
+          "onHit": "If in dim light or night: +1d6 necrotic (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9,
+        "subclass": "moonforged-duelist"
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
+    {
+      "id": "silvernight-edge",
+      "name": "Silvernight Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "lunar"
+      ],
+      "description": "Cuts glow faintly; reveals the unseen.",
+      "effects": {
+        "melee": {
+          "onHit": "Target can\u2019t benefit from invisibility until start of your next turn (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9,
+        "subclass": "moonforged-duelist"
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
+    {
+      "id": "sunder-edge",
+      "name": "Sunder Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "breaker"
+      ],
+      "description": "Cracks armor plates and shields.",
+      "effects": {
+        "melee": {
+          "onCrit": "Target\u2019s AC -1 until end of combat (max -2)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
+    {
+      "id": "waking-edge",
+      "name": "Waking Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "memory"
+      ],
+      "description": "The edge \u2018remembers\u2019 a foe\u2019s pattern.",
+      "effects": {
+        "melee": {
+          "onHit": "Your next attack vs that target gains +1d4 to hit (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
+    {
+      "id": "astral-edge",
+      "name": "Astral Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "astral"
+      ],
+      "description": "Cuts leave star-flecked scars.",
+      "effects": {
+        "melee": {
+          "damageBonus": "1d6 force"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
+    {
+      "id": "hush-edge",
+      "name": "Hush Edge",
+      "slot": "edge",
+      "tier": "advanced",
+      "tags": [
+        "edge",
+        "night"
+      ],
+      "description": "Sound dies where it bites.",
+      "effects": {
+        "melee": {
+          "onHit": "Target can\u2019t take reactions until start of its next turn (1/turn)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "charged-filament",
+            "name": "Charged Filament",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 160
+      }
+    },
+    {
+      "id": "soulglass-edge",
+      "name": "Soulglass Edge",
+      "slot": "edge",
+      "tier": "legendary",
+      "tags": [
+        "edge",
+        "soul"
+      ],
+      "description": "Drains vitality into crystal.",
+      "effects": {
+        "melee": {
+          "onHit": "Gain temp HP equal to 1d6 (1/turn)"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "fatefracture-edge",
+      "name": "Fatefracture Edge",
+      "slot": "edge",
+      "tier": "legendary",
+      "tags": [
+        "edge",
+        "fate"
+      ],
+      "description": "Cuts along lines of destiny.",
+      "effects": {
+        "reaction": {
+          "oncePerRest": "Force a reroll of a hit creature\u2019s saving throw"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "voidfang-edge",
+      "name": "Voidfang Edge",
+      "slot": "edge",
+      "tier": "legendary",
+      "tags": [
+        "edge",
+        "void"
+      ],
+      "description": "Existence-rending strikes leave a violet void-burn.",
+      "effects": {
+        "melee": {
+          "onCrit": "+2d8 force"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "moonlit-judgement-edge",
+      "name": "Moonlit Judgement Edge",
+      "slot": "edge",
+      "tier": "legendary",
+      "tags": [
+        "edge",
+        "radiant",
+        "lunar"
+      ],
+      "description": "Moonlight judges the unworthy.",
+      "effects": {
+        "melee": {
+          "damageBonus": "1d8 radiant"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "starweave-edge",
+      "name": "Starweave Edge",
+      "slot": "edge",
+      "tier": "legendary",
+      "tags": [
+        "edge",
+        "astral"
+      ],
+      "description": "Threads of starlight lace the wound.",
+      "effects": {
+        "melee": {
+          "onHit": "Splash 1d6 force to creature within 10 ft (1/turn)"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "nightprophet-edge",
+      "name": "Nightprophet Edge",
+      "slot": "edge",
+      "tier": "legendary",
+      "tags": [
+        "edge",
+        "fate",
+        "night"
+      ],
+      "description": "The blade whispers the next moment.",
+      "effects": {
+        "reaction": {
+          "oncePerRest": "Turn a miss into a hit"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "gravity-well-edge",
+      "name": "Gravity Well Edge",
+      "slot": "edge",
+      "tier": "legendary",
+      "tags": [
+        "edge",
+        "gravity"
+      ],
+      "description": "A tiny gravity well blooms at the cut.",
+      "effects": {
+        "melee": {
+          "onHit": "Target is pulled 10 ft toward you (1/turn)"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
     {
       "id": "gyro-stabilizer",
       "name": "Gyro Stabilizer",
       "slot": "stabilizer",
       "tier": "basic",
-      "description": "Mechanical stabilizers dampen recoil and vibration.",
+      "tags": [
+        "stabilizer"
+      ],
+      "description": "Dampens recoil and vibration.",
       "effects": {
         "misfire": {
           "reduceChance": 1
         }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 90
       }
     },
-
+    {
+      "id": "driftstep-stabilizer",
+      "name": "Driftstep Stabilizer",
+      "slot": "stabilizer",
+      "tier": "basic",
+      "tags": [
+        "stabilizer",
+        "mobility"
+      ],
+      "description": "Weightless step after attacks.",
+      "effects": {
+        "movement": {
+          "afterAttack": "Move 5 ft (1/turn)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 90
+      }
+    },
+    {
+      "id": "anchor-stabilizer",
+      "name": "Anchor Stabilizer",
+      "slot": "stabilizer",
+      "tier": "basic",
+      "tags": [
+        "stabilizer",
+        "defense"
+      ],
+      "description": "Improves footing during discharge.",
+      "effects": {
+        "firearm": {
+          "advantageIfStationary": true
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 90
+      }
+    },
     {
       "id": "counterbalance-rig",
       "name": "Counterbalance Rig",
       "slot": "stabilizer",
       "tier": "basic",
-      "description": "Recoil momentum is redirected into movement.",
+      "tags": [
+        "stabilizer",
+        "mobility"
+      ],
+      "description": "Recoil redirects into motion.",
       "effects": {
         "reaction": {
-          "afterShot": "Move 5 ft without provoking opportunity attacks."
+          "afterShot": "Move 5 ft without provoking (1/turn)"
         }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 90
       }
     },
-
     {
       "id": "sentinel-array",
       "name": "Sentinel Array",
       "slot": "stabilizer",
-      "tier": "advanced",
-      "description": "Reactive targeting crystals predict enemy movement.",
+      "tier": "basic",
+      "tags": [
+        "stabilizer",
+        "reaction"
+      ],
+      "description": "Reactive targeting predicts movement.",
       "effects": {
         "reaction": {
           "extraReactiveShot": true
         }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 90
+      }
+    },
+    {
+      "id": "moonstep-rig",
+      "name": "Moonstep Rig",
+      "slot": "stabilizer",
+      "tier": "basic",
+      "tags": [
+        "stabilizer",
+        "lunar"
+      ],
+      "description": "A faint blink between crescent shadows.",
+      "effects": {
+        "movement": {
+          "ignoreOpportunityAttacks": "afterMove 5 ft (1/turn)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 90
+      }
+    },
+    {
+      "id": "braceplate-rig",
+      "name": "Braceplate Rig",
+      "slot": "stabilizer",
+      "tier": "basic",
+      "tags": [
+        "stabilizer",
+        "defense"
+      ],
+      "description": "Crystal brace distributes force.",
+      "effects": {
+        "defense": {
+          "reduceDamage": "1d6 (reaction, 1/short rest)"
+        }
+      },
+      "crafting": {
+        "time": "4 hours",
+        "materials": [
+          {
+            "id": "raw-ostrumite-shard",
+            "name": "Raw Ostrumite Shard",
+            "qty": 1,
+            "gp_each": 25
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 90
+      }
+    },
+    {
+      "id": "evasion-rig",
+      "name": "Evasion Rig",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "tags": [
+        "stabilizer",
+        "mobility"
+      ],
+      "description": "Redirects momentum on miss.",
+      "effects": {
+        "reaction": {
+          "onMiss": "Move 10 ft (no OA) (1/round)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 190
+      }
+    },
+    {
+      "id": "liminal-step-stabilizer",
+      "name": "Liminal Step Stabilizer",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "tags": [
+        "stabilizer",
+        "void"
+      ],
+      "description": "Momentary spatial slip.",
+      "effects": {
+        "movement": {
+          "teleportAfterAttack": "10 ft (1/round)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 190
+      }
+    },
+    {
+      "id": "stillpoint-stabilizer",
+      "name": "Stillpoint Stabilizer",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "tags": [
+        "stabilizer",
+        "stillness"
+      ],
+      "description": "Centers the wielder against motion.",
+      "effects": {
+        "movement": {
+          "cannotBeMoved": "1/round"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 190
+      }
+    },
+    {
+      "id": "echo-rig",
+      "name": "Echo Rig",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "tags": [
+        "stabilizer",
+        "echo"
+      ],
+      "description": "Resonant recoil enables follow-up.",
+      "effects": {
+        "reaction": {
+          "afterMeleeHit": "Make a firearm shot (1/short rest)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 190
+      }
+    },
+    {
+      "id": "gravitic-anchors",
+      "name": "Gravitic Anchors",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "tags": [
+        "stabilizer",
+        "gravity"
+      ],
+      "description": "Boot anchors bite into the ground.",
+      "effects": {
+        "defense": {
+          "advVsProne": true
+        },
+        "movement": {
+          "ignoreForcedMove": "1/round"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 190
+      }
+    },
+    {
+      "id": "nightcloak-rig",
+      "name": "Nightcloak Rig",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "tags": [
+        "stabilizer",
+        "night"
+      ],
+      "description": "A veil of nightglass hides motion.",
+      "effects": {
+        "stealth": {
+          "bonus": "+2 to Stealth checks (while in dim light)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 190
+      }
+    },
+    {
+      "id": "warden-frame",
+      "name": "Warden Frame",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "tags": [
+        "stabilizer",
+        "defense"
+      ],
+      "description": "Hardpoint frame for guarding allies.",
+      "effects": {
+        "reaction": {
+          "intercept": "Impose disadvantage on an attack vs ally within 5 ft (1/round)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9,
+        "subclass": "iron-vanguard"
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 190
+      }
+    },
+    {
+      "id": "duelist-spring",
+      "name": "Duelist Spring",
+      "slot": "stabilizer",
+      "tier": "advanced",
+      "tags": [
+        "stabilizer",
+        "duel"
+      ],
+      "description": "Spring-loaded pivot for dueling footwork.",
+      "effects": {
+        "movement": {
+          "freeDisengage": "after melee hit (1/round)"
+        }
+      },
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 9
+      },
+      "crafting": {
+        "time": "12 hours",
+        "materials": [
+          {
+            "id": "refined-ostrumite-lens",
+            "name": "Refined Ostrumite Lens",
+            "qty": 1,
+            "gp_each": 125
+          },
+          {
+            "id": "gyro-rune",
+            "name": "Gyro Rune",
+            "qty": 1,
+            "gp_each": 30
+          },
+          {
+            "id": "anchor-crystal",
+            "name": "Anchor Crystal",
+            "qty": 1,
+            "gp_each": 35
+          }
+        ],
+        "cost_gp": 190
+      }
+    },
+    {
+      "id": "chrono-stabilizer",
+      "name": "Chrono Stabilizer",
+      "slot": "stabilizer",
+      "tier": "legendary",
+      "tags": [
+        "stabilizer",
+        "time"
+      ],
+      "description": "Brief temporal expansion.",
+      "effects": {
+        "reaction": {
+          "extraReaction": true
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "phantom-rig",
+      "name": "Phantom Rig",
+      "slot": "stabilizer",
+      "tier": "legendary",
+      "tags": [
+        "stabilizer",
+        "void"
+      ],
+      "description": "Partial intangibility on demand.",
+      "effects": {
+        "movement": {
+          "ignoreOpportunityAttacks": true
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "omega-anchor",
+      "name": "Omega Anchor",
+      "slot": "stabilizer",
+      "tier": "legendary",
+      "tags": [
+        "stabilizer",
+        "gravity"
+      ],
+      "description": "Absolute positional dominance.",
+      "effects": {
+        "movement": {
+          "cannotBeMoved": "always"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "moonstill-anchor",
+      "name": "Moonstill Anchor",
+      "slot": "stabilizer",
+      "tier": "legendary",
+      "tags": [
+        "stabilizer",
+        "lunar"
+      ],
+      "description": "Perfect equilibrium under moonlight.",
+      "effects": {
+        "concentration": {
+          "advantage": true
+        },
+        "defense": {
+          "resist": "psychic (while in dim light)"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
+      }
+    },
+    {
+      "id": "starward-compass",
+      "name": "Starward Compass",
+      "slot": "stabilizer",
+      "tier": "legendary",
+      "tags": [
+        "stabilizer",
+        "astral"
+      ],
+      "description": "Reads the sky; step exactly where needed.",
+      "effects": {
+        "movement": {
+          "teleportAfterAttack": "15 ft (1/round)"
+        }
+      },
+      "findOnly": true,
+      "requires": {
+        "class": "ostrumite-gunner",
+        "level": 13
       }
     }
-
   ]
 }

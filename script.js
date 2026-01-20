@@ -21,7 +21,6 @@ import { renderAlwaysPreparedSpells } from "./ui/alwaysPreparedSpells.js";
 import { calculateArmorClass } from "./engine/calculateArmorClass.js";
 import { renderCantripsKnown } from "./ui/cantripsKnown.js";
 import { renderSpellbook } from "./ui/spellbook.js";
-import { initWeaponMods } from "./ui/weaponMods.js";
 import {
   updateOstrumiteCharges,
   bindOstrumiteChargeControls
@@ -33,6 +32,8 @@ import {
 import { initDispositionUI } from "./ui/disposition.js";
 import { renderManifestTechniques } from "./ui/manifestTechniques.js";
 import { exportCharacterPdf } from "./ui/exportPdf.js";
+import { renderWeaponMods } from "./ui/weaponMods.js";
+
 /* =========================
    Helpers
 ========================= */
@@ -1447,6 +1448,7 @@ function renderAllSpellUI() {
   renderSpellList();
   renderCantripsKnown();
   renderSpellsKnown();
+  renderWeaponMods(character);
 }
 
 function updateEldritchCannonUI() {
@@ -2735,7 +2737,6 @@ document.getElementById("name")?.addEventListener("input", e => {
     runPendingChoiceFlow();
     updateArcaneArcherVisibility();
     renderSoulTrinkets();
-    initWeaponMods(character);
     initDispositionUI();
   });
 
@@ -2826,8 +2827,8 @@ document.getElementById("name")?.addEventListener("input", e => {
   initArcaneShotKnownUI();
   renderArcaneShotDetails();
   renderArcaneShotUseDropdown();
-  initWeaponMods(character);
   initDispositionUI();
+  renderWeaponMods(character);
 });
 
   /* ===== Event wiring ===== */
@@ -2888,7 +2889,6 @@ window.addEventListener("subclass-updated", async () => {
   renderArcaneShotDetails();
   updateArcaneShotActiveUI();
   renderSoulTrinkets();
-  initWeaponMods(character);
   updateManifestEnergy();
   initDispositionUI();
 });
@@ -3014,11 +3014,11 @@ renderArcaneShotDetails();
 renderArcaneShotUseDropdown();
 updateArcaneArcherVisibility();
 renderSoulTrinkets();
-initWeaponMods(character);
 updateManifestEnergy();
 initDispositionUI();
 await loadMagicItems();
 initMagicItemSelect();
+renderWeaponMods(character);
 
 
 

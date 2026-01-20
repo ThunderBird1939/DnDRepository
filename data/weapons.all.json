@@ -7188,17 +7188,19 @@
 			"melee weapon"
 		]
 	},
-  {
+{
   "count": 1,
   "color": "#7a2e2e",
   "title": "Ostrumite Gunblade (Prototype)",
   "icon": "crossed-swords",
   "icon_back": "crossed-swords",
+
   "contents": [
     "subtitle | Weapon",
 
-    "property | Damage | 1d8 Slashing",
-    "property | Range (Firearm) | 30/60 ft.",
+    "property | Melee Damage | 1d8 Slashing",
+    "property | Firearm Damage | Determined by Core",
+    "property | Range (Firearm) | Determined by Barrel",
     "property | Properties | Versatile (1d10), Special, Ostrumite, Ammunition",
     "property | Type | Martial Weapon, Hybrid Weapon",
     "property | Weight | 6 lb.",
@@ -7206,12 +7208,25 @@
 
     "rule",
 
-    "text | The Ostrumite Gunblade (Prototype) is an experimental hybrid weapon combining a bladed edge with a compact firearm mechanism. It can be wielded seamlessly in either mode, though its unstable ostrumite core makes it unpredictable.",
+    "text | The Ostrumite Gunblade (Prototype) is an experimental hybrid weapon combining a bladed edge with a compact lunar-capacitor firearm. Its modular construction allows Ostrumite components to be installed, altering its behavior dramatically.",
 
     "description | Hybrid Weapon | This weapon can be used as either a melee weapon or a firearm. Switching modes requires no action. Certain features, infusions, and modifications interact differently depending on the active mode.",
 
+    "description | Modular Weapon | The Ostrumite Gunblade contains five mod slots: Core, Barrel, Blade, Edge, and Stabilizer. Some prototypes may have limitations on how many mods can be installed at once.",
+
+    "description | Prototype Core | If no Core mod is installed, the firearm attack deals 1d6 force damage with a range of 20/40 ft.",
+
     "description | Misfire | When making a firearm attack with this weapon, a natural 1 causes the weapon to misfire. The wielder takes 1d6 force damage, and the weapon becomes jammed until cleared."
   ],
+
+  "modSlots": {
+    "core": 1,
+    "barrel": 1,
+    "blade": 1,
+    "edge": 1,
+    "stabilizer": 1
+  },
+
   "tags": [
     "item",
     "homebrew",
@@ -7223,7 +7238,8 @@
     "versatile",
     "special",
     "ammunition",
-    "ostrumite"
+    "ostrumite",
+    "modular"
   ]
 },
 {

@@ -79,19 +79,13 @@
         }
       ]
     },
-
-    "3": {
-      "features": [
-        {
-          "id": "gunner-path",
-          "name": "Gunner Path",
-          "type": "subclass",
+      "3": {
+        "subclass": {
+          "label": "Gunner Path",
           "description": "Choose a specialization that defines how you fight with your Ostrumite weapon.",
           "optionsSource": "subclasses/ostrumite-gunner"
         }
-      ]
-    },
-
+      },
     "5": {
       "features": [
         {

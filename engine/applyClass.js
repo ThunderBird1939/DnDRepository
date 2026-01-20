@@ -53,6 +53,30 @@ export async function applyClass(character, classData, level = 1) {
   character.class.id = classData.id;
   character.class.name = classData.name;
   character.class.level = level;
+  
+  /* =========================
+    OSTRUMITE GUNNER – WEAPON PLATFORM INIT
+  ========================= */
+  if (classData.id === "ostrumite-gunner") {
+    character.weapons ??= {};
+
+    // Only create once
+    if (!character.weapons.primary) {
+      character.weapons.primary = {
+        id: "ostrumite-gunblade-prototype",
+        frame: "prototype",
+
+        modCapacity: 2, // prototype limit
+        installedMods: {
+          core: null,
+          barrel: null,
+          blade: null,
+          edge: null,
+          stabilizer: null
+        }
+      };
+    }
+  }
 
   /* =========================
       HIT DIE

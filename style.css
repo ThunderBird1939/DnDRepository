@@ -362,3 +362,18 @@ details ul {
 #confirmFeat:hover:not(:disabled) {
   background-color: #3f73d8;
 }
+.mod-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.mod-capacity {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+select:disabled {
+  opacity: 0.6;
+}
