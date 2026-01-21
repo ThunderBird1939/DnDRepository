@@ -4,6 +4,19 @@ import { buildPdfCharacterData } from "../engine/pdfExport.js";
 const { PDFDocument, rgb, StandardFonts } = PDFLib;
 const DEBUG_GRID = false;
 
+function kebabToCamel(str) {
+  return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+}
+
+function camelToKebab(str) {
+  return str.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+}
+
+function hasEither(setLike, id) {
+  const set = setLike instanceof Set ? setLike : new Set(setLike ?? []);
+  return set.has(id) || set.has(kebabToCamel(id)) || set.has(camelToKebab(id));
+}
+
 /* =========================
    PDF POSITIONS
 ========================= */
@@ -32,24 +45,24 @@ const POSITIONS = {
     cha: { x: 175, y: 280 }
   },
   skills: {
-    acrobatics:      { x: 22,  y: 380 },
-    animalHandling:  { x: 130, y: 400 },
-    arcana:          { x: 130, y: 580 },
-    athletics:       { x: 22,  y: 500 },
-    deception:       { x: 130, y: 225 },
-    history:         { x: 130, y: 565 },
-    insight:         { x: 130, y: 388 },
-    intimidation:    { x: 130, y: 210 },
-    investigation:   { x: 130, y: 550 },
-    medicine:        { x: 130, y: 375 },
-    nature:          { x: 130, y: 535 },
-    perception:      { x: 130, y: 360 },
-    performance:     { x: 130, y: 195 },
-    persuasion:      { x: 130, y: 180 },
-    religion:        { x: 130, y: 520 },
-    sleightOfHand:   { x: 22,  y: 365 },
-    stealth:         { x: 22,  y: 350 },
-    survival:        { x: 130, y: 345 }
+    acrobatics:          { x: 22,  y: 380 },
+    "animal-handling":   { x: 130, y: 400 },
+    arcana:              { x: 130, y: 580 },
+    athletics:           { x: 22,  y: 500 },
+    deception:           { x: 130, y: 225 },
+    history:             { x: 130, y: 565 },
+    insight:             { x: 130, y: 388 },
+    intimidation:        { x: 130, y: 210 },
+    investigation:       { x: 130, y: 550 },
+    medicine:            { x: 130, y: 375 },
+    nature:              { x: 130, y: 535 },
+    perception:          { x: 130, y: 360 },
+    performance:         { x: 130, y: 195 },
+    persuasion:          { x: 130, y: 180 },
+    religion:            { x: 130, y: 520 },
+    "sleight-of-hand":   { x: 22,  y: 365 },
+    stealth:             { x: 22,  y: 350 },
+    survival:            { x: 130, y: 345 }
   },
   savingThrows: {
     str: { x: 22, y: 520 },
@@ -300,10 +313,9 @@ export async function exportCharacterPdf() {
   const skillExpertise = character.proficiencies?.expertise ?? new Set();
 
   for (const [skill, pos] of Object.entries(POSITIONS.skills)) {
-    const isProficient = skillProficiencies.has(skill);
-    const isExpert = skillExpertise.has(skill);
+    const isProficient = hasEither(skillProficiencies, skill);
+    const isExpert = hasEither(skillExpertise, skill);
 
-    // ❌ no proficiency → nothing drawn
     if (!isProficient && !isExpert) continue;
 
     // ● proficiency dot
@@ -325,29 +337,31 @@ export async function exportCharacterPdf() {
       });
     }
   }
+
   /* =========================
-   SKILL NUMBERS
-========================= */
+    SKILL NUMBERS
+  ========================= */
+  for (const [skill, pos] of Object.entries(POSITIONS.skills)) {
+    const skillData =
+      data.skills?.[skill] ??
+      data.skills?.[kebabToCamel(skill)] ??
+      data.skills?.[camelToKebab(skill)];
 
-for (const [skill, pos] of Object.entries(POSITIONS.skills)) {
-  const skillData = data.skills?.[skill];
-  if (!skillData) continue;
+    if (!skillData) continue;
 
-  const bonus = skillData.bonus;
-  if (bonus === undefined || bonus === null) continue;
+    const bonus = skillData.bonus;
+    if (bonus === undefined || bonus === null) continue;
 
-  const text =
-    bonus >= 0 ? `+${bonus}` : `${bonus}`;
+    const text = bonus >= 0 ? `+${bonus}` : `${bonus}`;
 
-  // Draw number just to the right of the dot
-  draw(
-    text,
-    pos.x + 12,   // ← spacing from dot (tuned for your sheet)
-    pos.y - 3,    // ← vertical alignment tweak
-    8,
-    page1
-  );
-}
+    draw(
+      text,
+      pos.x + 12,
+      pos.y - 3,
+      8,
+      page1
+    );
+  }
 
   /* =========================
     SAVING THROW PROFICIENCY DOTS

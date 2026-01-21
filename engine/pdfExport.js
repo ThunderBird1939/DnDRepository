@@ -95,6 +95,9 @@ function normalizeSpellForPdf(spell) {
     concentration: detectConcentration(spell)
   };
 }
+function kebabToCamel(str) {
+  return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+}
 
 /* =========================
    PDF DATA BUILDER
@@ -128,14 +131,14 @@ export async function buildPdfCharacterData(character) {
   const skillAbilityMap = {
     athletics: "str",
     acrobatics: "dex",
-    sleightOfHand: "dex",
+    "sleight-of-hand": "dex",
     stealth: "dex",
     arcana: "int",
     history: "int",
     investigation: "int",
     nature: "int",
     religion: "int",
-    animalHandling: "wis",
+    "animal-handling": "wis",
     insight: "wis",
     medicine: "wis",
     perception: "wis",
@@ -145,6 +148,7 @@ export async function buildPdfCharacterData(character) {
     performance: "cha",
     persuasion: "cha"
   };
+
 
   /* =========================
     SPELLCASTING CALCS
@@ -223,12 +227,16 @@ export async function buildPdfCharacterData(character) {
     if (proficient) bonus += profBonus;
     if (expertise) bonus += profBonus;
 
-    skills[skill] = {
+    const pdfSkillKey = kebabToCamel(skill);
+
+    skills[pdfSkillKey] = {
       bonus,
       proficient,
       expertise
     };
   }
+
+
 
   /* =========================
      RESOLVE WEAPONS
