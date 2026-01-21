@@ -98,6 +98,17 @@ function normalizeSpellForPdf(spell) {
 function kebabToCamel(str) {
   return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
 }
+/* =========================
+   WEAPON PROPERTY HELPER
+========================= */
+function extractWeaponProperty(contents = [], propName) {
+  const line = contents.find(l =>
+    typeof l === "string" &&
+    l.startsWith(`property | ${propName} |`)
+  );
+  if (!line) return "";
+  return line.split("|").slice(2).join("|").trim();
+}
 
 /* =========================
    PDF DATA BUILDER
@@ -242,38 +253,46 @@ export async function buildPdfCharacterData(character) {
      RESOLVE WEAPONS
   ========================= */
   const weapons = (character.weapons || [])
-    .map(id => weaponsIndex.find(w => w.id === id))
-    .filter(Boolean)
-    .map(w => {
-      // ---- Ability ----
-      const hasFinesse = w.properties?.some(p =>
-        p.toLowerCase().includes("finesse")
+    .map(id => {
+      const weapon = weaponsIndex.find(w =>
+        w.title?.toLowerCase().replace(/\s+/g, "-") === id
       );
-      const isRanged = w.category?.toLowerCase().includes("ranged");
-      const ability = hasFinesse || isRanged ? "dex" : "str";
 
-      // ---- Proficiency ----
+      if (!weapon) return null;
+
+      const damageLine = extractWeaponProperty(weapon.contents, "Damage");
+      const typeLine = extractWeaponProperty(weapon.contents, "Type");
+      const propsLine = extractWeaponProperty(weapon.contents, "Properties");
+
+      const isRanged =
+        typeLine.toLowerCase().includes("ranged") ||
+        propsLine.toLowerCase().includes("ammunition");
+
+      const hasFinesse = propsLine.toLowerCase().includes("finesse");
+
+      const ability =
+        isRanged || hasFinesse ? "dex" : "str";
+
       const weaponProfs = character.proficiencies?.weapons ?? new Set();
-      const category = w.category?.toLowerCase() ?? "";
 
       const proficient =
-        weaponProfs.has(w.id) ||
-        weaponProfs.has(category) ||
-        (category.includes("simple") && weaponProfs.has("simple")) ||
-        (category.includes("martial") && weaponProfs.has("martial"));
+        weaponProfs.has(id) ||
+        weaponProfs.has("simple") ||
+        weaponProfs.has("martial");
 
-      // ---- Damage ----
-      const dmg = Array.isArray(w.damage) ? w.damage[0] : null;
+      const [dice, damageType] = damageLine.split(" ");
 
       return {
-        id: w.id,
-        name: w.name,
+        id,
+        name: weapon.title,
         ability,
         proficient,
-        damage: dmg?.dice ?? "",
-        damageType: dmg?.type ?? ""
+        damage: dice ?? "",
+        damageType: (damageType ?? "").toLowerCase()
       };
-    });
+    })
+    .filter(Boolean);
+
 
   /* =========================
      RACE TRAITS
