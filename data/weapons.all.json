@@ -7198,10 +7198,10 @@
   "contents": [
     "subtitle | Weapon",
 
-    "property | Melee Damage | 1d8 Slashing",
+    "property | Melee Damage | 1d6 Slashing",
     "property | Firearm Damage | Determined by Core",
     "property | Range (Firearm) | Determined by Barrel",
-    "property | Properties | Versatile (1d10), Special, Ostrumite, Ammunition",
+    "property | Properties | Special, Ostrumite, Ammunition",
     "property | Type | Martial Weapon, Hybrid Weapon",
     "property | Weight | 6 lb.",
     "property | Value | —",
@@ -7214,7 +7214,7 @@
 
     "description | Modular Weapon | The Ostrumite Gunblade contains five mod slots: Core, Barrel, Blade, Edge, and Stabilizer. Some prototypes may have limitations on how many mods can be installed at once.",
 
-    "description | Prototype Core | If no Core mod is installed, the firearm attack deals 1d6 force damage with a range of 20/40 ft.",
+    "description | Prototype Core | If no Core mod is installed, the firearm attack deals 1d6 force damage with a range of 30/90 ft.",
 
     "description | Misfire | When making a firearm attack with this weapon, a natural 1 causes the weapon to misfire. The wielder takes 1d6 force damage, and the weapon becomes jammed until cleared."
   ],
