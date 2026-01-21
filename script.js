@@ -5,7 +5,7 @@ import { character } from "./data/character.js";
 window.character = character;
 import { initWeaponAndSpellSelects } from "./ui/dropdowns.js";
 import { loadClass } from "./data/classloader.js";
-import { applyClass } from "/engine/applyClass.js";
+import { applyClass } from "./engine/applyClass.js";
 import { applySubclass } from "./engine/applySubclass.js";
 import { renderSkillChoice } from "./ui/skillChoice.js";
 import { renderFeatures } from "./ui/features.js";
