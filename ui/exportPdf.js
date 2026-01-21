@@ -2,7 +2,7 @@ import { character } from "../data/character.js";
 import { buildPdfCharacterData } from "../engine/pdfExport.js";
 
 const { PDFDocument, rgb, StandardFonts } = PDFLib;
-const DEBUG_GRID = true; // ← toggle this on/off
+const DEBUG_GRID = false;
 
 /* =========================
    PDF POSITIONS
