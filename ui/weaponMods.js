@@ -1,5 +1,8 @@
 let modsData = null;
 
+/* =========================
+   LOAD MOD DATA (CACHED)
+========================= */
 async function loadWeaponMods() {
   if (modsData) return modsData;
 
@@ -20,28 +23,28 @@ export async function renderWeaponMods(character) {
   if (!panel) return;
 
   const weapon = character.weapons?.primary;
-  if (!weapon) return;
+  if (!weapon || !weapon.installedMods) return;
 
-  // 🔑 LOAD MOD DATA ONCE
+  // 🔑 Load mod data once
   modsData = await loadWeaponMods();
   if (!modsData?.mods) return;
 
   panel.hidden = false;
 
   // Capacity display
-  const used =
-    Object.values(weapon.installedMods).filter(Boolean).length;
-
+  const used = Object.values(weapon.installedMods).filter(Boolean).length;
   document.getElementById("modsUsed").textContent = used;
-  document.getElementById("modsMax").textContent = weapon.modCapacity;
+  document.getElementById("modsMax").textContent = weapon.modCapacity ?? 0;
 
   // Render each slot dropdown
   panel.querySelectorAll("select[data-slot]").forEach(select => {
     const slot = select.dataset.slot;
     renderSlotDropdown(select, slot, character, weapon);
   });
-}
 
+  // 🔽 Render inventory (derived)
+  renderModInventory(weapon);
+}
 
 /* =========================
    SLOT RENDERING
@@ -49,7 +52,7 @@ export async function renderWeaponMods(character) {
 function renderSlotDropdown(select, slot, character, weapon) {
   select.innerHTML = "";
 
-  // Slot locked rules
+  // Slot lock rules
   if (slot === "blade" && character.level < 3) {
     select.appendChild(new Option("— Locked —", ""));
     select.disabled = true;
@@ -69,7 +72,7 @@ function renderSlotDropdown(select, slot, character, weapon) {
       select.appendChild(new Option(mod.name, mod.id));
     });
 
-  // Set current value
+  // Current installed mod
   const installed = weapon.installedMods[slot];
   if (installed) {
     select.value = installed.id;
@@ -87,7 +90,7 @@ function applyModChange(character, weapon, slot, modId) {
   const currentUsed =
     Object.values(weapon.installedMods).filter(Boolean).length;
 
-  // Remove
+  // Remove mod
   if (!modId) {
     weapon.installedMods[slot] = null;
     renderWeaponMods(character);
@@ -108,6 +111,30 @@ function applyModChange(character, weapon, slot, modId) {
 }
 
 /* =========================
+   INVENTORY (DERIVED)
+========================= */
+function renderModInventory(weapon) {
+  const ul = document.getElementById("gunModInventory");
+  if (!ul) return;
+
+  ul.innerHTML = "";
+
+  const installedIds = new Set(
+    Object.values(weapon.installedMods)
+      .filter(Boolean)
+      .map(m => m.id)
+  );
+
+  modsData.mods
+    .filter(mod => !installedIds.has(mod.id))
+    .forEach(mod => {
+      const li = document.createElement("li");
+      li.textContent = mod.name;
+      ul.appendChild(li);
+    });
+}
+
+/* =========================
    RULE CHECKS
 ========================= */
 function isModAllowed(mod, character) {
@@ -120,4 +147,3 @@ function isModAllowed(mod, character) {
 
   return true;
 }
-

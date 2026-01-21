@@ -40,23 +40,23 @@
     ],
     "tags": ["item", "magic", "companion", "scouting", "utility"]
   },
-  {
-    "count": 1,
-    "color": "#0b0b0b",
-    "title": "Mask of the Dead Star",
-    "icon": "mask",
-    "icon_back": "mask",
-    "contents": [
-      "subtitle | Wondrous Item",
-      "property | Rarity | Rare",
-      "property | Attunement | Required",
-      "rule",
-      "text | This pitch-black mask devours light, its surface reflecting nothing.",
-      "description | Event Horizon | Light is subtly absorbed in a 5-foot radius around you. The space you occupy is considered one light level dimmer than its surroundings.",
-      "description | Singular Focus | While maintaining concentration on a spell, you have advantage on Constitution saving throws made to maintain concentration. While doing so, you have disadvantage on Wisdom (Perception) checks."
-    ],
-    "tags": ["item", "magic", "wondrous item", "rare", "attunement", "concentration"]
-  },
+{
+  "count": 1,
+  "color": "#0b0b0b",
+  "title": "Mask of the Dead Star",
+  "icon": "mask",
+  "icon_back": "mask",
+  "contents": [
+    "subtitle | Wondrous Item",
+    "property | Rarity | Rare",
+    "property | Attunement | Required",
+    "rule",
+    "text | This pitch-black mask devours light, its surface reflecting nothing.",
+    "description | Event Horizon | Light is subtly absorbed in a 5-foot radius around you. The space you occupy is considered one light level dimmer than its surroundings.",
+    "description | Gravitic Drain | As an action, you tap into the ravenous hunger of a dead star, draining the life force of nearby creatures. Each living creature of your choice within 15 feet takes 1d4 necrotic damage. For each creature damaged this way, you may either regain 1d4 hit points or recover one expended spell slot. Recovering spell slots of 2nd level or higher requires one additional affected creature per spell level above 1st."
+  ],
+  "tags": ["item", "magic", "wondrous item", "rare", "attunement", "necrotic", "spell-slot"]
+},
   {
     "count": 1,
     "color": "#4a3a6a",

@@ -159,13 +159,25 @@ spellcasting: {
     targets: {}          // ← REQUIRED
   },
 
-  /* =========================
-     EQUIPMENT
-  ========================= */
-  equipment: {
-    armor: null,
-    shield: false
-  },
+/* =========================
+   EQUIPMENT
+========================= */
+equipment: {
+  armor: null,
+  shield: false,
+
+   /* =========================
+      GUN SYSTEM
+   ========================= */
+   gun: {
+      id: null,                 // equipped gun id (string)
+      mods: {
+      equipped: new Set(),    // mods affecting combat
+      inventory: new Set()    // owned but inactive
+      }
+   }
+   },
+
   /* =========================
      MAGIC ITEMS
   ========================= */
@@ -208,4 +220,5 @@ spellcasting: {
       max: 0
    }
    }
+   
 }
