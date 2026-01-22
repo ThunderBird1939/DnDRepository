@@ -165,6 +165,11 @@ spellcasting: {
 equipment: {
   armor: null,
   shield: false,
+  
+/* =========================
+   OSTRUMITE MOD OWNERSHIP
+========================= */
+ostrumiteModsOwned: new Set(),
 
    /* =========================
       GUN SYSTEM

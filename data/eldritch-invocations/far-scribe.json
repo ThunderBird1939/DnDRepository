@@ -1,0 +1,13 @@
+{
+  "id": "far-scribe",
+  "name": "Far Scribe",
+  "source": "TCE",
+  "type": "spell",
+  "prerequisites": {
+    "level": 5,
+    "pact": "tome"
+  },
+  "spell": "sending",
+  "atWill": true,
+  "description": "You can cast sending without expending a spell slot, targeting creatures whose names are written in your Book of Shadows."
+}

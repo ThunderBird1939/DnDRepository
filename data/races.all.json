@@ -5944,5 +5944,38 @@
       "race",
       "VGM"
     ]
-  }
+  },
+  {
+  "count": 1,
+  "color": "#c85a3a",
+  "title": "Kitsune",
+  "icon": "fox",
+  "icon_back": "fox",
+  "contents": [
+    "property | Ability Scores | dex +2; cha +1",
+    "property | Size | Small/Medium",
+    "property | Speed | 30 ft.",
+    "rule",
+
+    "Description | Size | You are Medium or Small. You choose the size when you select this race.",
+
+    "Race Trait | Fox Shape | As an action, you can magically transform into a fox or back into your humanoid form. While in fox form, your size becomes Tiny and your walking speed becomes 40 feet. You can speak, cast spells, and maintain concentration while transformed, though you cannot wield weapons or wear armor not designed for your fox form. Equipment you are wearing or carrying melds into your form. You can revert to your humanoid form as a bonus action.",
+
+    "Race Trait | Many Tails | Kitsune are born with a single tail and gain an additional tail roughly every 100 years of life, up to a maximum of nine. While your number of tails has no direct mechanical effect, it is widely understood among those familiar with kitsune that more tails signify greater age, cunning, and magical power.",
+
+    "Race Trait | Sly Guile | You gain proficiency in the Deception skill. If you already have proficiency, you instead gain proficiency in Persuasion or Stealth (your choice).",
+
+    "Race Trait | Innate Illusion | You know the minor illusion cantrip. Charisma is your spellcasting ability for it.",
+
+    "Race Trait | Beguiling Presence | You have advantage on Charisma (Deception) checks made to mislead, distract, or manipulate other creatures.",
+
+    "Race Trait | Darkvision | You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You discern colors in that darkness only as shades of gray.",
+
+    "Description | Languages | You can speak, read, and write Common and one other language of your choice."
+  ],
+  "tags": [
+    "race",
+    "HB"
+  ]
+}
 ]

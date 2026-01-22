@@ -160,5 +160,23 @@
       "description | Unerring Path | Once per long rest, when you miss a ranged weapon attack using ammunition from this quiver, you may reroll the attack roll and use the new result."
     ],
     "tags": ["item", "magic", "wondrous item", "uncommon", "ranged", "tracking"]
-  }
+  },
+  {
+  "count": 1,
+  "color": "#3f6b4a",
+  "title": "Violin of Whispering Groves",
+  "icon": "violin",
+  "icon_back": "violin",
+  "contents": [
+    "subtitle | Wondrous Item (Instrument)",
+    "property | Rarity | Uncommon",
+    "property | Attunement | Required",
+    "rule",
+    "text | This finely carved violin resonates with the quiet music of forests and hidden glades, its tone carrying the breath of moss, wind, and watchful spirits.",
+    "description | Instrument of the Bards | A creature that attempts to play the violin without being attuned to it must succeed on a DC 15 Wisdom saving throw or take 2d4 psychic damage.",
+    "description | Nature’s Repertoire | You can use an action to play the violin and cast one of the following spells from it: Entangle, Faerie Fire, Shillelagh, or Speak with Animals. Once the violin has been used to cast a spell, it can’t be used to cast that spell again until the next dawn. These spells use your spellcasting ability and spell save DC.",
+    "description | Beguiling Melody | You can play the violin while casting a spell that causes one or more of its targets to be charmed on a failed saving throw, imposing disadvantage on the saving throw. This benefit applies only if the spell has a somatic or material component."
+  ],
+  "tags": ["item", "magic", "wondrous item", "instrument", "uncommon", "attunement", "bard", "nature"]
+}
 ]

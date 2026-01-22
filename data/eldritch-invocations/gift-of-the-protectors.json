@@ -1,0 +1,11 @@
+{
+  "id": "gift-of-the-protectors",
+  "name": "Gift of the Protectors",
+  "source": "TCE",
+  "type": "passive",
+  "prerequisites": {
+    "level": 9,
+    "pact": "tome"
+  },
+  "description": "Creatures whose names are written in your Book of Shadows drop to 1 hit point instead of 0 the first time each day."
+}

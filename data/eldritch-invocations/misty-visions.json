@@ -1,0 +1,12 @@
+{
+  "id": "misty-visions",
+  "name": "Misty Visions",
+  "source": "PHB",
+  "type": "spell",
+  "prerequisites": {
+    "class": "warlock"
+  },
+  "spell": "silent-image",
+  "atWill": true,
+  "description": "You can cast silent image at will, without expending a spell slot."
+}

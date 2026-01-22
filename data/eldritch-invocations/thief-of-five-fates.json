@@ -1,0 +1,13 @@
+{
+  "id": "tricksters-escape",
+  "name": "Trickster's Escape",
+  "source": "XGE",
+  "type": "spell",
+  "prerequisites": {
+    "level": 7
+  },
+  "spell": "freedom-of-movement",
+  "uses": 1,
+  "recharge": "longRest",
+  "description": "You can cast freedom of movement on yourself once without expending a spell slot."
+}

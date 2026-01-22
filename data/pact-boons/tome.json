@@ -1,0 +1,8 @@
+{
+  "id": "tome",
+  "name": "Pact of the Tome",
+  "description": "You gain a Book of Shadows with additional cantrips.",
+  "grants": {
+    "cantrips": 3
+  }
+}

@@ -7149,5 +7149,89 @@
 			"Sorcerer",
 			"Wizard"
 		]
+	},
+		{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Plant Growth",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Level 3 Transmutation",
+			"rule",
+			"property | Casting Time | Action (Overgrowth) or 8 hours (Enrichment)",
+			"property | Range | 150 feet",
+			"property | Components | V, S",
+			"property | Duration | Instantaneous",
+			"rule",
+			"text | This spell channels vitality into plants. The casting time you use determines whether the spell has the Overgrowth or the Enrichment effect below.",
+			"description | Overgrowth | Choose a point within range. All normal plants in a 100-foot-radius Sphere centered on that point become thick and overgrown. A creature moving through that area must spend 4 feet of movement for every 1 foot it moves. You can exclude one or more areas of any size within the spell's area from being affected.",
+			"description | Enrichment | All plants in a half-mile radius centered on a point within range become enriched for 365 days. The plants yield twice the normal amount of food when harvested. They can benefit from only one Plant Growth per year."
+		],
+		"tags": [
+			"spell",
+			"PHB'24",
+			"3rd level",
+			"Transmutation",
+			"Bard",
+			"Druid",
+			"Ranger"
+		]
+	},
+		{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Calm Emotions",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Level 2 Enchantment",
+			"rule",
+			"property | Casting Time | Action",
+			"property | Range | 60 feet",
+			"property | Components | V, S",
+			"property | Duration | Concentration, up to 1 minute",
+			"rule",
+			"text | Each Humanoid in a 20-foot-radius Sphere centered on a point you choose within range must succeed on a Charisma saving throw or be affected by one of the following effects (choose for each creature):",
+			"bullet | The creature has Immunity to the Charmed and Frightened conditions until the spell ends. If the creature was already Charmed or Frightened, those conditions are suppressed for the duration.",
+			"bullet | The creature becomes Indifferent about creatures of your choice that it's Hostile toward. This indifference ends if the target takes damage or witnesses its allies taking damage. When the spell ends, the creature's attitude returns to normal."
+		],
+		"tags": [
+			"spell",
+			"PHB'24",
+			"2nd level",
+			"Enchantment",
+			"Bard",
+			"Cleric",
+			"concentration"
+		]
+	},
+		{
+		"count": 1,
+		"color": "#4a6898",
+		"title": "Faerie Fire",
+		"icon": "magic-swirl",
+		"icon_back": "magic-swirl",
+		"contents": [
+			"subtitle | Level 1 Evocation",
+			"rule",
+			"property | Casting Time | Action",
+			"property | Range | 60 feet",
+			"property | Components | V",
+			"property | Duration | Concentration, up to 1 minute",
+			"rule",
+			"text | Objects in a 20-foot Cube within range are outlined in blue, green, or violet light (your choice). Each creature in the Cube is also outlined if it fails a Dexterity saving throw. For the duration, objects and affected creatures shed Dim Light in a 10-foot radius and can't benefit from the Invisible condition.",
+			"text | Attack rolls against an affected creature or object have Advantage if the attacker can see it."
+		],
+		"tags": [
+			"spell",
+			"PHB'24",
+			"1st level",
+			"Evocation",
+			"Bard",
+			"Druid",
+			"Artificer",
+			"concentration"
+		]
 	}
 ]

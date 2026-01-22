@@ -1,0 +1,10 @@
+{
+  "id": "aspect-of-the-moon",
+  "name": "Aspect of the Moon",
+  "source": "XGE",
+  "type": "passive",
+  "prerequisites": {
+    "pact": "tome"
+  },
+  "description": "You no longer need to sleep and cannot be forced to sleep by any means."
+}

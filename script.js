@@ -33,6 +33,8 @@ import { initDispositionUI } from "./ui/disposition.js";
 import { renderManifestTechniques } from "./ui/manifestTechniques.js";
 import { exportCharacterPdf } from "./ui/exportPdf.js";
 import { renderWeaponMods } from "./ui/weaponMods.js";
+import { renderInvocationChoice } from "./ui/invocationChoice.js";
+import { renderPactBoonChoice } from "./ui/pactBoonChoice.js";
 
 /* =========================
    Helpers
@@ -2738,6 +2740,8 @@ document.getElementById("name")?.addEventListener("input", e => {
     updateArcaneArcherVisibility();
     renderSoulTrinkets();
     initDispositionUI();
+    renderInvocationChoice();
+    renderPactBoonChoice();
   });
 
 
@@ -2829,6 +2833,9 @@ document.getElementById("name")?.addEventListener("input", e => {
   renderArcaneShotUseDropdown();
   initDispositionUI();
   renderWeaponMods(character);
+  renderInvocationChoice();
+  renderPactBoonChoice();
+
 });
 
   /* ===== Event wiring ===== */
@@ -3019,6 +3026,9 @@ initDispositionUI();
 await loadMagicItems();
 initMagicItemSelect();
 renderWeaponMods(character);
+renderInvocationChoice();
+renderPactBoonChoice();
+
 
 
 

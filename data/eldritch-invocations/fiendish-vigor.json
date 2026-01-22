@@ -1,0 +1,10 @@
+{
+  "id": "gift-of-the-depths",
+  "name": "Gift of the Depths",
+  "source": "XGE",
+  "type": "passive",
+  "prerequisites": {
+    "level": 5
+  },
+  "description": "You can breathe underwater and gain a swimming speed equal to your walking speed. You can also cast water breathing once per long rest without a spell slot."
+}

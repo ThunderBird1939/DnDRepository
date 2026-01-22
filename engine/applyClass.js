@@ -251,6 +251,33 @@ if (classData.id === "artificer") {
     console.warn("Failed to load artificer spells", e);
   }
 }
+/* =========================
+   WARLOCK SPELLS KNOWN (PACT MAGIC)
+========================= */
+if (classData.id === "warlock") {
+  character.spellcasting.enabled = true;
+  character.spellcasting.type = "pact";
+  character.spellcasting.ability = "cha";
+
+  // Warlocks do NOT prepare spells
+  character.spellcasting.prepared = null;
+
+  // Known spells live here
+  character.spellcasting.available ??= new Set();
+
+  try {
+    const res = await fetch(`./data/spellsKnown/warlock.json`);
+    if (res.ok) {
+      const table = await res.json();
+      character.spellcasting.spellsKnown =
+        table[String(level)] ?? 0;
+    } else {
+      character.spellcasting.spellsKnown = 0;
+    }
+  } catch {
+    character.spellcasting.spellsKnown = 0;
+  }
+}
 
 // =========================
 // 🧙 Wizard: Spellbook Learning (CHOICE-BASED)
@@ -320,71 +347,136 @@ if (
 
 
 
-  /* =========================
-    FEATURES (LEVEL AWARE)
-  ========================= */
-  if (classData.levels && typeof classData.levels === "object") {
-    Object.entries(classData.levels).forEach(([lvl, data]) => {
-      if (Number(lvl) > level) return;
-      if (!Array.isArray(data.features)) return;
+/* =========================
+   FEATURES (LEVEL AWARE)
+========================= */
+if (classData.levels && typeof classData.levels === "object") {
+  Object.entries(classData.levels).forEach(([lvl, data]) => {
+    if (Number(lvl) > level) return;
+    if (!Array.isArray(data.features)) return;
 
-      data.features.forEach(feature => {
-        // 🚫 Skip subclass placeholders once a subclass exists
-        if (feature.type === "subclass" && character.subclass) return;
+    data.features.forEach(feature => {
+      /* =========================
+         SUBCLASS UNLOCK (FEATURE-BASED)
+         – Warlock lvl 1
+         – Artificer lvl 3
+      ========================= */
+      if (
+        feature.type === "subclass" &&
+        !character.subclass &&
+        !character.pendingSubclassChoice
+      ) {
+        character.pendingSubclassChoice = {
+          classId: classData.id,
+          label: feature.name || feature.label,
+          source: feature.optionsSource
+        };
+        return;
+      }
 
-        // =========================
-        // CHOICE FEATURES (generic)
-        // =========================
-        if (
-          feature.type === "choice" &&
-          !character.features.some(f => f.parentFeature === feature.id)
-        ) {
-          // 🚫 Skip Artificer Infuse Item (handled elsewhere)
-          if (
-            character.class.id === "artificer" &&
-            feature.id === "infuse-item"
-          ) {
-            return;
-          }
+      // 🚫 Skip subclass placeholders once chosen
+      if (feature.type === "subclass" && character.subclass) return;
 
-          character.pendingChoices.choiceFeature = {
-            feature,
-            source: classData.id
+      /* =========================
+         🧙 WARLOCK: Eldritch Invocations
+         (repeatable, level-gated)
+      ========================= */
+      if (
+        feature.type === "choice" &&
+        feature.optionsSource === "eldritch-invocations"
+      ) {
+        character.invocations ??= new Set();
+
+        const known = character.invocations.size;
+
+        // Count how many invocation features are granted up to this level
+        const allowed = Object.entries(classData.levels || {})
+          .filter(([l, d]) =>
+            Number(l) <= level &&
+            Array.isArray(d.features) &&
+            d.features.some(f =>
+              f.type === "choice" &&
+              f.optionsSource === "eldritch-invocations"
+            )
+          ).length;
+
+        if (known < allowed) {
+          character.pendingChoices.invocations = {
+            choose: 1,
+            source: "eldritch-invocations"
           };
+        }
+        return;
+      }
+
+      /* =========================
+         🧙 WARLOCK: Pact Boon
+         (one-time at level 3)
+      ========================= */
+      if (
+        feature.type === "choice" &&
+        feature.optionsSource === "pact-boons"
+      ) {
+        if (!character.pactBoon && !character.pendingChoices.pactBoon) {
+          character.pendingChoices.pactBoon = {
+            choose: 1,
+            source: "pact-boons"
+          };
+        }
+        return;
+      }
+
+      /* =========================
+         GENERIC CHOICE FEATURES
+         (feats, fighting styles, etc.)
+      ========================= */
+      if (
+        feature.type === "choice" &&
+        !character.features.some(f => f.parentFeature === feature.id)
+      ) {
+        // 🚫 Skip Artificer Infuse Item (handled elsewhere)
+        if (
+          character.class.id === "artificer" &&
+          feature.id === "infuse-item"
+        ) {
           return;
         }
 
-        // =========================
-        // ADD FEATURE ONCE
-        // =========================
-        if (!character.features.some(f => f.id === feature.id)) {
-          character.features.push({
-            ...feature,
-            source: classData.id,
-            level: Number(lvl)
-          });
+        character.pendingChoices.choiceFeature = {
+          feature,
+          source: classData.id
+        };
+        return;
+      }
 
-          // =========================
-          // 🎵 BARD MAGICAL SECRETS
-          // (class feature only)
-          // =========================
-          if (
-            classData.id === "bard" &&
-            feature.id.startsWith("magical-secrets") &&
-            !character.resolvedChoices?.[feature.id]
-          ) {
-            character.pendingChoices.spells = {
-              choose: feature.choose ?? 2,
-              from: "any",
-              source: feature.id
-            };
-          }
+      /* =========================
+         ADD FEATURE ONCE
+      ========================= */
+      if (!character.features.some(f => f.id === feature.id)) {
+        character.features.push({
+          ...feature,
+          source: classData.id,
+          level: Number(lvl)
+        });
+
+        /* =========================
+           🎵 BARD: MAGICAL SECRETS
+        ========================= */
+        if (
+          classData.id === "bard" &&
+          feature.id.startsWith("magical-secrets") &&
+          !character.resolvedChoices?.[feature.id]
+        ) {
+          character.pendingChoices.spells = {
+            choose: feature.choose ?? 2,
+            from: "any",
+            source: feature.id
+          };
         }
-      });
+      }
     });
-  }
-
-
+  });
+}
   /* =========================
     INFUSION LEARN (LEVEL 2)
   ========================= */
@@ -399,22 +491,6 @@ if (
       source: "artificer"
     };
   }
-
-/* =========================
-   SUBCLASS UNLOCK (LEVEL-BASED)
-========================= */
-Object.entries(classData.levels || {}).forEach(([lvl, data]) => {
-  if (Number(lvl) > character.level) return;
-  if (!data.subclass) return;
-  if (character.subclass) return;
-
-  character.pendingSubclassChoice ??= {
-    classId: classData.id,
-    label: data.subclass.label,
-    source: data.subclass.optionsSource
-  };
-});
-
 
   /* =========================
      CLAMP PREPARED SPELLS

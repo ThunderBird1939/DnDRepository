@@ -191,46 +191,60 @@ if (
   };
 }
 
-  /* =========================
-     FEATURES (LEVEL AWARE)
-  ========================= */
-  Object.entries(subclassData.featuresByLevel || {}).forEach(
-    ([lvl, features]) => {
-      if (Number(lvl) > character.level) return;
-      if (!Array.isArray(features)) return;
+/* =========================
+   FEATURES (LEVEL AWARE)
+========================= */
+Object.entries(subclassData.featuresByLevel || {}).forEach(
+  ([lvl, features]) => {
+    if (Number(lvl) > character.level) return;
+    if (!Array.isArray(features)) return;
 
-      features.forEach(feature => {
-        if (!character.features.some(f => f.id === feature.id)) {
-          character.features.push({
-            ...feature,
-            source: subclassData.id,
-            level: Number(lvl)
-          });
-        }
+    features.forEach(feature => {
+      // Add feature once
+      if (!character.features.some(f => f.id === feature.id)) {
+        character.features.push({
+          ...feature,
+          source: subclassData.id,
+          level: Number(lvl)
+        });
+      }
 
-        // Skills
-        if (Array.isArray(feature.skills)) {
-          feature.skills.forEach(skill =>
-            character.proficiencies.skills.add(skill)
-          );
-        }
-        // Spell tables → always prepared
-        if (feature.type === "spell-table" && feature.spells) {
-          character.spellcasting ??= {};
-          character.spellcasting.alwaysPrepared ??= new Set();
+      // Skills
+      if (Array.isArray(feature.skills)) {
+        feature.skills.forEach(skill =>
+          character.proficiencies.skills.add(skill)
+        );
+      }
 
-          Object.entries(feature.spells).forEach(
-            ([spellLevel, spells]) => {
-              if (Number(spellLevel) > character.level) return;
-              spells.forEach(spellId =>
-                character.spellcasting.alwaysPrepared.add(spellId)
-              );
-            }
-          );
-        }
-      });
-    }
-  );
+      /* =========================
+         SPELL TABLE HANDLING
+      ========================= */
+      if (feature.type === "spell-table" && feature.spells) {
+        character.spellcasting ??= {};
+        character.spellcasting.available ??= new Set();
+        character.spellcasting.alwaysPrepared ??= new Set();
+
+        Object.entries(feature.spells).forEach(
+          ([spellLevel, spells]) => {
+            if (Number(spellLevel) > character.level) return;
+
+            spells.forEach(spellId => {
+              // 🧙 WARLOCK: expanded spell list only
+              if (character.class?.id === "warlock") {
+                character.spellcasting.available.add(spellId);
+              }
+              // 🛐 ALL OTHER CLASSES: always prepared
+              else {
+                character.spellcasting.alwaysPrepared.add(spellId);
+              }
+            });
+          }
+        );
+      }
+    });
+  }
+);
+
 
   /* =========================
      CLEAR PENDING CHOICE

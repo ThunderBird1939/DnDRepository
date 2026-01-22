@@ -1,0 +1,8 @@
+{
+  "id": "blade",
+  "name": "Pact of the Blade",
+  "description": "You can conjure or bind a magical weapon.",
+  "grants": {
+    "features": ["pact-weapon"]
+  }
+}

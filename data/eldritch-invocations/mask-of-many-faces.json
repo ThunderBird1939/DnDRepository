@@ -1,0 +1,12 @@
+{
+  "id": "mask-of-many-faces",
+  "name": "Mask of Many Faces",
+  "source": "PHB",
+  "type": "spell",
+  "prerequisites": {
+    "class": "warlock"
+  },
+  "spell": "disguise-self",
+  "atWill": true,
+  "description": "You can cast disguise self at will, without expending a spell slot."
+}

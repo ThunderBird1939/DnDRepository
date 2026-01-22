@@ -1,0 +1,13 @@
+{
+  "id": "sign-of-ill-omen",
+  "name": "Sign of Ill Omen",
+  "source": "PHB",
+  "type": "spell",
+  "prerequisites": {
+    "level": 5
+  },
+  "spell": "bestow-curse",
+  "uses": 1,
+  "recharge": "longRest",
+  "description": "You can cast bestow curse once using a warlock spell slot."
+}
