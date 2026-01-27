@@ -436,3 +436,266 @@ select:disabled {
   cursor: pointer;
   font-weight: bold;
 }
+#detailView[hidden] {
+  display: none !important;
+
+}
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.monster-card {
+  background: #fdf6e3;
+  border: 1px solid #bfa76a;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.monster-card.active {
+  outline: 3px solid #4a6898;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-sub {
+  font-size: 0.85em;
+  color: #555;
+}
+
+.card-hp button {
+  margin-left: 4px;
+}
+
+.card-body {
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #444;
+}
+ .ability-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 10px;
+  margin-bottom: 6px;
+  font-size: 0.85em;
+}
+
+.speed-line {
+  font-size: 0.85em;
+}
+.stat-divider {
+  border: none;
+  border-top: 1px solid #bfa76a;
+  margin: 8px 0;
+}
+
+.trait-section p {
+  margin: 4px 0;
+  font-size: 0.85em;
+  line-height: 1.3;
+}
+.action-section h4 {
+  margin: 6px 0 4px;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.action-section p {
+  margin: 4px 0;
+  font-size: 0.85em;
+  line-height: 1.3;
+}
+.bonus-action-section h4,
+.reaction-section h4 {
+  margin: 6px 0 4px;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bonus-action-section p,
+.reaction-section p {
+  margin: 4px 0;
+  font-size: 0.85em;
+  line-height: 1.3;
+}
+.recharge-btn {
+  margin-left: 6px;
+  font-size: 0.7em;
+}
+
+.recharging {
+  opacity: 0.6;
+  font-style: italic;
+}
+.collapsible h4 {
+  cursor: pointer;
+  user-select: none;
+}
+
+.collapsible h4:hover {
+  text-decoration: underline;
+}
+
+.section-body {
+  margin-top: 4px;
+}
+.monster-card {
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.monster-card.dragging {
+  opacity: 0.5;
+}
+
+.monster-card.drag-over {
+  outline: 2px dashed #bfa76a;
+}
+
+.drag-handle {
+  cursor: grab;
+}
+.condition-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.condition-chip {
+  padding: 2px 6px;
+  font-size: 0.7em;
+  border-radius: 10px;
+  border: 1px solid #999;
+  cursor: pointer;
+  background: #f4f4f4;
+}
+
+.condition-chip.active {
+  background: #b33;
+  color: white;
+  border-color: #700;
+}
+.condition-chip {
+  position: relative;
+}
+
+.condition-chip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+
+  background: #1f1f1f;
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 8px;
+
+  font-size: 0.85em;
+  line-height: 1.5;
+  text-align: left;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 999;
+}
+
+.condition-chip::before {
+  content: "";
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  border-width: 6px;
+  border-style: solid;
+  border-color: #2b2b2b transparent transparent transparent;
+
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.condition-chip:hover::after,
+.condition-chip:hover::before {
+  opacity: 1;
+}.monster-card.dragging {
+  opacity: 0.5;
+}
+
+.monster-card.drag-over {
+  border: 2px dashed #4a6898;
+}
+.monster-card {
+  cursor: grab;
+}
+
+.monster-card:active {
+  cursor: grabbing;
+}
+
+.dm-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 12px;
+}
+
+.dm-sidebar {
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.library-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.library-item {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #f8f8f8;
+}
+
+.library-item:hover {
+  background: #eaeaea;
+}
+.library-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+.library-name {
+  flex: 1;
+}
+
+.library-delete {
+  background: none;
+  border: none;
+  color: #900;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.library-delete:hover {
+  color: red;
+}

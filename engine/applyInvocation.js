@@ -37,5 +37,4 @@ export function applyInvocation(character, invocationData) {
 
   delete character.pendingChoices.invocations;
 
-  window.dispatchEvent(new Event("features-updated"));
 }

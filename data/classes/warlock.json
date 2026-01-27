@@ -15,10 +15,12 @@
   },
 
   "skillChoices": {
-    "choose": 2,
+    "choose": 4,
     "from": [
       "arcana",
       "deception",
+      "acrobtics",
+      "persuasion",
       "history",
       "intimidation",
       "investigation",

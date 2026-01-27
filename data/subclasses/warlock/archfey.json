@@ -20,11 +20,6 @@
         "type": "spell-table",
         "description": "The Archfey lets you choose from an expanded list of spells.",
         "spells": {
-          "1": ["faerie-fire", "sleep"],
-          "3": ["calm-emotions", "phantasmal-force"],
-          "5": ["blink", "plant-growth"],
-          "7": ["dominate-beast", "greater-invisibility"],
-          "9": ["dominate-person", "seeming"]
         }
       }
     ],

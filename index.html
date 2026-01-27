@@ -19,6 +19,9 @@
 <button id="exportPdfBtn" class="primary">
   Export Character Sheet (PDF)
 </button>
+<button id="toggleDM" class="primary">
+  DM Mode
+</button>
 
 <h1>D&D Character Sheet</h1>
 
@@ -652,6 +655,105 @@
   <div id="pactBoonList"></div>
   <button id="confirmPactBoon" disabled>Confirm Pact</button>
 </div>
+<!-- ================= DM VIEW ================= -->
+<section id="dmView" hidden>
+
+  <div class="dm-layout">
+
+    <!-- ========== LEFT SIDEBAR : ENCOUNTER LIBRARY ========== -->
+    <aside class="dm-sidebar">
+
+      <section class="panel library-panel">
+        <h2>Encounter Library</h2>
+
+        <div id="encounterList" class="library-list">
+          <!-- saved encounters render here -->
+        </div>
+
+        <button id="saveToLibraryBtn">Save to Library</button>
+        <button id="newEncounterBtn">New Encounter</button>
+      </section>
+
+      <section class="panel">
+        <h2>Quick Save / Load</h2>
+        <button id="saveEncounterBtn">Save Encounter</button>
+        <button id="loadEncounterBtn">Load Encounter</button>
+      </section>
+
+      <section class="panel">
+        <h2>Import / Export</h2>
+
+        <button id="exportEncounterBtn">Export Encounter</button>
+
+        <label style="display:block; margin-top:6px;">
+          Import Encounter
+          <input type="file" id="importEncounterInput" accept=".json" />
+        </label>
+      </section>
+
+    </aside>
+
+    <!-- ========== MAIN DM CONTENT ========== -->
+    <main class="dm-main">
+
+      <!-- ENCOUNTER / TURN CONTROL -->
+      <section class="panel">
+        <h2>Encounter</h2>
+
+        <label>
+          Encounter Name
+          <input
+            type="text"
+            id="encounterName"
+            placeholder="Goblin Ambush"
+          />
+        </label>
+
+        <p>
+          Round: <strong id="dmRound">1</strong> —
+          Turn: <strong id="dmTurn">—</strong>
+        </p>
+
+        <button id="nextTurnBtn">Next Turn</button>
+        <button id="newRoundBtn">New Round</button>
+      </section>
+
+      <!-- ENCOUNTER CARDS -->
+      <section class="panel">
+        <h2>Encounter Cards</h2>
+
+        <div id="encounterCards" class="card-stack">
+          <!-- cards render here -->
+        </div>
+      </section>
+
+      <!-- ADD COMBATANT -->
+      <section class="panel">
+        <h2>Add Combatant</h2>
+
+        <label>Name <input id="addName" /></label>
+        <label>AC <input id="addAC" type="number" /></label>
+        <label>Max HP <input id="addHP" type="number" /></label>
+        <label>Initiative <input id="addInit" type="number" /></label>
+
+        <button id="addCombatantBtn">Add Combatant</button>
+      </section>
+
+      <!-- ADD MONSTER -->
+      <section class="panel">
+        <h2>Add Monster</h2>
+
+        <select id="monsterSelect">
+          <option value="">— Select a monster —</option>
+        </select>
+
+        <button id="addMonsterBtn">Add Monster</button>
+      </section>
+
+    </main>
+
+  </div>
+</section>
 
 <!-- ================= Scripts ================= -->
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
