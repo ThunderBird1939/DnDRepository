@@ -35,6 +35,8 @@ import { exportCharacterPdf } from "./ui/exportPdf.js";
 import { renderWeaponMods } from "./ui/weaponMods.js";
 import { renderInvocationChoice } from "./ui/invocationChoice.js";
 import { renderPactBoonChoice } from "./ui/pactBoonChoice.js";
+import { initDMView } from "./dm/dmView.js";
+
 
 /* =========================
    Helpers
@@ -2657,6 +2659,17 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderAttacks();
 });
 
+let dmInitialized = false;
+
+document.getElementById("toggleDM")?.addEventListener("click", async () => {
+  document.getElementById("sheetView").hidden = true;
+  document.getElementById("dmView").hidden = false;
+
+  if (!dmInitialized) {
+    dmInitialized = true;
+    await initDMView();
+  }
+});
 
   document.getElementById("raceSelect")?.addEventListener("change", async e => {
     const race = races.find(r => r.id == e.target.value);

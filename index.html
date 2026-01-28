@@ -16,20 +16,34 @@
 
 <body>
 
-<button id="exportPdfBtn" class="primary">
-  Export Character Sheet (PDF)
-</button>
-<button id="toggleDM" class="primary">
-  DM Mode
-</button>
+<section id="sheetView">
+  <button id="exportPdfBtn" class="primary">
+    Export Character Sheet (PDF)
+  </button>
+<section class="panel">
+  <h2>Character Import / Export</h2>
 
-<h1>D&D Character Sheet</h1>
+  <button id="exportCharacterBtn">
+    Export Character
+  </button>
 
-<div id="app-root">
+  <label style="display:block; margin-top:6px;">
+    Import Character
+    <input
+      type="file"
+      id="importCharacterInput"
+      accept=".json"
+    />
+  </label>
+</section>
 
-  <!-- ================= CHARACTER SHEET VIEW ================= -->
-  <section id="sheetView">
+  <button id="toggleDM" class="primary">
+    DM Mode
+  </button>
 
+  <h1>D&D Character Sheet</h1>
+
+  <div id="app-root">
     <!-- ================= Character Info ================= -->
     <section class="panel">
       <h2>Character</h2>
@@ -654,7 +668,8 @@
   <h3>Pact Boon</h3>
   <div id="pactBoonList"></div>
   <button id="confirmPactBoon" disabled>Confirm Pact</button>
-</div>
+  </div>  <!-- closes #app-root -->
+</section> <!-- closes #sheetView -->
 <!-- ================= DM VIEW ================= -->
 <section id="dmView" hidden>
 
@@ -758,6 +773,7 @@
 <!-- ================= Scripts ================= -->
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 <script type="module" src="script.js"></script>
+<script type="module" src="./dm/dmView.js"></script>
 <script>
   // Prevent spell clicks from triggering global routing
   document.addEventListener("DOMContentLoaded", () => {

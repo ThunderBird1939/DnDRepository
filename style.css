@@ -699,3 +699,40 @@ select:disabled {
 .library-delete:hover {
   color: red;
 }
+#initiativeList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Basic card look */
+.monster-card {
+  background: #fdf6e3; /* light parchmentish */
+  border: 1px solid #bfa76a;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* Active turn highlight */
+.monster-card.active {
+  outline: 3px solid #4a6898;
+  background: #eef4ff;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+.card-meta {
+  font-size: 0.9em;
+  color: #333;
+  margin-top: 4px;
+}
+.card-stats {
+  margin: 8px 0;
+  font-weight: bold;
+}
+.card-controls button {
+  margin-right: 4px;
+}
