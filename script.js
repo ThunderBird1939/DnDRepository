@@ -36,6 +36,10 @@ import { renderWeaponMods } from "./ui/weaponMods.js";
 import { renderInvocationChoice } from "./ui/invocationChoice.js";
 import { renderPactBoonChoice } from "./ui/pactBoonChoice.js";
 import { initDMView } from "./dm/dmView.js";
+import {
+  getRageStats,
+  getBrutalCriticalDice
+} from "./engine/rules/barbarian.js";
 
 
 /* =========================
@@ -642,6 +646,49 @@ function updateInfusionsVisibility(classData) {
   panel.hidden = !(classData?.id === "artificer");
 }
 
+function toggleRage() {
+  const rage = character.combat?.rage;
+  if (!rage) return;
+
+  // Turn ON
+  if (!rage.active) {
+    if (rage.remaining <= 0) return;
+    rage.active = true;
+    rage.remaining--;
+  }
+  // Turn OFF
+  else {
+    rage.active = false;
+  }
+
+  console.log("Rage:", rage);
+}
+function updateRageUI() {
+  const panel = document.getElementById("barbarianRage");
+  if (!panel) return;
+
+  // Hide for non-barbarians
+  if (character.class?.id !== "barbarian" || !character.combat?.rage) {
+    panel.hidden = true;
+    return;
+  }
+
+  const rage = character.combat.rage;
+
+  panel.hidden = false;
+
+  document.getElementById("rageRemaining").textContent =
+    rage.remaining;
+
+  document.getElementById("rageMax").textContent =
+    rage.max === Infinity ? "∞" : rage.max;
+
+  document.getElementById("rageStatus").textContent =
+    rage.active ? "Raging" : "Not Raging";
+
+  document.getElementById("rageBtn").textContent =
+    rage.active ? "End Rage" : "Rage";
+}
 
 
 function applyShortRest() {
@@ -2755,8 +2802,13 @@ document.getElementById("name")?.addEventListener("input", e => {
     initDispositionUI();
     renderInvocationChoice();
     renderPactBoonChoice();
+    updateRageUI();
   });
 
+document.getElementById("rageBtn")?.addEventListener("click", () => {
+  toggleRage();
+  updateRageUI();
+});
 
   document.getElementById("level")?.addEventListener("change", async e => {
   if (!character.class?.id) return;
@@ -2837,6 +2889,8 @@ document.getElementById("name")?.addEventListener("input", e => {
   updateArmorerModeUI();
   updateWeaponLockUI();
   renderSoulTrinkets();
+  updateRageUI();
+
 
 
   // This is what opens subclass/tool/skill/infusion modals

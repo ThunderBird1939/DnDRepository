@@ -1,3 +1,8 @@
+import {
+  getRageStats,
+  getBrutalCriticalDice
+} from "/engine/rules/barbarian.js";
+
 export async function applyClass(character, classData, level = 1) {
   if (!classData) return;
 
@@ -53,7 +58,32 @@ export async function applyClass(character, classData, level = 1) {
   character.class.id = classData.id;
   character.class.name = classData.name;
   character.class.level = level;
-  
+
+  /* =========================
+   BARBARIAN RUNTIME INIT
+========================= */
+if (classData.id === "barbarian") {
+  character.combat ??= {};
+
+  const { uses } = getRageStats(level);
+
+  // Initialize once
+  character.combat.rage ??= {
+    max: uses,
+    remaining: uses,
+    active: false
+  };
+
+  // Update scaling on level change
+  character.combat.rage.max = uses;
+  if (character.combat.rage.remaining > uses) {
+    character.combat.rage.remaining = uses;
+  }
+
+  character.combat.brutalCriticalDice =
+    getBrutalCriticalDice(level);
+}
+
   /* =========================
     OSTRUMITE GUNNER – WEAPON PLATFORM INIT
   ========================= */
@@ -120,18 +150,23 @@ export async function applyClass(character, classData, level = 1) {
     };
   }
 
-  /* =========================
-      SPELLCASTING
-   ========================= */
-  if (classData.spellcasting) {
-    character.spellcasting.enabled = true;
-    character.spellcasting.ability = classData.spellcasting.ability;
-    character.spellcasting.type = classData.spellcasting.type;
-    character.spellcasting.focus = classData.spellcasting.focus ?? [];
-    character.spellcasting.ritual = classData.spellcasting.ritual ?? false;
-    } else {
-      character.spellcasting.enabled = false;
-    }
+/* =========================
+   SPELLCASTING (STRICT)
+========================= */
+if (
+  classData.spellcasting &&
+  classData.spellcasting.type &&
+  classData.spellcasting.type !== "none"
+) {
+  character.spellcasting.enabled = true;
+  character.spellcasting.type = classData.spellcasting.type;
+  character.spellcasting.ability = classData.spellcasting.ability ?? null;
+  character.spellcasting.focus = classData.spellcasting.focus ?? [];
+  character.spellcasting.ritual = classData.spellcasting.ritual ?? false;
+} else {
+  character.spellcasting.enabled = false;
+  character.spellcasting.type = null;
+}
 
 
   /* =========================
@@ -353,6 +388,21 @@ if (
 if (classData.levels && typeof classData.levels === "object") {
   Object.entries(classData.levels).forEach(([lvl, data]) => {
     if (Number(lvl) > level) return;
+    /* =========================
+      SUBCLASS UNLOCK (LEVEL DATA)
+    ========================= */
+    if (
+      data.subclass &&
+      !character.subclass &&
+      !character.pendingSubclassChoice
+    ) {
+      character.pendingSubclassChoice = {
+        classId: classData.id,
+        label: data.subclass.label,
+        source: data.subclass.optionsSource
+      };
+    }
+
     if (!Array.isArray(data.features)) return;
 
     data.features.forEach(feature => {
