@@ -1,0 +1,338 @@
+{
+  "system": "ostrumite-gunblade",
+  "class": "ostrumite-vanguard",
+
+  "rules": {
+    "onePerCategory": true,
+    "maxLegendary": 1,
+    "oneActivePerTurn": true,
+    "saveDC": "8 + proficiencyBonus + intelligenceMod"
+  },
+
+  "categories": {
+
+    "blade": {
+      "description": "Determines the melee weapon form of the gunblade. While equipped, you gain the listed feat for this weapon only.",
+      "basic": [
+        {
+          "id": "spear-assembly",
+          "name": "Spear Assembly",
+          "weapon": {
+            "damage": "1d6 / 1d8 piercing",
+            "properties": ["reach", "thrown(20/60)"]
+          },
+          "passive": "You gain the Polearm Master feat for this weapon."
+        },
+        {
+          "id": "glaive-assembly",
+          "name": "Glaive Assembly",
+          "weapon": {
+            "damage": "1d10 slashing",
+            "properties": ["heavy", "reach", "two-handed"]
+          },
+          "passive": "You gain the Sentinel feat for this weapon."
+        },
+        {
+          "id": "saber-chassis",
+          "name": "Saber Chassis",
+          "weapon": {
+            "damage": "1d8 piercing",
+            "properties": ["finesse"]
+          },
+          "passive": "You gain the Mobile feat while wielding this weapon."
+        },
+        {
+          "id": "greatblade-frame",
+          "name": "Greatblade Frame",
+          "weapon": {
+            "damage": "2d6 slashing",
+            "properties": ["heavy", "two-handed"]
+          },
+          "passive": "You gain the Great Weapon Master feat for this weapon."
+        },
+        {
+          "id": "warhammer-mount",
+          "name": "Warhammer Mount",
+          "weapon": {
+            "damage": "1d8 / 1d10 bludgeoning",
+            "properties": ["versatile"]
+          },
+          "passive": "You gain the Crusher feat for this weapon."
+        },
+        {
+          "id": "hooked-pike",
+          "name": "Hooked Pike",
+          "weapon": {
+            "damage": "1d10 slashing",
+            "properties": ["heavy", "reach", "two-handed"]
+          },
+          "passive": "You gain the Slasher feat for this weapon."
+        }
+      ]
+    },
+
+    "edge": {
+      "description": "Modifies on-hit melee effects.",
+      "basic": [
+        {
+          "id": "frost-edge",
+          "name": "Frost Edge",
+          "passive": "Once per turn when you hit a creature, its speed is reduced by 10 feet until the end of its next turn.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The next creature you hit this turn has its speed reduced to 0 until the end of its next turn."
+          }
+        },
+        {
+          "id": "shock-edge",
+          "name": "Shock Edge",
+          "passive": "Once per turn, deal +1 lightning damage on a melee hit.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The next creature you hit cannot take reactions until the start of its next turn."
+          }
+        },
+        {
+          "id": "serrated-edge",
+          "name": "Serrated Edge",
+          "passive": "Once per turn when you hit a wounded creature, deal +1d4 slashing damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The target takes 1d6 slashing damage at the start of its next turn."
+          }
+        },
+        {
+          "id": "phase-edge",
+          "name": "Phase Edge",
+          "passive": "You may choose for your melee attacks to deal force damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The next melee hit ignores resistance to its damage type."
+          }
+        },
+        {
+          "id": "radiant-edge",
+          "name": "Radiant Edge",
+          "passive": "Your melee attacks deal radiant damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The next creature you hit has disadvantage on its next saving throw."
+          }
+        },
+        {
+          "id": "grasping-edge",
+          "name": "Grasping Edge",
+          "passive": "Once per turn when you hit, you may pull the target 5 feet toward you.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Pull the target 10 feet and knock it prone (Strength save negates)."
+          }
+        }
+      ]
+    },
+
+    "core": {
+      "description": "Determines firearm damage dice and damage type.",
+      "basic": [
+        {
+          "id": "stabilized-core",
+          "name": "Stabilized Core",
+          "passive": "Firearm attacks deal 1d10 force damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The next firearm hit deals +1d8 force damage."
+          }
+        },
+        {
+          "id": "kinetic-core",
+          "name": "Kinetic Core",
+          "passive": "Firearm attacks deal 1d8 bludgeoning damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "On hit, push the target 10 feet and knock it prone (Strength save negates)."
+          }
+        },
+        {
+          "id": "thermal-core",
+          "name": "Thermal Core",
+          "passive": "Firearm attacks deal 1d8 fire damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The target takes 1d8 fire damage at the start of its next turn."
+          }
+        },
+        {
+          "id": "resonant-core",
+          "name": "Resonant Core",
+          "passive": "Firearm attacks deal 1d8 thunder damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Each creature within 5 feet of the target takes 1d6 thunder damage."
+          }
+        },
+        {
+          "id": "precision-core",
+          "name": "Precision Core",
+          "passive": "Firearm attacks deal 1d8 force damage and gain +1 to hit.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "You gain advantage on your next firearm attack this turn."
+          }
+        },
+        {
+          "id": "unstable-core",
+          "name": "Unstable Core",
+          "passive": "Firearm attacks deal 1d12 force damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Deal +1d10 force damage and take force damage equal to your proficiency bonus."
+          }
+        }
+      ]
+    },
+
+    "barrel": {
+      "description": "Determines firearm targeting rules.",
+      "basic": [
+        {
+          "id": "focused-channel",
+          "name": "Focused Channel",
+          "passive": "Firearm attacks target only one creature.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The next firearm attack ignores disadvantage."
+          }
+        },
+        {
+          "id": "piercing-channel",
+          "name": "Piercing Channel",
+          "passive": "On hit, you may make a second attack roll against another creature in a line.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "If the first attack hits, the second attack automatically hits."
+          }
+        },
+        {
+          "id": "scatter-channel",
+          "name": "Scatter Channel",
+          "passive": "Firearm attacks affect a 10-foot cone (Dex save half).",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Creatures failing the save are pushed 5 feet."
+          }
+        },
+        {
+          "id": "arcing-channel",
+          "name": "Arcing Channel",
+          "passive": "On hit, another creature within 10 feet takes INT modifier damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The secondary creature instead takes full firearm damage."
+          }
+        },
+        {
+          "id": "breach-channel",
+          "name": "Breach Channel",
+          "passive": "Firearm attacks ignore half cover.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The next firearm attack ignores all cover."
+          }
+        },
+        {
+          "id": "suppression-channel",
+          "name": "Suppression Channel",
+          "passive": "Creatures hit have their speed reduced by 10 feet.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The target has disadvantage on its next attack roll."
+          }
+        }
+      ]
+    },
+
+    "frame": {
+      "description": "Affects positioning, durability, and action economy.",
+      "basic": [
+        {
+          "id": "skirmisher-frame",
+          "name": "Skirmisher Frame",
+          "passive": "Your speed increases by 10 feet.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "You take the Disengage action."
+          }
+        },
+        {
+          "id": "bulwark-frame",
+          "name": "Bulwark Frame",
+          "passive": "You gain +1 AC.",
+          "active": {
+            "action": "reaction",
+            "charges": 1,
+            "effect": "Reduce incoming damage by PB + INT modifier."
+          }
+        },
+        {
+          "id": "anchor-frame",
+          "name": "Anchor Frame",
+          "passive": "You have advantage on saves against being pushed or knocked prone.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "You cannot be moved against your will until your next turn."
+          }
+        },
+        {
+          "id": "reflex-frame",
+          "name": "Reflex Frame",
+          "passive": "Add your Intelligence modifier (minimum +1) to initiative rolls.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "You take the Dodge action."
+          }
+        },
+        {
+          "id": "assault-frame",
+          "name": "Assault Frame",
+          "passive": "Once per turn if you moved 10 feet, deal +1 damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "You have advantage on opportunity attacks this turn."
+          }
+        },
+        {
+          "id": "field-repair-frame",
+          "name": "Field Repair Frame",
+          "passive": "Once per short rest when you reduce a creature to 0 HP, regain 1 charge.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "End one negative condition affecting you."
+          }
+        }
+      ]
+    }
+  }
+}

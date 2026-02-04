@@ -16,16 +16,18 @@ export function updateManifestEnergy() {
 
   panel.hidden = false;
 
-  // Determine manifest ability (CHA default, WIS optional later)
+  // Manifest ability (WIS by default)
   const manifestAbility =
     character.class?.manifestAbility?.chosen ??
     character.class?.manifestAbility?.default ??
-    "cha";
+    "wis";
 
   const mod = abilityMod(character.abilities?.[manifestAbility] ?? 10);
   const level = character.level || 1;
+  const proficiencyBonus = Math.ceil(1 + level / 4);
 
-  const max = Math.max(1, level + mod);
+  // ✅ PB + WIS mod (minimum 1)
+  const max = Math.max(1, proficiencyBonus + mod);
 
   character.combat.manifestEnergy ??= { current: max, max };
   character.combat.manifestEnergy.max = max;

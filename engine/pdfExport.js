@@ -25,6 +25,36 @@ async function loadPdfMagicItems() {
   PDF_MAGIC_ITEMS = await res.json();
   return PDF_MAGIC_ITEMS;
 }
+/* =========================
+   GUNBLADE MOD DATA LOADER
+========================= */
+let GUNBLADE_MODS = null;
+
+async function loadGunbladeMods() {
+  if (GUNBLADE_MODS) return GUNBLADE_MODS;
+
+  const [basic, advanced] = await Promise.all([
+    fetch("./data/gunblade/basic.mods.json").then(r => r.json()),
+    fetch("./data/gunblade/advanced.mods.json").then(r => r.json())
+  ]);
+
+  GUNBLADE_MODS = { basic, advanced };
+  return GUNBLADE_MODS;
+}
+/* =========================
+   MANIFEST TECHNIQUE LOADER (PDF)
+========================= */
+let MANIFEST_TECHNIQUES = null;
+
+async function loadManifestTechniques() {
+  if (MANIFEST_TECHNIQUES) return MANIFEST_TECHNIQUES;
+
+  const res = await fetch("./data/manifest/manifest-techniques.json");
+  if (!res.ok) return [];
+
+  MANIFEST_TECHNIQUES = await res.json();
+  return MANIFEST_TECHNIQUES;
+}
 
 /* =========================
    SPELL HELPERS (CLASS JSON FORMAT)
@@ -191,8 +221,8 @@ export async function buildPdfCharacterData(character) {
     if (perceptionExpertise) perceptionBonus += profBonus; // expertise adds prof again
 
     const passivePerception = 10 + perceptionBonus;
-
-  /* =========================
+    
+   /* =========================
     SPELL LISTS (PDF)
   ========================= */
   let cantrips = [];
@@ -200,32 +230,78 @@ export async function buildPdfCharacterData(character) {
   let availableSpells = [];
 
   if (character.spellcasting?.enabled && character.class?.id) {
-    const res = await fetch(`./data/spells/${character.class.id}.json`);
-    if (res.ok) {
-      const classSpells = await res.json();
+  const res = await fetch(`./data/spells/${character.class.id}.json`);
+  if (res.ok) {
+    const classSpells = await res.json();
 
-      const byId = id =>
-        classSpells.find(s =>
-          s.id === id ||
-          s.title?.toLowerCase().replace(/\s+/g, "-") === id
-        );
+    const byId = id =>
+      classSpells.find(s =>
+        s.id === id ||
+        s.title?.toLowerCase().replace(/\s+/g, "-") === id
+      );
 
-      // Selected cantrips only (normalized for PDF)
-      cantrips = [...(character.spellcasting.cantrips ?? [])]
-        .map(byId)
-        .filter(Boolean)
-        .map(normalizeSpellForPdf);
+    cantrips = [...(character.spellcasting.cantrips ?? [])]
+      .map(byId)
+      .filter(Boolean)
+      .map(normalizeSpellForPdf);
 
-      // All available spells to prepare (normalized for PDF)
-      availableSpells = [...(character.spellcasting.available ?? [])]
-        .map(byId)
-        .filter(Boolean)
-        .map(normalizeSpellForPdf);
+    availableSpells = [...(character.spellcasting.available ?? [])]
+      .map(byId)
+      .filter(Boolean)
+      .map(normalizeSpellForPdf);
 
-      // Keep prepared IDs for marking/highlighting in the PDF layer
-      preparedSpells = [...(character.spellcasting.prepared ?? [])];
-    }
+    preparedSpells = [...(character.spellcasting.prepared ?? [])];
   }
+}
+
+  /* =========================
+    NON-SPELLCASTER SPELL LISTS
+  ========================= */
+
+  // === OSTRUMITE GUNNER ===
+  if (character.class?.id === "ostrumite-gunner") {
+    const modsData = await loadGunbladeMods();
+
+    const basicMods = Object.values(modsData.basic.categories)
+      .flatMap(c => c.basic);
+
+    const advancedMods =
+      level >= 9
+        ? Object.values(modsData.advanced.categories).flatMap(c => c.advanced)
+        : [];
+
+    availableSpells = [...basicMods, ...advancedMods].map(mod => ({
+      name: mod.name,
+      level: "",
+      castingTime: mod.slot ?? "",
+      range: "",
+      ritual: false,
+      concentration: false
+    }));
+  }
+
+  /* =========================
+    BOUND VANGUARD TECHNIQUES (PDF)
+  ========================= */
+  if (character.class?.id === "bound-vanguard") {
+    const allTechniques = await loadManifestTechniques();
+
+    const available = allTechniques.filter(tech => {
+      if (tech.tags?.includes("universal")) return true;
+      if (!character.disposition) return false;
+      return tech.tags.includes(`disposition:${character.disposition}`);
+    });
+
+    availableSpells = available.map(t => ({
+      name: t.name,
+      level: "",
+      castingTime: t.type ?? t.action ?? "",
+      range: t.range ?? "",
+      ritual: false,
+      concentration: false
+    }));
+  }
+
   const skills = {};
 
   for (const [skill, ability] of Object.entries(skillAbilityMap)) {
@@ -246,8 +322,6 @@ export async function buildPdfCharacterData(character) {
       expertise
     };
   }
-
-
 
   /* =========================
      RESOLVE WEAPONS
@@ -292,7 +366,6 @@ export async function buildPdfCharacterData(character) {
       };
     })
     .filter(Boolean);
-
 
   /* =========================
      RACE TRAITS

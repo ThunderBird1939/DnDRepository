@@ -1,0 +1,10 @@
+{
+  "resource": "ostrumite-charges",
+  "chargeFormula": "PB + INT",
+  "saveDC": "8 + PB + INT",
+  "slots": ["blade", "edge", "core", "barrel", "frame"],
+  "limits": {
+    "oneActivePerTurn": true,
+    "legendaryLimit": 1
+  }
+}

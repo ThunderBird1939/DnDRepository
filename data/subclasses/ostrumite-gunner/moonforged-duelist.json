@@ -1,54 +1,51 @@
 {
   "id": "moonforged-duelist",
   "name": "Moonforged Duelist",
-  "classId": "ostrumite-gunner",
+  "classId": "ostrumite-vanguard",
   "source": "homebrew",
-  "description": "Moonforged Duelists synchronize their Ostrumite cores to lunar rhythms, striking with terrifying precision and chaining critical moments into decisive victories.",
+
+  "description": "Moonforged Duelists synchronize their Ostrumite cores to lunar cycles, striking with patience, pressure, and execution.",
+
   "featuresByLevel": {
     "3": [
       {
         "id": "lunar-calibration",
         "name": "Lunar Calibration",
         "type": "activation",
-        "description": "You adopt a lunar stance that grants different combat benefits. You may switch stances as a bonus action."
+        "description": "At the start of combat or as a bonus action, choose a lunar stance: New Moon (Patience): gain +1 to attack rolls and the first attack you make each turn has advantage if you did not move more than 10 feet. Waxing Moon (Pressure): when you hit a creature, you deal +2 damage against that creature until the start of your next turn. Full Moon (Execution): when you reduce a creature to 0 HP, regain 1 Ostrumite Charge and make one weapon attack (once per turn). You may switch stances as a bonus action."
       },
       {
-        "id": "precision-strike",
-        "name": "Precision Strike",
-        "type": "passive",
-        "description": "Once per turn when you hit, you may spend 1 Ostrumite Charge to add damage or turn a 19 into a critical hit."
+        "id": "controlled-detonation",
+        "name": "Controlled Detonation",
+        "type": "activation",
+        "description": "When you hit with a firearm attack, you may spend 2 Ostrumite Charges to create a blast. Creatures within 5 feet of the target take 2d8 + your Intelligence modifier force damage. A Dexterity saving throw halves this damage (DC = 8 + PB + INT)."
       }
     ],
+
     "7": [
       {
         "id": "reactive-duelist",
         "name": "Reactive Duelist",
         "type": "reaction",
-        "description": "When a creature misses you or leaves your reach, you may spend 1 charge to make a melee attack. On a critical hit, you may immediately make a firearm attack."
+        "description": "When a creature you can see misses you with an attack, leaves your reach, or misses an attack against an ally within your firearm range, you may use your reaction and spend 1 Ostrumite Charge to make a melee attack against that creature. If this attack is a critical hit, you may immediately make one firearm attack against the same target without using an action."
       }
     ],
-    "11": [
+
+    "14": [
       {
-        "id": "exploit-opening",
-        "name": "Exploit Opening",
-        "type": "passive",
-        "description": "Your weapon attacks ignore resistance on critical hits, and your critical hit range expands."
+        "id": "hunters-mark-protocol",
+        "name": "Hunter’s Mark Protocol",
+        "type": "activation",
+        "description": "At the start of combat, choose one creature you can see for 1 minute. You deal additional damage to it equal to your Intelligence modifier, your attacks against it ignore resistance, and if the target is Large or larger, your first hit each turn deals an additional 1d8 force damage."
       }
     ],
-    "15": [
-      {
-        "id": "perfect-timing",
-        "name": "Perfect Timing",
-        "type": "passive",
-        "description": "Once per turn when you miss, you may reroll the attack. Critical hits grant movement and restore charges."
-      }
-    ],
+
     "18": [
       {
         "id": "lunar-execution",
         "name": "Lunar Execution",
         "type": "activation",
-        "description": "Once per short rest, you may declare an attack an automatic critical hit against a wounded or pressured target."
+        "description": "Once per short rest, when you hit a creature that is below half its hit points or has already taken damage this round, you may declare a Lunar Execution (no action). The attack becomes a critical hit. If the creature survives, it has disadvantage on attacks against you until the end of its next turn."
       }
     ]
   }

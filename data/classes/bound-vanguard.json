@@ -37,7 +37,7 @@
 
   "resources": {
     "manifestEnergy": {
-      "formula": "level + manifestAbilityMod",
+      "formula": "PB + Wis",
       "minimum": 1,
       "recovery": "longRest"
     }
@@ -70,7 +70,7 @@
           "id": "manifest-energy",
           "name": "Manifest Energy",
           "type": "system",
-          "description": "You gain a pool of Manifest Energy (ME) used to fuel Manifest Techniques."
+          "description": "You gain a pool of Manifest Energy (ME) PB+Wis Mod used to fuel Manifest Techniques."
         },
         {
           "id": "manifest-strike",

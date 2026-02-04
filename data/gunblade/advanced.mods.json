@@ -1,0 +1,332 @@
+{
+  "system": "ostrumite-gunblade",
+  "class": "ostrumite-vanguard",
+
+  "categories": {
+
+    "blade": {
+      "advanced": [
+        {
+          "id": "lunar-spear-assembly",
+          "name": "Lunar Spear Assembly",
+          "upgradeOf": "spear-assembly",
+          "passive": "You gain Polearm Master. Opportunity attacks made with this weapon deal additional damage equal to your Proficiency Bonus.",
+          "active": {
+            "action": "reaction",
+            "charges": 1,
+            "trigger": "A creature enters your reach",
+            "effect": "You may make an opportunity attack even if it normally would not provoke one."
+          }
+        },
+        {
+          "id": "grim-glaive-assembly",
+          "name": "Grim Glaive Assembly",
+          "upgradeOf": "glaive-assembly",
+          "passive": "You gain Sentinel. Creatures you hit have their speed reduced by 10 feet until the end of their next turn.",
+          "active": {
+            "action": "reaction",
+            "charges": 1,
+            "trigger": "You hit a creature with an opportunity attack",
+            "effect": "The creature’s speed becomes 0 until the end of its next turn."
+          }
+        },
+        {
+          "id": "phantom-saber-chassis",
+          "name": "Phantom Saber Chassis",
+          "upgradeOf": "saber-chassis",
+          "passive": "You gain Mobile. You ignore disadvantage on melee attacks caused by darkness, invisibility, or light obscurement.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Until the end of this turn, your melee attacks do not provoke opportunity attacks."
+          }
+        },
+        {
+          "id": "executioner-greatblade-frame",
+          "name": "Executioner Greatblade Frame",
+          "upgradeOf": "greatblade-frame",
+          "passive": "You gain Great Weapon Master. Once per turn when you reduce a creature to 0 HP, you may move 5 feet and make one melee attack.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "Your next melee hit this turn deals maximum weapon damage."
+          }
+        },
+        {
+          "id": "siege-hammer-mount",
+          "name": "Siege Hammer Mount",
+          "upgradeOf": "warhammer-mount",
+          "passive": "You gain Crusher. When you push a creature into an object or another creature, both take bludgeoning damage equal to your Intelligence modifier.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Until the end of this turn, any push you cause increases by 5 feet."
+          }
+        },
+        {
+          "id": "locking-pike-assembly",
+          "name": "Locking Pike Assembly",
+          "upgradeOf": "hooked-pike",
+          "passive": "You gain Slasher. Opportunity attacks reduce the target’s speed to 0 until the end of its turn.",
+          "active": {
+            "action": "reaction",
+            "charges": 1,
+            "trigger": "A creature leaves your reach",
+            "effect": "You may make two opportunity attacks against the same target instead of one."
+          }
+        }
+      ]
+    },
+
+    "edge": {
+      "advanced": [
+        {
+          "id": "rimebound-edge",
+          "name": "Rimebound Edge",
+          "upgradeOf": "frost-edge",
+          "passive": "When you reduce a creature’s speed, it has disadvantage on its next attack roll.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "The next creature you hit must succeed on a Constitution save or be restrained until the end of its next turn."
+          }
+        },
+        {
+          "id": "disruptive-shock-edge",
+          "name": "Disruptive Shock Edge",
+          "upgradeOf": "shock-edge",
+          "passive": "Creatures you hit cannot benefit from reactions granted by class features or feats until the start of their next turn.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "End one magical effect on the target with a spell level less than or equal to your Proficiency Bonus."
+          }
+        },
+        {
+          "id": "rending-serrated-edge",
+          "name": "Rending Serrated Edge",
+          "upgradeOf": "serrated-edge",
+          "passive": "Bleed damage from this edge may stack twice.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The bleed damage triggers immediately and again at the start of the target’s next turn."
+          }
+        },
+        {
+          "id": "phasing-edge",
+          "name": "Phasing Edge",
+          "upgradeOf": "phase-edge",
+          "passive": "Your melee attacks ignore resistance.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "The next melee attack you hit ignores immunity to its damage type."
+          }
+        },
+        {
+          "id": "solar-brand-edge",
+          "name": "Solar Brand Edge",
+          "upgradeOf": "radiant-edge",
+          "passive": "When you hit a creature, the next attack made against it before the end of your next turn has advantage.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "The target sheds bright light and cannot become invisible until the end of its next turn."
+          }
+        },
+        {
+          "id": "dominating-grasp-edge",
+          "name": "Dominating Grasp Edge",
+          "upgradeOf": "grasping-edge",
+          "passive": "When you pull a creature, it takes bludgeoning damage equal to your Intelligence modifier.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "Pull the target 15 feet and knock it prone (Strength save negates)."
+          }
+        }
+      ]
+    },
+
+    "core": {
+      "advanced": [
+        {
+          "id": "overclocked-core",
+          "name": "Overclocked Core",
+          "upgradeOf": "stabilized-core",
+          "passive": "Increase firearm damage die by one step.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "Double the firearm damage dice for this attack. You take force damage equal to the number of dice rolled."
+          }
+        },
+        {
+          "id": "gravitic-core",
+          "name": "Gravitic Core",
+          "upgradeOf": "kinetic-core",
+          "passive": "Firearm attacks deal 1d10 force damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Pull the target 10 feet toward you. Creatures adjacent to the landing space must succeed on a Strength save or fall prone."
+          }
+        },
+        {
+          "id": "echo-core",
+          "name": "Echo Core",
+          "upgradeOf": "resonant-core",
+          "passive": "Firearm attacks deal 1d8 thunder damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Repeat the attack against the same target at half damage."
+          }
+        },
+        {
+          "id": "predator-core",
+          "name": "Predator Core",
+          "upgradeOf": "precision-core",
+          "passive": "Firearm attacks deal additional damage equal to your Proficiency Bonus if the target is below half HP.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Treat the target as below half HP for this attack."
+          }
+        },
+        {
+          "id": "cataclysm-core",
+          "name": "Cataclysm Core",
+          "upgradeOf": "unstable-core",
+          "passive": "Firearm attacks deal 1d10 force damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "On hit, all creatures within 10 feet take half the firearm damage."
+          }
+        }
+      ]
+    },
+
+    "barrel": {
+      "advanced": [
+        {
+          "id": "fracture-channel",
+          "name": "Fracture Channel",
+          "upgradeOf": "piercing-channel",
+          "passive": "On hit, the shot splits into two 10-foot lines, each dealing half damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Both lines deal full damage."
+          }
+        },
+        {
+          "id": "cyclone-channel",
+          "name": "Cyclone Channel",
+          "upgradeOf": "scatter-channel",
+          "passive": "Firearm attacks affect a 10-foot radius (Dexterity save for half).",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "Creatures failing the save are knocked prone."
+          }
+        },
+        {
+          "id": "threading-channel",
+          "name": "Threading Channel",
+          "upgradeOf": "breach-channel",
+          "passive": "Your shots may bend around corners as long as the total path is visible.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Ignore line of sight for this attack."
+          }
+        },
+        {
+          "id": "pursuit-channel",
+          "name": "Pursuit Channel",
+          "upgradeOf": "suppression-channel",
+          "passive": "Creatures that move after being hit take damage equal to your Intelligence modifier.",
+          "active": {
+            "action": "reaction",
+            "charges": 1,
+            "effect": "The creature’s movement provokes opportunity attacks."
+          }
+        },
+        {
+          "id": "crater-channel",
+          "name": "Crater Channel",
+          "upgradeOf": "focused-channel",
+          "passive": "The impact space becomes difficult terrain.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "The area becomes hazardous; creatures entering it take 1d6 force damage."
+          }
+        }
+      ]
+    },
+
+    "frame": {
+      "advanced": [
+        {
+          "id": "vanguard-frame",
+          "name": "Vanguard Frame",
+          "upgradeOf": "bulwark-frame",
+          "passive": "Enemies within 5 feet of you have disadvantage on attacks against creatures other than you.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Force a creature within 10 feet to target you (Wisdom save negates)."
+          }
+        },
+        {
+          "id": "juggernaut-frame",
+          "name": "Juggernaut Frame",
+          "upgradeOf": "anchor-frame",
+          "passive": "You ignore difficult terrain.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "Gain resistance to all damage until the start of your next turn."
+          }
+        },
+        {
+          "id": "repositioning-frame",
+          "name": "Repositioning Frame",
+          "upgradeOf": "skirmisher-frame",
+          "passive": "Standing from prone costs no movement.",
+          "active": {
+            "action": "bonus",
+            "charges": 1,
+            "effect": "Teleport 15 feet to an unoccupied space you can see."
+          }
+        },
+        {
+          "id": "counterstrike-frame",
+          "name": "Counterstrike Frame",
+          "upgradeOf": "reflex-frame",
+          "passive": "Once per round when you reduce damage with a reaction, your next attack deals additional damage equal to your Proficiency Bonus.",
+          "active": {
+            "action": "reaction",
+            "charges": 1,
+            "effect": "Make one melee attack as part of the same reaction."
+          }
+        },
+        {
+          "id": "emergency-override-frame",
+          "name": "Emergency Override Frame",
+          "upgradeOf": "field-repair-frame",
+          "passive": "When you drop below half your hit points, you gain +1 AC.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "effect": "End all negative conditions affecting you."
+          }
+        }
+      ]
+    }
+  }
+}

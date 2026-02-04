@@ -6,10 +6,18 @@ let modsData = null;
 async function loadWeaponMods() {
   if (modsData) return modsData;
 
-  const res = await fetch(
-    "./data/ostrumite/mods/ostrumite-gunblade-mods.json"
-  );
-  modsData = await res.json();
+  const [basic, advanced, legendary] = await Promise.all([
+    fetch("./data/gunblade/basic.mods.json").then(r => r.json()),
+    fetch("./data/gunblade/advanced.mods.json").then(r => r.json()),
+    fetch("./data/gunblade/legendary.mods.json").then(r => r.json())
+  ]);
+
+  modsData = {
+    basic,
+    advanced,
+    legendary
+  };
+
   return modsData;
 }
 
@@ -22,111 +30,129 @@ export async function renderWeaponMods(character) {
   const panel = document.getElementById("weaponModsPanel");
   if (!panel) return;
 
-  const weapon = character.weapons?.primary;
-  if (!weapon || !weapon.installedMods) return;
+  character.mods ??= {};
+  const mods = character.mods;
 
   // 🔑 Load mod data once
   modsData = await loadWeaponMods();
-  if (!modsData?.mods) return;
 
   panel.hidden = false;
 
-  // Capacity display
-  const used = Object.values(weapon.installedMods).filter(Boolean).length;
-  document.getElementById("modsUsed").textContent = used;
-  document.getElementById("modsMax").textContent = weapon.modCapacity ?? 0;
+  /* =========================
+     MOD USAGE DISPLAY
+  ========================= */
+  const slots = ["blade", "edge", "core", "barrel", "frame"];
+  const usedSlots = slots.filter(s => mods[s]).length;
+  const hasLegendary = !!mods.legendary;
 
-  // Render each slot dropdown
+  document.getElementById("modsUsed").textContent =
+    hasLegendary
+      ? `${usedSlots} / ${slots.length} (+1 Legendary)`
+      : `${usedSlots} / ${slots.length}`;
+
+  /* =========================
+     RENDER SLOT DROPDOWNS
+  ========================= */
   panel.querySelectorAll("select[data-slot]").forEach(select => {
     const slot = select.dataset.slot;
-    renderSlotDropdown(select, slot, character, weapon);
+    renderSlotDropdown(select, slot, character, mods);
   });
 
-  // 🔽 Render inventory (derived)
-  renderModInventory(weapon);
+  /* =========================
+     RENDER LEGENDARY
+  ========================= */
+  renderLegendaryDropdown(character, mods);
+
+  /* =========================
+     INVENTORY (DERIVED)
+  ========================= */
+  renderModInventory(mods);
 }
 
 /* =========================
    SLOT RENDERING
 ========================= */
-function renderSlotDropdown(select, slot, character, weapon) {
+function renderSlotDropdown(select, slot, character, mods) {
   select.innerHTML = "";
-
-  // Slot lock rules
-  if (slot === "blade" && character.level < 3) {
-    select.appendChild(new Option("— Locked —", ""));
-    select.disabled = true;
-    return;
-  }
-
   select.disabled = false;
 
-  // Empty option
   select.appendChild(new Option("— Empty —", ""));
 
-  // Eligible mods
-  modsData.mods
-    .filter(mod => mod.slot === slot)
+  const tierData = [
+    ...(modsData.basic.categories[slot]?.basic ?? []).map(m => ({
+      ...m,
+      tier: "basic"
+    })),
+    ...(modsData.advanced.categories[slot]?.advanced ?? []).map(m => ({
+      ...m,
+      tier: "advanced"
+    }))
+  ];
+
+
+  tierData
     .filter(mod => isModAllowed(mod, character))
     .forEach(mod => {
       select.appendChild(new Option(mod.name, mod.id));
     });
 
-  // Current installed mod
-  const installed = weapon.installedMods[slot];
-  if (installed) {
-    select.value = installed.id;
+  if (mods[slot]) {
+    select.value = mods[slot];
   }
 
   select.onchange = () => {
-    applyModChange(character, weapon, slot, select.value);
+    mods[slot] = select.value || null;
+    renderWeaponMods(character);
   };
 }
 
 /* =========================
-   APPLY / REMOVE MOD
+   LEGENDARY DROPDOWN
 ========================= */
-function applyModChange(character, weapon, slot, modId) {
-  const currentUsed =
-    Object.values(weapon.installedMods).filter(Boolean).length;
+function renderLegendaryDropdown(character, mods) {
+  const select = document.getElementById("legendaryModSelect");
+  if (!select) return;
 
-  // Remove mod
-  if (!modId) {
-    weapon.installedMods[slot] = null;
-    renderWeaponMods(character);
-    return;
+  select.innerHTML = "";
+  select.appendChild(new Option("— None —", ""));
+
+  Object.values(modsData.legendary.categories)
+    .flatMap(c => c.legendary)
+    .forEach(mod => {
+      select.appendChild(new Option(mod.name, mod.id));
+    });
+
+  if (mods.legendary) {
+    select.value = mods.legendary;
   }
 
-  // Capacity check
-  if (!weapon.installedMods[slot] && currentUsed >= weapon.modCapacity) {
-    alert("This weapon cannot hold more mods.");
+  select.onchange = () => {
+    mods.legendary = select.value || null;
     renderWeaponMods(character);
-    return;
-  }
-
-  const mod = modsData.mods.find(m => m.id === modId);
-  weapon.installedMods[slot] = mod;
-
-  renderWeaponMods(character);
+  };
 }
 
 /* =========================
    INVENTORY (DERIVED)
 ========================= */
-function renderModInventory(weapon) {
+function renderModInventory(mods) {
   const ul = document.getElementById("gunModInventory");
   if (!ul) return;
 
   ul.innerHTML = "";
 
-  const installedIds = new Set(
-    Object.values(weapon.installedMods)
-      .filter(Boolean)
-      .map(m => m.id)
+  const equipped = new Set(
+    Object.values(mods).filter(Boolean)
   );
 
-  modsData.mods
-    .filter(mod => !installedIds.has(mod.id))
+  const allMods = [
+    ...Object.values(modsData.basic.categories).flatMap(c => c.basic),
+    ...Object.values(modsData.advanced.categories).flatMap(c => c.advanced),
+    ...Object.values(modsData.legendary.categories).flatMap(c => c.legendary)
+  ];
+
+  allMods
+    .filter(mod => !equipped.has(mod.id))
     .forEach(mod => {
       const li = document.createElement("li");
       li.textContent = mod.name;
@@ -139,11 +165,5 @@ function renderModInventory(weapon) {
 ========================= */
 function isModAllowed(mod, character) {
   if (mod.tier === "advanced" && character.level < 9) return false;
-  if (mod.tier === "legendary") return false;
-
-  if (mod.subclass && mod.subclass !== character.subclass?.id) {
-    return false;
-  }
-
   return true;
 }

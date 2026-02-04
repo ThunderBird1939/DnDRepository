@@ -468,16 +468,31 @@ if (character.spellcasting?.enabled && data.spellSlots) {
     );
   }
 }
-  /* =========================
-    COMBINED SPELL LIST
-  ========================= */
-  const spells = [
+
+/* =========================
+  COMBINED SPELL LIST
+========================= */
+
+let spells = [];
+
+if (data.gunblade) {
+  // === OSTRUMITE GUNNER ===
+  spells = data.availableSpells ?? [];
+
+} else if (data.class === "Bound Vanguard") {
+  // === BOUND VANGUARD ===
+  spells = data.availableSpells ?? [];
+
+} else {
+  // === NORMAL SPELLCASTERS ===
+  spells = [
     ...(data.cantrips ?? []).map(s => ({ ...s, _sort: 0 })),
     ...(data.availableSpells ?? []).map(s => ({ ...s, _sort: 1 }))
   ].sort((a, b) => {
     if (a._sort !== b._sort) return a._sort - b._sort;
     return (a.name ?? "").localeCompare(b.name ?? "");
   });
+}
 
   /* =========================
     SPELL LISTS (PAGE 2)

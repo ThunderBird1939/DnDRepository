@@ -1,0 +1,158 @@
+{
+  "system": "ostrumite-gunblade",
+  "class": "ostrumite-vanguard",
+
+  "rules": {
+    "legendaryLimit": 1,
+    "ignoresActiveLimit": true,
+    "saveDC": "8 + proficiencyBonus + intelligenceMod"
+  },
+
+  "categories": {
+
+    "blade": {
+      "legendary": [
+        {
+          "id": "moonreaver-armament",
+          "name": "Moonreaver Armament",
+          "weapon": {
+            "form": "glaive",
+            "damage": "1d10 slashing",
+            "properties": ["heavy", "reach", "two-handed"]
+          },
+          "passive": "You gain Polearm Master and Sentinel while wielding this weapon. Creatures you hit cannot move willingly until the end of their next turn.",
+          "active": {
+            "action": "reaction",
+            "charges": 2,
+            "limit": "shortRest",
+            "effect": "Until the start of your next turn, creatures provoke opportunity attacks from you even if they Disengage or teleport."
+          }
+        },
+        {
+          "id": "kingbreaker-armament",
+          "name": "Kingbreaker Armament",
+          "weapon": {
+            "form": "greatsword",
+            "damage": "2d6 slashing",
+            "properties": ["heavy", "two-handed"]
+          },
+          "passive": "Critical hits with this weapon deal maximum weapon damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 3,
+            "limit": "longRest",
+            "effect": "The next melee attack you hit with this turn becomes a critical hit. If the target survives, it is frightened of you until the end of its next turn."
+          }
+        }
+      ]
+    },
+
+    "edge": {
+      "legendary": [
+        {
+          "id": "edge-of-absolute-zero",
+          "name": "Edge of Absolute Zero",
+          "passive": "Creatures you hit cannot benefit from bonuses to speed.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "limit": "shortRest",
+            "effect": "On your next melee hit this turn, the target must succeed on a Constitution save or be paralyzed until the end of its next turn."
+          }
+        },
+        {
+          "id": "solar-anathema-edge",
+          "name": "Solar Anathema Edge",
+          "passive": "Creatures you hit cannot benefit from invisibility, blur, mirror image, or magical concealment.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "limit": "longRest",
+            "effect": "Mark one creature you hit until the end of your next turn. All attacks against it have advantage and it has disadvantage on all saving throws."
+          }
+        }
+      ]
+    },
+
+    "core": {
+      "legendary": [
+        {
+          "id": "singularity-core",
+          "name": "Singularity Core",
+          "passive": "Firearm attacks deal 2d10 force damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 3,
+            "limit": "longRest",
+            "effect": "On hit, the target takes full damage. All creatures within 15 feet take half damage. The impact space becomes difficult terrain until the end of your next turn. You take force damage equal to your Vanguard level."
+          }
+        },
+        {
+          "id": "chrono-fracture-core",
+          "name": "Chrono-Fracture Core",
+          "passive": "Firearm attacks score a critical hit on a roll of 19–20.",
+          "active": {
+            "action": "free",
+            "charges": 2,
+            "limit": "longRest",
+            "effect": "After resolving a firearm attack, take one additional turn immediately. You cannot move during this extra turn."
+          }
+        }
+      ]
+    },
+
+    "barrel": {
+      "legendary": [
+        {
+          "id": "event-horizon-channel",
+          "name": "Event Horizon Channel",
+          "passive": "Firearm attacks affect a 20-foot line, passing through creatures.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "limit": "shortRest",
+            "effect": "The line becomes a 20-foot-long, 10-foot-radius cylinder. Creatures must make a Dexterity saving throw or be pulled to the center."
+          }
+        },
+        {
+          "id": "reality-breach-channel",
+          "name": "Reality Breach Channel",
+          "passive": "Firearm attacks ignore line of sight and all cover.",
+          "active": {
+            "action": "bonus",
+            "charges": 3,
+            "limit": "longRest",
+            "effect": "Choose a point you have seen this round. Creatures within 10 feet take firearm damage (Dexterity save for half)."
+          }
+        }
+      ]
+    },
+
+    "frame": {
+      "legendary": [
+        {
+          "id": "aegis-vanguard-frame",
+          "name": "Aegis Vanguard Frame",
+          "passive": "You gain resistance to bludgeoning, piercing, and slashing damage.",
+          "active": {
+            "action": "bonus",
+            "charges": 2,
+            "limit": "shortRest",
+            "effect": "Until the start of your next turn, all damage you take is halved and creatures you hit cannot take reactions."
+          }
+        },
+        {
+          "id": "unyielding-engine-frame",
+          "name": "Unyielding Engine Frame",
+          "passive": "You cannot be knocked prone, stunned, or restrained.",
+          "active": {
+            "action": "bonus",
+            "charges": 3,
+            "limit": "longRest",
+            "effect": "Until the end of your next turn, you cannot drop below 1 HP. Once per turn when you hit a creature, you regain 1 Ostrumite Charge."
+          }
+        }
+      ]
+    }
+  }
+}
