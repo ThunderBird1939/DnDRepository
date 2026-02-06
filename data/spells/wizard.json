@@ -6834,6 +6834,34 @@
     ]
   },
   {
+  "count": 1,
+  "color": "#6b5fa7",
+  "title": "Magnify Gravity",
+  "icon": "magic-swirl",
+  "icon_back": "magic-swirl",
+  "contents": [
+    "subtitle | 1st-level transmutation (dunamancy: graviturgy)",
+    "rule",
+    "property | Casting Time | 1 action",
+    "property | Range | 60 feet",
+    "property | Components | V, S",
+    "property | Duration | 1 round",
+    "rule",
+    "text | The gravity in a 10-foot-radius sphere centered on a point you can see within range intensifies briefly.",
+    "text | Each creature in the sphere when you cast the spell must make a Constitution saving throw. On a failed save, a creature takes 2d8 force damage, and its speed is halved until the end of its next turn. On a successful save, the creature takes half as much damage and suffers no reduction to its speed.",
+    "text | Until the start of your next turn, any object in the sphere that isn't being worn or carried requires a successful Strength check against your spell save DC to pick up or move.",
+    "text | At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d8 for each slot level above 1st."
+  ],
+  "tags": [
+    "spell",
+    "EGtW",
+    "1st level",
+    "Transmutation",
+    "Dunamancy",
+    "Wizard"
+  ]
+  },
+  {
     "count": 1,
     "color": "#4a6898",
     "title": "Mordenkainen's Magnificent Mansion",
@@ -9767,7 +9795,7 @@
   {
     "count": 1,
     "color": "#4a6898",
-    "title": "Tasha's Hideous Laughter",
+    "title": "Tashas Hideous Laughter",
     "icon": "magic-swirl",
     "icon_back": "magic-swirl",
     "contents": [
