@@ -1,7 +1,7 @@
 import {
   getRageStats,
   getBrutalCriticalDice
-} from "/engine/rules/barbarian.js";
+} from "../engine/rules/barbarian.js";
 
 export async function applyClass(character, classData, level = 1) {
   if (!classData) return;
