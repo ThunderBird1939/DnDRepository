@@ -178,5 +178,25 @@
     "description | Beguiling Melody | You can play the violin while casting a spell that causes one or more of its targets to be charmed on a failed saving throw, imposing disadvantage on the saving throw. This benefit applies only if the spell has a somatic or material component."
   ],
   "tags": ["item", "magic", "wondrous item", "instrument", "uncommon", "attunement", "bard", "nature"]
+},
+{
+  "count": 1,
+  "color": "#7b5fc9",
+  "title": "Lunar Crown",
+  "icon": "crown",
+  "icon_back": "crown",
+  "contents": [
+    "subtitle | Wondrous Item",
+    "property | Rarity | Rare",
+    "property | Attunement | Required",
+    "property | Charges | 2 / Long Rest",
+    "rule",
+    "text | This adaptive crown reshapes itself to suit its wearer, forming a circlet, diadem, or crown-like band according to personal taste. No matter its form, a crescent moon of polished purple Ostrumite ore rests at its center, glowing softly with lunar light.",
+    "description | Lunar Amplification | When you cast a spell that restores hit points or removes conditions, you may expend 1 charge to empower the spell.",
+    "description | Direct Lunar Upgrade | If the spell has a direct, higher-level version (such as cure wounds becoming mass cure wounds, or lesser restoration becoming greater restoration), the spell is instead cast as that higher-level spell.",
+    "description | Arcane Scaling | If the spell does not have a direct upgraded version, it is cast as if using a spell slot one level higher than the slot you expend.",
+    "description | Casting Limits | This effect does not grant access to spells you do not know or have prepared. Any additional material components, casting time changes, or other requirements of the upgraded spell must be met. The spell cannot be enhanced beyond the highest spell level you are capable of casting."
+  ],
+  "tags": ["item", "magic", "wondrous item", "rare", "attunement", "lunar", "ostrumite"]
 }
 ]
