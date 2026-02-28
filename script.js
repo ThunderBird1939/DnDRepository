@@ -36,10 +36,6 @@ import { renderWeaponMods } from "./ui/weaponMods.js";
 import { renderInvocationChoice } from "./ui/invocationChoice.js";
 import { renderPactBoonChoice } from "./ui/pactBoonChoice.js";
 import { initDMView } from "./dm/dmView.js";
-import {
-  getRageStats,
-  getBrutalCriticalDice
-} from "./engine/rules/barbarian.js";
 
 
 /* =========================
@@ -123,6 +119,264 @@ async function loadJson(path) {
   return await res.json();
 }
 
+function setJsonReplacer(_key, value) {
+  if (value instanceof Set) {
+    return { __type: "Set", values: [...value] };
+  }
+  return value;
+}
+
+function setJsonReviver(_key, value) {
+  if (
+    value &&
+    typeof value === "object" &&
+    value.__type === "Set" &&
+    Array.isArray(value.values)
+  ) {
+    return new Set(value.values);
+  }
+  return value;
+}
+
+function toSet(value) {
+  if (value instanceof Set) return value;
+  if (Array.isArray(value)) return new Set(value);
+  return new Set();
+}
+
+function normalizeNumberArray(value) {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.map(Number).filter(Number.isFinite))];
+}
+
+function normalizeCharacterState(state) {
+  state.race ??= { id: null, name: null };
+  state.background ??= { id: null, name: null, source: null };
+  state.abilities ??= { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 };
+  state.pendingChoices ??= { skills: null, tools: null, infusions: null, languages: null };
+  state.resolvedChoices ??= {
+    skills: false,
+    tools: false,
+    subclass: false,
+    infusions: false,
+    background: false
+  };
+  state.savingThrows ??= {
+    str: false,
+    dex: false,
+    con: false,
+    int: false,
+    wis: false,
+    cha: false
+  };
+  state.proficiencies ??= {};
+  state.proficiencies.armor = toSet(state.proficiencies.armor);
+  state.proficiencies.weapons = toSet(state.proficiencies.weapons);
+  state.proficiencies.tools = toSet(state.proficiencies.tools);
+  state.proficiencies.skills = toSet(state.proficiencies.skills);
+  state.proficiencies.languages = toSet(state.proficiencies.languages);
+  state.proficiencies.vehicles = toSet(state.proficiencies.vehicles);
+  state.proficiencies.expertise = toSet(state.proficiencies.expertise);
+
+  state.hp ??= { hitDie: null, max: 0, current: 0, temp: 0, hitDiceSpent: 0 };
+  state.features ??= [];
+  state.feats ??= { active: [], lastFeatLevelTaken: 0 };
+  state.feats.active ??= [];
+
+  state.spellcasting ??= {};
+  state.spellcasting.cantrips = toSet(state.spellcasting.cantrips);
+  state.spellcasting.available = toSet(state.spellcasting.available);
+  state.spellcasting.prepared = toSet(state.spellcasting.prepared);
+  state.spellcasting.alwaysPrepared = toSet(state.spellcasting.alwaysPrepared);
+  state.spellcasting.slots ??= { max: {}, used: {} };
+  state.spellcasting.bardSpellReplacement ??= { pendingLevel: null, usedLevels: [] };
+  state.spellcasting.bardSpellReplacement.usedLevels = normalizeNumberArray(
+    state.spellcasting.bardSpellReplacement.usedLevels
+  );
+
+  state.infusions ??= {};
+  state.infusions.known = toSet(state.infusions.known);
+  state.infusions.active = toSet(state.infusions.active);
+  state.infusions.targets ??= {};
+
+  state.equipment ??= {};
+  state.equipment.shield = !!state.equipment.shield;
+  state.equipment.ostrumiteModsOwned = toSet(state.equipment.ostrumiteModsOwned);
+  state.equipment.gun ??= {};
+  state.equipment.gun.mods ??= {};
+  state.equipment.gun.mods.equipped = toSet(state.equipment.gun.mods.equipped);
+  state.equipment.gun.mods.inventory = toSet(state.equipment.gun.mods.inventory);
+
+  state.items ??= { inventory: [], attuned: [] };
+  state.items.inventory ??= [];
+  state.items.attuned ??= [];
+
+  state.weapons ??= [];
+  state.combat ??= {};
+  state.combat.ostrumiteCharges ??= { current: 0, max: 0 };
+  state.combat.manifestEnergy ??= { current: 0, max: 0 };
+  if (state.combat?.arcaneShot) {
+    state.combat.arcaneShot.knownShots = toSet(state.combat.arcaneShot.knownShots);
+  }
+  state.invocations = toSet(state.invocations);
+  state.languages ??= [];
+}
+
+function replaceCharacterState(nextState) {
+  Object.keys(character).forEach(key => delete character[key]);
+  Object.assign(character, nextState);
+}
+
+function syncFormInputsFromCharacter() {
+  const nameInput = document.getElementById("name");
+  if (nameInput) nameInput.value = character.name || "";
+
+  const levelInput = document.getElementById("level");
+  if (levelInput && character.level != null) {
+    levelInput.value = String(character.level);
+  }
+
+  ["str", "dex", "con", "int", "wis", "cha"].forEach(stat => {
+    const input = document.getElementById(stat);
+    if (input && character.abilities?.[stat] != null) {
+      input.value = String(character.abilities[stat]);
+    }
+  });
+
+  const classSelect = document.getElementById("classSelect");
+  if (classSelect && character.class?.id) classSelect.value = character.class.id;
+
+  const raceSelect = document.getElementById("raceSelect");
+  if (raceSelect && character.race?.id) raceSelect.value = character.race.id;
+
+  const backgroundSelect = document.getElementById("backgroundSelect");
+  if (backgroundSelect && character.background?.id) {
+    backgroundSelect.value = character.background.id;
+  }
+
+  const armorSelect = document.getElementById("armorSelect");
+  if (armorSelect) armorSelect.value = character.equipment?.armor || "";
+
+  const shieldToggle = document.getElementById("shieldToggle");
+  if (shieldToggle) shieldToggle.checked = !!character.equipment?.shield;
+}
+
+async function refreshUiAfterCharacterImport() {
+  syncFormInputsFromCharacter();
+  bindCharacterNameInput();
+  updateSubclassUI();
+
+  const race = races.find(r => r.id === character.race?.id);
+  if (race) renderRaceDetails(race);
+
+  const bg = backgrounds.find(b => b.id === character.background?.id);
+  if (bg) renderBackgroundDetails(bg);
+
+  recalcAllAbilities();
+  updateRaceBonusDisplay();
+  updateSpellcastingVisibility();
+  renderManifestTechniques();
+  updateManifestEnergy();
+  updateOstrumiteCharges();
+  renderSavingThrows();
+  renderFeatures();
+  renderSkills();
+  renderExpertiseToggles();
+  renderInfusions();
+  renderAllSpellUI();
+  updateHitPoints();
+  updateProfBonusUI();
+  await updateCombat();
+  applyInfusionEffects();
+  renderAttacks();
+  updateFighterUI();
+  syncDetailButtons();
+  updateArmorLockUI();
+  updateArmorLockText();
+  updateArmorerModeUI();
+  updateWeaponLockUI();
+  renderActiveFeats();
+  renderSoulTrinkets();
+  updateRageUI();
+  renderInvocationChoice();
+  renderPactBoonChoice();
+  renderToolDropdown();
+
+  if (character.class?.id && character.spellcasting?.enabled) {
+    await initSpellSlots();
+    renderSpellSlots();
+  } else {
+    const slotsEl = document.getElementById("spellSlots");
+    if (slotsEl) slotsEl.innerHTML = "";
+  }
+}
+
+function exportCharacterJson() {
+  const payload = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    character
+  };
+
+  const blob = new Blob([JSON.stringify(payload, setJsonReplacer, 2)], {
+    type: "application/json"
+  });
+
+  const safeName = (character.name || "character")
+    .replace(/[^a-z0-9]+/gi, "_")
+    .replace(/^_+|_+$/g, "")
+    .toLowerCase();
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${safeName || "character"}.character.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function importCharacterJsonFile(file) {
+  const raw = await file.text();
+  const parsed = JSON.parse(raw, setJsonReviver);
+  const nextState =
+    parsed && typeof parsed === "object" && parsed.character
+      ? parsed.character
+      : parsed;
+
+  if (!nextState || typeof nextState !== "object" || Array.isArray(nextState)) {
+    throw new Error("Invalid character JSON format");
+  }
+
+  replaceCharacterState(nextState);
+  normalizeCharacterState(character);
+  await refreshUiAfterCharacterImport();
+}
+
+function bindCharacterJsonImportExport() {
+  const exportBtn = document.getElementById("exportCharacterBtn");
+  if (exportBtn) {
+    exportBtn.addEventListener("click", exportCharacterJson);
+  }
+
+  const importInput = document.getElementById("importCharacterInput");
+  if (importInput) {
+    importInput.addEventListener("change", async e => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      try {
+        await importCharacterJsonFile(file);
+        alert("Character imported.");
+      } catch (err) {
+        console.error(err);
+        alert("Invalid character file.");
+      } finally {
+        importInput.value = "";
+      }
+    });
+  }
+}
+
 /* =========================
    Feats – Data Loader
 ========================= */
@@ -138,13 +392,9 @@ async function loadFeats() {
 }
 
 // 🔑 DEBUG + UI EXPORT BINDING
-window.exportTest = () => {
-  console.log("exportTest() called");
-  exportCharacterPdf();
-};
-
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("exportPdfBtn");
+  bindCharacterJsonImportExport();
 
   if (!btn) {
     console.warn("Export PDF button not found");
@@ -152,7 +402,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   btn.addEventListener("click", () => {
-    console.log("Export PDF button clicked");
     exportCharacterPdf();
   });
 });
@@ -173,6 +422,39 @@ function abilityMod(score) {
 function proficiencyBonus(level) {
   return Math.ceil(1 + level / 4);
 }
+
+function unlockBardSpellReplacement(prevLevel, newLevel) {
+  if (character.class?.id !== "bard") return;
+  if (newLevel <= prevLevel || newLevel <= 1) return;
+
+  character.spellcasting ??= {};
+  character.spellcasting.bardSpellReplacement ??= {
+    pendingLevel: null,
+    usedLevels: []
+  };
+
+  const replacement = character.spellcasting.bardSpellReplacement;
+  replacement.usedLevels = normalizeNumberArray(replacement.usedLevels);
+
+  if (!replacement.usedLevels.includes(newLevel)) {
+    replacement.pendingLevel = newLevel;
+  }
+}
+
+function updateBardSpellReplacementBadge() {
+  const badge = document.getElementById("bardSpellReplacementBadge");
+  if (!badge) return;
+
+  const replacement = character.spellcasting?.bardSpellReplacement;
+  const level = Number(character.level ?? 0);
+  const canReplace =
+    character.class?.id === "bard" &&
+    level > 1 &&
+    replacement?.pendingLevel === level;
+
+  badge.hidden = !canReplace;
+}
+
 function updateArmorLockUI() {
   const armorSelect = document.getElementById("armorSelect");
   const shieldToggle = document.getElementById("shieldToggle");
@@ -1499,6 +1781,7 @@ function renderAllSpellUI() {
   renderSpellList();
   renderCantripsKnown();
   renderSpellsKnown();
+  updateBardSpellReplacementBadge();
   renderWeaponMods(character);
 }
 
@@ -2745,9 +3028,6 @@ document.getElementById("toggleDM")?.addEventListener("click", async () => {
     known: new Set(character.infusions?.known ?? []),
     active: new Set(character.infusions?.active ?? [])
   };
-document.getElementById("name")?.addEventListener("input", e => {
-  character.name = e.target.value.trim();
-});
 
     const classData = await loadClass(e.target.value);
     await applyClass(character, classData, level);
@@ -2843,6 +3123,7 @@ document.getElementById("rageBtn")?.addEventListener("click", () => {
   // Re-apply class up to the new level (adds new features, sets pendingSubclassChoice, etc.)
   const classData = await loadClass(character.class.id);
   await applyClass(character, classData, lvl);
+  unlockBardSpellReplacement(prevLevel, lvl);
 
   // Re-apply subclass (adds any new subclass features / always-prepared spells for this level)
   if (character._subclassData) {
@@ -2940,6 +3221,7 @@ window.addEventListener("spellbook-updated", () => {
   renderPreparedSpells();
   renderSpellList(); // optional but recommended
 });
+window.addEventListener("bard-replacement-updated", updateBardSpellReplacementBadge);
 
 window.addEventListener("subclass-updated", async () => {
   syncDetailButtons();
@@ -3092,6 +3374,7 @@ updateManifestEnergy();
 initDispositionUI();
 await loadMagicItems();
 initMagicItemSelect();
+bindCharacterNameInput();
 renderWeaponMods(character);
 renderInvocationChoice();
 renderPactBoonChoice();
@@ -3116,10 +3399,5 @@ renderPactBoonChoice();
     el.style.display = "none";
     el.style.pointerEvents = "none";
   }
-  // 🔓 DEBUG EXPORTS (temporary)
-window.getMaxArcaneShotsKnown = getMaxArcaneShotsKnown;
-window.checkArcaneShotUnlocks = checkArcaneShotUnlocks;
-window.ensureArcaneShotState = ensureArcaneShotState;
-
 });
 });

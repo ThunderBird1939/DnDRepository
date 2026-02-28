@@ -16,7 +16,7 @@
   "savingThrows": ["str", "con"],
 
   "proficiencies": {
-    "armor": ["light", "medium", "shields"],
+    "armor": ["light", "heavy","shields"],
     "weapons": ["simple", "martial"],
     "tools": []
   },

@@ -885,6 +885,21 @@ p {
   color: var(--muted);
 }
 
+.bard-replace-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #f2b24b;
+  color: #2a1a00;
+}
+
+.bard-replace-badge[hidden] {
+  display: none;
+}
+
 .feature,
 .choice-option,
 .infusion,

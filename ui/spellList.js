@@ -341,6 +341,160 @@ export async function renderSpellsKnown() {
   el.appendChild(learn);
   }
 
+  const bardReplacement = sc.bardSpellReplacement;
+  const bardCanReplaceOne =
+    character.class?.id === "bard" &&
+    bardReplacement?.pendingLevel === character.level &&
+    !isMagicalSecrets &&
+    known.size > 0;
+
+  if (bardCanReplaceOne) {
+    const replaceWrap = document.createElement("div");
+    replaceWrap.className = "spells-known-learn";
+    replaceWrap.style.marginTop = "10px";
+
+    const replaceHint = document.createElement("div");
+    replaceHint.className = "muted";
+    replaceHint.textContent = "Optional: replace one known bard spell for this level.";
+
+    const knownSelect = document.createElement("select");
+    knownSelect.innerHTML = `<option value="">Select a spell to replace...</option>`;
+
+    [...known]
+      .map(id => {
+        const spell = spells.find(s => spellIdFromTitle(s.title) === id);
+        return {
+          id,
+          label: spell?.title || id.replace(/-/g, " ")
+        };
+      })
+      .sort((a, b) => a.label.localeCompare(b.label))
+      .forEach(entry => {
+        const opt = document.createElement("option");
+        opt.value = entry.id;
+        opt.textContent = entry.label;
+        knownSelect.appendChild(opt);
+      });
+
+    const replacementSearch = document.createElement("input");
+    replacementSearch.type = "text";
+    replacementSearch.placeholder = "Search replacement spell...";
+    replacementSearch.className = "spell-search";
+
+    const replacementDropdown = document.createElement("div");
+    replacementDropdown.className = "spell-dropdown";
+    replacementDropdown.hidden = true;
+
+    const replacementChoice = document.createElement("div");
+    replacementChoice.className = "muted";
+    replacementChoice.textContent = "Replacement: none selected";
+
+    const applyReplaceBtn = document.createElement("button");
+    applyReplaceBtn.textContent = "Replace Spell";
+    applyReplaceBtn.disabled = true;
+
+    const deferReplaceBtn = document.createElement("button");
+    deferReplaceBtn.textContent = "Skip This Level";
+
+    let replacementId = null;
+
+    function updateReplacementButtonState() {
+      applyReplaceBtn.disabled = !(knownSelect.value && replacementId);
+    }
+
+    function renderReplacementDropdown(filter = "") {
+      replacementDropdown.innerHTML = "";
+      const q = filter.toLowerCase();
+
+      const replacementPool = spells
+        .filter(s => !isCantripFromTags(s.tags))
+        .filter(s => spellLevelFromTags(s.tags) <= maxSpellLevel)
+        .filter(s => {
+          const id = spellIdFromTitle(s.title);
+          return !known.has(id) || id === knownSelect.value;
+        })
+        .filter(s => s.title.toLowerCase().includes(q))
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .slice(0, 30);
+
+      replacementPool.forEach(spell => {
+        const id = spellIdFromTitle(spell.title);
+        const row = document.createElement("div");
+        row.className = "spell-dropdown-row";
+        row.textContent = spell.title;
+        row.onclick = () => {
+          replacementId = id;
+          replacementChoice.textContent = `Replacement: ${spell.title}`;
+          replacementDropdown.hidden = true;
+          updateReplacementButtonState();
+        };
+        replacementDropdown.appendChild(row);
+      });
+
+      replacementDropdown.hidden = replacementDropdown.children.length === 0;
+    }
+
+    knownSelect.onchange = () => {
+      if (replacementId === knownSelect.value) {
+        replacementId = null;
+        replacementChoice.textContent = "Replacement: none selected";
+      }
+      updateReplacementButtonState();
+    };
+
+    replacementSearch.onfocus = () => {
+      renderReplacementDropdown(replacementSearch.value);
+      replacementDropdown.hidden = false;
+    };
+
+    replacementSearch.oninput = () => {
+      renderReplacementDropdown(replacementSearch.value);
+      replacementDropdown.hidden = false;
+    };
+
+    document.addEventListener(
+      "click",
+      e => {
+        if (!replaceWrap.contains(e.target)) replacementDropdown.hidden = true;
+      },
+      { once: true }
+    );
+
+    applyReplaceBtn.onclick = () => {
+      const oldId = knownSelect.value;
+      if (!oldId || !replacementId || oldId === replacementId) return;
+
+      known.delete(oldId);
+      known.add(replacementId);
+
+      bardReplacement.usedLevels = [
+        ...new Set([...(bardReplacement.usedLevels ?? []), character.level])
+      ];
+      bardReplacement.pendingLevel = null;
+
+      window.dispatchEvent(new Event("bard-replacement-updated"));
+      renderSpellsKnown();
+      renderSpellList();
+    };
+
+    deferReplaceBtn.onclick = () => {
+      bardReplacement.pendingLevel = null;
+      window.dispatchEvent(new Event("bard-replacement-updated"));
+      renderSpellsKnown();
+    };
+
+    replaceWrap.append(
+      replaceHint,
+      knownSelect,
+      replacementSearch,
+      replacementDropdown,
+      replacementChoice,
+      applyReplaceBtn,
+      deferReplaceBtn
+    );
+    el.appendChild(replaceWrap);
+  }
+
   /* =========================
      KNOWN SPELLS (SOURCE OF TRUTH)
   ========================= */

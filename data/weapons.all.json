@@ -7312,5 +7312,32 @@
     "thrown",
     "lightning"
   ]
+},
+{
+	"count": 1,
+	"color": "#216e4a",
+	"title": "Ostrumite-Core Handaxe",
+	"icon": "axe-swing",
+	"icon_back": "magic-swirl",
+	"contents": [
+		"subtitle | Weapon (Handaxe), Uncommon (Requires Attunement)",
+		"property | Damage | 1d6 Slashing",
+		"property | Properties | Light, Thrown (20/60 ft.)",
+		"property | Type | Simple Weapon, Melee Weapon",
+		"rule",
+		"text | This handaxe is forged from well-balanced steel, its blade worn from use rather than ornament. Embedded in the pommel is a thumb-sized Ostrumite crystal secured with runic clamps. The crystal emits a faint steady glow and hums subtly in the presence of magic. The blade cuts. The crystal listens.",
+		"rule",
+		"description | Arcane Conduction | This weapon counts as magical for the purpose of overcoming resistance and immunity to nonmagical attacks. When you hit a creature with this weapon, you may choose for the damage to be slashing, lightning, or force instead of its normal damage type.",
+		"description | Resonant Recall | When you make a thrown attack with this weapon, you gain a +1 bonus to the attack roll. After the weapon hits or misses, you may use a bonus action to cause the crystal to pulse and pull the handaxe back to your hand if it is within 30 feet. The weapon does not return if it is restrained, embedded in a creature, or blocked by solid matter.",
+		"description | Arcane Spark | When you score a critical hit with this weapon, the target takes an additional 1d6 force damage as the crystal flares with arcane light."
+	],
+	"tags": [
+		"item",
+		"uncommon",
+		"simple weapon",
+		"melee weapon",
+		"magic item",
+		"requires attunement"
+	]
 }
 ]
