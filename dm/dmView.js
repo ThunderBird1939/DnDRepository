@@ -548,20 +548,8 @@ function renderEncounterCards() {
       const [moved] = list.splice(fromIndex, 1);
       list.splice(toIndex, 0, moved);
 
-      // Fix turn index
-      if (dmState.encounter.turnIndex === fromIndex) {
-        dmState.encounter.turnIndex = toIndex;
-      } else if (
-        fromIndex < dmState.encounter.turnIndex &&
-        toIndex >= dmState.encounter.turnIndex
-      ) {
-        dmState.encounter.turnIndex--;
-      } else if (
-        fromIndex > dmState.encounter.turnIndex &&
-        toIndex <= dmState.encounter.turnIndex
-      ) {
-        dmState.encounter.turnIndex++;
-      }
+      // Reordered stack sets turn flow to start from the top card.
+      dmState.encounter.turnIndex = 0;
 
       renderEncounterCards();
     });

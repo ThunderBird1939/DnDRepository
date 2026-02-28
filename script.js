@@ -3001,6 +3001,11 @@ document.getElementById("toggleDM")?.addEventListener("click", async () => {
   }
 });
 
+document.getElementById("backToSheetBtn")?.addEventListener("click", () => {
+  document.getElementById("dmView").hidden = true;
+  document.getElementById("sheetView").hidden = false;
+});
+
   document.getElementById("raceSelect")?.addEventListener("change", async e => {
     const race = races.find(r => r.id == e.target.value);
     if (!race) return;
