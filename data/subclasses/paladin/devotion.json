@@ -1,54 +1,59 @@
 {
-  "id": "nomad-gunsmith",
-  "name": "Nomad Gunsmith",
-  "classId": "ostrumite-gunner",
-  "source": "homebrew",
-  "description": "Nomad Gunsmiths fight while moving, adapting their Ostrumite weapons on the fly and turning terrain and momentum into weapons.",
+  "id": "devotion",
+  "name": "Oath of Devotion",
+  "classId": "paladin",
+  "source": "PHB",
+  "description": "Paladins of Devotion uphold justice, virtue, and unwavering honor.",
   "featuresByLevel": {
     "3": [
       {
-        "id": "mobile-calibration",
-        "name": "Mobile Calibration",
-        "type": "passive",
-        "description": "Your speed increases, standing costs less movement, and opportunity attacks against you are made at disadvantage."
+        "id": "oath-spells-devotion",
+        "name": "Oath Spells",
+        "type": "spell-table",
+        "description": "You always have oath spells prepared at listed paladin levels.",
+        "spells": {
+          "3": ["protection-from-evil-and-good", "sanctuary"],
+          "5": ["lesser-restoration", "zone-of-truth"],
+          "9": ["beacon-of-hope", "dispel-magic"],
+          "13": ["freedom-of-movement", "guardian-of-faith"],
+          "17": ["commune", "flame-strike"]
+        }
       },
       {
-        "id": "trick-shot-protocol",
-        "name": "Trick Shot Protocol",
-        "type": "choice",
-        "description": "When you hit with a firearm attack, you may spend a charge to apply a special trick shot effect."
+        "id": "channel-divinity-sacred-weapon",
+        "name": "Channel Divinity: Sacred Weapon",
+        "type": "activation",
+        "description": "Imbue a weapon with holy power, adding Charisma modifier to attack rolls for 1 minute."
+      },
+      {
+        "id": "channel-divinity-turn-the-unholy",
+        "name": "Channel Divinity: Turn the Unholy",
+        "type": "activation",
+        "description": "As an action, turn fiends and undead near you."
       }
     ],
     "7": [
       {
-        "id": "flow-of-the-dunes",
-        "name": "Flow of the Dunes",
+        "id": "aura-of-devotion",
+        "name": "Aura of Devotion",
         "type": "passive",
-        "description": "Moving grants defensive bonuses, and you can disengage as a bonus action by spending a charge."
-      }
-    ],
-    "11": [
-      {
-        "id": "adaptive-fire",
-        "name": "Adaptive Fire",
-        "type": "passive",
-        "description": "At the start of your turn, choose a stance that alters speed, defense, or suppression."
+        "description": "You and nearby allies cannot be charmed while you are conscious."
       }
     ],
     "15": [
       {
-        "id": "break-contact",
-        "name": "Break Contact",
-        "type": "reaction",
-        "description": "When hit, you may spend a charge to reposition without provoking attacks, gaining advantage on your next shot."
+        "id": "purity-of-spirit",
+        "name": "Purity of Spirit",
+        "type": "passive",
+        "description": "You are always under the effects of protection from evil and good."
       }
     ],
-    "18": [
+    "20": [
       {
-        "id": "master-of-motion",
-        "name": "Master of Motion",
-        "type": "passive",
-        "description": "Movement no longer provokes opportunity attacks, and you can fire while moving."
+        "id": "holy-nimbus",
+        "name": "Holy Nimbus",
+        "type": "activation",
+        "description": "Radiate sunlight for 1 minute, damaging enemies and granting advantage on saves against fiend/undead spells."
       }
     ]
   }

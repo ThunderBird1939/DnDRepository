@@ -43,6 +43,191 @@ import { initDMView } from "./dm/dmView.js";
 ========================= */
 const FEAT_LEVELS = [4, 8, 12, 16, 19];
 
+function initSheetLayoutV2() {
+  const root = document.getElementById("app-root");
+  if (!root || document.getElementById("sheetShell")) return;
+
+  const shell = document.createElement("div");
+  shell.id = "sheetShell";
+
+  const rail = document.createElement("aside");
+  rail.id = "sheetRail";
+
+  const main = document.createElement("section");
+  main.id = "sheetMain";
+
+  const tabs = document.createElement("nav");
+  tabs.id = "sheetTabs";
+  tabs.setAttribute("aria-label", "Character sheet sections");
+  const densityControls = document.createElement("div");
+  densityControls.id = "sheetDensityControls";
+
+  const tabBody = document.createElement("div");
+  tabBody.id = "sheetTabBody";
+
+  const tabDefs = [
+    { id: "build", label: "Build" },
+    { id: "combat", label: "Combat" },
+    { id: "spells", label: "Spells" },
+    { id: "features", label: "Features" },
+    { id: "inventory", label: "Inventory" }
+  ];
+
+  const panes = {};
+  const tabButtons = {};
+
+  tabDefs.forEach((tab, idx) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "sheet-tab-btn";
+    btn.dataset.tab = tab.id;
+    btn.textContent = tab.label;
+    btn.setAttribute("aria-selected", idx === 0 ? "true" : "false");
+    tabButtons[tab.id] = btn;
+    tabs.appendChild(btn);
+
+    const pane = document.createElement("div");
+    pane.className = "sheet-tab-pane";
+    pane.dataset.tab = tab.id;
+    pane.hidden = idx !== 0;
+    panes[tab.id] = pane;
+    tabBody.appendChild(pane);
+  });
+
+  const densityDefs = [
+    { id: "comfortable", label: "Comfortable" },
+    { id: "compact", label: "Compact" }
+  ];
+  const densityButtons = {};
+
+  densityDefs.forEach(def => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "density-btn";
+    btn.dataset.density = def.id;
+    btn.textContent = def.label;
+    densityButtons[def.id] = btn;
+    densityControls.appendChild(btn);
+  });
+
+  tabs.appendChild(densityControls);
+
+  main.appendChild(tabs);
+  main.appendChild(tabBody);
+  shell.appendChild(rail);
+  shell.appendChild(main);
+  root.prepend(shell);
+
+  const getPanelByControl = (id) =>
+    document.getElementById(id)?.closest(".panel") || null;
+
+  const panelRefs = {
+    character: getPanelByControl("name"),
+    background: getPanelByControl("backgroundSelect"),
+    classLevel: getPanelByControl("classSelect"),
+    rest: getPanelByControl("shortRestBtn"),
+    abilities: getPanelByControl("str"),
+    languages: getPanelByControl("languageSelect"),
+    skills: getPanelByControl("skill-acrobatics"),
+    saves: getPanelByControl("save-str"),
+    infusions: document.getElementById("infusionsPanel"),
+    disposition: document.getElementById("dispositionPanel"),
+    manifestTechniques: document.getElementById("manifestTechniquesPanel"),
+    spellcasting: document.querySelector(".spellcasting-panel"),
+    features: getPanelByControl("featuresList"),
+    weapons: getPanelByControl("weaponsSelect"),
+    hitPoints: getPanelByControl("maxHp"),
+    combat: getPanelByControl("armorClass"),
+    weaponMods: document.getElementById("weaponModsPanel"),
+    ostrumiteCharges: document.getElementById("ostrumiteChargesPanel"),
+    manifestEnergy: document.getElementById("manifestEnergyPanel"),
+    magicItems: getPanelByControl("magicItemsSelect")
+  };
+
+  const moved = new Set();
+  const movePanel = (target, panel) => {
+    if (!target || !panel || moved.has(panel)) return;
+    target.appendChild(panel);
+    moved.add(panel);
+  };
+
+  movePanel(rail, panelRefs.character);
+  movePanel(rail, panelRefs.background);
+  movePanel(rail, panelRefs.classLevel);
+  movePanel(rail, panelRefs.rest);
+  movePanel(rail, panelRefs.abilities);
+
+  movePanel(panes.build, panelRefs.languages);
+  movePanel(panes.build, panelRefs.skills);
+  movePanel(panes.build, panelRefs.saves);
+  movePanel(panes.build, panelRefs.disposition);
+  movePanel(panes.build, panelRefs.manifestTechniques);
+  movePanel(panes.build, panelRefs.infusions);
+
+  movePanel(panes.spells, panelRefs.spellcasting);
+
+  movePanel(panes.features, panelRefs.features);
+
+  movePanel(panes.combat, panelRefs.hitPoints);
+  movePanel(panes.combat, panelRefs.weapons);
+  movePanel(panes.combat, panelRefs.combat);
+  movePanel(panes.combat, panelRefs.ostrumiteCharges);
+  movePanel(panes.combat, panelRefs.manifestEnergy);
+  movePanel(panes.combat, panelRefs.weaponMods);
+
+  movePanel(panes.inventory, panelRefs.magicItems);
+
+  const activateTab = (tabId) => {
+    Object.keys(tabButtons).forEach(id => {
+      const active = id === tabId;
+      tabButtons[id].setAttribute("aria-selected", active ? "true" : "false");
+      tabButtons[id].classList.toggle("active", active);
+      panes[id].hidden = !active;
+    });
+  };
+
+  tabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".sheet-tab-btn");
+    if (!btn) return;
+    activateTab(btn.dataset.tab);
+  });
+
+  const applyDensity = (density) => {
+    const next = density === "compact" ? "compact" : "comfortable";
+    document.body.dataset.density = next;
+
+    Object.keys(densityButtons).forEach(id => {
+      const active = id === next;
+      densityButtons[id].classList.toggle("active", active);
+      densityButtons[id].setAttribute("aria-pressed", active ? "true" : "false");
+    });
+
+    try {
+      localStorage.setItem("sheetDensity", next);
+    } catch (_e) {
+      // Ignore local storage errors
+    }
+  };
+
+  densityControls.addEventListener("click", (e) => {
+    const btn = e.target.closest(".density-btn");
+    if (!btn) return;
+    applyDensity(btn.dataset.density);
+  });
+
+  let savedDensity = "comfortable";
+  try {
+    savedDensity = localStorage.getItem("sheetDensity") || "comfortable";
+  } catch (_e) {
+    savedDensity = "comfortable";
+  }
+  applyDensity(savedDensity);
+
+  activateTab("build");
+}
+
+initSheetLayoutV2();
+
 function canChooseFeat() {
   const lvl = character.level || 1;
   return FEAT_LEVELS.includes(lvl) && character.feats.lastFeatLevelTaken !== lvl;
@@ -75,41 +260,43 @@ function reconcileFeatsForLevel(level) {
   );
 }
 character.languages ??= [];
+let languageChoices = null;
 
-document.getElementById("addLanguageBtn")?.addEventListener("click", () => {
+function syncLanguageSelectFromCharacter() {
   const select = document.getElementById("languageSelect");
-  const lang = select?.value;
-  if (!lang) return;
+  if (!select) return;
 
-  if (!character.languages.includes(lang)) {
-    character.languages.push(lang);
-    renderLanguages();
+  const values = Array.isArray(character.languages) ? character.languages : [];
+  Array.from(select.options).forEach(opt => {
+    opt.selected = values.includes(opt.value);
+  });
+
+  if (languageChoices) {
+    languageChoices.removeActiveItems();
+    if (values.length) {
+      languageChoices.setChoiceByValue(values);
+    }
+  }
+}
+
+function initLanguageSelect() {
+  const select = document.getElementById("languageSelect");
+  if (!select) return;
+
+  if (!languageChoices) {
+    languageChoices = new Choices(select, {
+      removeItemButton: true,
+      searchEnabled: true,
+      placeholder: true,
+      placeholderValue: "Select languages..."
+    });
+
+    select.addEventListener("change", () => {
+      character.languages = Array.from(select.selectedOptions).map(o => o.value);
+    });
   }
 
-  select.value = "";
-});
-
-function renderLanguages() {
-  const container = document.getElementById("knownLanguages");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  character.languages.forEach(lang => {
-    const pill = document.createElement("span");
-    pill.className = "language-pill";
-    pill.textContent = lang;
-
-    const remove = document.createElement("button");
-    remove.textContent = "×";
-    remove.onclick = () => {
-      character.languages = character.languages.filter(l => l !== lang);
-      renderLanguages();
-    };
-
-    pill.appendChild(remove);
-    container.appendChild(pill);
-  });
+  syncLanguageSelectFromCharacter();
 }
 async function loadJson(path) {
   const res = await fetch(path);
@@ -178,7 +365,10 @@ function normalizeCharacterState(state) {
   state.proficiencies.vehicles = toSet(state.proficiencies.vehicles);
   state.proficiencies.expertise = toSet(state.proficiencies.expertise);
 
-  state.hp ??= { hitDie: null, max: 0, current: 0, temp: 0, hitDiceSpent: 0 };
+  state.hp ??= { hitDie: null, max: 0, current: 0, temp: 0, hitDiceSpent: 0, levelRolls: [] };
+  state.hp.levelRolls = Array.isArray(state.hp.levelRolls)
+    ? state.hp.levelRolls.map(Number).filter(n => Number.isFinite(n) && n > 0)
+    : [];
   state.features ??= [];
   state.feats ??= { active: [], lastFeatLevelTaken: 0 };
   state.feats.active ??= [];
@@ -186,6 +376,7 @@ function normalizeCharacterState(state) {
   state.spellcasting ??= {};
   state.spellcasting.cantrips = toSet(state.spellcasting.cantrips);
   state.spellcasting.available = toSet(state.spellcasting.available);
+  state.spellcasting.expandedList = toSet(state.spellcasting.expandedList);
   state.spellcasting.prepared = toSet(state.spellcasting.prepared);
   state.spellcasting.alwaysPrepared = toSet(state.spellcasting.alwaysPrepared);
   state.spellcasting.slots ??= { max: {}, used: {} };
@@ -215,6 +406,9 @@ function normalizeCharacterState(state) {
   state.combat ??= {};
   state.combat.ostrumiteCharges ??= { current: 0, max: 0 };
   state.combat.manifestEnergy ??= { current: 0, max: 0 };
+  state.combat.sorceryPoints ??= { current: 0, max: 0 };
+  state.combat.ki ??= { current: 0, max: 0 };
+  state.combat.layOnHands ??= { current: 0, max: 0 };
   if (state.combat?.arcaneShot) {
     state.combat.arcaneShot.knownShots = toSet(state.combat.arcaneShot.knownShots);
   }
@@ -264,6 +458,7 @@ function syncFormInputsFromCharacter() {
 async function refreshUiAfterCharacterImport() {
   syncFormInputsFromCharacter();
   bindCharacterNameInput();
+  initLanguageSelect();
   updateSubclassUI();
 
   const race = races.find(r => r.id === character.race?.id);
@@ -281,7 +476,11 @@ async function refreshUiAfterCharacterImport() {
   renderSavingThrows();
   renderFeatures();
   renderSkills();
+  updateAbilityRollerUI();
   renderExpertiseToggles();
+  initClassResources();
+  bindClassResourceControls();
+  renderClassResources();
   renderInfusions();
   renderAllSpellUI();
   updateHitPoints();
@@ -417,6 +616,63 @@ const ELDRITCH_CANNON_DESCRIPTIONS = {
 
 function abilityMod(score) {
   return Math.floor((score - 10) / 2);
+}
+
+function rollDie(sides) {
+  return Math.floor(Math.random() * sides) + 1;
+}
+
+function rollAbilityScoreStandard() {
+  const dice = [rollDie(6), rollDie(6), rollDie(6), rollDie(6)].sort((a, b) => a - b);
+  return dice[1] + dice[2] + dice[3];
+}
+
+async function applyAbilityScoreValue(stat, value) {
+  const input = document.getElementById(stat);
+  character.abilities[stat] = Number(value);
+  if (input) input.value = String(value);
+
+  recalcAllAbilities();
+  await updateCombat();
+  renderAttacks();
+  updateHitPoints();
+}
+
+function updateAbilityRollerUI() {
+  const toggle = document.getElementById("enableAbilityRolls");
+  const rollAllBtn = document.getElementById("rollAllAbilitiesBtn");
+  const rollResult = document.getElementById("abilityRollResult");
+  if (!toggle || !rollAllBtn || !rollResult) return;
+
+  const canRoll = !!toggle.checked && Number(character.level ?? 1) === 1;
+  rollAllBtn.hidden = !canRoll;
+
+  const stats = ["str", "dex", "con", "int", "wis", "cha"];
+  stats.forEach(stat => {
+    const input = document.getElementById(stat);
+    const row = input?.closest(".ability");
+    if (!row || !input) return;
+
+    row.querySelector(".ability-roll-btn")?.remove();
+    if (!canRoll) return;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "ability-roll-btn";
+    btn.textContent = "Roll";
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const rolled = rollAbilityScoreStandard();
+      await applyAbilityScoreValue(stat, rolled);
+      rollResult.textContent = `${stat.toUpperCase()} rolled: ${rolled} (4d6 drop lowest)`;
+    });
+    row.appendChild(btn);
+  });
+
+  if (!canRoll) {
+    rollResult.textContent = "Ability roller is optional and only available at Level 1.";
+  }
 }
 
 function proficiencyBonus(level) {
@@ -942,8 +1198,6 @@ function toggleRage() {
   else {
     rage.active = false;
   }
-
-  console.log("Rage:", rage);
 }
 function updateRageUI() {
   const panel = document.getElementById("barbarianRage");
@@ -970,6 +1224,113 @@ function updateRageUI() {
 
   document.getElementById("rageBtn").textContent =
     rage.active ? "End Rage" : "Rage";
+}
+
+function initClassResources() {
+  character.combat ??= {};
+  const level = Number(character.level ?? 1);
+  const classId = character.class?.id;
+
+  if (classId === "sorcerer") {
+    const prev = character.combat.sorceryPoints ?? {};
+    const max = Math.max(1, level);
+    const current = Number.isFinite(prev.current) ? Math.min(prev.current, max) : max;
+    character.combat.sorceryPoints = { current, max };
+  } else {
+    delete character.combat.sorceryPoints;
+  }
+
+  if (classId === "monk" && level >= 2) {
+    const prev = character.combat.ki ?? {};
+    const max = level;
+    const current = Number.isFinite(prev.current) ? Math.min(prev.current, max) : max;
+    character.combat.ki = { current, max };
+  } else {
+    delete character.combat.ki;
+  }
+
+  if (classId === "paladin") {
+    const prev = character.combat.layOnHands ?? {};
+    const max = level * 5;
+    const current = Number.isFinite(prev.current) ? Math.min(prev.current, max) : max;
+    character.combat.layOnHands = { current, max };
+  } else {
+    delete character.combat.layOnHands;
+  }
+}
+
+function renderClassResources() {
+  const panel = document.getElementById("classResourcesPanel");
+  if (!panel) return;
+
+  const classId = character.class?.id;
+  const level = Number(character.level ?? 1);
+  const showSorcery = classId === "sorcerer" && character.combat?.sorceryPoints;
+  const showKi = classId === "monk" && level >= 2 && character.combat?.ki;
+  const showLayOnHands = classId === "paladin" && character.combat?.layOnHands;
+
+  const sorceryRow = document.getElementById("sorceryPointsRow");
+  const kiRow = document.getElementById("kiPointsRow");
+  const layOnHandsRow = document.getElementById("layOnHandsRow");
+  if (sorceryRow) sorceryRow.hidden = !showSorcery;
+  if (kiRow) kiRow.hidden = !showKi;
+  if (layOnHandsRow) layOnHandsRow.hidden = !showLayOnHands;
+  panel.hidden = !(showSorcery || showKi || showLayOnHands);
+
+  if (showSorcery) {
+    const current = Number(character.combat.sorceryPoints.current ?? 0);
+    const max = Number(character.combat.sorceryPoints.max ?? 0);
+    const minus = document.getElementById("sorceryPointsMinus");
+    const plus = document.getElementById("sorceryPointsPlus");
+    document.getElementById("sorceryPointsCurrent").textContent = String(current);
+    document.getElementById("sorceryPointsMax").textContent = String(max);
+    if (minus) minus.disabled = current <= 0;
+    if (plus) plus.disabled = current >= max;
+  }
+
+  if (showKi) {
+    const current = Number(character.combat.ki.current ?? 0);
+    const max = Number(character.combat.ki.max ?? 0);
+    const minus = document.getElementById("kiPointsMinus");
+    const plus = document.getElementById("kiPointsPlus");
+    document.getElementById("kiPointsCurrent").textContent = String(current);
+    document.getElementById("kiPointsMax").textContent = String(max);
+    if (minus) minus.disabled = current <= 0;
+    if (plus) plus.disabled = current >= max;
+  }
+
+  if (showLayOnHands) {
+    const current = Number(character.combat.layOnHands.current ?? 0);
+    const max = Number(character.combat.layOnHands.max ?? 0);
+    const minus = document.getElementById("layOnHandsMinus");
+    const plus = document.getElementById("layOnHandsPlus");
+    document.getElementById("layOnHandsCurrent").textContent = String(current);
+    document.getElementById("layOnHandsMax").textContent = String(max);
+    if (minus) minus.disabled = current <= 0;
+    if (plus) plus.disabled = current >= max;
+  }
+}
+
+function bindClassResourceControls() {
+  const panel = document.getElementById("classResourcesPanel");
+  if (!panel || panel.dataset.bound === "true") return;
+  panel.dataset.bound = "true";
+
+  const adjust = (key, delta) => {
+    const resource = character.combat?.[key];
+    if (!resource) return;
+    const max = Number(resource.max ?? 0);
+    const current = Number(resource.current ?? 0);
+    resource.current = Math.max(0, Math.min(max, current + delta));
+    renderClassResources();
+  };
+
+  document.getElementById("sorceryPointsMinus")?.addEventListener("click", () => adjust("sorceryPoints", -1));
+  document.getElementById("sorceryPointsPlus")?.addEventListener("click", () => adjust("sorceryPoints", 1));
+  document.getElementById("kiPointsMinus")?.addEventListener("click", () => adjust("ki", -1));
+  document.getElementById("kiPointsPlus")?.addEventListener("click", () => adjust("ki", 1));
+  document.getElementById("layOnHandsMinus")?.addEventListener("click", () => adjust("layOnHands", -1));
+  document.getElementById("layOnHandsPlus")?.addEventListener("click", () => adjust("layOnHands", 1));
 }
 
 
@@ -1003,6 +1364,11 @@ function applyShortRest() {
       character.combat.indomitable.usesUsed = 0;
       log.push("Indomitable refreshed");
     }
+  }
+
+  if (character.class?.id === "monk" && character.combat?.ki) {
+    character.combat.ki.current = character.combat.ki.max;
+    log.push("Ki restored");
   }
 
   // =========================
@@ -1057,6 +1423,18 @@ function applyLongRest() {
       log.push("Echo resources refreshed");
     }
   }
+  if (character.class?.id === "sorcerer" && character.combat?.sorceryPoints) {
+    character.combat.sorceryPoints.current = character.combat.sorceryPoints.max;
+    log.push("Sorcery Points restored");
+  }
+  if (character.class?.id === "monk" && character.combat?.ki) {
+    character.combat.ki.current = character.combat.ki.max;
+    log.push("Ki restored");
+  }
+  if (character.class?.id === "paladin" && character.combat?.layOnHands) {
+    character.combat.layOnHands.current = character.combat.layOnHands.max;
+    log.push("Lay on Hands restored");
+  }
   // =========================
   // ARTIFICIER
   // =========================
@@ -1089,7 +1467,7 @@ if (character.class?.id === "artificer") {
   updateRestLog(log, "Long Rest");
 }
 async function getSpellSlotsForClass(classId, level) {
-  const res = await fetch(`./data/spellslots/${classId}.json`);
+  const res = await fetch(`./data/spellSlots/${classId}.json`);
 
   if (!res.ok) {
     console.warn(`No spell slot table for class: ${classId}`);
@@ -2038,6 +2416,35 @@ function getAbilityScore(stat) {
   const race = Number(character.appliedRaceAsi?.[stat] ?? 0);
   return base + race;
 }
+
+function getChoiceOptionsPaths(optionsSource, sourceClass) {
+  if (optionsSource === "fighting-styles") {
+    const byClass = sourceClass ? `./data/fighting-styles/${sourceClass}.json` : null;
+    return [byClass, "./data/fighting-styles/fighter.json"].filter(Boolean);
+  }
+
+  if (optionsSource === "tools/artisan") {
+    return ["./data/tools/artisan-tools.json"];
+  }
+
+  return [`./data/${optionsSource}.json`];
+}
+
+async function loadChoiceOptions(optionsSource, sourceClass) {
+  const candidatePaths = getChoiceOptionsPaths(optionsSource, sourceClass);
+
+  for (const path of candidatePaths) {
+    const res = await fetch(path);
+    if (!res.ok) continue;
+    const data = await res.json();
+    if (Array.isArray(data)) return data;
+  }
+
+  throw new Error(
+    `Failed to load choice options for "${optionsSource}" from: ${candidatePaths.join(", ")}`
+  );
+}
+
 async function openChoiceFeatureModal(feature, sourceClass) {
   activeChoiceFeature = feature;
 
@@ -2059,22 +2466,29 @@ async function openChoiceFeatureModal(feature, sourceClass) {
   optionsEl.innerHTML = "";
   confirmBtn.disabled = true;
 
-  const res = await fetch(`./data/${feature.optionsSource}.json`);
-
-  if (!res.ok) {
-    console.error(
-      `Failed to load choice options: ./data/${feature.optionsSource}.json`,
-      feature
-    );
+  let options = [];
+  try {
+    options = await loadChoiceOptions(feature.optionsSource, sourceClass);
+  } catch (err) {
+    console.error(err, feature);
     return;
   }
 
-  const options = await res.json();
+  const chosenFeatureIds = new Set((character.features || []).map(f => f.id));
+  const filteredOptions = options.filter(
+    opt => opt && opt.id && !chosenFeatureIds.has(opt.id)
+  );
 
+  if (filteredOptions.length === 0) {
+    optionsEl.innerHTML = `<p class="muted">No available options remain for ${feature.name}.</p>`;
+    modal.hidden = false;
+    backdrop.hidden = false;
+    return;
+  }
 
   let selected = null;
 
-  options.forEach(opt => {
+  filteredOptions.forEach(opt => {
     const wrapper = document.createElement("div");
     wrapper.className = "choice-option";
 
@@ -2113,6 +2527,7 @@ async function openChoiceFeatureModal(feature, sourceClass) {
 
   confirmBtn.onclick = () => {
     if (!selected) return;
+    if (character.features.some(f => f.id === selected.id)) return;
 
     character.features.push({
       id: selected.id,
@@ -2168,6 +2583,7 @@ function updateRaceBonusDisplay() {
 function renderSkills() {
   character.proficiencies ??= {};
   character.proficiencies.skills ??= new Set();
+  character.proficiencies.expertise ??= new Set();
 const stealthCheckbox = document.getElementById("skill-stealth");
 const stealthLabel = stealthCheckbox?.closest("label");
 
@@ -2421,10 +2837,6 @@ function applyRaceToCharacter(race) {
   // 🔔 Notify the rest of the app
   window.dispatchEvent(new Event("features-updated"));
 
-  console.log("Race applied:", {
-    race: character.race.name,
-    racialASI: character.appliedRaceAsi
-  });
 }
 
 
@@ -2887,25 +3299,82 @@ function renderAttacks() {
 /* =========================
    Hit Points (Snapshot)
 ========================= */
+function ensureHpRollState(hitDie) {
+  character.hp ??= {};
+  character.hp.hitDie = hitDie;
+  character.hp.levelRolls ??= [];
+}
+
+function syncHpRollsToLevel(level, hitDie) {
+  ensureHpRollState(hitDie);
+  const rolls = character.hp.levelRolls;
+  const needed = Math.max(0, level - 1);
+
+  while (rolls.length > needed) {
+    rolls.pop();
+  }
+}
+
+function applyHpLevelChange(prevLevel, nextLevel) {
+  const useAverage = document.getElementById("useAverage")?.checked ?? true;
+  const hitDieInput = document.getElementById("hitDie");
+  const hitDie = character.hp?.hitDie || Number(hitDieInput?.value) || 8;
+  ensureHpRollState(hitDie);
+
+  if (useAverage) {
+    syncHpRollsToLevel(nextLevel, hitDie);
+    return;
+  }
+
+  const rolls = character.hp.levelRolls;
+  const targetCount = Math.max(0, nextLevel - 1);
+
+  if (nextLevel < prevLevel) {
+    while (rolls.length > targetCount) rolls.pop();
+    return;
+  }
+
+  const newRolls = [];
+  while (rolls.length < targetCount) {
+    const r = rollDie(hitDie);
+    rolls.push(r);
+    newRolls.push(r);
+  }
+
+  if (newRolls.length) {
+    alert(`HP rolls added for level-up: ${newRolls.join(", ")}`);
+  }
+}
+
 function updateHitPoints() {
   const maxHpEl = document.getElementById("maxHp");
   const totalHitDiceEl = document.getElementById("totalHitDice");
   const hitDieInput = document.getElementById("hitDie");
+  const useAverage = document.getElementById("useAverage");
   if (!maxHpEl || !totalHitDiceEl || !hitDieInput) return;
 
   const level = character.level || 1;
   const conMod = abilityMod(getAbilityScore("con"));
-  const hitDie = character.hp?.hitDie || Number(hitDieInput.value) || 8;
+  const hitDie = Number(hitDieInput.value) || character.hp?.hitDie || 8;
   const avgPerLevel = Math.floor(hitDie / 2) + 1;
+  ensureHpRollState(hitDie);
 
-  const maxHp = Math.max(
+  const rolledMode = useAverage ? !useAverage.checked : false;
+  syncHpRollsToLevel(level, hitDie);
+
+  let maxHp = Math.max(
     1,
     hitDie + conMod + (level - 1) * (avgPerLevel + conMod)
   );
 
-  character.hp ??= {};
-  character.hp.hitDie = hitDie;
+  if (rolledMode) {
+    const rolledLevels = character.hp.levelRolls.slice(0, Math.max(0, level - 1));
+    const rolledTotal = rolledLevels.reduce((sum, roll) => sum + roll + conMod, 0);
+    maxHp = Math.max(1, hitDie + conMod + rolledTotal);
+  }
+
   character.hp.max = maxHp;
+  character.hp.current = Math.min(character.hp.current ?? maxHp, maxHp);
 
   // UI display
   maxHpEl.textContent = maxHp;
@@ -3067,6 +3536,8 @@ document.getElementById("backToSheetBtn")?.addEventListener("click", () => {
     renderSkills();
     renderExpertiseToggles();
     initFighterResources();
+    initClassResources();
+    bindClassResourceControls();
     renderInfusions();
     renderAllSpellUI();   // spellcasting + lists
     renderSpellSlots();
@@ -3088,11 +3559,39 @@ document.getElementById("backToSheetBtn")?.addEventListener("click", () => {
     renderInvocationChoice();
     renderPactBoonChoice();
     updateRageUI();
+    renderClassResources();
   });
 
 document.getElementById("rageBtn")?.addEventListener("click", () => {
   toggleRage();
   updateRageUI();
+});
+
+document.getElementById("enableAbilityRolls")?.addEventListener("change", () => {
+  updateAbilityRollerUI();
+});
+
+document.getElementById("rollAllAbilitiesBtn")?.addEventListener("click", async () => {
+  if (Number(character.level ?? 1) !== 1) return;
+  const stats = ["str", "dex", "con", "int", "wis", "cha"];
+  const rolled = stats.map(() => rollAbilityScoreStandard());
+  const resultEl = document.getElementById("abilityRollResult");
+
+  for (let i = 0; i < stats.length; i += 1) {
+    await applyAbilityScoreValue(stats[i], rolled[i]);
+  }
+
+  if (resultEl) {
+    resultEl.textContent = `Rolled set: ${rolled.join(", ")} (4d6 drop lowest)`;
+  }
+});
+
+document.getElementById("useAverage")?.addEventListener("change", () => {
+  updateHitPoints();
+});
+
+document.getElementById("hitDie")?.addEventListener("change", () => {
+  updateHitPoints();
 });
 
   document.getElementById("level")?.addEventListener("change", async e => {
@@ -3103,6 +3602,8 @@ document.getElementById("rageBtn")?.addEventListener("click", () => {
 
   // update single source of truth
   character.level = lvl;
+  updateAbilityRollerUI();
+  applyHpLevelChange(prevLevel, lvl);
   reconcileFeatsForLevel(lvl);
   checkArcaneShotUnlocks(prevLevel, lvl);
   const indomitableBtn = document.getElementById("indomitableBtn");
@@ -3159,6 +3660,8 @@ document.getElementById("rageBtn")?.addEventListener("click", () => {
   renderAllSpellUI();
   renderSpellSlots();
   initFighterResources();
+  initClassResources();
+  bindClassResourceControls();
   renderInfusions();
   updateHitPoints();
   updateProfBonusUI();
@@ -3176,6 +3679,7 @@ document.getElementById("rageBtn")?.addEventListener("click", () => {
   updateWeaponLockUI();
   renderSoulTrinkets();
   updateRageUI();
+  renderClassResources();
 
 
 
@@ -3306,6 +3810,8 @@ document
   });
 window.addEventListener("level-updated", initDispositionUI);
 window.addEventListener("rest-long", renderSpellSlots);
+window.addEventListener("rest-short", renderClassResources);
+window.addEventListener("rest-long", renderClassResources);
   document.getElementById("shortRestBtn").onclick = applyShortRest;
   document.getElementById("longRestBtn").onclick = applyLongRest;
 
@@ -3357,9 +3863,13 @@ renderAttacks();
 updateFighterUI();
 updateArmorLockUI();
 initFighterResources();
+initClassResources();
+bindClassResourceControls();
 await loadAllTools();
 renderToolDropdown();
+initLanguageSelect();
 renderSkills();
+updateAbilityRollerUI();
 renderExpertiseToggles();
 runPendingChoiceFlow();
 updateHitPoints();
@@ -3376,6 +3886,7 @@ renderArcaneShotUseDropdown();
 updateArcaneArcherVisibility();
 renderSoulTrinkets();
 updateManifestEnergy();
+renderClassResources();
 initDispositionUI();
 await loadMagicItems();
 initMagicItemSelect();
@@ -3406,3 +3917,4 @@ renderPactBoonChoice();
   }
 });
 });
+

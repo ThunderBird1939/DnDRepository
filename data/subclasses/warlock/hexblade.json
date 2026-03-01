@@ -1,58 +1,59 @@
 {
-  "id": "the-archfey",
-  "name": "The Archfey",
+  "id": "hexblade",
+  "name": "The Hexblade",
   "classId": "warlock",
-  "source": "PHB",
-
-  "description": "You have made a pact with a powerful fey being, gaining beguiling magic and trickery.",
-
+  "source": "XGE",
+  "description": "You draw power from a sentient shadow weapon or force from the Shadowfell.",
   "featuresByLevel": {
     "1": [
       {
-        "id": "fey-presence",
-        "name": "Fey Presence",
+        "id": "hexblades-curse",
+        "name": "Hexblade's Curse",
         "type": "activation",
-        "description": "You can charm or frighten creatures in a cube around you."
+        "description": "Curse a target for bonus damage, criticals on 19-20, and healing on kill."
       },
       {
-        "id": "archfey-spells",
+        "id": "hex-warrior",
+        "name": "Hex Warrior",
+        "type": "passive",
+        "description": "Gain martial weapon and medium armor proficiency; you may use Charisma for one chosen weapon."
+      },
+      {
+        "id": "hexblade-spells",
         "name": "Expanded Spell List",
         "type": "spell-table",
-        "description": "The Archfey lets you choose from an expanded list of spells.",
+        "description": "The Hexblade adds martial shadow magic spells to your options.",
         "spells": {
-          "1": ["faerie-fire", "sleep"],
-          "3": ["calm-emotions", "phantasmal-force"],
-          "5": ["blink", "plant-growth"],
-          "7": ["dominate-beast", "greater-invisibility"],
-          "9": ["dominate-person", "seeming"]
+          "1": ["shield", "wrathful-smite"],
+          "3": ["blur", "branding-smite"],
+          "5": ["blink", "elemental-weapon"],
+          "7": ["phantasmal-killer", "staggering-smite"],
+          "9": ["banishing-smite", "cone-of-cold"]
         }
       }
     ],
-
     "6": [
       {
-        "id": "misty-escape",
-        "name": "Misty Escape",
-        "type": "reaction",
-        "description": "You can turn invisible and teleport when you take damage."
+        "id": "accursed-specter",
+        "name": "Accursed Specter",
+        "type": "passive",
+        "description": "When you slay a humanoid, you can raise its spirit as a specter."
       }
     ],
-
     "10": [
       {
-        "id": "beguiling-defenses",
-        "name": "Beguiling Defenses",
-        "type": "passive",
-        "description": "You are immune to being charmed and can reflect charm effects."
+        "id": "armor-of-hexes",
+        "name": "Armor of Hexes",
+        "type": "reaction",
+        "description": "Your cursed target's attacks can miss you on a 4+ roll."
       }
     ],
-
     "14": [
       {
-        "id": "dark-delirium",
-        "name": "Dark Delirium",
-        "type": "activation",
-        "description": "You banish a creature into a fey illusion realm."
+        "id": "master-of-hexes",
+        "name": "Master of Hexes",
+        "type": "passive",
+        "description": "Transfer your Hexblade's Curse to a new target when the current one dies."
       }
     ]
   }

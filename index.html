@@ -91,7 +91,7 @@
 <section class="panel">
   <h2>Languages</h2>
 
-  <select id="languageSelect" multiple size="10">
+  <select id="languageSelect" multiple>
     <optgroup label="Standard Languages">
       <option value="common">Common</option>
       <option value="dwarvish">Dwarvish</option>
@@ -140,6 +140,7 @@
         <!-- Core PHB Classes -->
         <option value="barbarian">Barbarian</option>
         <option value="bard">Bard</option>
+        <option value="blood-hunter">Blood Hunter</option>
         <option value="cleric">Cleric</option>
         <option value="druid">Druid</option>
         <option value="fighter">Fighter</option>
@@ -242,6 +243,14 @@
     <!-- ================= Ability Scores ================= -->
     <section class="panel">
       <h2>Ability Scores</h2>
+      <label>
+        <input type="checkbox" id="enableAbilityRolls" />
+        Enable Level 1 ability roller (4d6 drop lowest)
+      </label>
+      <div>
+        <button id="rollAllAbilitiesBtn" type="button" hidden>Roll All Ability Scores</button>
+      </div>
+      <div id="abilityRollResult" class="muted">Ability roller is optional and only available at Level 1.</div>
 
       <div class="abilities">
         <div class="ability"><label>STR</label><input id="str" type="number" value="10"/><span id="strRaceBonus">+0</span><span id="strMod">(+0)</span></div>
@@ -357,7 +366,7 @@
       <div id="rageStatus">Not Raging</div>
     </div>
 
-      <div id="fighterResources" hidden class="subclass-block">
+    <div id="fighterResources" hidden class="subclass-block">
       <h3>Fighter Features</h3>
 
       <div class="fighter-feature">
@@ -373,6 +382,46 @@
       <div class="fighter-feature">
         <button id="indomitableBtn">Indomitable</button>
         <span id="indomitableStatus" class="muted"></span>
+      </div>
+    </div>
+
+    <div id="classResourcesPanel" hidden class="subclass-block">
+      <h3>Class Resources</h3>
+
+      <div id="sorceryPointsRow" hidden>
+        <h4>Sorcery Points</h4>
+        <div class="resource-row">
+          <button id="sorceryPointsMinus">-</button>
+          <span id="sorceryPointsCurrent">0</span>
+          /
+          <span id="sorceryPointsMax">0</span>
+          <button id="sorceryPointsPlus">+</button>
+        </div>
+        <small class="hint">Restores on a long rest.</small>
+      </div>
+
+      <div id="kiPointsRow" hidden>
+        <h4>Ki Points</h4>
+        <div class="resource-row">
+          <button id="kiPointsMinus">-</button>
+          <span id="kiPointsCurrent">0</span>
+          /
+          <span id="kiPointsMax">0</span>
+          <button id="kiPointsPlus">+</button>
+        </div>
+        <small class="hint">Restores on a short or long rest.</small>
+      </div>
+
+      <div id="layOnHandsRow" hidden>
+        <h4>Lay on Hands Pool</h4>
+        <div class="resource-row">
+          <button id="layOnHandsMinus">-</button>
+          <span id="layOnHandsCurrent">0</span>
+          /
+          <span id="layOnHandsMax">0</span>
+          <button id="layOnHandsPlus">+</button>
+        </div>
+        <small class="hint">Restores on a long rest.</small>
       </div>
     </div>
   <div id="arcaneArcherBlock" hidden class="subclass-block">
@@ -519,7 +568,7 @@
       <h2>Hit Points</h2>
 
       <label>Hit Die: d<input id="hitDie" type="number" value="10" min="4" step="2"/></label>
-      <label><input type="checkbox" id="useAverage" checked /> Use Average HP</label>
+      <label><input type="checkbox" id="useAverage" checked /> Use Average HP (uncheck to roll on level-up)</label>
 
       <p>Max HP: <strong id="maxHp">0</strong></p>
       <label>Current HP <input id="currentHp" type="number" value="0"/></label>

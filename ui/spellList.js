@@ -169,13 +169,12 @@ export async function renderSpellsKnown() {
      LOAD SPELL DATA
   ========================= */
   let spells = [];
+  const classIds = [
+    "bard","cleric","paladin","ranger",
+    "sorcerer","warlock","wizard","artificer","druid"
+  ];
 
   if (allowAnyList) {
-    const classIds = [
-      "bard","cleric","paladin","ranger",
-      "sorcerer","warlock","wizard","artificer","druid"
-    ];
-
     for (const cid of classIds) {
       const r = await fetch(`../data/spells/${cid}.json`);
       if (!r.ok) continue;
@@ -188,6 +187,35 @@ export async function renderSpellsKnown() {
       return;
     }
     spells = await r.json();
+  }
+
+  // Warlock expanded list: selectable in spells-known flow, but not auto-known.
+  if (!allowAnyList && character.class?.id === "warlock") {
+    const expandedIds = [...(sc.expandedList ?? new Set())];
+    if (expandedIds.length) {
+      const byId = new Map(
+        spells.map(spell => [spellIdFromTitle(spell.title), spell])
+      );
+
+      const missingIds = expandedIds.filter(id => !byId.has(id));
+      if (missingIds.length) {
+        const pool = [];
+        for (const cid of classIds) {
+          const r = await fetch(`../data/spells/${cid}.json`);
+          if (!r.ok) continue;
+          pool.push(...await r.json());
+        }
+        pool.forEach(spell => {
+          const id = spellIdFromTitle(spell.title);
+          if (!byId.has(id)) byId.set(id, spell);
+        });
+      }
+
+      expandedIds.forEach(id => {
+        const spell = byId.get(id);
+        if (spell) spells.push(spell);
+      });
+    }
   }
 
   /* =========================

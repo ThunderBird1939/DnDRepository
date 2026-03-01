@@ -1,0 +1,61 @@
+{
+  "id": "rune-knight",
+  "name": "Rune Knight",
+  "classId": "fighter",
+  "source": "TCE",
+  "description": "Rune Knights harness giant runes and size-shifting martial power.",
+  "featuresByLevel": {
+    "3": [
+      {
+        "id": "bonus-proficiencies-rune-knight",
+        "name": "Bonus Proficiencies",
+        "type": "passive",
+        "description": "You gain smith's tools proficiency and learn to speak, read, and write Giant."
+      },
+      {
+        "id": "rune-carver",
+        "name": "Rune Carver",
+        "type": "resource",
+        "description": "You inscribe runes onto gear and can invoke each rune's effect."
+      },
+      {
+        "id": "giants-might",
+        "name": "Giant's Might",
+        "type": "activation",
+        "description": "As a bonus action, grow Large and gain advantage on Strength checks/saves and extra weapon damage once per turn."
+      }
+    ],
+    "7": [
+      {
+        "id": "runic-shield",
+        "name": "Runic Shield",
+        "type": "reaction",
+        "description": "When a creature you can see hits with an attack roll, force a reroll with your reaction."
+      }
+    ],
+    "10": [
+      {
+        "id": "great-stature",
+        "name": "Great Stature",
+        "type": "passive",
+        "description": "Your height increases and your Giant's Might damage improves."
+      }
+    ],
+    "15": [
+      {
+        "id": "master-of-runes",
+        "name": "Master of Runes",
+        "type": "passive",
+        "description": "You can invoke each rune twice between rests."
+      }
+    ],
+    "18": [
+      {
+        "id": "runic-juggernaut",
+        "name": "Runic Juggernaut",
+        "type": "passive",
+        "description": "Your Giant's Might can make you Huge and grants additional combat benefits."
+      }
+    ]
+  }
+}

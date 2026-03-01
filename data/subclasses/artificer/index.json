@@ -2,5 +2,5 @@
   { "id": "alchemist", "name": "Alchemist" },
   { "id": "armorer", "name": "Armorer" },
   { "id": "artillerist", "name": "Artillerist" },
-  { "id": "battlesmith", "name": "Battle Smith" }
+  { "id": "battle-smith", "name": "Battle Smith" }
 ]

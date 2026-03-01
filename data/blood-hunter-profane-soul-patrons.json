@@ -1,0 +1,27 @@
+[
+  {
+    "id": "archfey",
+    "name": "The Archfey",
+    "description": "Your pact grants fey-flavored magic and trickster utility."
+  },
+  {
+    "id": "fiend",
+    "name": "The Fiend",
+    "description": "Your pact grants infernal power focused on offense and resilience."
+  },
+  {
+    "id": "great-old-one",
+    "name": "The Great Old One",
+    "description": "Your pact grants alien psychic influence and mind-bending effects."
+  },
+  {
+    "id": "hexblade",
+    "name": "The Hexblade",
+    "description": "Your pact binds weapon-focused shadow magic to your hemocraft."
+  },
+  {
+    "id": "undead",
+    "name": "The Undead",
+    "description": "Your pact grants deathly magic and fear-based battlefield control."
+  }
+]

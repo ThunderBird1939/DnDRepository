@@ -1,58 +1,53 @@
 {
-  "id": "the-fiend",
-  "name": "The Fiend",
+  "id": "great-old-one",
+  "name": "The Great Old One",
   "classId": "warlock",
   "source": "PHB",
-
-  "description": "You have made a pact with a fiendish entity of the Lower Planes, gaining destructive power fueled by dark ambition.",
-
+  "description": "Your patron is a distant cosmic entity with alien thoughts and psychic influence.",
   "featuresByLevel": {
     "1": [
       {
-        "id": "dark-ones-blessing",
-        "name": "Dark One’s Blessing",
+        "id": "awakened-mind",
+        "name": "Awakened Mind",
         "type": "passive",
-        "description": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to your Charisma modifier + your warlock level."
+        "description": "You can telepathically speak to creatures you can see within range."
       },
       {
-        "id": "fiend-spells",
+        "id": "goo-spells",
         "name": "Expanded Spell List",
         "type": "spell-table",
-        "description": "The Fiend lets you choose from an expanded list of spells when you learn a warlock spell.",
+        "description": "The Great Old One adds spells to your warlock options.",
         "spells": {
-          "1": ["burning-hands", "command"],
-          "3": ["blindness-deafness", "scorching-ray"],
-          "5": ["fireball", "stinking-cloud"],
-          "7": ["fire-shield", "wall-of-fire"],
-          "9": ["flame-strike", "hallow"]
+          "1": ["dissonant-whispers", "tashas-hideous-laughter"],
+          "3": ["detect-thoughts", "phantasmal-force"],
+          "5": ["clairvoyance", "sending"],
+          "7": ["dominate-beast", "evards-black-tentacles"],
+          "9": ["dominate-person", "telekinesis"]
         }
       }
     ],
-
     "6": [
       {
-        "id": "dark-ones-own-luck",
-        "name": "Dark One’s Own Luck",
+        "id": "entropic-ward",
+        "name": "Entropic Ward",
         "type": "reaction",
-        "description": "You can add a d10 to an ability check or saving throw after seeing the roll but before knowing the outcome."
+        "description": "Impose disadvantage on an attack against you, then gain advantage on your next attack against that creature."
       }
     ],
-
     "10": [
       {
-        "id": "fiendish-resilience",
-        "name": "Fiendish Resilience",
+        "id": "thought-shield",
+        "name": "Thought Shield",
         "type": "passive",
-        "description": "You can choose one damage type to gain resistance against until you choose a different one."
+        "description": "Your thoughts can't be read, and psychic damage against you is reduced and reflected."
       }
     ],
-
     "14": [
       {
-        "id": "hurl-through-hell",
-        "name": "Hurl Through Hell",
+        "id": "create-thrall",
+        "name": "Create Thrall",
         "type": "activation",
-        "description": "When you hit a creature, you can banish it briefly through the Lower Planes, dealing psychic damage."
+        "description": "Charm a humanoid indefinitely until the effect is broken."
       }
     ]
   }

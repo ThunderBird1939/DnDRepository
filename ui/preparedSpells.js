@@ -7,13 +7,33 @@ import {
   isCantripFromTags
 } from "../engine/rules/spellPrepRules.js";
 
+const PREP_CLASSES = new Set(["artificer", "wizard", "cleric", "druid", "paladin", "ranger"]);
+const KNOWN_ONLY_CLASSES = new Set(["wizard", "artificer"]);
+
+function abilityMod(score = 10) {
+  return Math.floor((score - 10) / 2);
+}
+
+function genericPrepLimit() {
+  const classId = character.class?.id;
+  const level = Number(character.level ?? 1);
+  const castingAbility = character.spellcasting?.ability ?? "wis";
+  const castingMod = abilityMod(character.abilities?.[castingAbility] ?? 10);
+
+  if (classId === "cleric" || classId === "druid") {
+    return Math.max(1, castingMod + level);
+  }
+
+  if (classId === "paladin" || classId === "ranger") {
+    return Math.max(1, castingMod + Math.floor(level / 2));
+  }
+
+  return 0;
+}
+
 export async function renderPreparedSpells() {
   const container = document.getElementById("preparedSpells");
   if (!container) return;
-  if (character.class.id === "bard") {
-    container.textContent = "Bards do not prepare spells.";
-    return;
-  }
 
   container.innerHTML = "";
 
@@ -22,25 +42,25 @@ export async function renderPreparedSpells() {
     return;
   }
 
+  if (!PREP_CLASSES.has(character.class.id)) {
+    const className = character.class?.name || "This class";
+    container.textContent = `${className} does not prepare spells.`;
+    return;
+  }
+
   character.spellcasting.prepared ??= new Set();
   character.spellcasting.alwaysPrepared ??= new Set();
+  character.spellcasting.available ??= new Set();
 
-  const prepared = character.spellcasting.prepared;
   const alwaysPrepared = character.spellcasting.alwaysPrepared;
 
   const limit =
     character.class.id === "wizard"
       ? wizardPrepLimit(character)
-      : artificerPrepLimit(character);
+      : character.class.id === "artificer"
+        ? artificerPrepLimit(character)
+        : genericPrepLimit();
 
-  // 🔒 Clamp prepared count
-  if (prepared.size > limit) {
-    character.spellcasting.prepared = new Set(
-      [...prepared].slice(0, limit)
-    );
-  }
-
-  // 🔑 Max spell level comes from slots
   const maxLevel =
     character.spellcasting?.slotsPerLevel
       ?.map((n, i) => (n > 0 ? i + 1 : null))
@@ -48,32 +68,59 @@ export async function renderPreparedSpells() {
       .pop() ?? 0;
 
   const res = await fetch(`./data/spells/${character.class.id}.json`);
+  if (!res.ok) {
+    container.textContent = "Spell data missing.";
+    return;
+  }
+
   const spells = await res.json();
 
-  // 🔑 Wizard: only spells in spellbook
   let sourceSpells = spells;
-  if (character.class.id === "wizard") {
-    const book = character.spellcasting.available ?? new Set();
+  if (KNOWN_ONLY_CLASSES.has(character.class.id)) {
+    const knownPool = character.spellcasting.available ?? new Set();
     sourceSpells = spells.filter(spell =>
-      book.has(spellIdFromTitle(spell.title))
+      knownPool.has(spellIdFromTitle(spell.title))
     );
   }
 
-  // Header
+  const allowedSpellIds = new Set(
+    sourceSpells
+      .filter(spell => !isCantripFromTags(spell.tags))
+      .filter(spell => {
+        const level = spellLevelFromTags(spell.tags);
+        return level && level <= maxLevel;
+      })
+      .map(spell => spellIdFromTitle(spell.title))
+  );
+
+  // Strict gate: only eligible known/available spells can remain prepared.
+  character.spellcasting.prepared = new Set(
+    [...character.spellcasting.prepared].filter(
+      id => allowedSpellIds.has(id) && !alwaysPrepared.has(id)
+    )
+  );
+  const prepared = character.spellcasting.prepared;
+
+  if (prepared.size > limit) {
+    character.spellcasting.prepared = new Set(
+      [...prepared].slice(0, limit)
+    );
+  }
+
+  const currentPrepared = character.spellcasting.prepared;
+
   const header = document.createElement("p");
-  header.innerHTML = `<strong>${prepared.size} / ${limit}</strong> prepared`;
+  header.innerHTML = `<strong>${currentPrepared.size} / ${limit}</strong> prepared`;
   container.appendChild(header);
 
   sourceSpells.forEach(spell => {
     const id = spellIdFromTitle(spell.title);
 
-    // Skip cantrips
     if (isCantripFromTags(spell.tags)) return;
 
     const level = spellLevelFromTags(spell.tags);
     if (!level || level > maxLevel) return;
 
-    // Always-prepared spells are locked
     if (alwaysPrepared.has(id)) return;
 
     const label = document.createElement("label");
@@ -81,21 +128,21 @@ export async function renderPreparedSpells() {
 
     const cb = document.createElement("input");
     cb.type = "checkbox";
-    cb.checked = prepared.has(id);
+    cb.checked = currentPrepared.has(id);
 
-    if (!cb.checked && prepared.size >= limit) {
+    if (!cb.checked && currentPrepared.size >= limit) {
       cb.disabled = true;
     }
 
     cb.onchange = () => {
       if (cb.checked) {
-        if (prepared.size >= limit) {
+        if (currentPrepared.size >= limit) {
           cb.checked = false;
           return;
         }
-        prepared.add(id);
+        currentPrepared.add(id);
       } else {
-        prepared.delete(id);
+        currentPrepared.delete(id);
       }
 
       renderPreparedSpells();

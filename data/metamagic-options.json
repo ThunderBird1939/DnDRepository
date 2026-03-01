@@ -1,0 +1,42 @@
+[
+  {
+    "id": "careful-spell",
+    "name": "Careful Spell",
+    "description": "Spend 1 sorcery point to let chosen creatures automatically succeed on a saving throw against your spell."
+  },
+  {
+    "id": "distant-spell",
+    "name": "Distant Spell",
+    "description": "Spend 1 sorcery point to double a spell's range, or make a touch spell range 30 feet."
+  },
+  {
+    "id": "empowered-spell",
+    "name": "Empowered Spell",
+    "description": "Spend 1 sorcery point to reroll a number of damage dice up to your Charisma modifier."
+  },
+  {
+    "id": "extended-spell",
+    "name": "Extended Spell",
+    "description": "Spend 1 sorcery point to double a spell's duration, up to 24 hours."
+  },
+  {
+    "id": "heightened-spell",
+    "name": "Heightened Spell",
+    "description": "Spend 3 sorcery points to impose disadvantage on one target's first save against the spell."
+  },
+  {
+    "id": "quickened-spell",
+    "name": "Quickened Spell",
+    "description": "Spend 2 sorcery points to cast a spell with casting time of 1 action as a bonus action."
+  },
+  {
+    "id": "subtle-spell",
+    "name": "Subtle Spell",
+    "description": "Spend 1 sorcery point to cast without verbal or somatic components."
+  },
+  {
+    "id": "twinned-spell",
+    "name": "Twinned Spell",
+    "description": "When a spell targets only one creature, spend sorcery points to target a second creature."
+  }
+]

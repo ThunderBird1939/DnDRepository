@@ -1,51 +1,53 @@
 {
-  "id": "divine-soul",
-  "name": "Divine Soul",
+  "id": "aberrant-mind",
+  "name": "Aberrant Mind",
   "classId": "sorcerer",
-  "source": "XGE",
-
-  "description": "Your magic comes from a divine source, granting access to cleric spells and holy power.",
-
+  "source": "TCE",
+  "description": "An alien influence has awakened psionic sorcery within you.",
   "featuresByLevel": {
     "1": [
       {
-        "id": "divine-magic",
-        "name": "Divine Magic",
-        "type": "spellcasting",
-        "description": "You learn an additional cleric spell and gain access to the cleric spell list."
+        "id": "psionic-spells",
+        "name": "Psionic Spells",
+        "type": "spell-table",
+        "description": "You learn additional sorcerer spells tied to your aberrant origin.",
+        "spells": {
+          "1": ["arms-of-hadar", "dissonant-whispers"],
+          "3": ["calm-emotions", "detect-thoughts"],
+          "5": ["hunger-of-hadar", "sending"],
+          "7": ["evards-black-tentacles", "summon-aberration"],
+          "9": ["rarys-telepathic-bond", "telekinesis"]
+        }
       },
       {
-        "id": "favored-by-the-gods",
-        "name": "Favored by the Gods",
-        "type": "reaction",
-        "description": "You can add 2d4 to a failed saving throw or missed attack."
+        "id": "telepathic-speech",
+        "name": "Telepathic Speech",
+        "type": "passive",
+        "description": "You can communicate telepathically with a creature you can see."
       }
     ],
-
     "6": [
       {
-        "id": "empowered-healing",
-        "name": "Empowered Healing",
+        "id": "psionic-sorcery",
+        "name": "Psionic Sorcery",
         "type": "passive",
-        "description": "You can reroll healing dice using sorcery points."
+        "description": "You can cast your psionic spells using sorcery points without verbal or somatic components."
       }
     ],
-
     "14": [
       {
-        "id": "otherworldly-wings",
-        "name": "Otherworldly Wings",
-        "type": "passive",
-        "description": "You gain a flying speed."
+        "id": "revelation-in-flesh",
+        "name": "Revelation in Flesh",
+        "type": "activation",
+        "description": "You alter your body with aberrant traits, such as flight, swim speed, or seeing invisible creatures."
       }
     ],
-
     "18": [
       {
-        "id": "uneathly-recovery",
-        "name": "Unearthly Recovery",
+        "id": "warping-implosion",
+        "name": "Warping Implosion",
         "type": "activation",
-        "description": "You can regain hit points when near death."
+        "description": "You teleport and pull nearby creatures inward with psychic force."
       }
     ]
   }

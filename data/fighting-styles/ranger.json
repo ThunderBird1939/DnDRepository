@@ -1,0 +1,26 @@
+[
+  {
+    "id": "archery",
+    "name": "Archery",
+    "description": "You gain a +2 bonus to attack rolls you make with ranged weapons.",
+    "source": "PHB"
+  },
+  {
+    "id": "defense",
+    "name": "Defense",
+    "description": "While you are wearing armor, you gain a +1 bonus to AC.",
+    "source": "PHB"
+  },
+  {
+    "id": "dueling",
+    "name": "Dueling",
+    "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
+    "source": "PHB"
+  },
+  {
+    "id": "two-weapon-fighting",
+    "name": "Two-Weapon Fighting",
+    "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
+    "source": "PHB"
+  }
+]

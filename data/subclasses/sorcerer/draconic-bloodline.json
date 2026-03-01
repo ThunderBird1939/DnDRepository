@@ -1,51 +1,40 @@
 {
-  "id": "soulknife",
-  "name": "Soulknife",
-  "classId": "rogue",
-  "source": "TCE",
-
-  "description": "Soulknives manifest psionic blades and harness psychic energy to enhance their agility and attacks.",
-
+  "id": "draconic-bloodline",
+  "name": "Draconic Bloodline",
+  "classId": "sorcerer",
+  "source": "PHB",
+  "description": "Your magic comes from draconic ancestry, granting resilience and elemental power.",
   "featuresByLevel": {
-    "3": [
+    "1": [
       {
-        "id": "psychic-blades",
-        "name": "Psychic Blades",
-        "type": "system",
-        "description": "You manifest psychic blades that deal psychic damage and can be used for Sneak Attack."
-      },
-      {
-        "id": "psionic-power",
-        "name": "Psionic Power",
-        "type": "resource",
-        "description": "You gain Psionic Energy dice to fuel special abilities."
-      }
-    ],
-
-    "9": [
-      {
-        "id": "soul-blades",
-        "name": "Soul Blades",
+        "id": "draconic-resilience",
+        "name": "Draconic Resilience",
         "type": "passive",
-        "description": "Your psychic blades gain additional properties, including teleportation and extended range."
+        "description": "Your hit point maximum increases by 1 per sorcerer level, and your base AC becomes 13 + Dexterity modifier while not wearing armor."
       }
     ],
-
-    "13": [
+    "6": [
       {
-        "id": "psychic-veil",
-        "name": "Psychic Veil",
-        "type": "activation",
-        "description": "You can become invisible for a limited time using psionic energy."
+        "id": "elemental-affinity",
+        "name": "Elemental Affinity",
+        "type": "passive",
+        "description": "Add Charisma modifier to one damage roll of spells matching your draconic ancestry element; spend 1 sorcery point for temporary resistance."
       }
     ],
-
-    "17": [
+    "14": [
       {
-        "id": "rend-mind",
-        "name": "Rend Mind",
+        "id": "dragon-wings",
+        "name": "Dragon Wings",
+        "type": "passive",
+        "description": "You can sprout dragon wings and gain a flying speed."
+      }
+    ],
+    "18": [
+      {
+        "id": "draconic-presence",
+        "name": "Draconic Presence",
         "type": "activation",
-        "description": "You unleash psionic force to stun a creature you damage."
+        "description": "Spend sorcery points to radiate an aura of awe or fear."
       }
     ]
   }

@@ -1,7 +1,7 @@
 {
   "id": "moonforged-duelist",
   "name": "Moonforged Duelist",
-  "classId": "ostrumite-vanguard",
+  "classId": "ostrumite-gunner",
   "source": "homebrew",
 
   "description": "Moonforged Duelists synchronize their Ostrumite cores to lunar cycles, striking with patience, pressure, and execution.",

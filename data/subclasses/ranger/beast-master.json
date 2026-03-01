@@ -1,40 +1,40 @@
 {
-  "id": "hunter",
-  "name": "Hunter",
+  "id": "beast-master",
+  "name": "Beast Master",
   "classId": "ranger",
   "source": "PHB",
-  "description": "Hunters specialize in combating monsters using adaptable tactics chosen to counter specific threats.",
+  "description": "Beast Masters fight as one with a loyal primal companion.",
   "featuresByLevel": {
     "3": [
       {
-        "id": "hunters-prey",
-        "name": "Hunter’s Prey",
-        "type": "choice",
-        "description": "You choose a combat tactic such as Colossus Slayer, Giant Killer, or Horde Breaker."
+        "id": "rangers-companion",
+        "name": "Ranger's Companion",
+        "type": "companion",
+        "description": "You gain a beast companion that acts with you in combat."
       }
     ],
     "7": [
       {
-        "id": "defensive-tactics",
-        "name": "Defensive Tactics",
-        "type": "choice",
-        "description": "You gain a defensive feature such as Escape the Horde or Multiattack Defense."
+        "id": "exceptional-training",
+        "name": "Exceptional Training",
+        "type": "passive",
+        "description": "Your companion gains improved command options and proficiency scaling."
       }
     ],
     "11": [
       {
-        "id": "multiattack",
-        "name": "Multiattack",
-        "type": "choice",
-        "description": "You gain Volley or Whirlwind Attack."
+        "id": "bestial-fury",
+        "name": "Bestial Fury",
+        "type": "passive",
+        "description": "Your companion can make two attacks when commanded."
       }
     ],
     "15": [
       {
-        "id": "superior-hunters-defense",
-        "name": "Superior Hunter’s Defense",
-        "type": "choice",
-        "description": "You gain a powerful defensive reaction or resistance."
+        "id": "share-spells",
+        "name": "Share Spells",
+        "type": "passive",
+        "description": "Spells you cast on yourself can also affect your companion."
       }
     ]
   }

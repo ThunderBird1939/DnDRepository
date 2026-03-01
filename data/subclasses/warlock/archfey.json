@@ -1,11 +1,9 @@
 {
-  "id": "the-archfey",
+  "id": "archfey",
   "name": "The Archfey",
   "classId": "warlock",
   "source": "PHB",
-
   "description": "You have made a pact with a powerful fey being, gaining beguiling magic and trickery.",
-
   "featuresByLevel": {
     "1": [
       {
@@ -20,10 +18,14 @@
         "type": "spell-table",
         "description": "The Archfey lets you choose from an expanded list of spells.",
         "spells": {
+          "1": ["faerie-fire", "sleep"],
+          "3": ["calm-emotions", "phantasmal-force"],
+          "5": ["blink", "plant-growth"],
+          "7": ["dominate-beast", "greater-invisibility"],
+          "9": ["dominate-person", "seeming"]
         }
       }
     ],
-
     "6": [
       {
         "id": "misty-escape",
@@ -32,7 +34,6 @@
         "description": "You can turn invisible and teleport when you take damage."
       }
     ],
-
     "10": [
       {
         "id": "beguiling-defenses",
@@ -41,7 +42,6 @@
         "description": "You are immune to being charmed and can reflect charm effects."
       }
     ],
-
     "14": [
       {
         "id": "dark-delirium",

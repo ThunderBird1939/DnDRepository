@@ -27,6 +27,7 @@ export function applySubclass(character, subclassData) {
   ========================= */
   if (!character.resolvedChoices?.subclass) {
     character.spellcasting.alwaysPrepared = new Set();
+    character.spellcasting.expandedList = new Set();
   }
 
 
@@ -200,6 +201,23 @@ Object.entries(subclassData.featuresByLevel || {}).forEach(
     if (!Array.isArray(features)) return;
 
     features.forEach(feature => {
+      if (feature.type === "choice") {
+        character.pendingChoices ??= {};
+        character.resolvedChoices ??= {};
+        character.resolvedChoices.choiceFeature ??= {};
+
+        const alreadyResolved =
+          !!character.resolvedChoices.choiceFeature[feature.id] ||
+          character.features.some(f => f.parentFeature === feature.id);
+
+        if (!alreadyResolved && !character.pendingChoices.choiceFeature) {
+          character.pendingChoices.choiceFeature = {
+            feature,
+            source: subclassData.id
+          };
+        }
+      }
+
       // Add feature once
       if (!character.features.some(f => f.id === feature.id)) {
         character.features.push({
@@ -223,6 +241,7 @@ Object.entries(subclassData.featuresByLevel || {}).forEach(
         character.spellcasting ??= {};
         character.spellcasting.available ??= new Set();
         character.spellcasting.alwaysPrepared ??= new Set();
+        character.spellcasting.expandedList ??= new Set();
 
         Object.entries(feature.spells).forEach(
           ([spellLevel, spells]) => {
@@ -231,7 +250,7 @@ Object.entries(subclassData.featuresByLevel || {}).forEach(
             spells.forEach(spellId => {
               // 🧙 WARLOCK: expanded spell list only
               if (character.class?.id === "warlock") {
-                character.spellcasting.available.add(spellId);
+                character.spellcasting.expandedList.add(spellId);
               }
               // 🛐 ALL OTHER CLASSES: always prepared
               else {

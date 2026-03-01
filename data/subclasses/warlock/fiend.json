@@ -1,16 +1,14 @@
 {
-  "id": "the-fiend",
+  "id": "fiend",
   "name": "The Fiend",
   "classId": "warlock",
   "source": "PHB",
-
   "description": "You have made a pact with a fiendish entity of the Lower Planes, gaining destructive power fueled by dark ambition.",
-
   "featuresByLevel": {
     "1": [
       {
         "id": "dark-ones-blessing",
-        "name": "Dark One’s Blessing",
+        "name": "Dark One's Blessing",
         "type": "passive",
         "description": "When you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to your Charisma modifier + your warlock level."
       },
@@ -28,16 +26,14 @@
         }
       }
     ],
-
     "6": [
       {
         "id": "dark-ones-own-luck",
-        "name": "Dark One’s Own Luck",
+        "name": "Dark One's Own Luck",
         "type": "reaction",
         "description": "You can add a d10 to an ability check or saving throw after seeing the roll but before knowing the outcome."
       }
     ],
-
     "10": [
       {
         "id": "fiendish-resilience",
@@ -46,7 +42,6 @@
         "description": "You can choose one damage type to gain resistance against until you choose a different one."
       }
     ],
-
     "14": [
       {
         "id": "hurl-through-hell",

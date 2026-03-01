@@ -1,58 +1,53 @@
 {
-  "id": "the-archfey",
-  "name": "The Archfey",
+  "id": "undead",
+  "name": "The Undead",
   "classId": "warlock",
-  "source": "PHB",
-
-  "description": "You have made a pact with a powerful fey being, gaining beguiling magic and trickery.",
-
+  "source": "VRGR",
+  "description": "You serve an immortal undead patron and channel deathly power.",
   "featuresByLevel": {
     "1": [
       {
-        "id": "fey-presence",
-        "name": "Fey Presence",
+        "id": "form-of-dread",
+        "name": "Form of Dread",
         "type": "activation",
-        "description": "You can charm or frighten creatures in a cube around you."
+        "description": "Transform to gain temporary hit points and frighten enemies when you hit."
       },
       {
-        "id": "archfey-spells",
+        "id": "undead-spells",
         "name": "Expanded Spell List",
         "type": "spell-table",
-        "description": "The Archfey lets you choose from an expanded list of spells.",
+        "description": "The Undead adds necrotic and fear-based spells to your warlock options.",
         "spells": {
-          "1": ["faerie-fire", "sleep"],
-          "3": ["calm-emotions", "phantasmal-force"],
-          "5": ["blink", "plant-growth"],
-          "7": ["dominate-beast", "greater-invisibility"],
-          "9": ["dominate-person", "seeming"]
+          "1": ["bane", "false-life"],
+          "3": ["blindness-deafness", "phantom-steed"],
+          "5": ["speak-with-dead", "summon-undead"],
+          "7": ["death-ward", "greater-invisibility"],
+          "9": ["antilife-shell", "cloudkill"]
         }
       }
     ],
-
     "6": [
       {
-        "id": "misty-escape",
-        "name": "Misty Escape",
-        "type": "reaction",
-        "description": "You can turn invisible and teleport when you take damage."
+        "id": "grave-touched",
+        "name": "Grave Touched",
+        "type": "passive",
+        "description": "Your attacks can become necrotic and you do not need to eat, drink, or breathe while transformed."
       }
     ],
-
     "10": [
       {
-        "id": "beguiling-defenses",
-        "name": "Beguiling Defenses",
-        "type": "passive",
-        "description": "You are immune to being charmed and can reflect charm effects."
+        "id": "necrotic-husk",
+        "name": "Necrotic Husk",
+        "type": "reaction",
+        "description": "When reduced to 0 HP, explode with necrotic energy and drop to 1 HP once per rest."
       }
     ],
-
     "14": [
       {
-        "id": "dark-delirium",
-        "name": "Dark Delirium",
+        "id": "spirit-projection",
+        "name": "Spirit Projection",
         "type": "activation",
-        "description": "You banish a creature into a fey illusion realm."
+        "description": "Project your spirit from your body, gaining movement and damage benefits."
       }
     ]
   }

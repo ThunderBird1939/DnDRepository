@@ -1,0 +1,27 @@
+[
+  {
+    "id": "agonizing-blast",
+    "name": "Agonizing Blast",
+    "description": "Add your spellcasting ability modifier to Eldritch Blast damage."
+  },
+  {
+    "id": "devils-sight",
+    "name": "Devil's Sight",
+    "description": "You can see normally in darkness, including magical darkness, to 120 feet."
+  },
+  {
+    "id": "mask-of-many-faces",
+    "name": "Mask of Many Faces",
+    "description": "You can cast Disguise Self at will, without expending a spell slot."
+  },
+  {
+    "id": "misty-visions",
+    "name": "Misty Visions",
+    "description": "You can cast Silent Image at will, without expending a spell slot."
+  },
+  {
+    "id": "thief-of-five-fates",
+    "name": "Thief of Five Fates",
+    "description": "You can cast Bane once using a pact slot."
+  }
+]

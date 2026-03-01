@@ -264,16 +264,6 @@ details ul {
   width: 28px;
   height: 28px;
 }
-.resource-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.1rem;
-}
-.resource-row button {
-  width: 28px;
-  height: 28px;
-}
 .manifest-technique {
   border-bottom: 1px solid #333;
   padding: 0.5rem 0;
@@ -911,8 +901,303 @@ p {
   border-radius: 10px;
 }
 
+/* =========================
+   DM Visual Separation
+========================= */
+#dmView .dm-main .panel {
+  background: linear-gradient(180deg, rgba(126, 91, 205, 0.1), rgba(255, 255, 255, 0.95));
+}
+
+#encounterCards.card-stack {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+#dmView .monster-card {
+  background: linear-gradient(180deg, #fffefc, #f7f1ff);
+  border: 1px solid #cbb4ee;
+  border-left: 5px solid #9a72f2;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(63, 39, 104, 0.15);
+}
+
+#dmView .monster-card .card-body {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(122, 95, 179, 0.25);
+  color: #3b2d5c;
+}
+
+#dmView .monster-card.active {
+  outline: 3px solid #4a6898;
+  box-shadow: 0 0 0 4px rgba(74, 104, 152, 0.2), 0 8px 24px rgba(63, 39, 104, 0.2);
+}
+
+/* =========================
+   Skills Readability
+========================= */
+.skills {
+  display: grid;
+  gap: 6px;
+}
+
+.skills label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(122, 95, 179, 0.3);
+  background: rgba(255, 255, 255, 0.65);
+  color: #2f2348;
+  font-weight: 600;
+}
+
+.skills input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  accent-color: #7c56c8;
+}
+
+.skills input[type="checkbox"]:disabled {
+  opacity: 1;
+  filter: none;
+}
+
 #featuresList h3 {
   border-bottom-color: var(--border);
+}
+
+/* =========================
+   Sheet UI V2
+========================= */
+body {
+  --sheet-gap: 12px;
+  --panel-pad: 12px;
+  --tab-btn-y: 8px;
+  --tab-btn-x: 14px;
+  --tab-font: 0.9rem;
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  color: #1f2a44;
+  background:
+    radial-gradient(1200px 600px at -10% -10%, rgba(247, 194, 80, 0.2), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(72, 155, 199, 0.2), transparent 55%),
+    linear-gradient(180deg, #f7f9ff 0%, #eef3ff 100%);
+}
+
+body[data-density="compact"] {
+  --sheet-gap: 8px;
+  --panel-pad: 9px;
+  --tab-btn-y: 6px;
+  --tab-btn-x: 10px;
+  --tab-font: 0.82rem;
+}
+
+#sheetView {
+  max-width: 1560px;
+  margin: 0 auto;
+}
+
+#sheetView > h1 {
+  margin: 12px 0 16px;
+  font-size: clamp(1.55rem, 2.1vw, 2.15rem);
+  letter-spacing: 0.01em;
+}
+
+#sheetView > button.primary,
+#sheetView > .panel {
+  margin-bottom: 10px;
+}
+
+#sheetShell {
+  display: grid;
+  grid-template-columns: minmax(290px, 360px) minmax(0, 1fr);
+  gap: var(--sheet-gap);
+  align-items: start;
+}
+
+#sheetRail {
+  position: sticky;
+  top: 12px;
+  display: grid;
+  gap: var(--sheet-gap);
+}
+
+#sheetMain {
+  min-width: 0;
+}
+
+#sheetTabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 9px 10px;
+  border: 1px solid #d6dfef;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 10px 24px rgba(42, 54, 95, 0.08);
+}
+
+.sheet-tab-btn {
+  border: 1px solid #cad5ea;
+  background: #f6f9ff;
+  color: #223055;
+  border-radius: 999px;
+  padding: var(--tab-btn-y) var(--tab-btn-x);
+  font-size: var(--tab-font);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+
+#sheetDensityControls {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.density-btn {
+  border: 1px solid #c6d3e9;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #33456f;
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.density-btn.active,
+.density-btn[aria-pressed="true"] {
+  background: #365b98;
+  border-color: #365b98;
+  color: #ffffff;
+}
+
+.sheet-tab-btn:hover {
+  border-color: #94abd4;
+  background: #eef4ff;
+}
+
+.sheet-tab-btn.active,
+.sheet-tab-btn[aria-selected="true"] {
+  color: #ffffff;
+  background: linear-gradient(135deg, #3f6db2 0%, #355490 100%);
+  border-color: #355490;
+  box-shadow: 0 8px 20px rgba(53, 84, 144, 0.26);
+}
+
+#sheetTabBody {
+  display: grid;
+  gap: var(--sheet-gap);
+}
+
+.sheet-tab-pane {
+  display: grid;
+  gap: var(--sheet-gap);
+}
+
+.sheet-tab-pane[hidden] {
+  display: none !important;
+}
+
+.panel {
+  border: 1px solid #d6dfef;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 252, 255, 0.93));
+  box-shadow: 0 10px 22px rgba(31, 42, 68, 0.07);
+  padding: var(--panel-pad);
+}
+
+.panel h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+  color: #223055;
+}
+
+#languageSelect + .choices .choices__inner,
+#languageSelect.choices__input + .choices .choices__inner,
+#languageSelect.choices__input {
+  border-radius: 10px;
+}
+
+#languageSelect + .choices .choices__inner,
+#languageSelect ~ .choices .choices__inner,
+.panel .choices .choices__inner {
+  border: 1px solid #bfd0ed;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
+  min-height: 42px;
+}
+
+.panel h3,
+.panel h4 {
+  color: #2c3d68;
+}
+
+label {
+  color: #273555;
+  font-weight: 600;
+}
+
+.muted,
+.hint {
+  color: #3f5075;
+}
+
+.skills {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.skills label {
+  border: 1px solid #bfd0ed;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
+  color: #1f3158;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.ability-roll-btn {
+  margin-left: auto;
+  border: 1px solid #8db1e5;
+  background: #eaf3ff;
+  color: #1f3158;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.skills label:hover {
+  border-color: #8db1e5;
+  background: #edf5ff;
+}
+
+input,
+select,
+button,
+textarea {
+  border-radius: 10px;
+}
+
+#attacksTable th {
+  background: #2f436f;
+  color: #ffffff;
+}
+
+@media (max-width: 1120px) {
+  #sheetShell {
+    grid-template-columns: 1fr;
+  }
+
+  #sheetRail {
+    position: static;
+  }
 }
 
 .spell-table th,

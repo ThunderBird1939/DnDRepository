@@ -370,6 +370,31 @@ if (classData.id === "bard") {
   }
 }// Base bard spells-known table already loaded above
 
+/* =========================
+   SORCERER SPELLCASTING (KNOWN)
+========================= */
+if (classData.id === "sorcerer") {
+  character.spellcasting.enabled = true;
+  character.spellcasting.type = "full";
+  character.spellcasting.ability = "cha";
+
+  character.spellcasting.available ??= new Set();
+  character.spellcasting.prepared = null;
+
+  try {
+    const res = await fetch(`./data/spellsKnown/sorcerer.json`);
+    if (res.ok) {
+      const table = await res.json();
+      character.spellcasting.spellsKnown =
+        table[String(level)] ?? 0;
+    } else {
+      character.spellcasting.spellsKnown = 0;
+    }
+  } catch {
+    character.spellcasting.spellsKnown = 0;
+  }
+}
+
 // 📚 College of Lore: Additional Magical Secrets (+2 at level 6+)
 if (
   character.class.id === "bard" &&

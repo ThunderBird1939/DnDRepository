@@ -1,41 +1,46 @@
 {
-  "id": "whispers",
-  "name": "College of Whispers",
-  "classId": "bard",
-  "source": "Xanathar's Guide to Everything",
-  "description": "Bards of the College of Whispers manipulate fear and secrets, using psychological terror and stolen identities to dismantle foes from within.",
-
+  "id": "ghostslayer",
+  "name": "Order of the Ghostslayer",
+  "classId": "blood-hunter",
+  "source": "homebrew",
+  "description": "Ghostslayers refine hemocraft to destroy undead and hostile spirits.",
   "featuresByLevel": {
     "3": [
       {
-        "id": "psychic-blades",
-        "name": "Psychic Blades",
-        "type": "trigger",
-        "description": "When you hit a creature with a weapon attack, you can expend one use of Bardic Inspiration to deal extra psychic damage to the target."
+        "id": "rite-of-the-dawn",
+        "name": "Rite of the Dawn",
+        "type": "passive",
+        "description": "You learn the Rite of the Dawn. Your rite damage is radiant, and your weapon attacks ignore resistance to rite damage."
       },
       {
-        "id": "words-of-terror",
-        "name": "Words of Terror",
-        "type": "social",
-        "description": "If you speak with a humanoid alone for at least 1 minute, you can instill fear in it, causing it to be frightened of you for a duration."
+        "id": "hallowed-veil",
+        "name": "Hallowed Veil",
+        "type": "reaction",
+        "description": "When a creature within 30 feet forces a save against fear or charm, you may expend a Blood Maledict use to grant advantage on the save."
       }
     ],
-
-    "6": [
+    "7": [
       {
-        "id": "mantle-of-whispers",
-        "name": "Mantle of Whispers",
-        "type": "system",
-        "description": "When a humanoid dies within 30 feet of you, you can capture its shadow and magically assume its appearance and memories for a time."
-      }
-    ],
-
-    "14": [
-      {
-        "id": "shadow-lore",
-        "name": "Shadow Lore",
+        "id": "ethereal-step",
+        "name": "Ethereal Step",
         "type": "activation",
-        "description": "As an action, you whisper a dark secret that psychically binds a creature, charming and frightening it for a duration."
+        "description": "As a bonus action, you can move through creatures and objects as if they were difficult terrain until end of turn."
+      }
+    ],
+    "11": [
+      {
+        "id": "brand-of-sundering",
+        "name": "Brand of Sundering",
+        "type": "passive",
+        "description": "Your Brand of Castigation can affect incorporeal creatures and deals extra rite damage to branded targets."
+      }
+    ],
+    "15": [
+      {
+        "id": "blood-curse-of-the-exorcist",
+        "name": "Blood Curse of the Exorcist",
+        "type": "activation",
+        "description": "You can curse a creature to disrupt possession and banish invasive spiritual effects."
       }
     ]
   }
