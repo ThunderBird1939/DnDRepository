@@ -1218,3 +1218,199 @@ textarea {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================
+   Theme Override: Lunar / Amethyst / Gold
+========================= */
+:root {
+  --bg: #0f0b1e;
+  --bg-accent: #1b1533;
+  --card: #1a1530;
+  --card-soft: #231c40;
+  --text: #f1ebff;
+  --muted: #bcaee6;
+  --primary: #a77cff;
+  --primary-strong: #7f56e3;
+  --border: #3f3168;
+  --success: #78c8a1;
+  --gold: #d8b159;
+  --gold-strong: #b98a2d;
+}
+
+body {
+  color: var(--text);
+  background:
+    radial-gradient(1200px 720px at -8% -16%, rgba(168, 125, 255, 0.2), transparent 62%),
+    radial-gradient(920px 580px at 108% -10%, rgba(216, 177, 89, 0.18), transparent 56%),
+    linear-gradient(180deg, #0f0b1e 0%, #17112b 46%, #0d0918 100%);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #f4eeff;
+}
+
+.muted,
+.hint {
+  color: var(--muted);
+}
+
+#sheetTabs {
+  border-color: var(--border);
+  background: rgba(26, 20, 48, 0.78);
+  box-shadow: 0 12px 28px rgba(4, 2, 11, 0.45);
+}
+
+.panel {
+  border-color: var(--border);
+  background: linear-gradient(180deg, rgba(180, 140, 255, 0.08), rgba(20, 15, 36, 0.92) 38%, rgba(16, 12, 29, 0.96) 100%);
+  box-shadow: 0 12px 30px rgba(8, 4, 19, 0.46);
+}
+
+label {
+  color: #d8cdf9;
+}
+
+input,
+select,
+textarea {
+  color: var(--text);
+  border-color: var(--border);
+  background: linear-gradient(180deg, #2b2450 0%, #1f193b 100%);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b7a8de;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(167, 124, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(167, 124, 255, 0.18);
+}
+
+button {
+  color: #efe8ff;
+  border-color: #574388;
+  background: linear-gradient(180deg, #382d61 0%, #2a214a 100%);
+}
+
+button:hover {
+  background: linear-gradient(180deg, #463675 0%, #322657 100%);
+  border-color: #6a50a0;
+}
+
+button.primary,
+#exportPdfBtn,
+#toggleDM {
+  color: #2b1b00;
+  border-color: var(--gold-strong);
+  background: linear-gradient(180deg, #efca78 0%, #d8b159 54%, #c4933e 100%);
+}
+
+button.primary:hover,
+#exportPdfBtn:hover,
+#toggleDM:hover {
+  filter: brightness(1.03);
+}
+
+.sheet-tab-btn {
+  color: #dbcfff;
+  border-color: #5a458f;
+  background: linear-gradient(180deg, #2f2755 0%, #241d42 100%);
+}
+
+.sheet-tab-btn:hover {
+  border-color: #7558bc;
+  background: linear-gradient(180deg, #3d316f 0%, #2d2452 100%);
+}
+
+.sheet-tab-btn.active,
+.sheet-tab-btn[aria-selected="true"] {
+  color: #ffffff;
+  border-color: #8a65e8;
+  background: linear-gradient(135deg, #a77cff 0%, #7f56e3 100%);
+  box-shadow: 0 10px 24px rgba(123, 87, 214, 0.45);
+}
+
+.density-btn {
+  color: #dbceff;
+  border-color: #5c478f;
+  background: #271f46;
+}
+
+.density-btn.active,
+.density-btn[aria-pressed="true"] {
+  color: #2b1b00;
+  border-color: var(--gold-strong);
+  background: #d8b159;
+}
+
+.feature,
+.choice-option,
+.infusion,
+.library-item,
+.monster-card {
+  border-color: #52407f;
+  background: rgba(42, 33, 74, 0.74);
+}
+
+.skills label {
+  color: #f1ecff;
+  border-color: #6a53a8;
+  background: linear-gradient(180deg, #32275c 0%, #261f45 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.skills label:hover {
+  border-color: #8969d1;
+  background: linear-gradient(180deg, #3b2d6d 0%, #2d2352 100%);
+}
+
+.skills input[type="checkbox"] {
+  accent-color: var(--gold);
+}
+
+.ability-roll-btn,
+.inline-roll-btn {
+  color: #271a00;
+  border-color: var(--gold-strong);
+  background: linear-gradient(180deg, #edc471 0%, #d8b159 100%);
+}
+
+.spell-table th,
+#attacksTable th {
+  color: #f8f3ff;
+  border-color: #5d4990;
+  background: linear-gradient(180deg, #3e316c 0%, #2c2450 100%);
+}
+
+.bard-replace-badge {
+  color: #2b1b00;
+  background: linear-gradient(180deg, #efca78 0%, #d8b159 100%);
+}
+
+.warning {
+  color: #ffd9df;
+  border-color: #a44f62;
+  background: #40202b;
+}
+
+#dmView .dm-main .panel {
+  background: linear-gradient(180deg, rgba(108, 77, 186, 0.24), rgba(19, 14, 34, 0.95));
+}
+
+#dmView .monster-card {
+  border-color: #6a52aa;
+  border-left-color: #b88cff;
+  background: linear-gradient(180deg, rgba(52, 40, 88, 0.95), rgba(31, 24, 53, 0.94));
+}
+
+#dmView .monster-card.active {
+  outline-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(216, 177, 89, 0.25), 0 12px 26px rgba(5, 2, 12, 0.5);
+}
