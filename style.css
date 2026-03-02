@@ -1414,3 +1414,91 @@ button.primary:hover,
   outline-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(216, 177, 89, 0.25), 0 12px 26px rgba(5, 2, 12, 0.5);
 }
+
+/* =========================
+   Dropdown Readability
+========================= */
+select {
+  color: #f3eeff;
+  background: linear-gradient(180deg, #2b2450 0%, #1f193b 100%);
+}
+
+select option,
+select optgroup {
+  color: #f3eeff;
+  background: #211a3d;
+}
+
+.panel .choices .choices__inner {
+  color: #f3eeff;
+  border-color: #5a468f;
+  background: linear-gradient(180deg, #2b2450 0%, #1f193b 100%);
+}
+
+.panel .choices__input,
+.panel .choices__input--cloned {
+  color: #f3eeff;
+  background: transparent;
+}
+
+.panel .choices[data-type*="select-one"]::after {
+  border-color: #d8b159 transparent transparent transparent;
+}
+
+.panel .choices__list--dropdown,
+.panel .choices__list[aria-expanded] {
+  color: #f3eeff;
+  border-color: #5a468f;
+  background: #1c1634;
+}
+
+.panel .choices__list--dropdown .choices__item,
+.panel .choices__list[aria-expanded] .choices__item {
+  color: #f3eeff;
+}
+
+.panel .choices__list--dropdown .choices__item--selectable.is-highlighted,
+.panel .choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+  color: #fff8e8;
+  background: linear-gradient(180deg, #4a3980 0%, #3a2d65 100%);
+}
+
+.panel .choices__placeholder {
+  color: #b9abd8;
+  opacity: 1;
+}
+
+/* =========================
+   Contrast Pass
+========================= */
+.panel h2,
+.panel h3,
+.panel h4 {
+  color: #f6f1ff;
+}
+
+.panel label,
+.panel small,
+.panel p,
+.panel .muted,
+.panel .hint {
+  color: #e6dcff;
+}
+
+.detail-btn {
+  color: #ffe9b4;
+  border-color: #8b6a2b;
+  background: linear-gradient(180deg, #d8b159 0%, #b9892f 100%);
+}
+
+.detail-btn:hover {
+  filter: brightness(1.04);
+}
+
+.spell-row,
+.spell-row.prepared,
+.spell-row.always,
+#spellList h4,
+.feature small {
+  color: #f1eaff;
+}
