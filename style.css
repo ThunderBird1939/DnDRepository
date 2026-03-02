@@ -1502,3 +1502,100 @@ select optgroup {
 .feature small {
   color: #f1eaff;
 }
+
+/* =========================
+   DM Mode Enhancements
+========================= */
+#dmView .card-controls {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#dmView .card-sub .init-input {
+  width: 78px;
+  margin-left: 4px;
+  padding: 4px 6px;
+}
+
+#dmView .monster-card.down {
+  border-color: #8f4158;
+  opacity: 0.82;
+}
+
+#dmView .monster-card.down .card-header h3::after {
+  content: " (Down)";
+  color: #ffb9c7;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+#dmView .monster-card.focused {
+  outline: 2px solid #d8b159;
+  box-shadow: 0 0 0 3px rgba(216, 177, 89, 0.2), 0 12px 26px rgba(5, 2, 12, 0.5);
+}
+
+#dmView .quick-hp-input {
+  width: 96px;
+  padding: 4px 6px;
+}
+
+#dmView .conc-input {
+  width: 150px;
+  padding: 4px 6px;
+}
+
+#dmView .quick-action-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+#dmView .quick-action-btn {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+
+#dmView .inline-dice-btn {
+  margin: 0 2px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+#dmView .action-roll-hint {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.72rem;
+  color: #c8baea;
+}
+
+#dmView #dmSearchInput {
+  margin-bottom: 4px;
+}
+
+#dmLogList {
+  max-height: 220px;
+  overflow: auto;
+}
+
+#dmView .dm-summary-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 10px 0 8px;
+  padding: 8px 10px;
+  border: 1px solid #5a468f;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #2a224d 0%, #221b40 100%);
+}
+
+#dmView .dm-summary-bar span {
+  margin: 0;
+  font-weight: 600;
+  color: #ece4ff;
+}

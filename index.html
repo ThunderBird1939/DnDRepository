@@ -796,8 +796,41 @@
           Turn: <strong id="dmTurn">—</strong>
         </p>
 
+        <div id="dmSummaryBar" class="dm-summary-bar">
+          <span>Alive: <strong id="dmAliveCount">0</strong></span>
+          <span>Down: <strong id="dmDownCount">0</strong></span>
+          <span>Enemy HP: <strong id="dmTotalHp">0</strong> / <strong id="dmTotalHpMax">0</strong></span>
+          <span>Concentrating: <strong id="dmConcentrationCount">0</strong></span>
+        </div>
+        <button id="prevTurnBtn">Previous Turn</button>
         <button id="nextTurnBtn">Next Turn</button>
         <button id="newRoundBtn">New Round</button>
+        <button id="bulkInitBtn">Roll Monster Initiative</button>
+        <button id="sortInitBtn">Sort by Initiative</button>
+        <button id="clearDefeatedBtn">Clear Defeated</button>
+        <button id="undoDmBtn">Undo Last Change</button>
+      </section>
+
+      <section class="panel">
+        <h2>View Filters</h2>
+        <label>
+          Search
+          <input id="dmSearchInput" type="text" placeholder="Name filter..." />
+        </label>
+        <label><input id="dmFilterActive" type="checkbox" /> Active turn only</label>
+        <label><input id="dmFilterDown" type="checkbox" /> Down only</label>
+        <label><input id="dmFilterFocused" type="checkbox" /> Focused only</label>
+        <label><input id="dmFilterConditions" type="checkbox" /> Has conditions</label>
+      </section>
+
+      <section class="panel">
+        <h2>DM Notes & Log</h2>
+        <label>
+          Session Notes
+          <textarea id="dmNotes" rows="4" placeholder="Tactics, reminders, win/loss conditions..."></textarea>
+        </label>
+        <div id="dmLogList" class="library-list"></div>
+        <button id="clearDmLogBtn">Clear Log</button>
       </section>
 
       <!-- ENCOUNTER CARDS -->
@@ -821,6 +854,17 @@
         <button id="addCombatantBtn">Add Combatant</button>
       </section>
 
+      <section class="panel">
+        <h2>Add Party Member</h2>
+        <label>
+          Character Profile
+          <select id="partyProfileSelect">
+            <option value="">— Select profile —</option>
+          </select>
+        </label>
+        <button id="addPartyBtn">Add To Encounter</button>
+      </section>
+
       <!-- ADD MONSTER -->
       <section class="panel">
         <h2>Add Monster</h2>
@@ -830,6 +874,26 @@
         </select>
 
         <button id="addMonsterBtn">Add Monster</button>
+      </section>
+
+      <section class="panel">
+        <h2>Encounter Templates</h2>
+        <label>
+          Template Name
+          <input id="dmTemplateName" type="text" placeholder="Bandit Road Ambush" />
+        </label>
+        <button id="saveTemplateBtn">Save Template</button>
+        <label>
+          Load Template
+          <select id="templateSelect">
+            <option value="">— Select template —</option>
+          </select>
+        </label>
+        <label>
+          Enemy Scale
+          <input id="templateScaleInput" type="number" min="1" value="1" />
+        </label>
+        <button id="applyTemplateBtn">Apply Template</button>
       </section>
 
     </main>
