@@ -387,8 +387,9 @@ select:disabled {
   cursor: pointer;
 }
 .spell-dropdown {
-  border: 1px solid #444;
-  background: #fff;
+  border: 1px solid #7f69b3;
+  background: #1d1631;
+  color: #f3ebff;
   max-height: 240px;
   overflow-y: auto;
   margin-top: 4px;
@@ -397,10 +398,27 @@ select:disabled {
 .spell-dropdown-row {
   padding: 4px 8px;
   cursor: pointer;
+  color: #f3ebff;
 }
 
 .spell-dropdown-row:hover {
-  background: rgba(154,107,255,0.15);
+  background: rgba(216, 177, 89, 0.22);
+}
+
+.spells-known-status {
+  margin: 4px 0 8px;
+}
+
+.spells-known-learn .spell-search,
+.spells-known-learn select {
+  background: #221a3a;
+  color: #f3ebff;
+  border: 1px solid #7f69b3;
+}
+
+.spells-known-learn select option {
+  background: #221a3a;
+  color: #f3ebff;
 }
 
 .spell-selected-chips {
@@ -1598,4 +1616,91 @@ select optgroup {
   margin: 0;
   font-weight: 600;
   color: #ece4ff;
+}
+
+#profileSearchInput {
+  width: 100%;
+}
+
+#characterProfilesList .library-actions {
+  display: flex;
+  gap: 6px;
+}
+
+#characterProfilesList .library-actions button {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+
+#dmView .quick-damage-btn,
+#dmView .quick-heal-btn,
+#dmView .quick-condition-btn,
+#dmView .quick-concentration-check-btn {
+  min-width: 78px;
+}
+
+#dmView .inline-damage-input,
+#dmView .inline-heal-input,
+#dmView .quick-condition-rounds,
+#dmView .quick-conc-dc-input {
+  width: 68px;
+  padding: 4px 6px;
+}
+
+#dmView .quick-condition-select {
+  min-width: 120px;
+}
+
+#dmView .quick-condition-mode {
+  width: 84px;
+}
+
+#dmView .apply-inline-damage-btn,
+#dmView .apply-inline-heal-btn,
+#dmView .apply-condition-btn,
+#dmView .apply-conc-check-btn {
+  min-width: 84px;
+}
+
+#playerUtilitiesPanel .utility-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+#playerUtilitiesPanel .utility-row select,
+#playerUtilitiesPanel .utility-row input {
+  min-width: 110px;
+}
+
+#playerUtilitiesPanel .validation-list {
+  margin: 6px 0 10px;
+  padding-left: 20px;
+}
+
+#playerUtilitiesPanel .validation-list li {
+  color: #f4ebff;
+  margin-bottom: 4px;
+}
+
+#levelUpWizardModal .utility-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.spell-cast-controls {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.spell-cast-controls select {
+  min-width: 150px;
 }

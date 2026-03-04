@@ -36,6 +36,19 @@
     />
   </label>
 </section>
+<section class="panel">
+  <h2>Character Profiles</h2>
+  <label>
+    Profile Name
+    <input type="text" id="profileNameInput" placeholder="My Character Profile" />
+  </label>
+  <label>
+    Find Profile
+    <input type="text" id="profileSearchInput" placeholder="Search by name, class, level" />
+  </label>
+  <button id="saveProfileBtn">Save Profile</button>
+  <div id="characterProfilesList" class="profile-list"></div>
+</section>
 
   <button id="toggleDM" class="primary">
     DM Mode
@@ -188,13 +201,55 @@
 
       <p>Proficiency Bonus: <strong id="profBonus">+2</strong></p>
     </section>
-    <section class="panel">
+<section class="panel">
   <h2>Rest</h2>
 
   <button id="shortRestBtn">Short Rest</button>
   <button id="longRestBtn">Long Rest</button>
 
   <div id="restLog" class="muted"></div>
+</section>
+
+<section class="panel" id="playerUtilitiesPanel">
+  <h2>Character Status</h2>
+
+  <div class="utility-row">
+    <button id="restoreAutosaveBtn" type="button">Restore Autosave</button>
+    <button id="clearAutosaveBtn" type="button">Clear Autosave</button>
+  </div>
+  <div id="autosaveStatus" class="muted">Autosave not found.</div>
+
+  <h3>Validation</h3>
+  <ul id="characterValidationList" class="validation-list">
+    <li class="muted">No issues detected.</li>
+  </ul>
+
+  <h3>Quick Roll</h3>
+  <div class="utility-row">
+    <select id="quickRollType">
+      <option value="ability">Ability Check</option>
+      <option value="save">Saving Throw</option>
+      <option value="skill">Skill Check</option>
+    </select>
+    <select id="quickRollTarget"></select>
+    <select id="quickRollMode">
+      <option value="normal">Normal</option>
+      <option value="adv">Advantage</option>
+      <option value="dis">Disadvantage</option>
+    </select>
+    <button id="quickRollBtn" type="button">Roll d20</button>
+  </div>
+  <div id="quickRollResult" class="muted">Ready.</div>
+
+  <h3>Level-Up Helper</h3>
+  <div class="utility-row">
+    <button id="runLevelUpHelperBtn" type="button">Resolve Next Level-Up Step</button>
+    <button id="setAverageHpBtn" type="button">Use Average HP</button>
+    <button id="resetCharacterBtn" type="button">Reset Character</button>
+  </div>
+  <ul id="levelUpChecklist" class="validation-list">
+    <li class="muted">No pending level-up steps.</li>
+  </ul>
 </section>
 
 
@@ -313,6 +368,7 @@
       </p>
 
       <div id="spellcastingSummary" class="spell-summary"></div>
+      <div id="spellRulesWarning" class="warning" hidden></div>
 
       <div class="spell-section">
         <h3>Spell Slots</h3>
@@ -724,6 +780,17 @@
   <div id="choiceFeatureOptions"></div>
 
   <button id="confirmChoiceFeature" disabled>Confirm</button>
+</div>
+
+<div id="levelUpWizardBackdrop" class="modal-backdrop" hidden></div>
+<div id="levelUpWizardModal" class="modal" hidden>
+  <h3>Level-Up Wizard</h3>
+  <p id="levelUpWizardIntro" class="muted"></p>
+  <ol id="levelUpWizardSteps" class="validation-list"></ol>
+  <div class="utility-row">
+    <button id="levelUpWizardNextBtn" type="button">Resolve Next Step</button>
+    <button id="levelUpWizardCloseBtn" type="button">Close</button>
+  </div>
 </div>
 <div id="invocationModal" hidden class="modal">
   <h3>Eldritch Invocation</h3>

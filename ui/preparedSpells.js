@@ -33,20 +33,24 @@ function genericPrepLimit() {
 
 export async function renderPreparedSpells() {
   const container = document.getElementById("preparedSpells");
+  const section = container?.closest(".prepared-spells");
   if (!container) return;
 
   container.innerHTML = "";
 
   if (!character.spellcasting?.enabled || !character.class?.id) {
+    if (section) section.hidden = true;
     container.textContent = "—";
     return;
   }
 
   if (!PREP_CLASSES.has(character.class.id)) {
+    if (section) section.hidden = true;
     const className = character.class?.name || "This class";
     container.textContent = `${className} does not prepare spells.`;
     return;
   }
+  if (section) section.hidden = false;
 
   character.spellcasting.prepared ??= new Set();
   character.spellcasting.alwaysPrepared ??= new Set();

@@ -35,13 +35,15 @@ import { exportCharacterPdf } from "./ui/exportPdf.js";
 import { renderWeaponMods } from "./ui/weaponMods.js";
 import { renderInvocationChoice } from "./ui/invocationChoice.js";
 import { renderPactBoonChoice } from "./ui/pactBoonChoice.js";
-import { initDMView } from "./dm/dmView.js";
+import { initDMView, refreshDMPartyProfiles } from "./dm/dmView.js";
 
 
 /* =========================
    Helpers
 ========================= */
 const FEAT_LEVELS = [4, 8, 12, 16, 19];
+const CHARACTER_AUTOSAVE_KEY = "characterAutosaveV1";
+let characterAutosaveTimer = null;
 
 function initSheetLayoutV2() {
   const root = document.getElementById("app-root");
@@ -122,6 +124,7 @@ function initSheetLayoutV2() {
     document.getElementById(id)?.closest(".panel") || null;
 
   const panelRefs = {
+    playerUtilities: document.getElementById("playerUtilitiesPanel"),
     character: getPanelByControl("name"),
     background: getPanelByControl("backgroundSelect"),
     classLevel: getPanelByControl("classSelect"),
@@ -152,6 +155,7 @@ function initSheetLayoutV2() {
   };
 
   movePanel(rail, panelRefs.character);
+  movePanel(rail, panelRefs.playerUtilities);
   movePanel(rail, panelRefs.background);
   movePanel(rail, panelRefs.classLevel);
   movePanel(rail, panelRefs.rest);
@@ -227,6 +231,498 @@ function initSheetLayoutV2() {
 }
 
 initSheetLayoutV2();
+
+function queueCharacterAutosave() {
+  if (characterAutosaveTimer) clearTimeout(characterAutosaveTimer);
+  characterAutosaveTimer = setTimeout(() => {
+    try {
+      const payload = {
+        savedAt: new Date().toISOString(),
+        character
+      };
+      localStorage.setItem(
+        CHARACTER_AUTOSAVE_KEY,
+        JSON.stringify(payload, setJsonReplacer, 2)
+      );
+      renderCharacterAutosaveStatus(payload.savedAt);
+    } catch (_e) {
+      // Ignore storage failures.
+    }
+  }, 300);
+}
+
+function loadCharacterAutosavePayload() {
+  try {
+    const raw = localStorage.getItem(CHARACTER_AUTOSAVE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw, setJsonReviver);
+    if (!parsed || typeof parsed !== "object") return null;
+    if (!parsed.character || typeof parsed.character !== "object") return null;
+    return parsed;
+  } catch (_e) {
+    return null;
+  }
+}
+
+function renderCharacterAutosaveStatus(savedAt = null) {
+  const statusEl = document.getElementById("autosaveStatus");
+  if (!statusEl) return;
+  if (!savedAt) {
+    const payload = loadCharacterAutosavePayload();
+    savedAt = payload?.savedAt || null;
+  }
+  if (!savedAt) {
+    statusEl.textContent = "Autosave not found.";
+    return;
+  }
+  const date = new Date(savedAt);
+  statusEl.textContent = Number.isNaN(date.getTime())
+    ? "Autosave available."
+    : `Autosaved: ${date.toLocaleString()}`;
+}
+
+function collectValidationIssues() {
+  const issues = [];
+  if (!String(character.name || "").trim()) {
+    issues.push("Character name is empty.");
+  }
+  if (!character.race?.id) issues.push("Race is not selected.");
+  if (!character.class?.id) issues.push("Class is not selected.");
+  if (!character.background?.id) issues.push("Background is not selected.");
+
+  if (character.pendingSubclassChoice && !character.subclass) {
+    issues.push("Subclass choice is pending.");
+  }
+
+  const pending = character.pendingChoices || {};
+  if (pending.skills) issues.push("Skill selections are pending.");
+  if (pending.tools) issues.push("Tool selections are pending.");
+  if (pending.languages) issues.push("Language selections are pending.");
+  if (pending.infusions) issues.push("Infusion selections are pending.");
+  if (pending.spells) issues.push("Spell choices are pending.");
+  if (pending.magicalSecrets) issues.push("Magical Secrets choices are pending.");
+  if (pending.choiceFeature) issues.push("Feature option choice is pending.");
+  if (pending.arcaneShots) issues.push("Arcane Shot choices are pending.");
+  if (pending.feat) issues.push("Feat selection is pending.");
+
+  const hpMax = Number(character.hp?.max ?? 0);
+  if (!Number.isFinite(hpMax) || hpMax < 1) {
+    issues.push("Hit points are not initialized.");
+  }
+
+  const spellRuleState = getSpellRuleState();
+  issues.push(...spellRuleState.issues);
+
+  return issues;
+}
+
+function getSpellRuleState() {
+  const out = { issues: [], hints: [] };
+  if (!character.spellcasting?.enabled || !character.class?.id) return out;
+
+  const sc = character.spellcasting;
+  const classId = character.class.id;
+  const level = Number(character.level ?? 1);
+  const knownCasters = new Set(["bard", "sorcerer", "warlock"]);
+  const prepCasters = new Set(["cleric", "druid", "paladin", "ranger", "wizard", "artificer"]);
+
+  const knownCount = Number(sc.available?.size ?? 0);
+  const knownCap = Number(sc.spellsKnown ?? 0);
+  if (knownCasters.has(classId) && knownCap > 0) {
+    if (knownCount > knownCap) {
+      out.issues.push(`Known spells exceed cap (${knownCount}/${knownCap}).`);
+    } else if (knownCount < knownCap) {
+      out.issues.push(`Known spells below cap (${knownCount}/${knownCap}).`);
+    } else {
+      out.hints.push(`Known spells at cap (${knownCount}/${knownCap}).`);
+    }
+  }
+
+  const cantripCount = Number(sc.cantrips?.size ?? 0);
+  const cantripCap = Number(sc.cantripsKnown ?? 0);
+  if (cantripCap > 0) {
+    if (cantripCount > cantripCap) {
+      out.issues.push(`Cantrips exceed cap (${cantripCount}/${cantripCap}).`);
+    } else if (cantripCount < cantripCap) {
+      out.issues.push(`Cantrips below cap (${cantripCount}/${cantripCap}).`);
+    } else {
+      out.hints.push(`Cantrips at cap (${cantripCount}/${cantripCap}).`);
+    }
+  }
+
+  if (prepCasters.has(classId)) {
+    const castingAbility = sc.ability ?? "wis";
+    const castingMod = abilityMod(character.abilities?.[castingAbility] ?? 10);
+    let prepLimit = 0;
+    if (classId === "wizard") prepLimit = Math.max(1, level + castingMod);
+    if (classId === "artificer") prepLimit = Math.max(1, Math.floor(level / 2) + castingMod);
+    if (classId === "cleric" || classId === "druid") prepLimit = Math.max(1, level + castingMod);
+    if (classId === "paladin" || classId === "ranger") prepLimit = Math.max(1, Math.floor(level / 2) + castingMod);
+
+    const prepared = Number(sc.prepared?.size ?? 0);
+    if (prepLimit > 0) {
+      if (prepared > prepLimit) {
+        out.issues.push(`Prepared spells exceed limit (${prepared}/${prepLimit}).`);
+      } else {
+        out.hints.push(`Prepared spells ${prepared}/${prepLimit}.`);
+      }
+    }
+  }
+
+  return out;
+}
+
+function renderSpellRuleWarnings() {
+  const warningEl = document.getElementById("spellRulesWarning");
+  if (!warningEl) return;
+
+  const { issues, hints } = getSpellRuleState();
+  if (!issues.length && !hints.length) {
+    warningEl.hidden = true;
+    warningEl.textContent = "";
+    return;
+  }
+
+  warningEl.hidden = false;
+  const lines = [];
+  if (issues.length) lines.push(...issues.map(i => `⚠ ${i}`));
+  if (!issues.length && hints.length) lines.push(...hints);
+  warningEl.innerHTML = lines.join("<br>");
+}
+
+function renderCharacterValidation() {
+  const listEl = document.getElementById("characterValidationList");
+  if (!listEl) return;
+  const issues = collectValidationIssues();
+  if (!issues.length) {
+    listEl.innerHTML = `<li class="muted">No issues detected.</li>`;
+    return;
+  }
+  listEl.innerHTML = issues.map(issue => `<li>${issue}</li>`).join("");
+}
+
+function getQuickRollOptions(type) {
+  if (type === "ability" || type === "save") {
+    return [
+      { id: "str", label: "Strength" },
+      { id: "dex", label: "Dexterity" },
+      { id: "con", label: "Constitution" },
+      { id: "int", label: "Intelligence" },
+      { id: "wis", label: "Wisdom" },
+      { id: "cha", label: "Charisma" }
+    ];
+  }
+
+  const rows = [...document.querySelectorAll(".skills label")];
+  return rows
+    .map(label => {
+      const input = label.querySelector("input[data-skill-id]");
+      if (!input) return null;
+      const skillId = input.dataset.skillId;
+      const text = label.textContent || skillId;
+      const abilityMatch = text.match(/\(([A-Z]{3})\)/);
+      const abilityMap = {
+        STR: "str",
+        DEX: "dex",
+        CON: "con",
+        INT: "int",
+        WIS: "wis",
+        CHA: "cha"
+      };
+      return {
+        id: skillId,
+        label: text.replace(/\s+/g, " ").trim(),
+        ability: abilityMap[abilityMatch?.[1] || ""] || "dex"
+      };
+    })
+    .filter(Boolean);
+}
+
+function renderQuickRollTargets() {
+  const typeEl = document.getElementById("quickRollType");
+  const targetEl = document.getElementById("quickRollTarget");
+  if (!typeEl || !targetEl) return;
+  const type = typeEl.value || "ability";
+  const options = getQuickRollOptions(type);
+  targetEl.innerHTML = "";
+  options.forEach(opt => {
+    const node = document.createElement("option");
+    node.value = opt.id;
+    node.textContent = opt.label;
+    if (opt.ability) node.dataset.ability = opt.ability;
+    targetEl.appendChild(node);
+  });
+}
+
+function rollD20WithMode(mode = "normal") {
+  const r1 = rollDie(20);
+  const r2 = rollDie(20);
+  if (mode === "adv") return { roll: Math.max(r1, r2), detail: `${r1}, ${r2}` };
+  if (mode === "dis") return { roll: Math.min(r1, r2), detail: `${r1}, ${r2}` };
+  return { roll: r1, detail: String(r1) };
+}
+
+function runQuickRoll() {
+  const typeEl = document.getElementById("quickRollType");
+  const targetEl = document.getElementById("quickRollTarget");
+  const modeEl = document.getElementById("quickRollMode");
+  const resultEl = document.getElementById("quickRollResult");
+  if (!typeEl || !targetEl || !modeEl || !resultEl) return;
+
+  const type = typeEl.value || "ability";
+  const target = targetEl.value;
+  const mode = modeEl.value || "normal";
+  if (!target) return;
+
+  const pb = proficiencyBonus(Number(character.level || 1));
+  let mod = 0;
+  let label = target;
+
+  if (type === "ability") {
+    mod = abilityMod(getAbilityScore(target));
+    label = `${target.toUpperCase()} check`;
+  } else if (type === "save") {
+    const hasProf = !!character.savingThrows?.[target];
+    mod = abilityMod(getAbilityScore(target)) + (hasProf ? pb : 0);
+    label = `${target.toUpperCase()} save`;
+  } else {
+    const skillOptions = getQuickRollOptions("skill");
+    const skill = skillOptions.find(s => s.id === target);
+    if (!skill) return;
+    const ability = skill.ability || "dex";
+    const proficient = !!character.proficiencies?.skills?.has(skill.id);
+    const expertise = !!character.proficiencies?.expertise?.has(skill.id);
+    const profBonus = expertise ? pb * 2 : proficient ? pb : 0;
+    mod = abilityMod(getAbilityScore(ability)) + profBonus;
+    label = skill.label;
+  }
+
+  const rolled = rollD20WithMode(mode);
+  const total = rolled.roll + mod;
+  resultEl.textContent = `${label}: d20(${rolled.detail}) ${mod >= 0 ? "+" : ""}${mod} = ${total}`;
+}
+
+function refreshPlayerUtilities() {
+  renderCharacterValidation();
+  renderCharacterAutosaveStatus();
+  renderQuickRollTargets();
+  renderLevelUpChecklist();
+}
+
+function collectLevelUpStepObjects() {
+  const steps = [];
+  const level = Number(character.level ?? 1);
+  if (level > 1) {
+    const useAverage = !!document.getElementById("useAverage")?.checked;
+    const rolls = Array.isArray(character.hp?.levelRolls) ? character.hp.levelRolls.length : 0;
+    if (!useAverage && rolls < level - 1) {
+      steps.push({
+        id: "hp-rolls",
+        text: `HP rolls missing for ${level - 1 - rolls} level(s).`
+      });
+    }
+  }
+
+  if (character.pendingSubclassChoice && !character.subclass) {
+    steps.push({ id: "subclass", text: "Choose subclass." });
+  }
+  if (character.pendingChoices?.feat) steps.push({ id: "feat", text: "Choose feat/ASI." });
+  if (character.pendingChoices?.skills) steps.push({ id: "skills", text: "Choose class skills." });
+  if (character.pendingChoices?.tools) steps.push({ id: "tools", text: "Choose tool proficiency." });
+  if (character.pendingChoices?.languages) steps.push({ id: "languages", text: "Choose languages." });
+  if (character.pendingChoices?.infusions) steps.push({ id: "infusions", text: "Choose infusions." });
+  if (character.pendingChoices?.spells) steps.push({ id: "spells", text: "Choose spells known." });
+  if (character.pendingChoices?.magicalSecrets) steps.push({ id: "magical-secrets", text: "Choose magical secrets." });
+  if (character.pendingChoices?.choiceFeature) steps.push({ id: "choice-feature", text: "Resolve feature choice." });
+  if (character.pendingChoices?.arcaneShots) steps.push({ id: "arcane-shots", text: "Choose arcane shots." });
+
+  return steps;
+}
+
+function collectLevelUpChecklist() {
+  return collectLevelUpStepObjects().map(s => s.text);
+}
+
+function renderLevelUpChecklist() {
+  const listEl = document.getElementById("levelUpChecklist");
+  if (!listEl) return;
+  const items = collectLevelUpChecklist();
+  if (!items.length) {
+    listEl.innerHTML = `<li class="muted">No pending level-up steps.</li>`;
+    return;
+  }
+  listEl.innerHTML = items.map(item => `<li>${item}</li>`).join("");
+}
+
+function closeLevelUpWizard() {
+  const modal = document.getElementById("levelUpWizardModal");
+  const backdrop = document.getElementById("levelUpWizardBackdrop");
+  if (modal) modal.hidden = true;
+  if (backdrop) backdrop.hidden = true;
+}
+
+function openLevelUpWizard() {
+  const modal = document.getElementById("levelUpWizardModal");
+  const backdrop = document.getElementById("levelUpWizardBackdrop");
+  const intro = document.getElementById("levelUpWizardIntro");
+  const stepsEl = document.getElementById("levelUpWizardSteps");
+  const nextBtn = document.getElementById("levelUpWizardNextBtn");
+  const closeBtn = document.getElementById("levelUpWizardCloseBtn");
+  if (!modal || !backdrop || !intro || !stepsEl || !nextBtn || !closeBtn) return;
+
+  const steps = collectLevelUpStepObjects();
+  intro.textContent = steps.length
+    ? `Level ${Number(character.level || 1)} has ${steps.length} pending step(s).`
+    : `Level ${Number(character.level || 1)} has no pending steps.`;
+
+  if (!steps.length) {
+    stepsEl.innerHTML = `<li class="muted">No pending level-up steps.</li>`;
+  } else {
+    stepsEl.innerHTML = steps
+      .map((step, idx) => `<li>${idx === 0 ? "<strong>Next:</strong> " : ""}${step.text}</li>`)
+      .join("");
+  }
+
+  nextBtn.disabled = !steps.length;
+  nextBtn.onclick = () => {
+    const next = collectLevelUpStepObjects()[0];
+    if (!next) {
+      closeLevelUpWizard();
+      refreshPlayerUtilities();
+      return;
+    }
+
+    if (next.id === "hp-rolls") {
+      const avgToggle = document.getElementById("useAverage");
+      if (avgToggle) {
+        avgToggle.checked = true;
+        updateHitPoints();
+      }
+      refreshPlayerUtilities();
+      openLevelUpWizard();
+      queueCharacterAutosave();
+      return;
+    }
+
+    closeLevelUpWizard();
+    runPendingChoiceFlow();
+    refreshPlayerUtilities();
+  };
+
+  closeBtn.onclick = closeLevelUpWizard;
+  backdrop.onclick = closeLevelUpWizard;
+
+  modal.hidden = false;
+  backdrop.hidden = false;
+}
+
+async function restoreCharacterAutosave() {
+  const payload = loadCharacterAutosavePayload();
+  if (!payload?.character) return false;
+  replaceCharacterState(payload.character);
+  normalizeCharacterState(character);
+  await refreshUiAfterCharacterImport();
+  refreshPlayerUtilities();
+  return true;
+}
+
+function isCharacterMostlyBlank() {
+  return (
+    !String(character.name || "").trim() &&
+    !character.class?.id &&
+    !character.race?.id &&
+    !character.background?.id &&
+    Number(character.level || 1) <= 1
+  );
+}
+
+function clearCharacterAutosave() {
+  try {
+    localStorage.removeItem(CHARACTER_AUTOSAVE_KEY);
+  } catch (_e) {
+    // Ignore storage failures.
+  }
+  renderCharacterAutosaveStatus(null);
+}
+
+function bindPlayerUtilities() {
+  const restoreBtn = document.getElementById("restoreAutosaveBtn");
+  const clearBtn = document.getElementById("clearAutosaveBtn");
+  const typeEl = document.getElementById("quickRollType");
+  const rollBtn = document.getElementById("quickRollBtn");
+  const targetEl = document.getElementById("quickRollTarget");
+  const runLevelUpBtn = document.getElementById("runLevelUpHelperBtn");
+  const setAverageHpBtn = document.getElementById("setAverageHpBtn");
+  const resetCharacterBtn = document.getElementById("resetCharacterBtn");
+
+  restoreBtn?.addEventListener("click", async () => {
+    const ok = await restoreCharacterAutosave();
+    if (ok) {
+      alert("Character autosave restored.");
+    } else {
+      alert("No character autosave found.");
+    }
+  });
+
+  clearBtn?.addEventListener("click", () => {
+    clearCharacterAutosave();
+    alert("Character autosave cleared.");
+  });
+
+  typeEl?.addEventListener("change", renderQuickRollTargets);
+  targetEl?.addEventListener("change", () => {
+    const resultEl = document.getElementById("quickRollResult");
+    if (resultEl) resultEl.textContent = "Ready.";
+  });
+  rollBtn?.addEventListener("click", runQuickRoll);
+
+  runLevelUpBtn?.addEventListener("click", () => {
+    openLevelUpWizard();
+  });
+
+  setAverageHpBtn?.addEventListener("click", () => {
+    const avgToggle = document.getElementById("useAverage");
+    if (avgToggle) {
+      avgToggle.checked = true;
+      updateHitPoints();
+      queueCharacterAutosave();
+      refreshPlayerUtilities();
+    }
+  });
+
+  resetCharacterBtn?.addEventListener("click", async () => {
+    const ok = confirm("Reset character to a blank sheet? This will overwrite current unsaved state.");
+    if (!ok) return;
+
+    replaceCharacterState(getBlankCharacterState());
+    normalizeCharacterState(character);
+    clearCharacterAutosave();
+    await refreshUiAfterCharacterImport();
+    closeLevelUpWizard();
+    queueCharacterAutosave();
+    refreshPlayerUtilities();
+  });
+
+  document.addEventListener("input", queueCharacterAutosave, true);
+  document.addEventListener("change", queueCharacterAutosave, true);
+  document.getElementById("name")?.addEventListener("input", () => {
+    refreshPlayerUtilities();
+  });
+  ["raceSelect", "backgroundSelect", "classSelect", "level"].forEach(id => {
+    document.getElementById(id)?.addEventListener("change", () => {
+      // Let class/race handlers finish first, then refresh warnings/checks.
+      setTimeout(() => {
+        refreshPlayerUtilities();
+        renderSpellRuleWarnings();
+      }, 0);
+    });
+  });
+  document.addEventListener("click", e => {
+    if (e.target.closest("button")) queueCharacterAutosave();
+  }, true);
+
+  refreshPlayerUtilities();
+}
 
 function canChooseFeat() {
   const lvl = character.level || 1;
@@ -325,6 +821,18 @@ function setJsonReviver(_key, value) {
   return value;
 }
 
+const BLANK_CHARACTER_TEMPLATE = JSON.parse(
+  JSON.stringify(character, setJsonReplacer),
+  setJsonReviver
+);
+
+function getBlankCharacterState() {
+  return JSON.parse(
+    JSON.stringify(BLANK_CHARACTER_TEMPLATE, setJsonReplacer),
+    setJsonReviver
+  );
+}
+
 function toSet(value) {
   if (value instanceof Set) return value;
   if (Array.isArray(value)) return new Set(value);
@@ -380,6 +888,15 @@ function normalizeCharacterState(state) {
   state.spellcasting.prepared = toSet(state.spellcasting.prepared);
   state.spellcasting.alwaysPrepared = toSet(state.spellcasting.alwaysPrepared);
   state.spellcasting.slots ??= { max: {}, used: {} };
+  state.spellcasting.castHistory = Array.isArray(state.spellcasting.castHistory)
+    ? state.spellcasting.castHistory
+        .filter(entry => entry && Number.isFinite(Number(entry.level)))
+        .map(entry => ({
+          spell: String(entry.spell || ""),
+          level: Number(entry.level),
+          at: entry.at || null
+        }))
+    : [];
   state.spellcasting.bardSpellReplacement ??= { pendingLevel: null, usedLevels: [] };
   state.spellcasting.bardSpellReplacement.usedLevels = normalizeNumberArray(
     state.spellcasting.bardSpellReplacement.usedLevels
@@ -426,9 +943,7 @@ function syncFormInputsFromCharacter() {
   if (nameInput) nameInput.value = character.name || "";
 
   const levelInput = document.getElementById("level");
-  if (levelInput && character.level != null) {
-    levelInput.value = String(character.level);
-  }
+  if (levelInput) levelInput.value = String(character.level ?? 1);
 
   ["str", "dex", "con", "int", "wis", "cha"].forEach(stat => {
     const input = document.getElementById(stat);
@@ -438,15 +953,13 @@ function syncFormInputsFromCharacter() {
   });
 
   const classSelect = document.getElementById("classSelect");
-  if (classSelect && character.class?.id) classSelect.value = character.class.id;
+  if (classSelect) classSelect.value = character.class?.id || "";
 
   const raceSelect = document.getElementById("raceSelect");
-  if (raceSelect && character.race?.id) raceSelect.value = character.race.id;
+  if (raceSelect) raceSelect.value = character.race?.id ?? "";
 
   const backgroundSelect = document.getElementById("backgroundSelect");
-  if (backgroundSelect && character.background?.id) {
-    backgroundSelect.value = character.background.id;
-  }
+  if (backgroundSelect) backgroundSelect.value = character.background?.id || "";
 
   const armorSelect = document.getElementById("armorSelect");
   if (armorSelect) armorSelect.value = character.equipment?.armor || "";
@@ -463,9 +976,17 @@ async function refreshUiAfterCharacterImport() {
 
   const race = races.find(r => r.id === character.race?.id);
   if (race) renderRaceDetails(race);
+  else {
+    const raceDetails = document.getElementById("raceDetails");
+    if (raceDetails) raceDetails.innerHTML = "";
+  }
 
   const bg = backgrounds.find(b => b.id === character.background?.id);
   if (bg) renderBackgroundDetails(bg);
+  else {
+    const bgDetails = document.getElementById("backgroundDetails");
+    if (bgDetails) bgDetails.innerHTML = "";
+  }
 
   recalcAllAbilities();
   updateRaceBonusDisplay();
@@ -508,6 +1029,8 @@ async function refreshUiAfterCharacterImport() {
     const slotsEl = document.getElementById("spellSlots");
     if (slotsEl) slotsEl.innerHTML = "";
   }
+  refreshPlayerUtilities();
+  queueCharacterAutosave();
 }
 
 function exportCharacterJson() {
@@ -576,6 +1099,175 @@ function bindCharacterJsonImportExport() {
   }
 }
 
+const CHARACTER_PROFILES_STORAGE_KEY = "characterProfilesV1";
+
+function getCharacterProfiles() {
+  try {
+    const raw = localStorage.getItem(CHARACTER_PROFILES_STORAGE_KEY) || "[]";
+    const parsed = JSON.parse(raw, setJsonReviver);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (_e) {
+    return [];
+  }
+}
+
+function setCharacterProfiles(list) {
+  try {
+    localStorage.setItem(
+      CHARACTER_PROFILES_STORAGE_KEY,
+      JSON.stringify(Array.isArray(list) ? list : [], setJsonReplacer, 2)
+    );
+  } catch (_e) {
+    // Ignore storage quota / private mode issues.
+  }
+}
+
+function cloneCharacterForProfile() {
+  const serialized = JSON.stringify(character, setJsonReplacer);
+  return JSON.parse(serialized, setJsonReviver);
+}
+
+function createProfileRecord(profileName, id = null) {
+  return {
+    id:
+      id ||
+      globalThis.crypto?.randomUUID?.() ||
+      `profile-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    name: profileName,
+    className: character.class?.name || character.class?.id || "",
+    level: Number(character.level || 1),
+    savedAt: new Date().toISOString(),
+    data: cloneCharacterForProfile()
+  };
+}
+
+async function loadCharacterProfileById(profileId) {
+  if (!profileId) return;
+  const profiles = getCharacterProfiles();
+  const profile = profiles.find(p => p.id === profileId);
+  if (!profile?.data) return;
+  replaceCharacterState(profile.data);
+  normalizeCharacterState(character);
+  await refreshUiAfterCharacterImport();
+}
+
+function renderCharacterProfiles(filterText = "") {
+  const listEl = document.getElementById("characterProfilesList");
+  if (!listEl) return;
+
+  const profiles = getCharacterProfiles();
+  const q = String(filterText || "").trim().toLowerCase();
+  const filtered = profiles.filter(profile => {
+    if (!q) return true;
+    const className = profile.className || "";
+    const level = String(Number(profile.level || 1));
+    const haystack = `${profile.name || ""} ${className} ${level}`.toLowerCase();
+    return haystack.includes(q);
+  });
+  listEl.innerHTML = "";
+
+  if (!profiles.length) {
+    listEl.innerHTML = `<div class="muted">No saved profiles yet.</div>`;
+    return;
+  }
+
+  if (!filtered.length) {
+    listEl.innerHTML = `<div class="muted">No profiles match that search.</div>`;
+    return;
+  }
+
+  filtered.forEach(profile => {
+    const row = document.createElement("div");
+    row.className = "library-item";
+    const className = profile.className || "No class";
+    const level = Number(profile.level || 1);
+    row.innerHTML = `
+      <span class="library-name">${profile.name || "Unnamed"} (Lv ${level} ${className})</span>
+      <div class="library-actions">
+        <button type="button" data-profile-action="load" data-profile-id="${profile.id}">Load</button>
+        <button type="button" data-profile-action="update" data-profile-id="${profile.id}">Update</button>
+        <button type="button" data-profile-action="delete" data-profile-id="${profile.id}">Delete</button>
+      </div>
+    `;
+    listEl.appendChild(row);
+  });
+}
+
+function bindCharacterProfiles() {
+  const saveBtn = document.getElementById("saveProfileBtn");
+  const nameInput = document.getElementById("profileNameInput");
+  const searchInput = document.getElementById("profileSearchInput");
+  const listEl = document.getElementById("characterProfilesList");
+  if (!saveBtn || !nameInput || !listEl) return;
+
+  const fallbackName = () =>
+    (character.name || `${character.class?.name || character.class?.id || "Character"} Lv ${character.level || 1}`).trim();
+
+  if (!nameInput.value.trim()) {
+    nameInput.value = fallbackName();
+  }
+
+  saveBtn.addEventListener("click", () => {
+    const profiles = getCharacterProfiles();
+    const profileName = (nameInput.value || "").trim() || fallbackName();
+    const profile = createProfileRecord(profileName);
+
+    profiles.unshift(profile);
+    setCharacterProfiles(profiles.slice(0, 100));
+    renderCharacterProfiles(searchInput?.value || "");
+    refreshDMPartyProfiles();
+    alert(`Saved profile: ${profileName}`);
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      renderCharacterProfiles(searchInput.value || "");
+    });
+  }
+
+  listEl.addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-profile-action]");
+    if (!btn) return;
+    const action = btn.dataset.profileAction;
+    const profileId = btn.dataset.profileId;
+    if (!profileId) return;
+
+    if (action === "load") {
+      await loadCharacterProfileById(profileId);
+      const loaded = getCharacterProfiles().find(p => p.id === profileId);
+      if (loaded) {
+        nameInput.value = loaded.name || fallbackName();
+      }
+      refreshDMPartyProfiles();
+      alert("Profile loaded.");
+      return;
+    }
+
+    if (action === "update") {
+      const profiles = getCharacterProfiles();
+      const idx = profiles.findIndex(p => p.id === profileId);
+      if (idx === -1) return;
+      const nextName = (nameInput.value || "").trim() || profiles[idx].name || fallbackName();
+      profiles[idx] = createProfileRecord(nextName, profileId);
+      setCharacterProfiles(profiles);
+      renderCharacterProfiles(searchInput?.value || "");
+      refreshDMPartyProfiles();
+      alert(`Updated profile: ${nextName}`);
+      return;
+    }
+
+    if (action === "delete") {
+      const profiles = getCharacterProfiles();
+      const next = profiles.filter(p => p.id !== profileId);
+      setCharacterProfiles(next);
+      renderCharacterProfiles(searchInput?.value || "");
+      refreshDMPartyProfiles();
+    }
+  });
+
+  renderCharacterProfiles(searchInput?.value || "");
+}
+
 /* =========================
    Feats – Data Loader
 ========================= */
@@ -594,6 +1286,8 @@ async function loadFeats() {
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("exportPdfBtn");
   bindCharacterJsonImportExport();
+  bindCharacterProfiles();
+  bindPlayerUtilities();
 
   if (!btn) {
     console.warn("Export PDF button not found");
@@ -1587,6 +2281,34 @@ function renderSpellSlots() {
   el.innerHTML = "";
 
   const { max, used } = character.spellcasting.slots;
+  character.spellcasting.castHistory ??= [];
+  const history = character.spellcasting.castHistory;
+
+  const castBar = document.createElement("div");
+  castBar.className = "spell-slot-row";
+  castBar.style.display = "flex";
+  castBar.style.alignItems = "center";
+  castBar.style.gap = "0.5rem";
+  castBar.style.marginBottom = "0.4rem";
+
+  const castHint = document.createElement("span");
+  const last = history[history.length - 1] || null;
+  castHint.textContent = last
+    ? `Last cast: ${last.spell || "Spell"} at level ${last.level}`
+    : "No cast history yet.";
+  castHint.style.flex = "1";
+
+  const undoCastBtn = document.createElement("button");
+  undoCastBtn.textContent = "Undo Last Cast";
+  undoCastBtn.disabled = !last;
+  undoCastBtn.onclick = () => {
+    undoLastSpellCast();
+    renderSpellSlots();
+  };
+
+  castBar.appendChild(castHint);
+  castBar.appendChild(undoCastBtn);
+  el.appendChild(castBar);
 
   Object.keys(max).forEach(lvl => {
     const maxSlots = max[lvl];
@@ -1619,7 +2341,7 @@ function renderSpellSlots() {
     plusBtn.disabled = remaining === 0;
 
     plusBtn.onclick = () => {
-      useSpellSlot(Number(lvl));
+      useSpellSlot(Number(lvl), { spell: "Manual spend" });
       renderSpellSlots();
     };
 
@@ -1641,7 +2363,7 @@ function updateRestLog(entries, type) {
   `;
 }
 
-function useSpellSlot(level) {
+function useSpellSlot(level, meta = null) {
   const slots = character.spellcasting?.slots;
   if (!slots) return false;
 
@@ -1653,16 +2375,45 @@ function useSpellSlot(level) {
   }
 
   slots.used[level] += 1;
+  if (meta && Number(level) > 0) {
+    character.spellcasting.castHistory ??= [];
+    character.spellcasting.castHistory.push({
+      spell: String(meta.spell || ""),
+      level: Number(level),
+      at: new Date().toISOString()
+    });
+    if (character.spellcasting.castHistory.length > 60) {
+      character.spellcasting.castHistory.shift();
+    }
+  }
+  queueCharacterAutosave();
   window.dispatchEvent(new Event("spell-slots-updated"));
   return true;
 }
 
-function refundSpellSlot(level) {
+function refundSpellSlot(level, withHistoryPop = false) {
   const slots = character.spellcasting?.slots;
   if (!slots) return;
 
   slots.used[level] = Math.max(0, slots.used[level] - 1);
+  if (withHistoryPop && Array.isArray(character.spellcasting?.castHistory)) {
+    character.spellcasting.castHistory.pop();
+  }
+  queueCharacterAutosave();
   window.dispatchEvent(new Event("spell-slots-updated"));
+}
+
+function undoLastSpellCast() {
+  const history = character.spellcasting?.castHistory;
+  if (!Array.isArray(history) || !history.length) return false;
+  const last = history[history.length - 1];
+  if (!last || !Number.isFinite(Number(last.level)) || Number(last.level) <= 0) {
+    history.pop();
+    window.dispatchEvent(new Event("spell-slots-updated"));
+    return false;
+  }
+  refundSpellSlot(Number(last.level), true);
+  return true;
 }
 
 function getMaxInfusionsKnown(level) {
@@ -1911,15 +2662,28 @@ function updateArcaneArcherVisibility() {
 }
 function renderExpertiseToggles() {
   const expertise = character.proficiencies.expertise;
+  const proficientSkills = character.proficiencies.skills ?? new Set();
+
+  // Remove stale expertise entries after imports/class swaps.
+  [...expertise].forEach(skillId => {
+    if (!proficientSkills.has(skillId)) {
+      expertise.delete(skillId);
+    }
+  });
 
   document.querySelectorAll(".skills label").forEach(label => {
     const checkbox = label.querySelector("input[type='checkbox']");
     if (!checkbox) return;
 
     const skillId = checkbox.id.replace("skill-", "");
-    if (!character.proficiencies.skills.has(skillId)) return;
+    const hasSkillProf = proficientSkills.has(skillId);
+    const existing = label.querySelector(".expertise-toggle");
+    if (!hasSkillProf) {
+      existing?.remove();
+      return;
+    }
 
-    let star = label.querySelector(".expertise-toggle");
+    let star = existing;
     if (!star) {
       star = document.createElement("button");
       star.type = "button";
@@ -2160,7 +2924,9 @@ function renderAllSpellUI() {
   renderCantripsKnown();
   renderSpellsKnown();
   updateBardSpellReplacementBadge();
+  renderSpellRuleWarnings();
   renderWeaponMods(character);
+  refreshPlayerUtilities();
 }
 
 function updateEldritchCannonUI() {
@@ -3417,6 +4183,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   await initRaces();
   populateRaceDropdown();
   syncDetailButtons();
+  if (isCharacterMostlyBlank() && loadCharacterAutosavePayload()?.character) {
+    await restoreCharacterAutosave();
+  }
 
 /* ===== Armor ===== */
 const armorRes = await fetch("./data/armor.json");
@@ -3730,6 +4499,44 @@ window.addEventListener("spellbook-updated", () => {
   renderPreparedSpells();
   renderSpellList(); // optional but recommended
 });
+window.addEventListener("cast-spell-at-level", (e) => {
+  const detail = e.detail || {};
+  const level = Number(detail.level ?? 0);
+  const spellName = String(detail.spell || "Spell");
+  if (!Number.isFinite(level) || level < 0) return;
+
+  if (level === 0) {
+    const resultEl = document.getElementById("quickRollResult");
+    if (resultEl) resultEl.textContent = `${spellName} cast as a cantrip.`;
+    return;
+  }
+
+  const ok = useSpellSlot(level, { spell: spellName });
+  if (ok) {
+    renderSpellSlots();
+    queueCharacterAutosave();
+  }
+});
+window.addEventListener("undo-last-spell-cast", () => {
+  if (undoLastSpellCast()) {
+    renderSpellSlots();
+    queueCharacterAutosave();
+  }
+});
+window.addEventListener("skills-updated", refreshPlayerUtilities);
+window.addEventListener("features-updated", refreshPlayerUtilities);
+window.addEventListener("subclass-updated", refreshPlayerUtilities);
+window.addEventListener("combat-updated", refreshPlayerUtilities);
+window.addEventListener("prepared-spells-updated", refreshPlayerUtilities);
+window.addEventListener("spell-slots-updated", refreshPlayerUtilities);
+window.addEventListener("cantrips-updated", () => {
+  refreshPlayerUtilities();
+  renderSpellRuleWarnings();
+});
+window.addEventListener("spells-known-updated", () => {
+  refreshPlayerUtilities();
+  renderSpellRuleWarnings();
+});
 window.addEventListener("bard-replacement-updated", updateBardSpellReplacementBadge);
 
 window.addEventListener("subclass-updated", async () => {
@@ -3894,6 +4701,8 @@ bindCharacterNameInput();
 renderWeaponMods(character);
 renderInvocationChoice();
 renderPactBoonChoice();
+refreshPlayerUtilities();
+queueCharacterAutosave();
 
 
 

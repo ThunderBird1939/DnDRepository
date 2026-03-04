@@ -21,6 +21,8 @@ const CONDITIONS = [
   "Stunned",
   "Unconscious"
 ];
+const ENCOUNTER_AUTOSAVE_KEY = "dmEncounterAutosaveV1";
+let autosaveTimer = null;
 
 /* =========================
    CONDITION RULES (5E)
@@ -127,6 +129,30 @@ function getTemplates() {
   return JSON.parse(localStorage.getItem("encounterTemplates") || "{}");
 }
 
+function queueEncounterAutosave() {
+  if (autosaveTimer) clearTimeout(autosaveTimer);
+  autosaveTimer = setTimeout(() => {
+    try {
+      const data = buildEncounterSaveData();
+      localStorage.setItem(ENCOUNTER_AUTOSAVE_KEY, JSON.stringify(data));
+    } catch (_e) {
+      // Ignore storage issues.
+    }
+  }, 200);
+}
+
+function loadEncounterAutosave() {
+  try {
+    const raw = localStorage.getItem(ENCOUNTER_AUTOSAVE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return null;
+    return parsed;
+  } catch (_e) {
+    return null;
+  }
+}
+
 function setTemplates(data) {
   localStorage.setItem("encounterTemplates", JSON.stringify(data));
 }
@@ -142,6 +168,7 @@ function pushEncounterLog(message) {
   });
   dmState.encounter.log = dmState.encounter.log.slice(0, 120);
   renderEncounterLog();
+  queueEncounterAutosave();
 }
 
 function renderEncounterLog() {
@@ -178,6 +205,7 @@ export async function initDMView() {
 
   // Ensure encounter baseline exists
   ensureEncounterDefaults();
+  const autosaved = loadEncounterAutosave();
 
   // Load monster data once (NO top-level await!)
   await loadMonsters();
@@ -202,6 +230,7 @@ export async function initDMView() {
     encounterNameInputEl.value = dmState.encounter.name ?? "";
     encounterNameInputEl.addEventListener("input", e => {
       dmState.encounter.name = e.target.value.trim();
+      queueEncounterAutosave();
     });
   }
 
@@ -217,12 +246,21 @@ export async function initDMView() {
   bindSaveLoadExportImport();
   bindLibraryControls();
 
+  if (autosaved) {
+    loadEncounterFromData(autosaved);
+  }
+
   // Initial DM render (ONLY inside init)
   renderEncounterCards();
   renderEncounterLibrary();
   renderEncounterLog();
   renderEncounterSummary();
   renderTemplateOptions();
+  renderPartyProfileOptions();
+  window.addEventListener("character-profiles-updated", renderPartyProfileOptions);
+}
+
+export function refreshDMPartyProfiles() {
   renderPartyProfileOptions();
 }
 
@@ -335,6 +373,8 @@ function bindAddPartyMember() {
 
     const dex = Number(data.abilities?.dex ?? 10);
     const init = Math.floor((dex - 10) / 2);
+    const con = Number(data.abilities?.con ?? 10);
+    const conMod = Math.floor((con - 10) / 2);
     const ac = Number(data.combat?.armorClass ?? 10);
     const hpMax = Number(data.hp?.max ?? 1);
     const hpCurrent = Number(data.hp?.current ?? hpMax);
@@ -350,7 +390,8 @@ function bindAddPartyMember() {
       hp: { max: hpMax, current: Math.max(0, hpCurrent), temp: Number(data.hp?.temp ?? 0) },
       conditions: [],
       isParty: true,
-      sourceProfileId: profile.id ?? null
+      sourceProfileId: profile.id ?? null,
+      conMod
     });
     pushEncounterLog(`Added party member: ${name}`);
     renderEncounterCards();
@@ -469,6 +510,7 @@ function bindEncounterNotesAndLog() {
     notesEl.value = dmState.encounter.notes ?? "";
     notesEl.addEventListener("input", e => {
       dmState.encounter.notes = e.target.value;
+      queueEncounterAutosave();
     });
   }
   if (clearLogBtn) {
@@ -493,6 +535,7 @@ function bindFilterControls() {
     dmState.encounter.filters.focusedOnly = !!focusedEl?.checked;
     dmState.encounter.filters.conditionsOnly = !!conditionsEl?.checked;
     renderEncounterCards();
+    queueEncounterAutosave();
   };
 
   if (searchEl) {
@@ -712,6 +755,7 @@ function bindLibraryControls() {
       renderEncounterCards();
       renderEncounterLibrary();
       renderEncounterLog();
+      queueEncounterAutosave();
     };
   }
 }
@@ -772,6 +816,7 @@ function loadEncounterFromData(data) {
   if (focusedEl) focusedEl.checked = !!dmState.encounter.filters.focusedOnly;
   if (conditionsEl) conditionsEl.checked = !!dmState.encounter.filters.conditionsOnly;
   renderEncounterLog();
+  queueEncounterAutosave();
 }
 
 /* =========================
@@ -926,6 +971,22 @@ function normalizeCombatantState(c) {
   };
   c.recharge ??= {};
   c.concentration ??= { active: false, spell: "" };
+}
+
+function normalizeConditionName(raw) {
+  const target = String(raw || "").trim().toLowerCase();
+  if (!target) return null;
+  return CONDITIONS.find(c => c.toLowerCase() === target) || null;
+}
+
+function getCombatantConMod(c) {
+  if (Number.isFinite(Number(c.conMod))) return Number(c.conMod);
+  if (c.monsterRef) {
+    const abilities = extractAbilityScores(c.monsterRef);
+    const con = Number(abilities?.con ?? 10);
+    return Math.floor((con - 10) / 2);
+  }
+  return 0;
 }
 
 function parseDiceExpressions(text) {
@@ -1117,6 +1178,22 @@ function renderEncounterCards() {
         <button class="focus-combatant-btn">${c.ui?.focused ? "Unfocus" : "Focus"}</button>
         <input class="quick-hp-input" type="text" placeholder="-12 / +8" />
         <button class="apply-quick-hp-btn">Apply</button>
+        <input class="inline-damage-input" type="number" min="1" step="1" placeholder="DMG" />
+        <button class="apply-inline-damage-btn">Damage</button>
+        <input class="inline-heal-input" type="number" min="1" step="1" placeholder="HEAL" />
+        <button class="apply-inline-heal-btn">Heal</button>
+        <select class="quick-condition-select">
+          <option value="">Condition</option>
+          ${CONDITIONS.map(cond => `<option value="${cond}">${cond}</option>`).join("")}
+        </select>
+        <select class="quick-condition-mode">
+          <option value="add">Add</option>
+          <option value="remove">Remove</option>
+        </select>
+        <input class="quick-condition-rounds" type="number" min="0" step="1" value="0" title="Rounds (0 = indefinite)" />
+        <button class="apply-condition-btn">Apply Cond</button>
+        <input class="quick-conc-dc-input" type="number" min="1" step="1" value="10" />
+        <button class="apply-conc-check-btn">Conc Check</button>
         <input class="conc-input" type="text" placeholder="Concentration spell" value="${c.concentration?.spell || ""}" />
         <button class="toggle-conc-btn">${c.concentration?.active ? "End Conc." : "Start Conc."}</button>
         <button class="remove-combatant-btn">Remove</button>
@@ -1191,6 +1268,16 @@ function renderEncounterCards() {
 
     const quickInput = card.querySelector(".quick-hp-input");
     const quickApply = card.querySelector(".apply-quick-hp-btn");
+    const damageInput = card.querySelector(".inline-damage-input");
+    const damageBtn = card.querySelector(".apply-inline-damage-btn");
+    const healInput = card.querySelector(".inline-heal-input");
+    const healBtn = card.querySelector(".apply-inline-heal-btn");
+    const conditionSelect = card.querySelector(".quick-condition-select");
+    const conditionMode = card.querySelector(".quick-condition-mode");
+    const conditionRounds = card.querySelector(".quick-condition-rounds");
+    const conditionBtn = card.querySelector(".apply-condition-btn");
+    const concDcInput = card.querySelector(".quick-conc-dc-input");
+    const concCheckBtn = card.querySelector(".apply-conc-check-btn");
     const applyQuickDelta = () => {
       const raw = (quickInput?.value || "").trim();
       if (!raw) return;
@@ -1212,6 +1299,106 @@ function renderEncounterCards() {
           applyQuickDelta();
         }
       });
+    }
+
+    const applyDamage = () => {
+      const amount = Number(damageInput?.value || 0);
+      if (!Number.isFinite(amount) || amount <= 0) return;
+      pushUndoSnapshot("damage");
+      const before = c.hp.current;
+      c.hp.current = Math.max(0, Math.min(c.hp.max, c.hp.current - amount));
+      pushEncounterLog(`${c.name} took ${amount} damage (${before} -> ${c.hp.current})`);
+      if (damageInput) damageInput.value = "";
+      renderEncounterCards();
+    };
+    if (damageBtn) {
+      damageBtn.onclick = applyDamage;
+    }
+    if (damageInput) {
+      damageInput.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          applyDamage();
+        }
+      });
+    }
+
+    const applyHeal = () => {
+      const amount = Number(healInput?.value || 0);
+      if (!Number.isFinite(amount) || amount <= 0) return;
+      pushUndoSnapshot("heal");
+      const before = c.hp.current;
+      c.hp.current = Math.max(0, Math.min(c.hp.max, c.hp.current + amount));
+      pushEncounterLog(`${c.name} healed ${amount} HP (${before} -> ${c.hp.current})`);
+      if (healInput) healInput.value = "";
+      renderEncounterCards();
+    };
+    if (healBtn) {
+      healBtn.onclick = applyHeal;
+    }
+    if (healInput) {
+      healInput.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          applyHeal();
+        }
+      });
+    }
+
+    if (conditionBtn) {
+      conditionBtn.onclick = () => {
+        const condition = String(conditionSelect?.value || "");
+        if (!condition) return;
+        const mode = String(conditionMode?.value || "add");
+        pushUndoSnapshot("quick condition");
+        const idx = c.conditions.indexOf(condition);
+        if (mode === "remove") {
+          if (idx !== -1) {
+            c.conditions.splice(idx, 1);
+            delete c.conditionDurations[condition];
+            pushEncounterLog(`${c.name} removed condition: ${condition}`);
+            renderEncounterCards();
+          }
+          return;
+        }
+
+        if (idx === -1) c.conditions.push(condition);
+        const rounds = Number(conditionRounds?.value || 0);
+        if (Number.isFinite(rounds) && rounds > 0) {
+          c.conditionDurations[condition] = rounds;
+        } else {
+          delete c.conditionDurations[condition];
+        }
+        pushEncounterLog(
+          `${c.name} gained condition: ${condition}${
+            Number.isFinite(rounds) && rounds > 0 ? ` (${rounds}r)` : ""
+          }`
+        );
+        renderEncounterCards();
+      };
+    }
+
+    if (concCheckBtn) {
+      concCheckBtn.onclick = () => {
+        normalizeCombatantState(c);
+        if (!c.concentration.active) {
+          pushEncounterLog(`${c.name} has no active concentration`);
+          return;
+        }
+        const dc = Math.max(1, Number(concDcInput?.value || 10));
+        const roll = Math.floor(Math.random() * 20) + 1;
+        const mod = getCombatantConMod(c);
+        const total = roll + mod;
+        const success = total >= dc;
+        pushUndoSnapshot("concentration check");
+        if (!success) {
+          c.concentration.active = false;
+        }
+        pushEncounterLog(
+          `${c.name} concentration check DC ${dc}: d20 ${roll}${mod >= 0 ? " +" : " "}${mod} = ${total} (${success ? "pass" : "fail"})`
+        );
+        renderEncounterCards();
+      };
     }
 
     const concInput = card.querySelector(".conc-input");
@@ -1455,6 +1642,7 @@ function renderEncounterCards() {
     activeCard?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     lastActiveCombatantId = activeId;
   }
+  queueEncounterAutosave();
 }
 
 /* ---------- Helper ---------- */

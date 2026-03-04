@@ -129,14 +129,17 @@ export async function renderSpellList() {
 ====================================================== */
 export async function renderSpellsKnown() {
   const el = document.getElementById("spellsKnownList");
+  const panel = document.getElementById("spellsKnownPanel");
   if (!el) return;
 
   el.innerHTML = "";
 
   const sc = character.spellcasting;
+  const usesSpellsKnown = ["bard", "sorcerer", "warlock"].includes(character.class?.id);
+  if (panel) panel.hidden = !usesSpellsKnown;
   if (
     !sc?.enabled ||
-    !["bard", "sorcerer", "warlock"].includes(character.class?.id)
+    !usesSpellsKnown
   ) {
     el.textContent = "—";
     return;
@@ -235,6 +238,20 @@ export async function renderSpellsKnown() {
   const header = document.createElement("p");
   header.innerHTML = `<strong>${known.size} / ${maxKnown}</strong> spells known`;
   el.appendChild(header);
+
+  const capStatus = document.createElement("div");
+  capStatus.className = "spells-known-status";
+  if (remaining > 0) {
+    capStatus.textContent = `Need to learn ${remaining} more spell${remaining > 1 ? "s" : ""} to hit cap.`;
+    capStatus.classList.add("warning");
+  } else if (remaining < 0) {
+    capStatus.textContent = `Over cap by ${Math.abs(remaining)} spell${Math.abs(remaining) > 1 ? "s" : ""}. Remove extras.`;
+    capStatus.classList.add("warning");
+  } else {
+    capStatus.textContent = "At known spell cap.";
+    capStatus.classList.add("muted");
+  }
+  el.appendChild(capStatus);
 
   /* =========================
      SPELL PICKER (SEARCHABLE)
@@ -361,6 +378,7 @@ export async function renderSpellsKnown() {
     }
 
     renderSpellsKnown();
+    window.dispatchEvent(new Event("spells-known-updated"));
   };
 
   updateUI();
@@ -503,12 +521,14 @@ export async function renderSpellsKnown() {
       window.dispatchEvent(new Event("bard-replacement-updated"));
       renderSpellsKnown();
       renderSpellList();
+      window.dispatchEvent(new Event("spells-known-updated"));
     };
 
     deferReplaceBtn.onclick = () => {
       bardReplacement.pendingLevel = null;
       window.dispatchEvent(new Event("bard-replacement-updated"));
       renderSpellsKnown();
+      window.dispatchEvent(new Event("spells-known-updated"));
     };
 
     replaceWrap.append(
