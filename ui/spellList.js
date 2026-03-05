@@ -48,12 +48,12 @@ export async function renderSpellList() {
     ];
 
     for (const cid of classIds) {
-      const r = await fetch(`../data/spells/${cid}.json`);
+      const r = await fetch(`./data/spells/${cid}.json`);
       if (!r.ok) continue;
       spells.push(...await r.json());
     }
   } else {
-    const r = await fetch(`../data/spells/${character.class.id}.json`);
+    const r = await fetch(`./data/spells/${character.class.id}.json`);
     if (!r.ok) {
       container.textContent = "Spell data missing.";
       return;
@@ -179,12 +179,12 @@ export async function renderSpellsKnown() {
 
   if (allowAnyList) {
     for (const cid of classIds) {
-      const r = await fetch(`../data/spells/${cid}.json`);
+      const r = await fetch(`./data/spells/${cid}.json`);
       if (!r.ok) continue;
       spells.push(...await r.json());
     }
   } else {
-    const r = await fetch(`../data/spells/${character.class.id}.json`);
+    const r = await fetch(`./data/spells/${character.class.id}.json`);
     if (!r.ok) {
       el.textContent = "Spell data missing.";
       return;
@@ -204,7 +204,7 @@ export async function renderSpellsKnown() {
       if (missingIds.length) {
         const pool = [];
         for (const cid of classIds) {
-          const r = await fetch(`../data/spells/${cid}.json`);
+          const r = await fetch(`./data/spells/${cid}.json`);
           if (!r.ok) continue;
           pool.push(...await r.json());
         }
