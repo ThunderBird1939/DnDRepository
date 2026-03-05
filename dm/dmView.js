@@ -29,33 +29,40 @@ let autosaveTimer = null;
 ========================= */
 const CONDITION_RULES = {
   Blinded:
-    "A blinded creature canâ€™t see and automatically fails any ability check that requires sight. Attack rolls against the creature have advantage, and the creatureâ€™s attack rolls have disadvantage.",
+    "A blinded creature can't see and automatically fails any ability check that requires sight. Attack rolls against the creature have advantage, and the creature's attack rolls have disadvantage.",
   Charmed:
-    "A charmed creature canâ€™t attack the charmer or target the charmer with harmful abilities or magical effects. The charmer has advantage on ability checks to interact socially with the creature.",
+    "A charmed creature can't attack the charmer or target the charmer with harmful abilities or magical effects. The charmer has advantage on ability checks to interact socially with the creature.",
   Deafened:
-    "A deafened creature canâ€™t hear and automatically fails any ability check that requires hearing.",
+    "A deafened creature can't hear and automatically fails any ability check that requires hearing.",
   Frightened:
-    "A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature canâ€™t willingly move closer to the source of its fear.",
+    "A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature can't willingly move closer to the source of its fear.",
   Grappled:
-    "A grappled creatureâ€™s speed becomes 0, and it canâ€™t benefit from any bonus to its speed.",
+    "A grappled creature's speed becomes 0, and it can't benefit from any bonus to its speed.",
   Incapacitated:
-    "An incapacitated creature canâ€™t take actions or reactions.",
+    "An incapacitated creature can't take actions or reactions.",
   Invisible:
-    "An invisible creature is impossible to see without the aid of magic or a special sense. Attack rolls against the creature have disadvantage, and the creatureâ€™s attack rolls have advantage.",
+    "An invisible creature is impossible to see without the aid of magic or a special sense. Attack rolls against the creature have disadvantage, and the creature's attack rolls have advantage.",
   Paralyzed:
-    "A paralyzed creature is incapacitated and canâ€™t move or speak. Attack rolls against the creature have advantage, and any attack that hits is a critical hit if the attacker is within 5 feet.",
+    "A paralyzed creature is incapacitated and can't move or speak. Attack rolls against the creature have advantage, and any attack that hits is a critical hit if the attacker is within 5 feet.",
   Petrified:
     "A petrified creature is transformed into stone, is incapacitated, and unaware of its surroundings. The creature has resistance to all damage.",
   Poisoned:
     "A poisoned creature has disadvantage on attack rolls and ability checks.",
   Prone:
-    "A prone creatureâ€™s only movement option is to crawl. The creature has disadvantage on attack rolls, and attack rolls against it have advantage if the attacker is within 5 feet.",
+    "A prone creature's only movement option is to crawl. The creature has disadvantage on attack rolls, and attack rolls against it have advantage if the attacker is within 5 feet.",
   Restrained:
-    "A restrained creatureâ€™s speed becomes 0. Attack rolls against the creature have advantage, and the creatureâ€™s attack rolls have disadvantage.",
+    "A restrained creature's speed becomes 0. Attack rolls against the creature have advantage, and the creature's attack rolls have disadvantage.",
   Stunned:
-    "A stunned creature is incapacitated, canâ€™t move, and can speak only falteringly. The creature automatically fails Strength and Dexterity saving throws.",
+    "A stunned creature is incapacitated, can't move, and can speak only falteringly. The creature automatically fails Strength and Dexterity saving throws.",
   Unconscious:
     "An unconscious creature is incapacitated, prone, and unaware of its surroundings. Attack rolls against the creature have advantage, and any hit within 5 feet is a critical hit."
+};
+
+const ENCOUNTER_VARIANTS = {
+  weaker: { hpMult: 0.75, acDelta: -1, initDelta: -1 },
+  alpha: { hpMult: 1.35, acDelta: 2, initDelta: 2 },
+  frenzy: { hpMult: 1.1, acDelta: -1, initDelta: 3 },
+  bulwark: { hpMult: 1.5, acDelta: 1, initDelta: -1 }
 };
 
 /* =========================
@@ -125,10 +132,6 @@ function undoLastChange() {
   return true;
 }
 
-function getTemplates() {
-  return JSON.parse(localStorage.getItem("encounterTemplates") || "{}");
-}
-
 function queueEncounterAutosave() {
   if (autosaveTimer) clearTimeout(autosaveTimer);
   autosaveTimer = setTimeout(() => {
@@ -151,10 +154,6 @@ function loadEncounterAutosave() {
   } catch (_e) {
     return null;
   }
-}
-
-function setTemplates(data) {
-  localStorage.setItem("encounterTemplates", JSON.stringify(data));
 }
 
 function pushEncounterLog(message) {
@@ -242,7 +241,6 @@ export async function initDMView() {
   bindEncounterTools();
   bindEncounterNotesAndLog();
   bindFilterControls();
-  bindTemplateControls();
   bindSaveLoadExportImport();
   bindLibraryControls();
 
@@ -255,7 +253,6 @@ export async function initDMView() {
   renderEncounterLibrary();
   renderEncounterLog();
   renderEncounterSummary();
-  renderTemplateOptions();
   renderPartyProfileOptions();
   window.addEventListener("character-profiles-updated", renderPartyProfileOptions);
 }
@@ -282,6 +279,7 @@ function bindAddMonster() {
         .length + 1;
 
     const rolledHp = rollHpFromMonster(monster);
+    const dexMod = getCombatantDexMod({ monsterRef: monster });
 
     pushUndoSnapshot("add monster");
     dmState.encounter.combatants.push({
@@ -289,6 +287,7 @@ function bindAddMonster() {
       name: `${baseName} #${count}`,
       ac: extractMonsterAC(monster),
       initiative: 0,
+      dexMod,
       hp: {
         max: rolledHp,
         current: rolledHp,
@@ -320,6 +319,7 @@ function bindAddManualCombatant() {
       name,
       ac,
       initiative: init,
+      dexMod: 0,
       hp: {
         max: maxHp,
         current: maxHp,
@@ -328,7 +328,7 @@ function bindAddManualCombatant() {
       conditions: []
     });
 
-    dmState.encounter.combatants.sort((a, b) => b.initiative - a.initiative);
+    dmState.encounter.combatants.sort(compareCombatantsByInitiative);
     dmState.encounter.turnIndex = 0;
 
     pushEncounterLog(`Added ${name} (Init ${init || 0})`);
@@ -387,6 +387,7 @@ function bindAddPartyMember() {
       name,
       ac,
       initiative: init,
+      dexMod: Math.floor((dex - 10) / 2),
       hp: { max: hpMax, current: Math.max(0, hpCurrent), temp: Number(data.hp?.temp ?? 0) },
       conditions: [],
       isParty: true,
@@ -412,6 +413,7 @@ function bindTurnFlow() {
         dmState.encounter.turnIndex = dmState.encounter.combatants.length - 1;
         dmState.encounter.round = Math.max(1, dmState.encounter.round - 1);
       }
+      announceTurnStart("previous turn");
       pushEncounterLog("Moved to previous turn");
       renderEncounterCards();
     };
@@ -429,6 +431,7 @@ function bindTurnFlow() {
         dmState.encounter.round++;
       }
 
+      announceTurnStart("next turn");
       pushEncounterLog("Advanced turn");
       renderEncounterCards();
     };
@@ -445,6 +448,7 @@ function bindTurnFlow() {
       });
       applyRoundTick();
 
+      announceTurnStart("new round");
       pushEncounterLog("Started new round");
       renderEncounterCards();
     };
@@ -462,10 +466,9 @@ function bindEncounterTools() {
       dmState.encounter.combatants.forEach(c => {
         if (c.monsterRef) c.initiative = rollInitiativeForCombatant(c);
       });
-      dmState.encounter.combatants.sort(
-        (a, b) => Number(b.initiative || 0) - Number(a.initiative || 0)
-      );
+      dmState.encounter.combatants.sort(compareCombatantsByInitiative);
       dmState.encounter.turnIndex = 0;
+      announceTurnStart("bulk initiative");
       pushEncounterLog("Rolled initiative for monsters");
       renderEncounterCards();
     };
@@ -473,10 +476,9 @@ function bindEncounterTools() {
   if (sortBtn) {
     sortBtn.onclick = () => {
       pushUndoSnapshot("sort initiative");
-      dmState.encounter.combatants.sort(
-        (a, b) => Number(b.initiative || 0) - Number(a.initiative || 0)
-      );
+      dmState.encounter.combatants.sort(compareCombatantsByInitiative);
       dmState.encounter.turnIndex = 0;
+      announceTurnStart("sort initiative");
       pushEncounterLog("Sorted combatants by initiative");
       renderEncounterCards();
     };
@@ -560,79 +562,50 @@ function bindFilterControls() {
   }
 }
 
-function renderTemplateOptions() {
-  const select = document.getElementById("templateSelect");
-  if (!select) return;
-  const templates = getTemplates();
-  select.innerHTML = `<option value="">— Select template —</option>`;
-  Object.entries(templates).forEach(([slug, tpl]) => {
-    const opt = document.createElement("option");
-    opt.value = slug;
-    opt.textContent = tpl.name || slug;
-    select.appendChild(opt);
-  });
+function applyVariantToCombatant(c, variantId) {
+  const variant = ENCOUNTER_VARIANTS[variantId];
+  if (!c?.monsterRef) return false;
+  if (!variant && variantId !== "reset") return false;
+
+  c.variantBase ??= {
+    ac: Number(c.ac ?? 10),
+    initiative: Number(c.initiative ?? 0),
+    hpMax: Number(c.hp?.max ?? 1),
+    name: c.name
+  };
+
+  const base = c.variantBase;
+  const currentRatio = Number(c.hp?.max) > 0
+    ? Number(c.hp.current ?? c.hp.max) / Number(c.hp.max)
+    : 1;
+
+  if (variantId === "reset") {
+    c.ac = base.ac;
+    c.initiative = base.initiative;
+    c.hp.max = base.hpMax;
+    c.hp.current = Math.max(0, Math.min(c.hp.max, Math.round(c.hp.max * currentRatio)));
+    c.name = base.name;
+    delete c.variantBase;
+    c.variantId = null;
+    return true;
+  }
+
+  c.ac = Math.max(5, Math.round(base.ac + variant.acDelta));
+  c.initiative = Math.round(base.initiative + variant.initDelta);
+  c.hp.max = Math.max(1, Math.round(base.hpMax * variant.hpMult));
+  c.hp.current = Math.max(0, Math.min(c.hp.max, Math.round(c.hp.max * currentRatio)));
+  c.variantId = variantId;
+  return true;
 }
 
-function bindTemplateControls() {
-  const saveBtn = document.getElementById("saveTemplateBtn");
-  const applyBtn = document.getElementById("applyTemplateBtn");
-  const nameInput = document.getElementById("dmTemplateName");
-  const select = document.getElementById("templateSelect");
-  const scaleInput = document.getElementById("templateScaleInput");
-
-  if (saveBtn) {
-    saveBtn.onclick = () => {
-      const name = nameInput?.value.trim() || dmState.encounter.name || "Encounter Template";
-      const slug = slugify(name);
-      const templates = getTemplates();
-      templates[slug] = buildEncounterSaveData();
-      templates[slug].name = name;
-      setTemplates(templates);
-      renderTemplateOptions();
-      if (nameInput) nameInput.value = "";
-      pushEncounterLog(`Saved template: ${name}`);
-    };
-  }
-
-  if (applyBtn && select) {
-    applyBtn.onclick = () => {
-      const key = select.value;
-      if (!key) return;
-      const templates = getTemplates();
-      const template = templates[key];
-      if (!template) return;
-      const scale = Math.max(1, Number(scaleInput?.value || 1));
-      pushUndoSnapshot("apply template");
-      loadEncounterFromData(template);
-
-      if (scale > 1) {
-        const scaled = [];
-        dmState.encounter.combatants.forEach(c => {
-          if (!c.monsterRef) {
-            scaled.push(c);
-            return;
-          }
-          for (let i = 0; i < scale; i += 1) {
-            const rolledHp = rollHpFromMonster(c.monsterRef);
-            scaled.push({
-              ...c,
-              id: crypto.randomUUID(),
-              name: `${c.monsterRef.title} #${i + 1}`,
-              hp: { max: rolledHp, current: rolledHp, temp: 0 },
-              conditions: [],
-              conditionDurations: {},
-              recharge: {}
-            });
-          }
-        });
-        dmState.encounter.combatants = scaled;
-      }
-
-      dmState.encounter.turnIndex = 0;
-      pushEncounterLog(`Applied template: ${template.name || key} (scale ${scale})`);
-      renderEncounterCards();
-    };
-  }
+function variantLabel(variantId) {
+  const labels = {
+    weaker: "Weaker",
+    alpha: "Alpha",
+    frenzy: "Frenzy",
+    bulwark: "Bulwark"
+  };
+  return labels[variantId] || "";
 }
 
 function bindSaveLoadExportImport() {
@@ -775,6 +748,7 @@ function buildEncounterSaveData() {
       ac: c.ac,
       initiative: c.initiative,
       hp: c.hp,
+      dexMod: c.dexMod,
       conditions: c.conditions,
       conditionDurations: c.conditionDurations,
       concentration: c.concentration,
@@ -782,7 +756,9 @@ function buildEncounterSaveData() {
       monsterId: c.monsterRef?.title ?? null,
       ui: c.ui,
       recharge: c.recharge,
-      legendary: c.legendary
+      legendary: c.legendary,
+      variantId: c.variantId ?? null,
+      variantBase: c.variantBase ?? null
     }))
   };
 }
@@ -847,7 +823,7 @@ function extractLegendaryMax(monster) {
 }
 
 function parseRecharge(name) {
-  const match = name.match(/Recharge\s*(\d)[â€“-](\d)/i);
+  const match = name.match(/Recharge\s*(\d)[\u2013-](\d)/i);
   if (!match) return null;
 
   return {
@@ -918,7 +894,7 @@ function extractSpeed(monster) {
   const line = monster.contents.find(c =>
     c.startsWith("property | Speed")
   );
-  if (!line) return "â€”";
+  if (!line) return "-";
   return line.split("|").pop().trim();
 }
 
@@ -951,26 +927,90 @@ function rollHpFromMonster(monster) {
 }
 
 function rollInitiativeForCombatant(c) {
-  const abilities =
-    c.monsterRef ? extractAbilityScores(c.monsterRef) : null;
-  const dex = abilities?.dex ?? 10;
-  const mod = Math.floor((dex - 10) / 2);
+  const mod = getCombatantDexMod(c);
   return Math.floor(Math.random() * 20) + 1 + mod;
+}
+
+function getCombatantDexMod(c) {
+  if (Number.isFinite(Number(c?.dexMod))) return Number(c.dexMod);
+  const abilities = c?.monsterRef ? extractAbilityScores(c.monsterRef) : null;
+  const dex = Number(abilities?.dex ?? 10);
+  return Math.floor((dex - 10) / 2);
+}
+
+function compareCombatantsByInitiative(a, b) {
+  const initDiff = Number(b?.initiative || 0) - Number(a?.initiative || 0);
+  if (initDiff !== 0) return initDiff;
+  const dexDiff = getCombatantDexMod(b) - getCombatantDexMod(a);
+  if (dexDiff !== 0) return dexDiff;
+  return String(a?.name || "").localeCompare(String(b?.name || ""));
+}
+
+function getTurnPrompts(c) {
+  if (!c) return [];
+  const prompts = [];
+  const ticking = Object.entries(c.conditionDurations || {})
+    .filter(([, rounds]) => Number(rounds) > 0)
+    .map(([cond, rounds]) => `${cond} (${Number(rounds)}r)`);
+  if (ticking.length) prompts.push(`Tick conditions: ${ticking.join(", ")}`);
+  const spentRecharge = Object.entries(c.recharge || {})
+    .filter(([, ready]) => ready === false)
+    .map(([name]) => name);
+  if (spentRecharge.length) prompts.push(`Roll recharge: ${spentRecharge.join(", ")}`);
+  if (c.concentration?.active) {
+    prompts.push(`Concentration active${c.concentration.spell ? ` (${c.concentration.spell})` : ""}`);
+  }
+  if (c.legendary && Number(c.legendary.remaining ?? 0) < Number(c.legendary.max ?? 0)) {
+    prompts.push(`Legendary ${Number(c.legendary.remaining ?? 0)}/${Number(c.legendary.max ?? 0)}`);
+  }
+  return prompts;
+}
+
+function announceTurnStart(reason = "turn") {
+  const c = activeCombatant();
+  if (!c) return;
+  const prompts = getTurnPrompts(c);
+  if (!prompts.length) return;
+  pushEncounterLog(`Turn start (${reason}) ${c.name}: ${prompts.join(" | ")}`);
+}
+
+function cloneMonsterCombatant(c) {
+  if (!c?.monsterRef) return null;
+  const baseName = c.monsterRef.title;
+  const count = dmState.encounter.combatants.filter(x => x.monsterRef?.title === baseName).length + 1;
+  const rolledHp = rollHpFromMonster(c.monsterRef);
+  const clone = {
+    id: crypto.randomUUID(),
+    name: `${baseName} #${count}`,
+    ac: Number(c.ac ?? extractMonsterAC(c.monsterRef)),
+    initiative: Number(c.initiative ?? 0),
+    dexMod: getCombatantDexMod(c),
+    hp: { max: rolledHp, current: rolledHp, temp: 0 },
+    conditions: [],
+    conditionDurations: {},
+    concentration: { active: false, spell: "" },
+    monsterRef: c.monsterRef,
+    ui: { ...(c.ui || {}) },
+    recharge: {},
+    legendary: c.legendary ? { max: Number(c.legendary.max ?? 0), remaining: Number(c.legendary.max ?? 0) } : undefined
+  };
+  normalizeCombatantState(clone);
+  return clone;
 }
 
 function normalizeCombatantState(c) {
   c.conditions ??= [];
   c.conditionDurations ??= {};
-  c.ui ??= {
-    traits: true,
-    actions: true,
-    bonus: false,
-    reactions: false,
-    legendary: true,
-    focused: false
-  };
+  c.ui ??= {};
+  c.ui.traits ??= true;
+  c.ui.actions ??= true;
+  c.ui.bonus ??= false;
+  c.ui.reactions ??= false;
+  c.ui.legendary ??= true;
+  c.ui.focused ??= false;
   c.recharge ??= {};
   c.concentration ??= { active: false, spell: "" };
+  c.variantId ??= null;
 }
 
 function normalizeConditionName(raw) {
@@ -1092,7 +1132,7 @@ function renderEncounterCards() {
   const turnEl = document.getElementById("dmTurn");
 
   if (roundEl) roundEl.textContent = dmState.encounter.round;
-  if (turnEl) turnEl.textContent = activeCombatant()?.name ?? "â€”";
+  if (turnEl) turnEl.textContent = activeCombatant()?.name ?? "-";
   renderEncounterSummary();
 
   const mount = document.getElementById("encounterCards");
@@ -1155,10 +1195,23 @@ function renderEncounterCards() {
 
     if (i === dmState.encounter.turnIndex) card.classList.add("active");
 
+    const isActiveTurn = i === dmState.encounter.turnIndex;
+    const statusBits = [
+      isActiveTurn ? "Active Turn" : "",
+      c.ui?.focused ? "Focused" : "",
+      Number(c.hp?.current ?? 0) <= 0 ? "Down" : "",
+      c.concentration?.active ? "Concentrating" : "",
+      c.isParty ? "Party" : "Enemy"
+    ].filter(Boolean);
+    const turnPrompts = isActiveTurn ? getTurnPrompts(c) : [];
+
     card.innerHTML = `
       <header class="card-header drag-handle">
         <div>
-          <h3>${c.name}</h3>
+          <h3>
+            ${c.name}
+            ${c.variantId ? `<span class="variant-badge">${variantLabel(c.variantId)}</span>` : ""}
+          </h3>
           <div class="card-sub">
             AC ${c.ac} • Init <input class="init-input" type="number" value="${Number(c.initiative ?? 0)}" />
           </div>
@@ -1173,11 +1226,32 @@ function renderEncounterCards() {
         </div>
       </header>
 
+      <div class="status-strip">
+        ${statusBits.map(bit => `<span class="status-pill">${bit}</span>`).join("")}
+      </div>
+
+      ${turnPrompts.length ? `
+      <div class="turn-prompt-strip">
+        ${turnPrompts.map(p => `<span class="turn-prompt-item">${p}</span>`).join("")}
+      </div>
+      ` : ""}
+
       <div class="card-controls">
         <button class="set-active-btn">Set Turn</button>
         <button class="focus-combatant-btn">${c.ui?.focused ? "Unfocus" : "Focus"}</button>
+        ${c.monsterRef ? `<button class="clone-combatant-btn">Clone</button>` : ""}
         <input class="quick-hp-input" type="text" placeholder="-12 / +8" />
         <button class="apply-quick-hp-btn">Apply</button>
+        ${c.monsterRef ? `
+        <select class="variant-select" title="Apply a variant to this monster">
+          <option value="">Variant...</option>
+          <option value="weaker">Weaker</option>
+          <option value="alpha">Alpha</option>
+          <option value="frenzy">Frenzy</option>
+          <option value="bulwark">Bulwark</option>
+          <option value="reset">Reset</option>
+        </select>
+        ` : ""}
         <input class="inline-damage-input" type="number" min="1" step="1" placeholder="DMG" />
         <button class="apply-inline-damage-btn">Damage</button>
         <input class="inline-heal-input" type="number" min="1" step="1" placeholder="HEAL" />
@@ -1232,9 +1306,26 @@ function renderEncounterCards() {
       setActiveBtn.onclick = () => {
         pushUndoSnapshot("set turn");
         dmState.encounter.turnIndex = i;
+        announceTurnStart("set turn");
         pushEncounterLog(`Turn set to ${c.name}`);
         renderEncounterCards();
       };
+    }
+
+    const variantSelect = card.querySelector(".variant-select");
+    if (variantSelect) {
+      variantSelect.addEventListener("change", e => {
+        const variantId = String(e.target.value || "");
+        if (!variantId) return;
+        pushUndoSnapshot(`variant ${variantId}`);
+        if (!applyVariantToCombatant(c, variantId)) return;
+        pushEncounterLog(
+          variantId === "reset"
+            ? `${c.name}: variant reset`
+            : `${c.name}: variant ${variantId} applied`
+        );
+        renderEncounterCards();
+      });
     }
 
     const focusBtn = card.querySelector(".focus-combatant-btn");
@@ -1248,6 +1339,19 @@ function renderEncounterCards() {
         c.ui ??= {};
         c.ui.focused = !card.classList.contains("focused");
         pushEncounterLog(`${c.name} ${c.ui.focused ? "marked as focus" : "unfocused"}`);
+        renderEncounterCards();
+      };
+    }
+
+    const cloneBtn = card.querySelector(".clone-combatant-btn");
+    if (cloneBtn) {
+      cloneBtn.onclick = () => {
+        const clone = cloneMonsterCombatant(c);
+        if (!clone) return;
+        pushUndoSnapshot("clone combatant");
+        dmState.encounter.combatants.push(clone);
+        dmState.encounter.combatants.sort(compareCombatantsByInitiative);
+        pushEncounterLog(`Cloned ${c.name} -> ${clone.name}`);
         renderEncounterCards();
       };
     }
@@ -1523,15 +1627,15 @@ function renderEncounterCards() {
           <div class="collapsible">
             <h4 data-sec="legendary">
               Legendary Actions (${c.legendary.remaining}/${c.legendary.max})
-              ${c.ui.legendary ? "â–¾" : "â–¸"}
+              ${c.ui.legendary ? "v" : ">"}
             </h4>
             ${c.ui.legendary ? `
               <div class="section-body">
                 ${legendary.intro ? `<p><em>${legendary.intro}</em></p>` : ""}
                 <div class="legendary-controls">
-                  <button data-cost="1">âˆ’1</button>
-                  <button data-cost="2">âˆ’2</button>
-                  <button data-cost="3">âˆ’3</button>
+                  <button data-cost="1">-1</button>
+                  <button data-cost="2">-2</button>
+                  <button data-cost="3">-3</button>
                 </div>
                 ${legendary.actions.map(l =>
                   `<p><strong>${l.name}.</strong> ${decorateDiceInText(l.text)}</p>`
@@ -1651,7 +1755,7 @@ function sectionBlock(key, title, content, c) {
     <hr class="stat-divider">
     <div class="collapsible">
       <h4 data-sec="${key}">
-        ${title} ${c.ui[key] ? "â–¾" : "â–¸"}
+        ${title} ${c.ui[key] ? "v" : ">"}
       </h4>
       ${c.ui[key] ? `<div class="section-body">${content}</div>` : ""}
     </div>
@@ -1807,7 +1911,7 @@ function renderEncounterLibrary() {
     };
 
     const del = document.createElement("button");
-    del.textContent = "âœ–";
+    del.textContent = "x";
     del.className = "library-delete";
     del.title = "Delete encounter";
 

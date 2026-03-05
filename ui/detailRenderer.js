@@ -1,305 +1,283 @@
 import { openSpellDetail } from "./spellDetailModal.js";
-import { getSpellById } from "../engine/lookups/spellLookup.js"; 
+import { getSpellById } from "../engine/lookups/spellLookup.js";
 
-/* =========================
-   Helper UI builders (TOP LEVEL)
-========================= */
-function section(title) {
-  const h = document.createElement("h2");
-  h.textContent = title;
-  return h;
+function make(tag, className = "", text = "") {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== "") node.textContent = text;
+  return node;
 }
 
-function row(label, value) {
-  const p = document.createElement("p");
-  p.innerHTML = `<strong>${label}:</strong> ${value}`;
-  return p;
+function prettyType(type) {
+  const map = {
+    class: "Class",
+    subclass: "Subclass",
+    race: "Race",
+    background: "Background"
+  };
+  return map[type] || "Detail";
 }
 
-function featureBlock(name, description) {
-  const wrap = document.createElement("div");
-  wrap.className = "feature-block";
-
-  const h4 = document.createElement("h4");
-  h4.textContent = name;
-
-  const p = document.createElement("p");
-  p.textContent = description || "";
-
-  wrap.append(h4, p);
-  return wrap;
+function addKeyValueList(sectionBody, rows) {
+  const list = make("div", "detail-kv-list");
+  rows.forEach(({ key, value }) => {
+    if (value == null || value === "" || (Array.isArray(value) && !value.length)) return;
+    const row = make("div", "detail-kv-row");
+    row.append(make("span", "detail-kv-key", key));
+    const val = make("span", "detail-kv-value");
+    val.textContent = Array.isArray(value) ? value.join(", ") : String(value);
+    row.append(val);
+    list.append(row);
+  });
+  if (list.children.length) sectionBody.append(list);
 }
 
-/**
- * Renders a table from a "level -> array" object.
- * Used for spell slots OR subclass spell tables.
- *
- * For spell slots: { "1": [2,2,0,0,0,0], ... } (includes cantrips)
- * For subclass spells: { "3": ["healing-word","ray-of-sickness"], ... } (no cantrips)
- */
+function section(mount, title) {
+  const wrap = make("section", "detail-section");
+  wrap.append(make("h2", "detail-section-title", title));
+  const body = make("div", "detail-section-body");
+  wrap.append(body);
+  mount.append(wrap);
+  return body;
+}
+
 function renderSpellTable(tableData) {
-  const table = document.createElement("table");
-  table.className = "spell-table";
+  const table = make("table", "detail-table");
+  const head = make("thead");
+  const headerRow = make("tr");
 
-  const header = document.createElement("tr");
-
-  // Detect shape
   const firstVal = tableData && Object.values(tableData)[0];
   const isSlots = Array.isArray(firstVal);
+  const headers = isSlots
+    ? ["Level", "Cantrips", "1st", "2nd", "3rd", "4th", "5th"]
+    : ["Level", "Always Prepared Spells"];
 
-  if (isSlots) {
-    ["Level", "Cantrips", "1st", "2nd", "3rd", "4th", "5th"].forEach(h => {
-      const th = document.createElement("th");
-      th.textContent = h;
-      header.appendChild(th);
-    });
-  } else {
-    ["Artificer Level", "Always Prepared Spells"].forEach(h => {
-      const th = document.createElement("th");
-      th.textContent = h;
-      header.appendChild(th);
-    });
-  }
+  headers.forEach(h => headerRow.append(make("th", "", h)));
+  head.append(headerRow);
+  table.append(head);
 
-  table.appendChild(header);
-
+  const body = make("tbody");
   Object.entries(tableData || {}).forEach(([level, value]) => {
-    const tr = document.createElement("tr");
-
-    const lvl = document.createElement("td");
-    lvl.textContent = level;
-    tr.appendChild(lvl);
-
+    const tr = make("tr");
+    tr.append(make("td", "", level));
     if (isSlots) {
-      // value is [cantrips,1,2,3,4,5]
-      value.forEach(v => {
-        const td = document.createElement("td");
-        td.textContent = v || "—";
-        tr.appendChild(td);
-      });
+      value.forEach(v => tr.append(make("td", "", v == null || v === 0 ? "-" : String(v))));
     } else {
-      // value is ["healing-word", ...]
-      const td = document.createElement("td");
-
-      (value || []).forEach((spellId, index) => {
+      const td = make("td");
+      (value || []).forEach((spellId, i) => {
         const spell = getSpellById(spellId);
         if (!spell) return;
-
-        const span = document.createElement("span");
-        span.textContent = spell.title;
-        span.style.cursor = "pointer";
-        span.style.textDecoration = "underline";
-
-        span.onclick = () => openSpellDetail(spell);
-
-        td.appendChild(span);
-
-        if (index < value.length - 1) {
-          td.appendChild(document.createTextNode(", "));
-        }
+        const link = make("button", "detail-inline-link", spell.title);
+        link.type = "button";
+        link.onclick = () => openSpellDetail(spell);
+        td.append(link);
+        if (i < value.length - 1) td.append(document.createTextNode(", "));
       });
-
-      tr.appendChild(td);
-
+      tr.append(td);
     }
-
-    table.appendChild(tr);
+    body.append(tr);
   });
-
+  table.append(body);
   return table;
 }
 
-function renderDiceTable(tableData) {
-  const table = document.createElement("table");
-  table.className = "dice-table";
+function renderRaceContents(body, race) {
+  const lines = Array.isArray(race.contents) ? race.contents : [];
+  lines.forEach(line => {
+    if (!line || line === "rule") {
+      body.append(make("hr", "detail-divider"));
+      return;
+    }
 
-  const header = document.createElement("tr");
-  const th1 = document.createElement("th");
-  th1.textContent = tableData.dice;
-  const th2 = document.createElement("th");
-  th2.textContent = "Effect";
-  header.append(th1, th2);
-  table.appendChild(header);
+    const parts = String(line).split("|").map(p => p.trim());
+    const kind = String(parts[0] || "").toLowerCase();
 
-  (tableData.rows || []).forEach(r => {
-    const tr = document.createElement("tr");
+    if (kind === "property" && parts.length >= 3) {
+      const card = make("article", "detail-item");
+      card.append(make("h3", "detail-item-title", parts[1]));
+      card.append(make("p", "detail-item-text", parts.slice(2).join(" | ")));
+      body.append(card);
+      return;
+    }
 
-    const roll = document.createElement("td");
-    roll.textContent = r.roll;
+    if ((kind === "race trait" || kind === "description") && parts.length >= 3) {
+      const card = make("article", "detail-item");
+      card.append(make("h3", "detail-item-title", parts[1]));
+      card.append(make("p", "detail-item-text", parts.slice(2).join(" | ")));
+      body.append(card);
+      return;
+    }
 
-    const effect = document.createElement("td");
-    effect.textContent = r.effect;
+    if (kind === "bullet" && parts.length >= 2) {
+      const p = make("p", "detail-bullet");
+      p.innerHTML = parts.slice(1).join(" | ");
+      body.append(p);
+      return;
+    }
 
-    tr.append(roll, effect);
-    table.appendChild(tr);
+    const fallback = make("p", "detail-item-text", String(line));
+    body.append(fallback);
   });
-
-  return table;
 }
 
-/* =========================
-   Detail Renderer (EXPORT)
-========================= */
-export function renderDetail(type, data, mount) {
-  mount.innerHTML = "";
+function renderClassDetail(mount, data) {
+  const overview = section(mount, "Overview");
+  addKeyValueList(overview, [
+    { key: "Hit Die", value: data.hitDie ? `d${data.hitDie}` : null },
+    { key: "Primary Ability", value: data.primaryAbility?.toUpperCase() },
+    { key: "Saving Throws", value: data.savingThrows?.map(s => s.toUpperCase()) }
+  ]);
+  if (data.description) overview.append(make("p", "detail-lead", data.description));
 
-  // Back
-  const back = document.createElement("button");
-  back.textContent = "← Back";
-  back.onclick = () => history.back();
-  mount.appendChild(back);
-
-  // Title
-  const title = document.createElement("h1");
-  title.textContent = data.name || "Detail";
-  mount.appendChild(title);
-
-  // Description
-  if (data.description) {
-    const desc = document.createElement("p");
-    desc.textContent = data.description;
-    mount.appendChild(desc);
+  if (data.proficiencies) {
+    const prof = section(mount, "Proficiencies");
+    addKeyValueList(prof, [
+      { key: "Armor", value: data.proficiencies.armor || [] },
+      { key: "Weapons", value: data.proficiencies.weapons || [] },
+      { key: "Tools", value: data.proficiencies.tools || [] }
+    ]);
   }
 
-  /* =========================
-     CLASS DETAIL
-  ========================= */
-  if (type === "class") {
-    mount.appendChild(section("Class Features"));
-
-    if (data.hitDie) mount.appendChild(row("Hit Die", `d${data.hitDie}`));
-    if (data.primaryAbility) {
-      mount.appendChild(row("Primary Ability", data.primaryAbility.toUpperCase()));
-    }
-    if (data.savingThrows?.length) {
-      mount.appendChild(
-        row("Saving Throws", data.savingThrows.map(s => s.toUpperCase()).join(", "))
-      );
-    }
-
-    // Spell slot table
-    if (data.ui?.showSpellTable) {
-      mount.appendChild(section("Spell Slots per Level"));
-
-      // ✅ use class id, not hardcoded artificer
-      fetch(`./data/spellSlots/${data.id}.json`)
-        .then(r => r.json())
-        .then(tableData => {
-          mount.appendChild(renderSpellTable(tableData));
-        })
-        .catch(() => {
-          const p = document.createElement("p");
-          p.textContent = "Spell slot table missing.";
-          mount.appendChild(p);
-        });
-    }
-
-    // Proficiencies
-    if (data.proficiencies) {
-      mount.appendChild(section("Proficiencies"));
-      if (data.proficiencies.armor) mount.appendChild(row("Armor", data.proficiencies.armor.join(", ")));
-      if (data.proficiencies.weapons) mount.appendChild(row("Weapons", data.proficiencies.weapons.join(", ")));
-      if (data.proficiencies.tools) mount.appendChild(row("Tools", data.proficiencies.tools.join(", ")));
-    }
-
-    // Spellcasting
-    if (data.spellcasting) {
-      mount.appendChild(section("Spellcasting"));
-      mount.appendChild(row("Caster Type", data.spellcasting.type));
-      mount.appendChild(row("Spellcasting Ability", data.spellcasting.ability?.toUpperCase()));
-
-      if (data.spellcasting.description) {
-        const p = document.createElement("p");
-        p.textContent = data.spellcasting.description;
-        mount.appendChild(p);
-      }
-    }
-
-    // Features by level
-    if (data.levels) {
-      mount.appendChild(section("Class Features by Level"));
-
-      Object.keys(data.levels)
-        .map(Number)
-        .sort((a, b) => a - b)
-        .forEach(level => {
-          const h3 = document.createElement("h3");
-          h3.textContent = `Level ${level}`;
-          mount.appendChild(h3);
-
-          // Subclass links (if the class defines a subclass choice at this level)
-          const subclassChoice = data.levels[level].subclass;
-          if (subclassChoice) {
-            const p = document.createElement("p");
-            p.innerHTML = `<strong>${subclassChoice.label}</strong>`;
-            mount.appendChild(p);
-
-            fetch(`./data/subclasses/${data.id}/index.json`)
-              .then(r => r.json())
-              .then(subs => {
-                const ul = document.createElement("ul");
-
-                subs.forEach(sc => {
-                  const li = document.createElement("li");
-                  li.textContent = sc.name;
-                  li.style.cursor = "pointer";
-
-                  li.onclick = () => {
-                    history.pushState(
-                      { type: "subclass", id: sc.id, classId: data.id },
-                      "",
-                      `#/subclass/${data.id}/${sc.id}`
-                    );
-                    window.dispatchEvent(new Event("navigate-detail"));
-                  };
-
-                  ul.appendChild(li);
-                });
-
-                mount.appendChild(ul);
-              })
-              .catch(() => {
-                const p2 = document.createElement("p");
-                p2.textContent = "Subclass list missing.";
-                mount.appendChild(p2);
-              });
-          }
-
-          // Level features
-          (data.levels[level].features || []).forEach(f => {
-            mount.appendChild(featureBlock(f.name, f.description));
-          });
-        });
+  if (data.spellcasting) {
+    const spellcasting = section(mount, "Spellcasting");
+    addKeyValueList(spellcasting, [
+      { key: "Caster Type", value: data.spellcasting.type },
+      { key: "Ability", value: data.spellcasting.ability?.toUpperCase() },
+      { key: "Preparation", value: data.spellcasting.preparation || null }
+    ]);
+    if (data.spellcasting.description) {
+      spellcasting.append(make("p", "detail-item-text", data.spellcasting.description));
     }
   }
 
-  /* =========================
-     SUBCLASS DETAIL
-  ========================= */
-  if (data.featuresByLevel) {
-    mount.appendChild(section("Subclass Features"));
+  if (data.ui?.showSpellTable && data.id) {
+    const slots = section(mount, "Spell Slots");
+    fetch(`./data/spellSlots/${data.id}.json`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(tableData => {
+        if (!tableData) {
+          slots.append(make("p", "detail-muted", "Spell slot table missing."));
+          return;
+        }
+        slots.append(renderSpellTable(tableData));
+      })
+      .catch(() => slots.append(make("p", "detail-muted", "Spell slot table missing.")));
+  }
 
-    Object.keys(data.featuresByLevel)
+  if (data.levels) {
+    const timeline = section(mount, "Features by Level");
+    Object.keys(data.levels)
       .map(Number)
       .sort((a, b) => a - b)
       .forEach(level => {
-        const h3 = document.createElement("h3");
-        h3.textContent = `Level ${level}`;
-        mount.appendChild(h3);
+        const lvlWrap = make("article", "detail-level-block");
+        lvlWrap.append(make("h3", "detail-level-title", `Level ${level}`));
 
-        (data.featuresByLevel[level] || []).forEach(feature => {
-          mount.appendChild(featureBlock(feature.name, feature.description));
+        const lvl = data.levels[level];
+        if (lvl.subclass?.label) {
+          lvlWrap.append(make("p", "detail-item-text", lvl.subclass.label));
+        }
 
-          // Subclass always-prepared spell table
-          if (feature.type === "spell-table" && feature.spells) {
-            mount.appendChild(renderSpellTable(feature.spells));
-          }
-
-          // Dice table (Experimental Elixir, etc.)
-          if (feature.type === "table" && feature.table) {
-            mount.appendChild(renderDiceTable(feature.table));
-          }
+        (lvl.features || []).forEach(feature => {
+          const item = make("div", "detail-item");
+          item.append(make("h4", "detail-item-title", feature.name || "Feature"));
+          item.append(make("p", "detail-item-text", feature.description || ""));
+          lvlWrap.append(item);
         });
+        timeline.append(lvlWrap);
       });
+  }
+}
+
+function renderSubclassDetail(mount, data) {
+  const overview = section(mount, "Overview");
+  addKeyValueList(overview, [
+    { key: "Class", value: data.classId || null },
+    { key: "Source", value: data.source || null }
+  ]);
+  if (data.description) overview.append(make("p", "detail-lead", data.description));
+
+  const features = section(mount, "Subclass Features");
+  Object.keys(data.featuresByLevel || {})
+    .map(Number)
+    .sort((a, b) => a - b)
+    .forEach(level => {
+      const lvlWrap = make("article", "detail-level-block");
+      lvlWrap.append(make("h3", "detail-level-title", `Level ${level}`));
+      (data.featuresByLevel[level] || []).forEach(feature => {
+        const item = make("div", "detail-item");
+        item.append(make("h4", "detail-item-title", feature.name || "Feature"));
+        item.append(make("p", "detail-item-text", feature.description || ""));
+        if (feature.type === "spell-table" && feature.spells) {
+          item.append(renderSpellTable(feature.spells));
+        }
+        lvlWrap.append(item);
+      });
+      features.append(lvlWrap);
+    });
+}
+
+function renderBackgroundDetail(mount, data) {
+  const overview = section(mount, "Overview");
+  addKeyValueList(overview, [
+    { key: "Source", value: data.source || null },
+    { key: "Feat", value: data.feat || null },
+    { key: "Skill Proficiencies", value: data.skillProficiencies || [] },
+    { key: "Tool Proficiencies", value: data.toolProficiencies || [] }
+  ]);
+
+  if (Array.isArray(data.equipmentOptions) && data.equipmentOptions.length) {
+    const eq = section(mount, "Equipment Options");
+    data.equipmentOptions.forEach(line => eq.append(make("p", "detail-item-text", line)));
+  }
+
+  if (Array.isArray(data.features) && data.features.length) {
+    const feats = section(mount, "Background Features");
+    data.features.forEach(feature => {
+      const item = make("article", "detail-item");
+      item.append(make("h3", "detail-item-title", feature.name || "Feature"));
+      item.append(make("p", "detail-item-text", feature.description || ""));
+      feats.append(item);
+    });
+  }
+}
+
+function renderRaceDetail(mount, data) {
+  const overview = section(mount, "Overview");
+  addKeyValueList(overview, [
+    { key: "Source", value: data.source || null }
+  ]);
+  const content = section(mount, "Race Details");
+  renderRaceContents(content, data);
+}
+
+export function renderDetail(type, data, mount) {
+  mount.innerHTML = "";
+  const shell = make("div", "detail-shell");
+
+  const top = make("div", "detail-topbar");
+  const back = make("button", "detail-back-btn", "Back to Sheet");
+  back.type = "button";
+  back.onclick = () => window.dispatchEvent(new Event("close-detail"));
+  const badge = make("span", "detail-type-pill", prettyType(type));
+  top.append(back, badge);
+
+  const hero = make("header", "detail-hero");
+  hero.append(make("h1", "detail-title", data.name || data.title || "Detail"));
+  if (data.shortDescription) hero.append(make("p", "detail-lead", data.shortDescription));
+  else if (data.description) hero.append(make("p", "detail-lead", data.description));
+
+  const content = make("div", "detail-content");
+
+  shell.append(top, hero, content);
+  mount.append(shell);
+
+  if (type === "class") renderClassDetail(content, data);
+  else if (type === "subclass") renderSubclassDetail(content, data);
+  else if (type === "background") renderBackgroundDetail(content, data);
+  else if (type === "race") renderRaceDetail(content, data);
+  else {
+    const fallback = section(content, "Details");
+    fallback.append(make("p", "detail-muted", "No renderer available for this detail type."));
   }
 }

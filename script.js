@@ -3397,14 +3397,20 @@ function renderSavingThrows() {
 function syncDetailButtons() {
   const classBtn = document.querySelector('.detail-btn[data-type="class"]');
   const raceBtn = document.querySelector('.detail-btn[data-type="race"]');
+  const bgBtn   = document.querySelector('.detail-btn[data-type="background"]');
   const subBtn  = document.querySelector('.detail-btn[data-type="subclass"]');
 
   const classSelect = document.getElementById("classSelect");
   const raceSelect  = document.getElementById("raceSelect");
+  const bgSelect    = document.getElementById("backgroundSelect");
 
   if (classBtn && classSelect) classBtn.dataset.id = classSelect.value || "";
   if (raceBtn && raceSelect)   raceBtn.dataset.id = raceSelect.value || "";
-  if (subBtn) subBtn.dataset.id = character.subclass?.id || "";
+  if (bgBtn && bgSelect)       bgBtn.dataset.id = bgSelect.value || "";
+  if (subBtn) {
+    subBtn.dataset.id = character.subclass?.id || "";
+    subBtn.dataset.parentId = character.class?.id || document.getElementById("classSelect")?.value || "";
+  }
 }
 
 document.addEventListener("click", e => {
@@ -3424,9 +3430,14 @@ document.addEventListener("click", e => {
 
   if (btn.dataset.type === "subclass") {
     btn.dataset.id = character.subclass?.id || "";
+    btn.dataset.parentId = character.class?.id || document.getElementById("classSelect")?.value || "";
   }
 
-  openDetail(btn.dataset.type, btn.dataset.id);
+  if (btn.dataset.type === "background") {
+    btn.dataset.id = document.getElementById("backgroundSelect")?.value || "";
+  }
+
+  openDetail(btn.dataset.type, btn.dataset.id, btn.dataset.parentId || null);
 });
 
 

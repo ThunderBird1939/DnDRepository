@@ -5,20 +5,40 @@ export async function loadDetail(type, id, parentId) {
   mount.innerHTML = "<p>Loading...</p>";
 
   try {
-    let url;
+    let data = null;
 
     if (type === "class") {
-      url = `./data/classes/${id}.json`;
-    } 
-    else if (type === "subclass") {
+      const res = await fetch(`./data/classes/${id}.json`);
+      if (!res.ok) throw new Error("Missing class data");
+      data = await res.json();
+    } else if (type === "subclass") {
       if (!parentId) throw new Error("Missing parent class");
-      url = `./data/subclasses/${parentId}/${id}.json`;
+      const res = await fetch(`./data/subclasses/${parentId}/${id}.json`);
+      if (!res.ok) throw new Error("Missing subclass data");
+      data = await res.json();
+      data.classId ??= parentId;
+    } else if (type === "background") {
+      const res = await fetch("./data/backgrounds.json");
+      if (!res.ok) throw new Error("Missing backgrounds data");
+      const all = await res.json();
+      data = (all || []).find(bg => String(bg.id) === String(id));
+      if (!data) throw new Error("Background not found");
+    } else if (type === "race") {
+      const res = await fetch("./data/races.all.json");
+      if (!res.ok) throw new Error("Missing races data");
+      const all = await res.json();
+      data = (all || []).find((r, idx) => String(idx) === String(id));
+      if (!data) throw new Error("Race not found");
+      data = {
+        ...data,
+        id,
+        name: data.title || "Race",
+        source: Array.isArray(data.tags) ? data.tags.find(t => t !== "race") : null
+      };
+    } else {
+      throw new Error(`Unsupported detail type: ${type}`);
     }
 
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Missing data");
-
-    const data = await res.json();
     renderDetail(type, data, mount);
   } catch (err) {
     mount.innerHTML = `<p>Failed to load ${type}.</p>`;

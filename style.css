@@ -448,6 +448,158 @@ select:disabled {
   display: none !important;
 
 }
+
+#detailView {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 14px 28px;
+}
+
+.detail-shell {
+  display: grid;
+  gap: 14px;
+}
+
+.detail-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-back-btn {
+  width: auto;
+  background: linear-gradient(180deg, #d8b159 0%, #be963f 100%);
+  color: #2d2208;
+  border-color: #8f6d29;
+  font-weight: 700;
+}
+
+.detail-type-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #6c57a5;
+  background: linear-gradient(180deg, #3d3168 0%, #2b234c 100%);
+  color: #f6f2ff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.detail-hero {
+  padding: 16px;
+  border: 1px solid #6a52aa;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(54, 41, 92, 0.96), rgba(28, 21, 49, 0.97));
+}
+
+.detail-title {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  color: #fff7df;
+}
+
+.detail-lead {
+  margin: 0;
+  color: #e7ddff;
+  line-height: 1.55;
+}
+
+.detail-content {
+  display: grid;
+  gap: 12px;
+}
+
+.detail-section {
+  border: 1px solid #5f4a95;
+  border-radius: 12px;
+  padding: 12px;
+  background: linear-gradient(180deg, rgba(47, 36, 81, 0.95), rgba(24, 18, 43, 0.96));
+}
+
+.detail-section-title {
+  margin: 0 0 10px;
+  color: #f4ecff;
+}
+
+.detail-section-body {
+  display: grid;
+  gap: 10px;
+}
+
+.detail-kv-list {
+  display: grid;
+  gap: 6px;
+}
+
+.detail-kv-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 8px;
+}
+
+.detail-kv-key {
+  color: #d5c7f7;
+  font-weight: 700;
+}
+
+.detail-kv-value {
+  color: #f1eaff;
+}
+
+.detail-level-block,
+.detail-item {
+  border: 1px solid #5f4a95;
+  border-radius: 10px;
+  padding: 10px;
+  background: rgba(40, 30, 69, 0.72);
+}
+
+.detail-level-title,
+.detail-item-title {
+  margin: 0 0 6px;
+  color: #f7f1ff;
+}
+
+.detail-item-text,
+.detail-muted,
+.detail-bullet {
+  margin: 0;
+  color: #e6dcff;
+  line-height: 1.5;
+}
+
+.detail-divider {
+  border: none;
+  border-top: 1px solid #66509f;
+  margin: 4px 0;
+}
+
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detail-table th,
+.detail-table td {
+  border: 1px solid #5f4a95;
+  padding: 6px 8px;
+  color: #f2ebff;
+  text-align: left;
+}
+
+.detail-table th {
+  background: #302553;
+}
+
+.detail-inline-link {
+  border: none;
+  background: transparent;
+  color: #ffe7b1;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  width: auto;
+}
 .card-stack {
   display: flex;
   flex-direction: column;
@@ -1433,6 +1585,30 @@ button.primary:hover,
   box-shadow: 0 0 0 3px rgba(216, 177, 89, 0.25), 0 12px 26px rgba(5, 2, 12, 0.5);
 }
 
+#dmView .monster-card .card-sub {
+  color: #cbbcf1;
+  font-size: 0.9rem;
+}
+
+#dmView .monster-card .card-body {
+  color: #f1eaff;
+}
+
+#dmView .monster-card .ability-row {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f7f1ff;
+}
+
+#dmView .monster-card .speed-line {
+  font-size: 0.95rem;
+  color: #e8ddff;
+}
+
+#dmView .monster-card .speed-line strong {
+  color: #fff4cc;
+}
+
 /* =========================
    Dropdown Readability
 ========================= */
@@ -1532,10 +1708,99 @@ select optgroup {
   flex-wrap: wrap;
 }
 
+#dmView .dm-turn-toolbar {
+  position: static;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid #5d4a90;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(41, 31, 70, 0.96), rgba(31, 24, 52, 0.96));
+  backdrop-filter: blur(1px);
+}
+
+#dmView .dm-main > .panel:first-child {
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+  background: linear-gradient(180deg, #1f1839 0%, #18122f 100%);
+  border: 1px solid #6a52aa;
+  box-shadow: 0 14px 28px rgba(5, 2, 12, 0.7);
+  isolation: isolate;
+}
+
+#dmView .dm-main > .panel:first-child::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -10px;
+  height: 10px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 4, 16, 0.45), rgba(8, 4, 16, 0));
+}
+
+#dmView .status-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 6px;
+}
+
+#dmView .status-pill {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #6f58a9;
+  background: linear-gradient(180deg, #3b2f66 0%, #2a224b 100%);
+  color: #f3ecff;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+#dmView .turn-prompt-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+#dmView .turn-prompt-item {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #8c7640;
+  background: linear-gradient(180deg, #3e3320 0%, #2d2518 100%);
+  color: #ffe7b1;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+#dmView .variant-select {
+  min-width: 112px;
+  height: 34px;
+  padding: 4px 8px;
+  font-size: 0.82rem;
+}
+
 #dmView .card-sub .init-input {
   width: 78px;
   margin-left: 4px;
   padding: 4px 6px;
+}
+
+#dmView .variant-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #7e67ba;
+  background: linear-gradient(180deg, #453473 0%, #34285a 100%);
+  color: #f8f3ff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
 }
 
 #dmView .monster-card.down {
@@ -1553,6 +1818,37 @@ select optgroup {
 #dmView .monster-card.focused {
   outline: 2px solid #d8b159;
   box-shadow: 0 0 0 3px rgba(216, 177, 89, 0.2), 0 12px 26px rgba(5, 2, 12, 0.5);
+}
+
+#dmView .condition-bar {
+  gap: 6px;
+}
+
+#dmView .condition-chip {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #f4ecff;
+  background: linear-gradient(180deg, #3a2e67 0%, #2b224c 100%);
+  border: 1px solid #7a61ba;
+  border-radius: 999px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+#dmView .condition-chip.active {
+  color: #2a0f16;
+  background: linear-gradient(180deg, #ffb7c8 0%, #f08ca6 100%);
+  border-color: #d46587;
+}
+
+#dmView .condition-chip::after {
+  width: min(360px, 80vw);
+  color: #f8f3ff;
+  background: #191327;
+  border: 1px solid #6c56a4;
+  font-size: 0.9rem;
+  line-height: 1.45;
 }
 
 #dmView .quick-hp-input {
@@ -1614,8 +1910,19 @@ select optgroup {
 
 #dmView .dm-summary-bar span {
   margin: 0;
-  font-weight: 600;
-  color: #ece4ff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #f8f5ff;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+#dmView .dm-summary-bar strong {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
 }
 
 #profileSearchInput {
@@ -1704,3 +2011,4 @@ select optgroup {
 .spell-cast-controls select {
   min-width: 150px;
 }
+

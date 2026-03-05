@@ -730,9 +730,6 @@
   <div id="attunedItems"></div>
 </section>
 
-  <!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
-  <section id="detailView" class="detail-view" hidden></section>
-
 </div>
 
 <!-- ================= MODALS (UNCHANGED) ================= -->
@@ -803,6 +800,8 @@
   <button id="confirmPactBoon" disabled>Confirm Pact</button>
   </div>  <!-- closes #app-root -->
 </section> <!-- closes #sheetView -->
+<!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
+<section id="detailView" class="detail-view" hidden></section>
 <!-- ================= DM VIEW ================= -->
 <section id="dmView" hidden>
   <button id="backToSheetBtn" class="primary">Back to Character Sheet</button>
@@ -869,13 +868,15 @@
           <span>Enemy HP: <strong id="dmTotalHp">0</strong> / <strong id="dmTotalHpMax">0</strong></span>
           <span>Concentrating: <strong id="dmConcentrationCount">0</strong></span>
         </div>
-        <button id="prevTurnBtn">Previous Turn</button>
-        <button id="nextTurnBtn">Next Turn</button>
-        <button id="newRoundBtn">New Round</button>
-        <button id="bulkInitBtn">Roll Monster Initiative</button>
-        <button id="sortInitBtn">Sort by Initiative</button>
-        <button id="clearDefeatedBtn">Clear Defeated</button>
-        <button id="undoDmBtn">Undo Last Change</button>
+        <div id="dmTurnToolbar" class="dm-turn-toolbar">
+          <button id="prevTurnBtn">Previous Turn</button>
+          <button id="nextTurnBtn">Next Turn</button>
+          <button id="newRoundBtn">New Round</button>
+          <button id="bulkInitBtn">Roll Monster Initiative</button>
+          <button id="sortInitBtn">Sort by Initiative (DEX Tie)</button>
+          <button id="clearDefeatedBtn">Clear Defeated</button>
+          <button id="undoDmBtn">Undo Last Change</button>
+        </div>
       </section>
 
       <section class="panel">
@@ -941,26 +942,6 @@
         </select>
 
         <button id="addMonsterBtn">Add Monster</button>
-      </section>
-
-      <section class="panel">
-        <h2>Encounter Templates</h2>
-        <label>
-          Template Name
-          <input id="dmTemplateName" type="text" placeholder="Bandit Road Ambush" />
-        </label>
-        <button id="saveTemplateBtn">Save Template</button>
-        <label>
-          Load Template
-          <select id="templateSelect">
-            <option value="">— Select template —</option>
-          </select>
-        </label>
-        <label>
-          Enemy Scale
-          <input id="templateScaleInput" type="number" min="1" value="1" />
-        </label>
-        <button id="applyTemplateBtn">Apply Template</button>
       </section>
 
     </main>
