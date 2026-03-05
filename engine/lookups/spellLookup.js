@@ -1,18 +1,27 @@
 const SPELL_CACHE = {};
 
 export async function loadSpellsForClass(classId) {
+  if (!classId) return [];
   if (SPELL_CACHE[classId]) return SPELL_CACHE[classId];
 
-  const res = await fetch(`./data/spells/${classId}.json`);
-  const spells = (await res.json()).flat?.(10) ?? [];
+  const url = new URL(`../../data/spells/${classId}.json`, import.meta.url);
+  const res = await fetch(url);
+  if (!res.ok) {
+    SPELL_CACHE[classId] = [];
+    return SPELL_CACHE[classId];
+  }
+  const data = await res.json();
+  const spells = data?.flat?.(10) ?? (Array.isArray(data) ? data : []);
 
   SPELL_CACHE[classId] = spells;
   return spells;
 }
 
 export function getSpellById(id, classId) {
-  const cache = SPELL_CACHE[classId];
-  if (!cache) return null;
+  const cache = classId
+    ? SPELL_CACHE[classId]
+    : Object.values(SPELL_CACHE).flat();
+  if (!cache?.length) return null;
 
   return cache.find(
     s =>

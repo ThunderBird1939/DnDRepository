@@ -6,6 +6,10 @@ import {
 } from "../engine/rules/spellPrepRules.js";
 import { openSpellDetail } from "./spellDetailModal.js";
 
+function spellDataUrl(classId) {
+  return new URL(`../data/spells/${classId}.json`, import.meta.url);
+}
+
 /* ======================================================
    READ-ONLY SPELL LIST (click to view details)
 ====================================================== */
@@ -48,12 +52,12 @@ export async function renderSpellList() {
     ];
 
     for (const cid of classIds) {
-      const r = await fetch(`./data/spells/${cid}.json`);
+      const r = await fetch(spellDataUrl(cid));
       if (!r.ok) continue;
       spells.push(...await r.json());
     }
   } else {
-    const r = await fetch(`./data/spells/${character.class.id}.json`);
+    const r = await fetch(spellDataUrl(character.class.id));
     if (!r.ok) {
       container.textContent = "Spell data missing.";
       return;
@@ -179,12 +183,12 @@ export async function renderSpellsKnown() {
 
   if (allowAnyList) {
     for (const cid of classIds) {
-      const r = await fetch(`./data/spells/${cid}.json`);
+      const r = await fetch(spellDataUrl(cid));
       if (!r.ok) continue;
       spells.push(...await r.json());
     }
   } else {
-    const r = await fetch(`./data/spells/${character.class.id}.json`);
+    const r = await fetch(spellDataUrl(character.class.id));
     if (!r.ok) {
       el.textContent = "Spell data missing.";
       return;
@@ -204,7 +208,7 @@ export async function renderSpellsKnown() {
       if (missingIds.length) {
         const pool = [];
         for (const cid of classIds) {
-          const r = await fetch(`./data/spells/${cid}.json`);
+          const r = await fetch(spellDataUrl(cid));
           if (!r.ok) continue;
           pool.push(...await r.json());
         }

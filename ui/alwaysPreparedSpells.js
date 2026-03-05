@@ -20,7 +20,7 @@ export async function renderAlwaysPreparedSpells() {
   const ul = document.createElement("ul");
 
   [...alwaysPrepared]
-    .map(id => getSpellById(id))
+    .map(id => getSpellById(id, character.class.id))
     .filter(Boolean)
     .sort((a, b) => a.title.localeCompare(b.title))
     .forEach(spell => {
