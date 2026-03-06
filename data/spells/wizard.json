@@ -11141,5 +11141,32 @@
       "Wizard",
       "concentration"
     ]
+  },
+  {
+    "count": 1,
+    "color": "#4a6898",
+    "title": "Sapping Sting",
+    "icon": "magic-swirl",
+    "icon_back": "magic-swirl",
+    "contents": [
+      "subtitle | necromancy cantrip",
+      "rule",
+      "property | Casting Time | Action",
+      "property | Range | 30 feet",
+      "property | Components | V, S",
+      "property | Duration | Instantaneous",
+      "rule",
+      "text | You sap the vitality of one creature you can see in range. The target must succeed on a Constitution saving throw or take 1d4 necrotic damage and fall prone.",
+      "section | At higher levels",
+      "description | Cantrip Upgrade | The damage increases by 1d4 when you reach levels 5 (2d4), 11 (3d4), and 17 (4d4)."
+    ],
+    "tags": [
+      "spell",
+      "EGW",
+      "Cantrips",
+      "Necromancy",
+      "Wizard",
+      "Dunamancy"
+    ]
   }
 ]

@@ -49,6 +49,13 @@
     "1": {
       "features": [
         {
+          "id": "favored-enemy",
+          "name": "Favored Enemy",
+          "type": "choice",
+          "optionsSource": "ranger-favored-enemies",
+          "description": "Choose one type of favored enemy. You gain tracking and lore advantages against your chosen enemy."
+        },
+        {
           "id": "favored-foe",
           "name": "Favored Foe",
           "type": "system",

@@ -38,11 +38,16 @@ export async function renderSpellbook() {
 
   const maxLevel = maxWizardSpellLevel(character.level);
 
-  // ❗ Wizard spellbook never includes cantrips
   const eligible = allSpells
-    .filter(s => !isCantripFromTags(s.tags))
-    .filter(s => spellLevelFromTags(s.tags) <= maxLevel)
+    .filter(s => {
+      if (isCantripFromTags(s.tags)) return true;
+      const level = spellLevelFromTags(s.tags);
+      return level != null && level <= maxLevel;
+    })
     .sort((a, b) => a.title.localeCompare(b.title));
+
+  // Level-up learning remains non-cantrip wizard spells.
+  const learnEligible = eligible.filter(s => !isCantripFromTags(s.tags));
 
   /* =========================
      📘 HEADER
@@ -86,7 +91,7 @@ if (toLearn > 0) {
   function renderSelected() {
     selectedList.innerHTML = "";
     selected.forEach(id => {
-      const spell = eligible.find(
+      const spell = learnEligible.find(
         s => spellIdFromTitle(s.title) === id
       );
       if (!spell) return;
@@ -112,7 +117,8 @@ if (toLearn > 0) {
 function renderDropdown(filter = "") {
   dropdown.innerHTML = "";
 
-  eligible
+  learnEligible
+    .filter(s => !learned.has(spellIdFromTitle(s.title)))
     .filter(s => !selected.has(spellIdFromTitle(s.title)))
     .filter(s =>
       s.title.toLowerCase().includes(filter.toLowerCase())
@@ -162,6 +168,93 @@ function renderDropdown(filter = "") {
   );
   el.appendChild(learnBlock);
 }
+
+/* =========================
+   WIZARD COPYING (NO HARD CAP)
+========================= */
+const copyBlock = document.createElement("div");
+copyBlock.className = "spellbook-learn";
+
+const copyHint = document.createElement("div");
+copyHint.className = "muted";
+copyHint.textContent = "Copy additional spells into your spellbook (gold/time handled manually).";
+
+const copySearch = document.createElement("input");
+copySearch.type = "text";
+copySearch.placeholder = "Search spells to copy...";
+copySearch.className = "spell-search";
+
+const copyDropdown = document.createElement("div");
+copyDropdown.className = "spell-dropdown";
+
+const copySelected = document.createElement("div");
+copySelected.className = "muted";
+copySelected.style.marginTop = "6px";
+copySelected.textContent = "No spell selected.";
+
+const copyBtn = document.createElement("button");
+copyBtn.textContent = "Copy Spell";
+copyBtn.disabled = true;
+
+let selectedCopyId = null;
+
+function selectedCopySpell() {
+  return eligible.find(s => spellIdFromTitle(s.title) === selectedCopyId) ?? null;
+}
+
+function updateCopyState() {
+  const spell = selectedCopySpell();
+  copyBtn.disabled = !spell;
+  copySelected.textContent = spell ? `Selected: ${spell.title}` : "No spell selected.";
+}
+
+function renderCopyDropdown(filter = "") {
+  copyDropdown.innerHTML = "";
+  const q = filter.toLowerCase();
+
+  eligible
+    .filter(s => !learned.has(spellIdFromTitle(s.title)))
+    .filter(s => s.title.toLowerCase().includes(q))
+    .slice(0, 40)
+    .forEach(spell => {
+      const row = document.createElement("div");
+      row.className = "spell-dropdown-row";
+      row.textContent = spell.title;
+      row.onclick = () => {
+        selectedCopyId = spellIdFromTitle(spell.title);
+        updateCopyState();
+      };
+      copyDropdown.appendChild(row);
+    });
+
+  if (!copyDropdown.children.length) {
+    const empty = document.createElement("div");
+    empty.className = "muted";
+    empty.textContent = "No matching spells to copy.";
+    copyDropdown.appendChild(empty);
+  }
+}
+
+copySearch.oninput = () => renderCopyDropdown(copySearch.value);
+copySearch.onfocus = () => renderCopyDropdown(copySearch.value);
+
+copyBtn.onclick = () => {
+  const spell = selectedCopySpell();
+  if (!spell) return;
+
+  learned.add(selectedCopyId);
+  selectedCopyId = null;
+  copySearch.value = "";
+  updateCopyState();
+  renderCopyDropdown();
+
+  renderSpellbook();
+  window.dispatchEvent(new Event("spellbook-updated"));
+};
+
+updateCopyState();
+copyBlock.append(copyHint, copySearch, copyDropdown, copySelected, copyBtn);
+el.appendChild(copyBlock);
 
 
   /* =========================

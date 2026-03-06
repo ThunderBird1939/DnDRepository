@@ -2,27 +2,41 @@ import { loadDetail } from "./detailLoader.js";
 
 const sheetView = document.getElementById("sheetView");
 const detailView = document.getElementById("detailView");
+const dmView = document.getElementById("dmView");
+const homeView = document.getElementById("homeView");
+const libraryView = document.getElementById("libraryView");
+let detailReturnViewId = "sheetView";
 
-export function openDetail(type, id, parentId = null, updateHash = true) {
+function showOnly(viewId) {
+  [sheetView, detailView, dmView, homeView, libraryView]
+    .filter(Boolean)
+    .forEach(el => {
+      el.hidden = el.id !== viewId;
+    });
+}
+
+export function setDetailReturnView(viewId = "sheetView") {
+  detailReturnViewId = viewId;
+}
+
+export function openDetail(type, id, parentId = null, updateHash = true, returnViewId = null) {
   if (!type || !id) return;
+  if (returnViewId) detailReturnViewId = returnViewId;
 
   if (updateHash) {
-    const hash = type === "subclass" && parentId
-      ? `#/subclass/${parentId}/${id}`
+    const hash = parentId
+      ? `#/${type}/${parentId}/${id}`
       : `#/${type}/${id}`;
     history.pushState({ type, id, parentId }, "", hash);
   }
 
-  sheetView.hidden = true;
-  detailView.hidden = false;
-
+  showOnly("detailView");
   loadDetail(type, id, parentId);
 }
 
 export function closeDetail(updateHash = true) {
   if (updateHash) history.pushState(null, "", "#/");
-  detailView.hidden = true;
-  sheetView.hidden = false;
+  showOnly(detailReturnViewId || "sheetView");
   detailView.innerHTML = "";
 }
 
@@ -39,9 +53,9 @@ function routeFromHash() {
 
   const [type, a, b] = parts;
 
-  // ✅ subclass route: /subclass/<classId>/<subclassId>
-  if (type === "subclass" && a && b) {
-    openDetail("subclass", b, a, false);
+  // /<type>/<parentId>/<id>
+  if (a && b) {
+    openDetail(type, b, a, false);
     return;
   }
 

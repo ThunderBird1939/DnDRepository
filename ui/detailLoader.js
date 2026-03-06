@@ -4,6 +4,12 @@ export async function loadDetail(type, id, parentId) {
   const mount = document.getElementById("detailView");
   mount.innerHTML = "<p>Loading...</p>";
 
+  const toSlug = value =>
+    String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
   try {
     let data = null;
 
@@ -34,6 +40,19 @@ export async function loadDetail(type, id, parentId) {
         id,
         name: data.title || "Race",
         source: Array.isArray(data.tags) ? data.tags.find(t => t !== "race") : null
+      };
+    } else if (type === "spell") {
+      if (!parentId) throw new Error("Missing spell class");
+      const res = await fetch(`./data/spells/${parentId}.json`);
+      if (!res.ok) throw new Error("Missing class spells");
+      const all = await res.json();
+      data = (all || []).find(s => toSlug(s?.title) === String(id));
+      if (!data) throw new Error("Spell not found");
+      data = {
+        ...data,
+        id,
+        classId: parentId,
+        name: data.title || id
       };
     } else {
       throw new Error(`Unsupported detail type: ${type}`);

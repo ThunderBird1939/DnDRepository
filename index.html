@@ -16,7 +16,27 @@
 
 <body>
 
-<section id="sheetView">
+<section id="homeView" class="home-view">
+  <div class="home-shell">
+    <h1>Welcome to D&D Companion Sheet</h1>
+    <p class="home-lead">
+      New to D&D? Start here: build a character, browse rules, or jump into encounter management.
+    </p>
+    <section class="panel">
+      <h2>Quick Intro</h2>
+      <p>Dungeons & Dragons is a tabletop roleplaying game where you create a character and tell a story through choices, dice rolls, and teamwork.</p>
+      <p>Core loop: describe action -> roll d20 when needed -> add modifiers -> compare to DC/AC -> apply results.</p>
+      <p>Character basics: Race + Class + Background + Ability Scores. Class determines most combat and spell features.</p>
+    </section>
+    <div class="home-actions">
+      <button id="startCharacterBtn" class="primary" type="button">Character Creator</button>
+      <button id="startDmBtn" class="primary" type="button">DM Encounter Screen</button>
+      <button id="openLibraryBtn" type="button">Reference Library</button>
+    </div>
+  </div>
+</section>
+
+<section id="sheetView" hidden>
   <button id="exportPdfBtn" class="primary">
     Export Character Sheet (PDF)
   </button>
@@ -50,7 +70,13 @@
   <div id="characterProfilesList" class="profile-list"></div>
 </section>
 
-  <button id="toggleDM" class="primary">
+  <button id="goHomeFromSheetBtn" type="button">
+    Home
+  </button>
+  <button id="openLibraryFromSheetBtn" type="button">
+    Reference Library
+  </button>
+  <button id="toggleDM" class="primary" type="button">
     DM Mode
   </button>
 
@@ -800,6 +826,28 @@
   <button id="confirmPactBoon" disabled>Confirm Pact</button>
   </div>  <!-- closes #app-root -->
 </section> <!-- closes #sheetView -->
+<!-- ================= LIBRARY VIEW ================= -->
+<section id="libraryView" hidden>
+  <button id="backToHomeFromLibraryBtn" type="button">Back to Home</button>
+  <button id="backToSheetFromLibraryBtn" type="button">Back to Character Sheet</button>
+  <section class="panel">
+    <h2>Reference Library</h2>
+    <p class="muted">Browse races, backgrounds, classes, subclasses, and spells.</p>
+    <div class="utility-row">
+      <select id="libraryTypeSelect">
+        <option value="race">Races</option>
+        <option value="background">Backgrounds</option>
+        <option value="class">Classes</option>
+        <option value="subclass">Subclasses</option>
+        <option value="spell">Spells</option>
+      </select>
+      <input id="librarySearchInput" type="text" placeholder="Search library..." />
+      <button id="refreshLibraryBtn" type="button">Refresh</button>
+    </div>
+    <div id="libraryHint" class="muted">Choose a category and click an entry.</div>
+    <div id="libraryResults" class="library-list"></div>
+  </section>
+</section>
 <!-- ================= DETAIL VIEW (SPA PAGE) ================= -->
 <section id="detailView" class="detail-view" hidden></section>
 <!-- ================= DM VIEW ================= -->
@@ -875,8 +923,29 @@
           <button id="bulkInitBtn">Roll Monster Initiative</button>
           <button id="sortInitBtn">Sort by Initiative (DEX Tie)</button>
           <button id="clearDefeatedBtn">Clear Defeated</button>
+          <button id="toggleCompactCardsBtn">Compact Cards: Off</button>
           <button id="undoDmBtn">Undo Last Change</button>
         </div>
+      </section>
+
+      <section class="panel">
+        <h2>Reinforcements</h2>
+        <label>
+          Monster
+          <select id="reinforcementMonsterSelect">
+            <option value="">— Select a monster —</option>
+          </select>
+        </label>
+        <div class="reinforcement-controls">
+          <label>Count <input id="reinforcementCount" type="number" min="1" value="1" /></label>
+          <label>After Rounds <input id="reinforcementDelay" type="number" min="1" value="1" /></label>
+          <label class="reinforcement-check">
+            <input id="reinforcementRollInit" type="checkbox" checked />
+            Roll initiative on arrival
+          </label>
+          <button id="scheduleReinforcementBtn" type="button">Schedule Wave</button>
+        </div>
+        <div id="reinforcementList" class="library-list"></div>
       </section>
 
       <section class="panel">

@@ -3,6 +3,8 @@ export const dmState = {
     name: "New Encounter",
     round: 1,
     turnIndex: 0,
-    combatants: []
+    combatants: [],
+    reinforcements: [],
+    compactCards: false
   }
 };

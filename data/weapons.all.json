@@ -7315,6 +7315,34 @@
 },
 {
 	"count": 1,
+	"color": "#2d5a86",
+	"title": "Ostrumite-Core Bow",
+	"icon": "bow-arrow",
+	"icon_back": "magic-swirl",
+	"contents": [
+		"subtitle | Weapon (Longbow), Uncommon (Requires Attunement)",
+		"property | Damage | 1d8 Piercing",
+		"property | Properties | Ammunition (150/600 ft.), Heavy, Two-Handed",
+		"property | Type | Martial Weapon, Ranged Weapon",
+		"rule",
+		"text | This longbow is crafted from polished yew reinforced with thin veins of Ostrumite running along its limbs. At the center grip rests a thumb-sized crystal secured in a set of arcane clamps identical to those used in Astralos’s handaxe designs. The crystal hums softly whenever the string is drawn, resonating with magical energy in the air. The arrow flies. The crystal listens.",
+		"rule",
+		"description | Arcane Conduction | This weapon counts as magical for the purpose of overcoming resistance and immunity to nonmagical attacks. When you hit a creature with this weapon, you may choose for the damage to be piercing, lightning, or force instead of its normal damage type.",
+		"description | Resonant Guidance | When you make an attack with this weapon, the Ostrumite crystal subtly adjusts the bow’s arcane resonance. If you cast a spell or used a magical ability since the end of your previous turn, you gain a +1 bonus to the attack roll.",
+		"description | Arcane Spark | When you score a critical hit with this weapon, the target takes an additional 1d6 force damage as the crystal releases a pulse of stored arcane energy."
+	],
+	"tags": [
+		"item",
+		"uncommon",
+		"martial weapon",
+		"ranged weapon",
+		"magic item",
+		"requires attunement",
+		"ostrumite"
+	]
+},
+{
+	"count": 1,
 	"color": "#216e4a",
 	"title": "Ostrumite-Core Handaxe",
 	"icon": "axe-swing",

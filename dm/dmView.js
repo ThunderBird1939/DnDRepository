@@ -73,6 +73,7 @@ let lastActiveCombatantId = null;
 
 let encounterNameInputEl = null;
 let monsterSelectEl = null;
+let reinforcementMonsterSelectEl = null;
 
 function ensureEncounterDefaults() {
   dmState.encounter ??= {};
@@ -81,6 +82,9 @@ function ensureEncounterDefaults() {
   dmState.encounter.turnIndex = Number(dmState.encounter.turnIndex ?? 0);
   dmState.encounter.combatants ??= [];
   if (!Array.isArray(dmState.encounter.combatants)) dmState.encounter.combatants = [];
+  dmState.encounter.reinforcements ??= [];
+  if (!Array.isArray(dmState.encounter.reinforcements)) dmState.encounter.reinforcements = [];
+  dmState.encounter.compactCards = !!dmState.encounter.compactCards;
   dmState.encounter.notes ??= "";
   dmState.encounter.log ??= [];
   if (!Array.isArray(dmState.encounter.log)) dmState.encounter.log = [];
@@ -212,6 +216,7 @@ export async function initDMView() {
   // Cache DOM refs (ONLY inside init)
   encounterNameInputEl = document.getElementById("encounterName");
   monsterSelectEl = document.getElementById("monsterSelect");
+  reinforcementMonsterSelectEl = document.getElementById("reinforcementMonsterSelect");
 
   // Populate monster dropdown
   if (monsterSelectEl) {
@@ -221,6 +226,15 @@ export async function initDMView() {
       opt.value = String(i);
       opt.textContent = m.title;
       monsterSelectEl.appendChild(opt);
+    });
+  }
+  if (reinforcementMonsterSelectEl) {
+    reinforcementMonsterSelectEl.innerHTML = `<option value="">— Select a monster —</option>`;
+    monsters.forEach((m, i) => {
+      const opt = document.createElement("option");
+      opt.value = String(i);
+      opt.textContent = m.title;
+      reinforcementMonsterSelectEl.appendChild(opt);
     });
   }
 
@@ -239,6 +253,7 @@ export async function initDMView() {
   bindAddPartyMember();
   bindTurnFlow();
   bindEncounterTools();
+  bindReinforcementControls();
   bindEncounterNotesAndLog();
   bindFilterControls();
   bindSaveLoadExportImport();
@@ -251,6 +266,7 @@ export async function initDMView() {
   // Initial DM render (ONLY inside init)
   renderEncounterCards();
   renderEncounterLibrary();
+  renderReinforcementList();
   renderEncounterLog();
   renderEncounterSummary();
   renderPartyProfileOptions();
@@ -272,32 +288,10 @@ function bindAddMonster() {
     const monster = monsters[Number(monsterSelectEl.value)];
     if (!monster) return;
 
-    const baseName = monster.title;
-
-    const count =
-      dmState.encounter.combatants.filter(c => c.name.startsWith(baseName))
-        .length + 1;
-
-    const rolledHp = rollHpFromMonster(monster);
-    const dexMod = getCombatantDexMod({ monsterRef: monster });
-
     pushUndoSnapshot("add monster");
-    dmState.encounter.combatants.push({
-      id: crypto.randomUUID(),
-      name: `${baseName} #${count}`,
-      ac: extractMonsterAC(monster),
-      initiative: 0,
-      dexMod,
-      hp: {
-        max: rolledHp,
-        current: rolledHp,
-        temp: 0
-      },
-      conditions: [],
-      monsterRef: monster
-    });
-
-    pushEncounterLog(`Added ${baseName} #${count}`);
+    const added = addMonsterCombatants(monster, 1, { rollInitiative: false });
+    const name = added[0]?.name || monster.title;
+    pushEncounterLog(`Added ${name}`);
     renderEncounterCards();
   });
 }
@@ -391,6 +385,7 @@ function bindAddPartyMember() {
       hp: { max: hpMax, current: Math.max(0, hpCurrent), temp: Number(data.hp?.temp ?? 0) },
       conditions: [],
       isParty: true,
+      isFriendly: true,
       sourceProfileId: profile.id ?? null,
       conMod
     });
@@ -429,6 +424,8 @@ function bindTurnFlow() {
       if (dmState.encounter.turnIndex >= dmState.encounter.combatants.length) {
         dmState.encounter.turnIndex = 0;
         dmState.encounter.round++;
+        applyRoundTick();
+        deployReinforcementsForCurrentRound();
       }
 
       announceTurnStart("next turn");
@@ -447,6 +444,7 @@ function bindTurnFlow() {
         if (c.legendary) c.legendary.remaining = c.legendary.max;
       });
       applyRoundTick();
+      deployReinforcementsForCurrentRound();
 
       announceTurnStart("new round");
       pushEncounterLog("Started new round");
@@ -459,6 +457,7 @@ function bindEncounterTools() {
   const bulkBtn = document.getElementById("bulkInitBtn");
   const sortBtn = document.getElementById("sortInitBtn");
   const clearBtn = document.getElementById("clearDefeatedBtn");
+  const compactBtn = document.getElementById("toggleCompactCardsBtn");
   const undoBtn = document.getElementById("undoDmBtn");
   if (bulkBtn) {
     bulkBtn.onclick = () => {
@@ -493,6 +492,12 @@ function bindEncounterTools() {
       dmState.encounter.turnIndex = 0;
       const removed = before - dmState.encounter.combatants.length;
       if (removed > 0) pushEncounterLog(`Cleared ${removed} defeated combatant(s)`);
+      renderEncounterCards();
+    };
+  }
+  if (compactBtn) {
+    compactBtn.onclick = () => {
+      dmState.encounter.compactCards = !dmState.encounter.compactCards;
       renderEncounterCards();
     };
   }
@@ -560,6 +565,41 @@ function bindFilterControls() {
     conditionsEl.checked = !!dmState.encounter.filters.conditionsOnly;
     conditionsEl.addEventListener("change", sync);
   }
+}
+
+function bindReinforcementControls() {
+  const scheduleBtn = document.getElementById("scheduleReinforcementBtn");
+  const countEl = document.getElementById("reinforcementCount");
+  const delayEl = document.getElementById("reinforcementDelay");
+  const rollInitEl = document.getElementById("reinforcementRollInit");
+
+  if (!scheduleBtn || !reinforcementMonsterSelectEl) return;
+
+  scheduleBtn.onclick = () => {
+    const monster = monsters[Number(reinforcementMonsterSelectEl.value)];
+    if (!monster) return;
+
+    const count = Math.max(1, Number(countEl?.value || 1));
+    const delay = Math.max(1, Number(delayEl?.value || 1));
+    const triggerRound = Math.max(1, Number(dmState.encounter.round ?? 1) + delay);
+    const rollInitiative = !!rollInitEl?.checked;
+
+    pushUndoSnapshot("schedule reinforcement");
+    dmState.encounter.reinforcements.push({
+      id: crypto.randomUUID(),
+      monsterId: monster.title,
+      count,
+      triggerRound,
+      rollInitiative,
+      deployed: false,
+      deployedRound: null
+    });
+
+    pushEncounterLog(
+      `Scheduled reinforcement: ${monster.title} x${count} on round ${triggerRound}`
+    );
+    renderReinforcementList();
+  };
 }
 
 function applyVariantToCombatant(c, variantId) {
@@ -699,6 +739,8 @@ function bindLibraryControls() {
         round: 1,
         turnIndex: 0,
         combatants: [],
+        reinforcements: [],
+        compactCards: false,
         notes: "",
         log: [],
         filters: {
@@ -727,6 +769,7 @@ function bindLibraryControls() {
 
       renderEncounterCards();
       renderEncounterLibrary();
+      renderReinforcementList();
       renderEncounterLog();
       queueEncounterAutosave();
     };
@@ -742,6 +785,16 @@ function buildEncounterSaveData() {
     notes: dmState.encounter.notes ?? "",
     log: dmState.encounter.log ?? [],
     filters: dmState.encounter.filters ?? {},
+    compactCards: !!dmState.encounter.compactCards,
+    reinforcements: (dmState.encounter.reinforcements ?? []).map(w => ({
+      id: w.id,
+      monsterId: w.monsterId,
+      count: Number(w.count ?? 1),
+      triggerRound: Number(w.triggerRound ?? 1),
+      rollInitiative: w.rollInitiative !== false,
+      deployed: !!w.deployed,
+      deployedRound: Number(w.deployedRound ?? 0) || null
+    })),
     combatants: dmState.encounter.combatants.map(c => ({
       id: c.id,
       name: c.name,
@@ -753,6 +806,7 @@ function buildEncounterSaveData() {
       conditionDurations: c.conditionDurations,
       concentration: c.concentration,
       isParty: !!c.isParty,
+      isFriendly: !!c.isFriendly,
       monsterId: c.monsterRef?.title ?? null,
       ui: c.ui,
       recharge: c.recharge,
@@ -773,6 +827,18 @@ function loadEncounterFromData(data) {
   dmState.encounter.notes = data.notes ?? "";
   dmState.encounter.log = Array.isArray(data.log) ? data.log : [];
   dmState.encounter.filters = { ...(dmState.encounter.filters || {}), ...(data.filters || {}) };
+  dmState.encounter.compactCards = !!data.compactCards;
+  dmState.encounter.reinforcements = Array.isArray(data.reinforcements)
+    ? data.reinforcements.map(w => ({
+      id: w.id || crypto.randomUUID(),
+      monsterId: String(w.monsterId || ""),
+      count: Math.max(1, Number(w.count ?? 1)),
+      triggerRound: Math.max(1, Number(w.triggerRound ?? 1)),
+      rollInitiative: w.rollInitiative !== false,
+      deployed: !!w.deployed,
+      deployedRound: Number(w.deployedRound ?? 0) || null
+    }))
+    : [];
   const notesEl = document.getElementById("dmNotes");
   if (notesEl) notesEl.value = dmState.encounter.notes;
 
@@ -792,6 +858,7 @@ function loadEncounterFromData(data) {
   if (focusedEl) focusedEl.checked = !!dmState.encounter.filters.focusedOnly;
   if (conditionsEl) conditionsEl.checked = !!dmState.encounter.filters.conditionsOnly;
   renderEncounterLog();
+  renderReinforcementList();
   queueEncounterAutosave();
 }
 
@@ -810,6 +877,43 @@ function extractMonsterAC(monster) {
 
   const match = acLine.match(/\|\s*(\d+)/);
   return match ? Number(match[1]) : 10;
+}
+
+function addMonsterCombatants(monster, count = 1, opts = {}) {
+  const amount = Math.max(1, Number(count || 1));
+  const rollInitiative = opts.rollInitiative === true;
+  const added = [];
+  const baseName = String(monster?.title || "Monster");
+  let nextOrdinal =
+    dmState.encounter.combatants.filter(c => c.name.startsWith(baseName)).length + 1;
+
+  for (let i = 0; i < amount; i += 1) {
+    const rolledHp = rollHpFromMonster(monster);
+    const dexMod = getCombatantDexMod({ monsterRef: monster });
+    const combatant = {
+      id: crypto.randomUUID(),
+      name: `${baseName} #${nextOrdinal}`,
+      ac: extractMonsterAC(monster),
+      initiative: 0,
+      dexMod,
+      hp: {
+        max: rolledHp,
+        current: rolledHp,
+        temp: 0
+      },
+      conditions: [],
+      monsterRef: monster
+    };
+    normalizeCombatantState(combatant);
+    if (rollInitiative) {
+      combatant.initiative = rollInitiativeForCombatant(combatant);
+    }
+    dmState.encounter.combatants.push(combatant);
+    added.push(combatant);
+    nextOrdinal += 1;
+  }
+
+  return added;
 }
 
 function extractLegendaryMax(monster) {
@@ -1011,6 +1115,8 @@ function normalizeCombatantState(c) {
   c.recharge ??= {};
   c.concentration ??= { active: false, spell: "" };
   c.variantId ??= null;
+  c.isParty = !!c.isParty;
+  c.isFriendly = !!c.isFriendly || c.isParty;
 }
 
 function normalizeConditionName(raw) {
@@ -1076,6 +1182,104 @@ function applyRoundTick() {
   });
 }
 
+function deployReinforcementsForCurrentRound() {
+  ensureEncounterDefaults();
+  const currentRound = Math.max(1, Number(dmState.encounter.round ?? 1));
+  const due = dmState.encounter.reinforcements.filter(
+    w => !w.deployed && Number(w.triggerRound ?? 0) <= currentRound
+  );
+  if (!due.length) {
+    renderReinforcementList();
+    return;
+  }
+
+  let totalAdded = 0;
+  due.forEach(w => {
+    const monster = monsters.find(m => m.title === w.monsterId);
+    if (!monster) {
+      w.deployed = true;
+      w.deployedRound = currentRound;
+      pushEncounterLog(
+        `Skipped reinforcement (missing monster): ${w.monsterId || "Unknown"}`
+      );
+      return;
+    }
+    const count = Math.max(1, Number(w.count ?? 1));
+    const added = addMonsterCombatants(monster, count, {
+      rollInitiative: w.rollInitiative !== false
+    });
+    w.deployed = true;
+    w.deployedRound = currentRound;
+    totalAdded += added.length;
+    pushEncounterLog(
+      `Reinforcements arrived (R${currentRound}): ${monster.title} x${added.length}`
+    );
+  });
+
+  if (totalAdded > 0) {
+    dmState.encounter.combatants.sort(compareCombatantsByInitiative);
+    dmState.encounter.turnIndex = 0;
+  }
+  renderReinforcementList();
+}
+
+function reinforcementStatusLabel(w) {
+  if (w.deployed) {
+    return `Deployed${w.deployedRound ? ` (R${w.deployedRound})` : ""}`;
+  }
+  const current = Math.max(1, Number(dmState.encounter.round ?? 1));
+  const roundsLeft = Number(w.triggerRound ?? 1) - current;
+  if (roundsLeft <= 0) return "Due now";
+  return `In ${roundsLeft} round${roundsLeft === 1 ? "" : "s"}`;
+}
+
+function renderReinforcementList() {
+  const list = document.getElementById("reinforcementList");
+  if (!list) return;
+  ensureEncounterDefaults();
+  const waves = dmState.encounter.reinforcements ?? [];
+
+  if (!waves.length) {
+    list.innerHTML = `<div class="muted">No reinforcement waves scheduled.</div>`;
+    return;
+  }
+
+  list.innerHTML = "";
+  waves
+    .slice()
+    .sort((a, b) => Number(a.triggerRound ?? 0) - Number(b.triggerRound ?? 0))
+    .forEach(w => {
+      const row = document.createElement("div");
+      row.className = "library-item reinforcement-row";
+      const status = reinforcementStatusLabel(w);
+      row.innerHTML = `
+        <span class="library-name">
+          <strong>R${Number(w.triggerRound ?? 1)}</strong> - ${w.monsterId} x${Number(w.count ?? 1)}
+          <span class="reinforcement-status">${status}</span>
+        </span>
+      `;
+
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "library-delete";
+      del.textContent = "x";
+      del.title = "Remove wave";
+      del.onclick = () => {
+        pushUndoSnapshot("remove reinforcement");
+        dmState.encounter.reinforcements = dmState.encounter.reinforcements.filter(
+          x => x.id !== w.id
+        );
+        pushEncounterLog(
+          `Removed reinforcement wave: ${w.monsterId} x${Number(w.count ?? 1)} (R${Number(w.triggerRound ?? 1)})`
+        );
+        renderReinforcementList();
+      };
+
+      row.appendChild(del);
+      list.appendChild(row);
+    });
+}
+
 function matchesFilters(c, index) {
   const f = dmState.encounter.filters || {};
   if (f.search) {
@@ -1108,7 +1312,7 @@ function renderEncounterSummary() {
     normalizeCombatantState(c);
     const current = Number(c.hp?.current ?? 0);
     const max = Number(c.hp?.max ?? 0);
-    if (!c.isParty) {
+    if (!c.isParty && !c.isFriendly) {
       hpTotal += current;
       hpMaxTotal += max;
     }
@@ -1134,9 +1338,17 @@ function renderEncounterCards() {
   if (roundEl) roundEl.textContent = dmState.encounter.round;
   if (turnEl) turnEl.textContent = activeCombatant()?.name ?? "-";
   renderEncounterSummary();
+  renderReinforcementList();
 
   const mount = document.getElementById("encounterCards");
   if (!mount) return;
+  const compact = !!dmState.encounter.compactCards;
+  mount.classList.toggle("compact-cards", compact);
+  const compactBtn = document.getElementById("toggleCompactCardsBtn");
+  if (compactBtn) {
+    compactBtn.textContent = `Compact Cards: ${compact ? "On" : "Off"}`;
+    compactBtn.classList.toggle("active", compact);
+  }
 
   mount.innerHTML = "";
 
@@ -1196,12 +1408,13 @@ function renderEncounterCards() {
     if (i === dmState.encounter.turnIndex) card.classList.add("active");
 
     const isActiveTurn = i === dmState.encounter.turnIndex;
+    const factionLabel = c.isParty ? "Player" : c.isFriendly ? "Friendly" : "Enemy";
     const statusBits = [
       isActiveTurn ? "Active Turn" : "",
       c.ui?.focused ? "Focused" : "",
       Number(c.hp?.current ?? 0) <= 0 ? "Down" : "",
       c.concentration?.active ? "Concentrating" : "",
-      c.isParty ? "Party" : "Enemy"
+      factionLabel
     ].filter(Boolean);
     const turnPrompts = isActiveTurn ? getTurnPrompts(c) : [];
 
@@ -1239,6 +1452,8 @@ function renderEncounterCards() {
       <div class="card-controls">
         <button class="set-active-btn">Set Turn</button>
         <button class="focus-combatant-btn">${c.ui?.focused ? "Unfocus" : "Focus"}</button>
+        <label class="faction-check"><input class="friendly-toggle" type="checkbox" ${c.isFriendly ? "checked" : ""} /> Friendly</label>
+        <label class="faction-check"><input class="player-toggle" type="checkbox" ${c.isParty ? "checked" : ""} /> Player</label>
         ${c.monsterRef ? `<button class="clone-combatant-btn">Clone</button>` : ""}
         <input class="quick-hp-input" type="text" placeholder="-12 / +8" />
         <button class="apply-quick-hp-btn">Apply</button>
@@ -1302,6 +1517,8 @@ function renderEncounterCards() {
     }
 
     const setActiveBtn = card.querySelector(".set-active-btn");
+    const friendlyToggle = card.querySelector(".friendly-toggle");
+    const playerToggle = card.querySelector(".player-toggle");
     if (setActiveBtn) {
       setActiveBtn.onclick = () => {
         pushUndoSnapshot("set turn");
@@ -1310,6 +1527,40 @@ function renderEncounterCards() {
         pushEncounterLog(`Turn set to ${c.name}`);
         renderEncounterCards();
       };
+    }
+
+    if (friendlyToggle) {
+      friendlyToggle.addEventListener("change", () => {
+        pushUndoSnapshot("faction toggle");
+        const before = c.isParty ? "Player" : c.isFriendly ? "Friendly" : "Enemy";
+        if (friendlyToggle.checked) {
+          c.isFriendly = true;
+        } else {
+          c.isFriendly = false;
+          c.isParty = false;
+          if (playerToggle) playerToggle.checked = false;
+        }
+        const after = c.isParty ? "Player" : c.isFriendly ? "Friendly" : "Enemy";
+        pushEncounterLog(`${c.name} faction: ${before} -> ${after}`);
+        renderEncounterCards();
+      });
+    }
+
+    if (playerToggle) {
+      playerToggle.addEventListener("change", () => {
+        pushUndoSnapshot("player toggle");
+        const before = c.isParty ? "Player" : c.isFriendly ? "Friendly" : "Enemy";
+        if (playerToggle.checked) {
+          c.isParty = true;
+          c.isFriendly = true;
+          if (friendlyToggle) friendlyToggle.checked = true;
+        } else {
+          c.isParty = false;
+        }
+        const after = c.isParty ? "Player" : c.isFriendly ? "Friendly" : "Enemy";
+        pushEncounterLog(`${c.name} faction: ${before} -> ${after}`);
+        renderEncounterCards();
+      });
     }
 
     const variantSelect = card.querySelector(".variant-select");
@@ -1751,13 +2002,15 @@ function renderEncounterCards() {
 
 /* ---------- Helper ---------- */
 function sectionBlock(key, title, content, c) {
+  const compact = !!dmState.encounter.compactCards;
+  const expanded = !compact && !!c.ui[key];
   return `
     <hr class="stat-divider">
     <div class="collapsible">
       <h4 data-sec="${key}">
-        ${title} ${c.ui[key] ? "v" : ">"}
+        ${title} ${expanded ? "v" : ">"}
       </h4>
-      ${c.ui[key] ? `<div class="section-body">${content}</div>` : ""}
+      ${expanded ? `<div class="section-body">${content}</div>` : ""}
     </div>
   `;
 }

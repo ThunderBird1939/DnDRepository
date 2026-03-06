@@ -1,0 +1,72 @@
+[
+  {
+    "id": "aberrations",
+    "name": "Aberrations",
+    "description": "Creatures from alien realities such as beholders, mind flayers, and other strange entities."
+  },
+  {
+    "id": "beasts",
+    "name": "Beasts",
+    "description": "Natural animals and predators of the wild."
+  },
+  {
+    "id": "celestials",
+    "name": "Celestials",
+    "description": "Holy beings tied to upper planes and divine power."
+  },
+  {
+    "id": "constructs",
+    "name": "Constructs",
+    "description": "Artificial creatures such as golems, animated armor, and living machines."
+  },
+  {
+    "id": "dragons",
+    "name": "Dragons",
+    "description": "Chromatic and metallic dragons and related draconic threats."
+  },
+  {
+    "id": "elementals",
+    "name": "Elementals",
+    "description": "Creatures of fire, water, air, earth, and other elemental forces."
+  },
+  {
+    "id": "fey",
+    "name": "Fey",
+    "description": "Creatures tied to the Feywild, including tricksters and ancient spirits."
+  },
+  {
+    "id": "fiends",
+    "name": "Fiends",
+    "description": "Demons, devils, and other infernal beings."
+  },
+  {
+    "id": "giants",
+    "name": "Giants",
+    "description": "Massive humanoids such as hill giants, frost giants, and storm giants."
+  },
+  {
+    "id": "monstrosities",
+    "name": "Monstrosities",
+    "description": "Unnatural predators and magical horrors like owlbears and manticores."
+  },
+  {
+    "id": "oozes",
+    "name": "Oozes",
+    "description": "Amorphous creatures such as gelatinous cubes and black puddings."
+  },
+  {
+    "id": "plants",
+    "name": "Plants",
+    "description": "Animated or hostile flora and fungal threats."
+  },
+  {
+    "id": "undead",
+    "name": "Undead",
+    "description": "Skeletons, zombies, ghosts, and other creatures sustained beyond death."
+  },
+  {
+    "id": "humanoids",
+    "name": "Humanoids",
+    "description": "Choose one humanoid ancestry common in your campaign (for example: orcs, goblins, drow, or gnolls)."
+  }
+]

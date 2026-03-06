@@ -6,11 +6,21 @@ import { loadArmor } from "../ui/armorLoader.js";
 export async function calculateArmorClass(character) {
   const armorData = await loadArmor();
 
+  const finalAbility = stat => {
+    const base = Number(character.abilities?.[stat] ?? 10);
+    const race = Number(character.appliedRaceAsi?.[stat] ?? 0);
+    return base + race;
+  };
+
   const dexMod = Math.floor(
-    ((character.abilities?.dex ?? 10) - 10) / 2
+    (finalAbility("dex") - 10) / 2
+  );
+  const conMod = Math.floor(
+    (finalAbility("con") - 10) / 2
   );
 
-  let ac = 10;
+  // Baseline unarmored AC is 10 + DEX.
+  let ac = 10 + dexMod;
 
   const armorId = character.equipment?.armor;
   const hasShield = character.equipment?.shield;
@@ -18,6 +28,11 @@ export async function calculateArmorClass(character) {
   const armor = armorId
     ? armorData.find(a => a.id === armorId)
     : null;
+
+  // Barbarian Unarmored Defense: 10 + DEX + CON (shield still applies below).
+  if (!armor && character.class?.id === "barbarian") {
+    ac = 10 + dexMod + conMod;
+  }
 
 character.combat ??= {};
 

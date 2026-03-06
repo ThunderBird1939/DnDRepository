@@ -8,12 +8,62 @@ function make(tag, className = "", text = "") {
   return node;
 }
 
+function toSlug(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function navigateDetail(type, id, parentId = null) {
+  const hash = parentId ? `#/${type}/${parentId}/${id}` : `#/${type}/${id}`;
+  history.pushState({ type, id, parentId }, "", hash);
+  window.dispatchEvent(new Event("navigate-detail"));
+}
+
+function parseSpellLevel(spell) {
+  const tags = Array.isArray(spell?.tags) ? spell.tags : [];
+  for (const tag of tags) {
+    const lower = String(tag || "").toLowerCase();
+    if (lower.includes("cantrip")) return 0;
+    const match = lower.match(/(\d+)(st|nd|rd|th)?\s*level/);
+    if (match) return Number(match[1]);
+  }
+
+  const contents = Array.isArray(spell?.contents) ? spell.contents : [];
+  for (const line of contents) {
+    const text = String(line || "").toLowerCase();
+    if (text.includes("cantrip")) return 0;
+    const match = text.match(/(?:level\s*)?(\d+)(st|nd|rd|th)?[-\s]*level/);
+    if (match) return Number(match[1]);
+    const alt = text.match(/level\s+(\d+)/);
+    if (alt) return Number(alt[1]);
+  }
+  return null;
+}
+
+function spellLevelLabel(level) {
+  if (level === 0) return "Cantrips";
+  if (level == null || Number.isNaN(Number(level))) return "Other";
+  const n = Number(level);
+  const suffix = n === 1 ? "st" : n === 2 ? "nd" : n === 3 ? "rd" : "th";
+  return `${n}${suffix} Level`;
+}
+
+function spellLevelSort(a, b) {
+  if (a == null && b == null) return 0;
+  if (a == null) return 1;
+  if (b == null) return -1;
+  return Number(a) - Number(b);
+}
+
 function prettyType(type) {
   const map = {
     class: "Class",
     subclass: "Subclass",
     race: "Race",
-    background: "Background"
+    background: "Background",
+    spell: "Spell"
   };
   return map[type] || "Detail";
 }
@@ -164,6 +214,66 @@ function renderClassDetail(mount, data) {
       .catch(() => slots.append(make("p", "detail-muted", "Spell slot table missing.")));
   }
 
+  if (data.spellcasting?.type && data.spellcasting.type !== "none" && data.id) {
+    const spellbook = section(mount, "Available Spells");
+    fetch(`./data/spells/${data.id}.json`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(spells => {
+        if (!Array.isArray(spells) || !spells.length) {
+          spellbook.append(make("p", "detail-muted", "No class spell list found."));
+          return;
+        }
+        const groups = new Map();
+        spells.forEach(spell => {
+          const level = parseSpellLevel(spell);
+          if (!groups.has(level)) groups.set(level, []);
+          groups.get(level).push(spell);
+        });
+
+        Array.from(groups.keys())
+          .sort(spellLevelSort)
+          .forEach(level => {
+            spellbook.append(make("h3", "detail-item-title", spellLevelLabel(level)));
+            const list = make("div", "detail-link-grid");
+            groups.get(level)
+              .slice()
+              .sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")))
+              .forEach(spell => {
+                const btn = make("button", "detail-inline-link detail-nav-link", spell.title || "Spell");
+                btn.type = "button";
+                btn.onclick = () => navigateDetail("spell", toSlug(spell.title), data.id);
+                list.append(btn);
+              });
+            spellbook.append(list);
+          });
+      })
+      .catch(() => spellbook.append(make("p", "detail-muted", "No class spell list found.")));
+  }
+
+  if (data.id) {
+    const subclasses = section(mount, "Available Subclasses");
+    fetch(`./data/subclasses/${data.id}/index.json`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(items => {
+        if (!Array.isArray(items) || !items.length) {
+          subclasses.append(make("p", "detail-muted", "No subclasses listed."));
+          return;
+        }
+        const list = make("div", "detail-link-grid");
+        items
+          .slice()
+          .sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")))
+          .forEach(sc => {
+            const btn = make("button", "detail-inline-link detail-nav-link", sc.name || sc.id || "Subclass");
+            btn.type = "button";
+            btn.onclick = () => navigateDetail("subclass", sc.id, data.id);
+            list.append(btn);
+          });
+        subclasses.append(list);
+      })
+      .catch(() => subclasses.append(make("p", "detail-muted", "No subclasses listed.")));
+  }
+
   if (data.levels) {
     const timeline = section(mount, "Features by Level");
     Object.keys(data.levels)
@@ -236,10 +346,52 @@ function renderBackgroundDetail(mount, data) {
     data.features.forEach(feature => {
       const item = make("article", "detail-item");
       item.append(make("h3", "detail-item-title", feature.name || "Feature"));
-      item.append(make("p", "detail-item-text", feature.description || ""));
+      const desc = String(feature.description || "");
+      const needsFallback = /see source description/i.test(desc);
+      const fallbackBits = [];
+      if (Array.isArray(data.skillProficiencies) && data.skillProficiencies.length) {
+        fallbackBits.push(`Skills: ${data.skillProficiencies.join(", ")}.`);
+      }
+      if (Array.isArray(data.toolProficiencies) && data.toolProficiencies.length) {
+        fallbackBits.push(`Tools: ${data.toolProficiencies.join(", ")}.`);
+      }
+      if (data.feat) fallbackBits.push(`Feat: ${data.feat}.`);
+      if (Array.isArray(data.equipmentOptions) && data.equipmentOptions.length) {
+        fallbackBits.push(`Equipment: ${data.equipmentOptions[0]}`);
+      }
+      item.append(
+        make(
+          "p",
+          "detail-item-text",
+          needsFallback ? fallbackBits.join(" ") || "Background details available in source material." : desc
+        )
+      );
       feats.append(item);
     });
   }
+}
+
+function renderSpellDetail(mount, data) {
+  const overview = section(mount, "Overview");
+  addKeyValueList(overview, [
+    { key: "Class List", value: data.classId || null },
+    { key: "Source", value: data.source || null }
+  ]);
+
+  const details = section(mount, "Spell Details");
+  (data.contents || []).forEach(line => {
+    const text = String(line || "");
+    if (!text) return;
+    const parts = text.split("|").map(p => p.trim());
+    if ((parts[0] || "").toLowerCase() === "property" && parts.length >= 3) {
+      const card = make("article", "detail-item");
+      card.append(make("h3", "detail-item-title", parts[1]));
+      card.append(make("p", "detail-item-text", parts.slice(2).join(" | ")));
+      details.append(card);
+      return;
+    }
+    details.append(make("p", "detail-item-text", text));
+  });
 }
 
 function renderRaceDetail(mount, data) {
@@ -256,7 +408,7 @@ export function renderDetail(type, data, mount) {
   const shell = make("div", "detail-shell");
 
   const top = make("div", "detail-topbar");
-  const back = make("button", "detail-back-btn", "Back to Sheet");
+  const back = make("button", "detail-back-btn", "Back");
   back.type = "button";
   back.onclick = () => window.dispatchEvent(new Event("close-detail"));
   const badge = make("span", "detail-type-pill", prettyType(type));
@@ -276,6 +428,7 @@ export function renderDetail(type, data, mount) {
   else if (type === "subclass") renderSubclassDetail(content, data);
   else if (type === "background") renderBackgroundDetail(content, data);
   else if (type === "race") renderRaceDetail(content, data);
+  else if (type === "spell") renderSpellDetail(content, data);
   else {
     const fallback = section(content, "Details");
     fallback.append(make("p", "detail-muted", "No renderer available for this detail type."));

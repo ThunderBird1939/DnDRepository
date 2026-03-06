@@ -16,7 +16,7 @@ import {
 } from "./ui/spellList.js";
 
 import { renderPreparedSpells } from "./ui/preparedSpells.js";
-import { openDetail } from "./ui/router.js";
+import { openDetail, setDetailReturnView } from "./ui/router.js";
 import { renderAlwaysPreparedSpells } from "./ui/alwaysPreparedSpells.js";
 import { calculateArmorClass } from "./engine/calculateArmorClass.js";
 import { renderCantripsKnown } from "./ui/cantripsKnown.js";
@@ -3174,6 +3174,205 @@ let activeChoiceFeature = null;
 let ALL_ARCANE_SHOTS = [];
 let arcaneShotChoices = null;
 let ALL_MAGIC_ITEMS = [];
+let dmInitialized = false;
+let libraryIndexCache = null;
+
+const VIEW_IDS = ["homeView", "sheetView", "libraryView", "detailView", "dmView"];
+
+function showView(viewId) {
+  VIEW_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.hidden = id !== viewId;
+  });
+  if (viewId !== "detailView") {
+    setDetailReturnView(viewId);
+    if (location.hash.startsWith("#/")) {
+      history.pushState(null, "", "#/");
+    }
+  }
+}
+
+async function showDmView() {
+  showView("dmView");
+  if (!dmInitialized) {
+    dmInitialized = true;
+    await initDMView();
+  }
+}
+
+function spellSlug(spell) {
+  return String(spell?.title || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getClassIdsFromSelect() {
+  const select = document.getElementById("classSelect");
+  const ids = select
+    ? Array.from(select.options)
+      .map(o => String(o.value || "").trim())
+      .filter(Boolean)
+    : [];
+  // Ensure homebrew classes remain indexed even if dropdown content changes.
+  ["ostrumite-gunner", "bound-vanguard"].forEach(id => {
+    if (!ids.includes(id)) ids.push(id);
+  });
+  return ids;
+}
+
+async function buildLibraryIndex() {
+  if (libraryIndexCache) return libraryIndexCache;
+
+  const classes = [];
+  const subclasses = [];
+  const spells = [];
+  const spellSeen = new Set();
+  const classIds = getClassIdsFromSelect();
+
+  for (const classId of classIds) {
+    try {
+      let classData = null;
+      const classRes = await fetch(`./data/classes/${classId}.json`);
+      if (classRes.ok) {
+        const c = await classRes.json();
+        classData = c;
+        classes.push({
+          type: "class",
+          id: c.id,
+          name: c.name || c.id,
+          source: c.source || ""
+        });
+      }
+
+      const subIndexRes = await fetch(`./data/subclasses/${classId}/index.json`);
+      if (subIndexRes.ok) {
+        const subIndex = await subIndexRes.json();
+        (subIndex || []).forEach(s => {
+          subclasses.push({
+            type: "subclass",
+            id: s.id,
+            parentId: classId,
+            parentName: classData?.name || classId,
+            name: s.name || s.id
+          });
+        });
+      }
+
+      const isSpellcaster =
+        classData?.spellcasting &&
+        classData.spellcasting.type &&
+        classData.spellcasting.type !== "none";
+
+      if (isSpellcaster) {
+        const spellRes = await fetch(`./data/spells/${classId}.json`);
+        if (spellRes.ok) {
+          const classSpells = await spellRes.json();
+          (classSpells || []).forEach(spell => {
+            const slug = spellSlug(spell);
+            const key = `${classId}:${slug}`;
+            if (!slug || spellSeen.has(key)) return;
+            spellSeen.add(key);
+            spells.push({
+              type: "spell",
+              id: slug,
+              parentId: classId,
+              parentName: classData?.name || classId,
+              name: spell.title || slug,
+              spell
+            });
+          });
+        }
+      }
+    } catch (_e) {
+      // Skip broken datasets and continue building the library.
+    }
+  }
+
+  const raceItems = races.map(r => ({
+    type: "race",
+    id: String(r.id),
+    name: r.name,
+    source: r.source || ""
+  }));
+  const backgroundItems = backgrounds.map(bg => ({
+    type: "background",
+    id: String(bg.id),
+    name: bg.name,
+    source: bg.source || ""
+  }));
+
+  libraryIndexCache = {
+    race: raceItems.sort((a, b) => a.name.localeCompare(b.name)),
+    background: backgroundItems.sort((a, b) => a.name.localeCompare(b.name)),
+    class: classes.sort((a, b) => a.name.localeCompare(b.name)),
+    subclass: subclasses.sort((a, b) => {
+      const byClass = String(a.parentName || a.parentId || "").localeCompare(
+        String(b.parentName || b.parentId || "")
+      );
+      if (byClass !== 0) return byClass;
+      return a.name.localeCompare(b.name);
+    }),
+    spell: spells.sort((a, b) => {
+      const byClass = String(a.parentName || a.parentId || "").localeCompare(
+        String(b.parentName || b.parentId || "")
+      );
+      if (byClass !== 0) return byClass;
+      return a.name.localeCompare(b.name);
+    })
+  };
+
+  return libraryIndexCache;
+}
+
+async function renderLibraryResults() {
+  const typeSelect = document.getElementById("libraryTypeSelect");
+  const searchInput = document.getElementById("librarySearchInput");
+  const listEl = document.getElementById("libraryResults");
+  const hintEl = document.getElementById("libraryHint");
+  if (!typeSelect || !searchInput || !listEl || !hintEl) return;
+
+  const index = await buildLibraryIndex();
+  const type = String(typeSelect.value || "race");
+  const query = String(searchInput.value || "").trim().toLowerCase();
+  const items = (index[type] || []).filter(item =>
+    !query || item.name.toLowerCase().includes(query)
+  );
+
+  hintEl.textContent = `${items.length} result${items.length === 1 ? "" : "s"} in ${type}.`;
+  listEl.innerHTML = "";
+
+  if (!items.length) {
+    listEl.innerHTML = `<div class="muted">No entries found.</div>`;
+    return;
+  }
+
+  let currentGroup = "";
+  items.forEach(item => {
+    if (type === "subclass" || type === "spell") {
+      const group = String(item.parentName || item.parentId || "");
+      if (group !== currentGroup) {
+        currentGroup = group;
+        const hdr = document.createElement("div");
+        hdr.className = "library-group-header";
+        hdr.textContent = group || (type === "spell" ? "Class" : "Subclass");
+        listEl.appendChild(hdr);
+      }
+    }
+
+    const row = document.createElement("button");
+    row.type = "button";
+    row.className = "library-entry-btn";
+    row.textContent = type === "subclass"
+      ? item.name
+      : (item.source ? `${item.name} (${item.source})` : item.name);
+    row.onclick = () => {
+      openDetail(item.type, item.id, item.parentId || null, true, "libraryView");
+    };
+    listEl.appendChild(row);
+  });
+}
 /* =========================
    Ability Math
 ========================= */
@@ -3221,8 +3420,8 @@ async function openChoiceFeatureModal(feature, sourceClass) {
   const optionsEl = document.getElementById("choiceFeatureOptions");
   const confirmBtn = document.getElementById("confirmChoiceFeature");
 
-  // Safety guard
-  if (!feature || !feature.optionsSource) {
+  // Safety guard: support either inline options or optionsSource.
+  if (!feature || (!Array.isArray(feature.options) && !feature.optionsSource)) {
     console.error("Invalid choice feature:", feature);
     return;
   }
@@ -3233,11 +3432,15 @@ async function openChoiceFeatureModal(feature, sourceClass) {
   confirmBtn.disabled = true;
 
   let options = [];
-  try {
-    options = await loadChoiceOptions(feature.optionsSource, sourceClass);
-  } catch (err) {
-    console.error(err, feature);
-    return;
+  if (Array.isArray(feature.options) && feature.options.length) {
+    options = feature.options;
+  } else {
+    try {
+      options = await loadChoiceOptions(feature.optionsSource, sourceClass);
+    } catch (err) {
+      console.error(err, feature);
+      return;
+    }
   }
 
   const chosenFeatureIds = new Set((character.features || []).map(f => f.id));
@@ -3437,7 +3640,7 @@ document.addEventListener("click", e => {
     btn.dataset.id = document.getElementById("backgroundSelect")?.value || "";
   }
 
-  openDetail(btn.dataset.type, btn.dataset.id, btn.dataset.parentId || null);
+  openDetail(btn.dataset.type, btn.dataset.id, btn.dataset.parentId || null, true, "sheetView");
 });
 
 
@@ -4194,8 +4397,12 @@ window.addEventListener("DOMContentLoaded", async () => {
   await initRaces();
   populateRaceDropdown();
   syncDetailButtons();
+  libraryIndexCache = null;
   if (isCharacterMostlyBlank() && loadCharacterAutosavePayload()?.character) {
     await restoreCharacterAutosave();
+  }
+  if (!location.hash || location.hash === "#/" || location.hash === "#") {
+    showView("homeView");
   }
 
 /* ===== Armor ===== */
@@ -4238,21 +4445,46 @@ document.getElementById("shieldToggle")?.addEventListener("change", async e => {
   renderAttacks();
 });
 
-let dmInitialized = false;
+document.getElementById("startCharacterBtn")?.addEventListener("click", () => {
+  showView("sheetView");
+});
+document.getElementById("startDmBtn")?.addEventListener("click", async () => {
+  await showDmView();
+});
+document.getElementById("openLibraryBtn")?.addEventListener("click", async () => {
+  showView("libraryView");
+  await renderLibraryResults();
+});
+document.getElementById("goHomeFromSheetBtn")?.addEventListener("click", () => {
+  showView("homeView");
+});
+document.getElementById("openLibraryFromSheetBtn")?.addEventListener("click", async () => {
+  showView("libraryView");
+  await renderLibraryResults();
+});
+document.getElementById("backToHomeFromLibraryBtn")?.addEventListener("click", () => {
+  showView("homeView");
+});
+document.getElementById("backToSheetFromLibraryBtn")?.addEventListener("click", () => {
+  showView("sheetView");
+});
+document.getElementById("refreshLibraryBtn")?.addEventListener("click", async () => {
+  libraryIndexCache = null;
+  await renderLibraryResults();
+});
+document.getElementById("libraryTypeSelect")?.addEventListener("change", async () => {
+  await renderLibraryResults();
+});
+document.getElementById("librarySearchInput")?.addEventListener("input", async () => {
+  await renderLibraryResults();
+});
 
 document.getElementById("toggleDM")?.addEventListener("click", async () => {
-  document.getElementById("sheetView").hidden = true;
-  document.getElementById("dmView").hidden = false;
-
-  if (!dmInitialized) {
-    dmInitialized = true;
-    await initDMView();
-  }
+  await showDmView();
 });
 
 document.getElementById("backToSheetBtn")?.addEventListener("click", () => {
-  document.getElementById("dmView").hidden = true;
-  document.getElementById("sheetView").hidden = false;
+  showView("sheetView");
 });
 
   document.getElementById("raceSelect")?.addEventListener("change", async e => {
@@ -4737,4 +4969,5 @@ queueCharacterAutosave();
   }
 });
 });
+
 

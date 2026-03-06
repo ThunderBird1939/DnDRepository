@@ -181,6 +181,26 @@
 },
 {
   "count": 1,
+  "color": "#6b2d2d",
+  "title": "Queen's Banner",
+  "icon": "flag",
+  "icon_back": "flag",
+  "contents": [
+    "subtitle | Wondrous Item (Standard)",
+    "property | Rarity | Uncommon",
+    "property | Attunement | Required (creature proficient with shields or martial weapons)",
+    "rule",
+    "text | This heavy battlefield banner bears the royal crest of the crown. Its cloth is reinforced with metal threads so it can be driven into stone or soil alike, marking the place where the Queen's soldiers stand their ground.",
+    "description | Plant the Banner | As an action, you drive the banner into the ground in a space within 5 feet of you. The banner remains planted until removed and emits a 10-foot aura of resolve.",
+    "description | Aura of Resolve | Friendly creatures of your choice that start their turn in the aura gain temporary hit points equal to your proficiency bonus + your Constitution modifier. A creature can gain these temporary hit points only once per round.",
+    "description | Hold the Line | While you are within the banner’s aura, you have advantage on saving throws against being frightened.",
+    "description | Remove the Banner | You can pull the banner free as a bonus action. An enemy creature within 5 feet can use an action to attempt to wrench it free with a DC 13 Strength check.",
+    "description | Uses | The banner can be planted a number of times equal to your proficiency bonus per long rest."
+  ],
+  "tags": ["item", "magic", "wondrous item", "banner", "uncommon", "attunement", "aura", "support"]
+},
+{
+  "count": 1,
   "color": "#7b5fc9",
   "title": "Lunar Crown",
   "icon": "crown",
