@@ -84,7 +84,11 @@ function ensureEncounterDefaults() {
   if (!Array.isArray(dmState.encounter.combatants)) dmState.encounter.combatants = [];
   dmState.encounter.reinforcements ??= [];
   if (!Array.isArray(dmState.encounter.reinforcements)) dmState.encounter.reinforcements = [];
-  dmState.encounter.compactCards = !!dmState.encounter.compactCards;
+  dmState.encounter.compactCards =
+    dmState.encounter.compactCards === undefined ||
+    dmState.encounter.compactCards === null
+      ? true
+      : !!dmState.encounter.compactCards;
   dmState.encounter.notes ??= "";
   dmState.encounter.log ??= [];
   if (!Array.isArray(dmState.encounter.log)) dmState.encounter.log = [];
@@ -740,7 +744,7 @@ function bindLibraryControls() {
         turnIndex: 0,
         combatants: [],
         reinforcements: [],
-        compactCards: false,
+        compactCards: true,
         notes: "",
         log: [],
         filters: {
@@ -827,7 +831,10 @@ function loadEncounterFromData(data) {
   dmState.encounter.notes = data.notes ?? "";
   dmState.encounter.log = Array.isArray(data.log) ? data.log : [];
   dmState.encounter.filters = { ...(dmState.encounter.filters || {}), ...(data.filters || {}) };
-  dmState.encounter.compactCards = !!data.compactCards;
+  dmState.encounter.compactCards =
+    data.compactCards === undefined || data.compactCards === null
+      ? true
+      : !!data.compactCards;
   dmState.encounter.reinforcements = Array.isArray(data.reinforcements)
     ? data.reinforcements.map(w => ({
       id: w.id || crypto.randomUUID(),
@@ -1328,6 +1335,45 @@ function renderEncounterSummary() {
   concEl.textContent = String(concentrationCount);
 }
 
+function renderQuickInitiativeOrder() {
+  const list = document.getElementById("quickInitiativeList");
+  if (!list) return;
+
+  const combatants = dmState.encounter.combatants ?? [];
+  if (!combatants.length) {
+    list.innerHTML = `<div class="muted">No combatants yet.</div>`;
+    return;
+  }
+
+  const activeIndex = Math.max(
+    0,
+    Math.min(Number(dmState.encounter.turnIndex ?? 0), combatants.length - 1)
+  );
+
+  list.innerHTML = "";
+  combatants.forEach((c, i) => {
+    normalizeCombatantState(c);
+
+    const row = document.createElement("div");
+    row.className = "library-item quick-init-row";
+    if (i === activeIndex) row.classList.add("active");
+    if (Number(c.hp?.current ?? 0) <= 0) row.classList.add("down");
+
+    const name = document.createElement("span");
+    name.className = "library-name";
+    name.textContent = `${i + 1}. ${c.name || "Combatant"}`;
+
+    const meta = document.createElement("span");
+    meta.className = "quick-init-meta";
+    const init = Number(c.initiative ?? 0);
+    meta.textContent = `Init ${init >= 0 ? "+" : ""}${init}`;
+
+    row.appendChild(name);
+    row.appendChild(meta);
+    list.appendChild(row);
+  });
+}
+
 /* =========================
    CARD RENDERER (FULL)
 ========================= */
@@ -1339,6 +1385,7 @@ function renderEncounterCards() {
   if (turnEl) turnEl.textContent = activeCombatant()?.name ?? "-";
   renderEncounterSummary();
   renderReinforcementList();
+  renderQuickInitiativeOrder();
 
   const mount = document.getElementById("encounterCards");
   if (!mount) return;

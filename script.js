@@ -3456,6 +3456,17 @@ async function openChoiceFeatureModal(feature, sourceClass) {
   }
 
   let selected = null;
+  const formatChoiceSpellSummary = spellsByLevel => {
+    if (!spellsByLevel || typeof spellsByLevel !== "object") return "";
+    const rows = Object.entries(spellsByLevel)
+      .filter(([, spells]) => Array.isArray(spells) && spells.length)
+      .sort((a, b) => Number(a[0]) - Number(b[0]))
+      .map(([lvl, spells]) => {
+        const names = spells.map(s => s.replace(/-/g, " "));
+        return `Lv ${lvl}: ${names.join(", ")}`;
+      });
+    return rows.length ? `Expanded spells: ${rows.join(" | ")}` : "";
+  };
 
   filteredOptions.forEach(opt => {
     const wrapper = document.createElement("div");
@@ -3472,6 +3483,10 @@ async function openChoiceFeatureModal(feature, sourceClass) {
     input.addEventListener("change", () => {
       selected = opt;
       confirmBtn.disabled = false;
+      optionsEl
+        .querySelectorAll(".choice-option")
+        .forEach(el => el.classList.remove("selected"));
+      wrapper.classList.add("selected");
     });
 
     const text = document.createElement("div");
@@ -3483,7 +3498,9 @@ async function openChoiceFeatureModal(feature, sourceClass) {
 
     const desc = document.createElement("div");
     desc.className = "choice-description";
-    desc.textContent = opt.description;
+    desc.textContent = [opt.description, formatChoiceSpellSummary(opt.spells)]
+      .filter(Boolean)
+      .join(" ");
 
     text.appendChild(name);
     text.appendChild(desc);
@@ -3503,8 +3520,29 @@ async function openChoiceFeatureModal(feature, sourceClass) {
       name: selected.name,
       description: selected.description,
       source: sourceClass,
-      parentFeature: feature.id
+      parentFeature: feature.id,
+      spells: selected.spells
     });
+
+    if (selected.spells && typeof selected.spells === "object") {
+      character.spellcasting ??= {};
+      character.spellcasting.available ??= new Set();
+      character.spellcasting.alwaysPrepared ??= new Set();
+      character.spellcasting.expandedList ??= new Set();
+
+      Object.entries(selected.spells).forEach(([unlockLevel, spells]) => {
+        if (Number(unlockLevel) > character.level) return;
+        if (!Array.isArray(spells)) return;
+
+        spells.forEach(spellId => {
+          if (character.class?.id === "warlock" || sourceClass === "profane-soul") {
+            character.spellcasting.expandedList.add(spellId);
+          } else {
+            character.spellcasting.alwaysPrepared.add(spellId);
+          }
+        });
+      });
+    }
 
     character.resolvedChoices.choiceFeature ??= {};
     character.resolvedChoices.choiceFeature[feature.id] = true;
@@ -3900,6 +3938,7 @@ async function openToolChoiceModal() {
 
   tools.forEach(tool => {
     const label = document.createElement("label");
+    label.className = "tool-choice-option";
     label.style.display = "block";
 
     const radio = document.createElement("input");
@@ -3910,6 +3949,10 @@ async function openToolChoiceModal() {
     radio.onchange = () => {
       selected = tool;
       confirmBtn.disabled = false;
+      optionsDiv
+        .querySelectorAll(".tool-choice-option")
+        .forEach(el => el.classList.remove("selected"));
+      label.classList.add("selected");
     };
 
     label.appendChild(radio);
@@ -3961,10 +4004,15 @@ if (title && pending.label) {
 
   subclasses.forEach(sc => {
     const btn = document.createElement("button");
+    btn.className = "subclass-option";
     btn.textContent = sc.name;
     btn.onclick = () => {
       selected = sc;
       confirmBtn.disabled = false;
+      optionsDiv
+        .querySelectorAll(".subclass-option")
+        .forEach(el => el.classList.remove("selected"));
+      btn.classList.add("selected");
     };
     optionsDiv.appendChild(btn);
   });

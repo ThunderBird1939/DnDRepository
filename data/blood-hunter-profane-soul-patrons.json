@@ -2,7 +2,14 @@
   {
     "id": "archfey",
     "name": "The Archfey",
-    "description": "Your pact grants fey-flavored magic and trickster utility."
+    "description": "Your pact grants fey-flavored magic and trickster utility.",
+    "spells": {
+      "3": ["faerie-fire", "sleep"],
+      "5": ["calm-emotions", "phantasmal-force"],
+      "9": ["blink", "plant-growth"],
+      "13": ["dominate-beast", "greater-invisibility"],
+      "17": ["dominate-person", "seeming"]
+    }
   },
   {
     "id": "fiend",

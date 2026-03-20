@@ -5,6 +5,6 @@ export const dmState = {
     turnIndex: 0,
     combatants: [],
     reinforcements: [],
-    compactCards: false
+    compactCards: true
   }
 };

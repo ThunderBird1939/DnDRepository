@@ -321,15 +321,25 @@ details ul {
 }
 
 .active-feat {
-  border: 1px solid #888;
+  border: 1px solid #5a468f;
+  border-left: 4px solid #8a65e8;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
-  background: #f9f9f9;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(56, 43, 95, 0.92), rgba(41, 32, 72, 0.92));
+  color: #f3ecff;
 }
 
 .active-feat strong {
   display: block;
   margin-bottom: 0.25rem;
+  color: #fff8df;
+}
+
+.active-feat p {
+  margin: 0.25rem 0;
+  color: #e8dbff;
+  line-height: 1.35;
 }
 
 #confirmFeat {
@@ -1787,6 +1797,42 @@ select optgroup {
   backdrop-filter: blur(1px);
 }
 
+#dmView .dm-initiative-ref {
+  margin-top: 10px;
+  border: 1px solid #5d4a90;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(40, 31, 68, 0.94), rgba(30, 24, 50, 0.94));
+  overflow: hidden;
+}
+
+#dmView .dm-initiative-ref > summary {
+  cursor: pointer;
+  padding: 8px 10px;
+  font-weight: 700;
+  color: #f6f0ff;
+}
+
+#dmView .dm-initiative-ref[open] > summary {
+  border-bottom: 1px solid #574686;
+}
+
+#dmView .dm-initiative-ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  padding: 10px;
+}
+
+#dmView .dm-initiative-ref-grid p {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid #6b57a1;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #33295a 0%, #281f46 100%);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
 #dmView .dm-main > .panel:first-child {
   position: sticky;
   top: 8px;
@@ -2188,6 +2234,125 @@ select optgroup {
   min-width: 150px;
 }
 
+/* =========================
+   DM Readability Pass
+========================= */
+#dmView .dm-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+@media (min-width: 1250px) {
+  #dmView .dm-main {
+    grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
+  }
+
+  #dmView .dm-main > .panel:nth-of-type(1),
+  #dmView .dm-main > .panel:nth-of-type(5) {
+    grid-column: 1 / -1;
+  }
+}
+
+#dmView .panel {
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(4, 2, 10, 0.35);
+}
+
+#dmView .panel h2 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+#dmView .dm-turn-toolbar {
+  gap: 6px;
+  padding: 6px;
+}
+
+#dmView .dm-turn-toolbar button {
+  padding: 6px 10px;
+  font-size: 0.83rem;
+  border-radius: 8px;
+}
+
+#dmView .dm-summary-bar {
+  gap: 8px;
+  padding: 7px 9px;
+}
+
+#dmView .dm-summary-bar span {
+  font-size: 0.9rem;
+}
+
+#dmView .dm-summary-bar strong {
+  font-size: 1rem;
+}
+
+#dmView .dm-initiative-ref-grid p {
+  font-size: 0.84rem;
+}
+
+#dmView #encounterCards.card-stack {
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+#dmView .monster-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(4, 2, 9, 0.28);
+}
+
+#dmView .card-header h3 {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+#dmView .card-sub {
+  font-size: 0.84rem;
+}
+
+#dmView .card-controls {
+  gap: 6px;
+}
+
+#dmView .card-controls button,
+#dmView .card-controls select,
+#dmView .card-controls input {
+  padding: 4px 7px;
+  min-height: 30px;
+  font-size: 0.8rem;
+}
+
+#dmView .quick-action-btn {
+  font-size: 0.76rem;
+}
+
+#dmView .quick-init-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 9px;
+}
+
+#dmView .quick-init-meta {
+  font-size: 0.78rem;
+  color: #e8dcff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+#dmView .quick-init-row.active {
+  border-color: #d8b159;
+  box-shadow: 0 0 0 2px rgba(216, 177, 89, 0.2);
+}
+
+#dmView .quick-init-row.down .library-name {
+  opacity: 0.68;
+  text-decoration: line-through;
+}
 
 
 

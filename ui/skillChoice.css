@@ -87,3 +87,137 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Shared modal option visibility and contrast */
+#choiceFeatureOptions,
+#featOptions,
+#invocationList,
+#pactBoonList,
+#toolChoiceOptions,
+#subclassOptions {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.choice-option,
+.feat-option,
+.invocation-row,
+.pact-row,
+.tool-choice-option,
+.subclass-option {
+  border: 1px solid #bca4e6;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #24183f;
+}
+
+.choice-option,
+.feat-option,
+.invocation-row,
+.pact-row,
+.tool-choice-option {
+  padding: 10px 12px;
+}
+
+.choice-option:hover,
+.feat-option:hover,
+.invocation-row:hover,
+.pact-row:hover,
+.tool-choice-option:hover,
+.subclass-option:hover {
+  border-color: #8f6fd2;
+  background: #f6f0ff;
+}
+
+.choice-option.selected,
+.feat-option.selected,
+.invocation-row.selected,
+.pact-row.selected,
+.tool-choice-option.selected,
+.subclass-option.selected {
+  border-color: #6f44c4;
+  background: linear-gradient(180deg, #efe4ff, #e3d2ff);
+  box-shadow: 0 0 0 2px rgba(111, 68, 196, 0.28);
+}
+
+.choice-option .choice-name,
+.feat-option strong,
+.invocation-row strong,
+.pact-row strong {
+  color: #1e1335;
+}
+
+.choice-option .choice-description,
+.feat-option p,
+.invocation-row .muted,
+.pact-row .muted {
+  color: #3b285f;
+}
+
+.feat-option {
+  margin: 0;
+}
+
+.feat-option p {
+  margin: 6px 0 0;
+  line-height: 1.35;
+}
+
+.invocation-row {
+  cursor: pointer;
+}
+
+.pact-row {
+  cursor: pointer;
+}
+
+.tool-choice-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tool-choice-option input[type="radio"] {
+  width: auto;
+  margin: 0;
+  accent-color: #7f58cb;
+}
+
+.subclass-option {
+  text-align: left;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#confirmChoiceFeature,
+#confirmFeat,
+#confirmInvocation,
+#confirmPactBoon,
+#confirmTool,
+#confirmSubclass {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: linear-gradient(180deg, #b08cff, #9a72f2);
+  color: #2b1d4a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#confirmChoiceFeature:disabled,
+#confirmFeat:disabled,
+#confirmInvocation:disabled,
+#confirmPactBoon:disabled,
+#confirmTool:disabled,
+#confirmSubclass:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

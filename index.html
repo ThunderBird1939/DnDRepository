@@ -871,9 +871,8 @@
       </section>
 
       <section class="panel">
-        <h2>Quick Save / Load</h2>
-        <button id="saveEncounterBtn">Save Encounter</button>
-        <button id="loadEncounterBtn">Load Encounter</button>
+        <h2>Initiative Order</h2>
+        <div id="quickInitiativeList" class="library-list"></div>
       </section>
 
       <section class="panel">
@@ -926,6 +925,17 @@
           <button id="toggleCompactCardsBtn">Compact Cards: Off</button>
           <button id="undoDmBtn">Undo Last Change</button>
         </div>
+        <details class="dm-initiative-ref">
+          <summary>Initiative Quick Reference</summary>
+          <div class="dm-initiative-ref-grid">
+            <p><strong>Start:</strong> Roll d20 + DEX mod for all combatants.</p>
+            <p><strong>Order:</strong> Highest goes first; ties use higher DEX score.</p>
+            <p><strong>Round:</strong> New round starts after the last turn resolves.</p>
+            <p><strong>Surprise:</strong> Surprised creatures cannot move or act on turn 1.</p>
+            <p><strong>Rejoin:</strong> Add late creatures, roll initiative, then resort list.</p>
+            <p><strong>Ready:</strong> Triggered action uses reaction before next turn.</p>
+          </div>
+        </details>
       </section>
 
       <section class="panel">
