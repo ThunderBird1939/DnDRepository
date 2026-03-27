@@ -1,24 +1,25 @@
 [
-  {
-    "count": 1,
-    "color": "#2f7d5a",
-    "title": "Aegis of Spirit Projection",
-    "icon": "shield",
-    "icon_back": "shield",
-    "contents": [
-      "subtitle | Shield",
-      "property | Rarity | Rare",
-      "property | Attunement | Required",
-      "property | AC Bonus | +2",
-      "property | Uses | 2 / Long Rest",
-      "rule",
-      "text | This polished shield bears a faceted green gem that hums with restrained arcane force.",
-      "description | Verdant Deployment | As an action, you may place the shield on the ground in an unoccupied space within 5 feet of you, expending 1 use. When deployed, it projects a 10-foot-long, 5-foot-high wall of force extending in a straight line from the shield. The wall provides full cover and lasts for 1 minute, until destroyed, or until you dismiss it (no action).",
-      "description | Wall Statistics | The wall has AC equal to 10 + your spellcasting ability modifier (or Intelligence if none), 3d8 hit points, and is immune to poison and psychic damage.",
-      "description | Threshold Resistance | A creature attempting to pass through the wall must succeed on a Strength or Wisdom saving throw (DC = 8 + your proficiency bonus + your spellcasting modifier) or have its movement reduced to 0 for that turn."
-    ],
-    "tags": ["item", "magic", "shield", "rare", "attunement", "force"]
-  },
+{
+  "count": 1,
+  "color": "#5b21b6",
+  "title": "Ostrumite Aegis",
+  "icon": "shield",
+  "icon_back": "crystal-ball",
+  "contents": [
+    "subtitle | Shield",
+    "property | Rarity | Rare",
+    "property | Attunement | Required",
+    "property | AC Bonus | +2",
+    "property | Max Charges | 5",
+    "rule",
+    "text | A rune-carved Ostrumite crystal is embedded at the shield’s center. The crystal absorbs kinetic force and converts it into spectral energy that can be released to protect its bearer and nearby allies.",
+    "description | Kinetic Absorption | When you take damage from a creature you can see while wielding this shield, the aegis gains 1 charge (maximum 1 per turn). The shield can hold up to 5 charges.",
+    "description | Stored Deflection | When you take damage, you may use your reaction to expend 1 charge and reduce the damage by 1d8.",
+    "description | Spirit Guard | When a creature within 10 feet of you takes damage, you may use your reaction and expend 2 charges to reduce that damage by 1d10 + your proficiency bonus.",
+    "description | Kinetic Rebound | When a creature hits you with a melee attack, you may expend 3 charges to deal 2d8 force damage to that creature."
+  ],
+  "tags": ["item", "magic", "shield", "rare", "attunement", "ostrumite"]
+},
 {
   "count": 1,
   "color": "#1e1e1e",
@@ -50,6 +51,47 @@
     "description | Blinding Peck (Recharge 5–6) | Crumb pecks at a creature's eyes. Target must succeed on a DC 13 CON save or be blinded until the start of its next turn."
   ],
   "tags": ["companion", "magical beast", "scouting", "utility"]
+},
+{
+  "count": 1,
+  "color": "#7c3aed",
+  "title": "Bracer of Flying Daggers",
+  "icon": "dagger",
+  "icon_back": "dagger",
+  "contents": [
+    "subtitle | Wondrous Item",
+    "rule",
+    "property | Rarity | Uncommon",
+    "property | Attunement | None",
+    "property | Charges | 10 Daggers / Long Rest",
+    "rule",
+    "text | This leather forearm bracer contains several narrow rune-cut slots holding thin throwing daggers formed of shimmering arcane force. Though only a few appear at once, the bracer never truly runs empty.",
+    "description | Arcane Daggers | As an action, you may pull up to two magical daggers from the bracer and immediately throw them, making a separate ranged attack with each dagger.",
+    "description | Magical Weapon | Each dagger has a range of 20/60 ft., deals 1d4 + your Dexterity modifier piercing damage, counts as magical, and disappears immediately after the attack hits or misses.",
+    "description | Limited Volley | The bracer can produce up to 10 daggers per long rest. Throwing one dagger expends 1 charge. Throwing two daggers expends 2 charges."
+  ],
+  "tags": ["item", "magic", "wondrous", "ranged", "dagger"]
+},
+{
+  "count": 1,
+  "color": "#4c1d95",
+  "title": "Blinkstep Dagger",
+  "icon": "dagger",
+  "icon_back": "teleport",
+  "contents": [
+    "subtitle | Weapon (dagger)",
+    "rule",
+    "property | Rarity | Rare",
+    "property | Attunement | None",
+    "property | Charges | 3 / Long Rest",
+    "rule",
+    "text | This slender dagger contains a sliver of rune-cut Ostrumite along its spine. When thrown or thrust forward, the crystal briefly fractures space itself, pulling the wielder through the dagger’s path in a flash of violet light.",
+    "description | Blinkstep | Immediately after you make an attack with this dagger (hit or miss), you may expend 1 charge to teleport to an unoccupied space within 10 feet of the target or the dagger’s landing point.",
+    "description | Recall Flash | If you throw the dagger, you may expend 1 charge to teleport to the dagger’s location instead of having it fall normally. The dagger then instantly returns to your hand after the teleport completes.",
+    "description | Phase Withdrawal | As a bonus action, you may expend 2 charges to teleport up to 15 feet to a space you can see.",
+    "description | Magical Weapon | This dagger counts as magical for the purpose of overcoming resistance and immunity to nonmagical attacks."
+  ],
+  "tags": ["item", "magic", "weapon", "dagger", "teleport", "ostrumite"]
 },
 {
   "count": 1,
