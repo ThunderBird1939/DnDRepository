@@ -512,39 +512,39 @@
         "Large"
     ]
 },
-    {
-        "count":  1,
-        "color":  "#4338ca",
-        "title":  "Dominion Arcanist",
-        "icon":  "bolt",
-        "icon_back":  "moon",
-        "contents":  [
-                         "subtitle | Medium Humanoid (Dragonborn or Human), Astryx Dominion Mage",
-                         "rule",
-                         "property | Armor class | 13 (Mage Armor)",
-                         "property | Hit points | 34",
-                         "property | Speed | 30 ft.",
-                         "rule",
-                         "dndstats | 9 | 14 | 14 | 16 | 13 | 12",
-                         "rule",
-                         "property | Saving Throws | Int +5, Wis +3",
-                         "property | Skills | Arcana +5, Investigation +5",
-                         "property | Senses | passive Perception 11",
-                         "rule",
-                         "description | Ostrumite Focus | The arcanist carries a small Ostrumite focus crystal that enhances control magic.",
-                         "description | Lunar Channel | Once per turn when the arcanist deals damage with a spell, it deals +1d4 radiant damage.",
-                         "section | Actions",
-                         "description | Arcane Bolt | +5 to hit, 2d8 force damage.",
-                         "description | Moonflash (Recharge 5â€“6) | Creatures in a 10 ft burst must succeed on a DC 13 CON save or be blinded until the start of their next turn and take 2d6 radiant damage.",
-                         "description | Command Beast | One crystal-controlled beast within 30 ft may immediately move up to its speed."
-                     ],
-        "tags":  [
-                     "creature",
-                     "dominion",
-                     "mage",
-                     "Medium"
-                 ]
-    },
+{
+            "count":  1,
+            "color":  "#4338ca",
+            "title":  "Dominion Arcanist",
+            "icon":  "bolt",
+            "icon_back":  "moon",
+            "contents":  [
+                            "subtitle | Medium Humanoid (Dragonborn or Human), Astryx Dominion Mage",
+                            "rule",
+                            "property | Armor class | 13 (Mage Armor)",
+                            "property | Hit points | 34",
+                            "property | Speed | 30 ft.",
+                            "rule",
+                            "dndstats | 9 | 14 | 14 | 16 | 13 | 12",
+                            "rule",
+                            "property | Saving Throws | Int +5, Wis +3",
+                            "property | Skills | Arcana +5, Investigation +5",
+                            "property | Senses | passive Perception 11",
+                            "rule",
+                            "description | Ostrumite Focus | The arcanist carries a small Ostrumite focus crystal that enhances control magic.",
+                            "description | Lunar Channel | Once per turn when the arcanist deals damage with a spell, it deals +1d4 radiant damage.",
+                            "section | Actions",
+                            "description | Arcane Bolt | +5 to hit, 2d8 force damage.",
+                            "description | Moonflash (Recharge 5â€“6) | Creatures in a 10 ft burst must succeed on a DC 13 CON save or be blinded until the start of their next turn and take 2d6 radiant damage.",
+                            "description | Command Beast | One crystal-controlled beast within 30 ft may immediately move up to its speed."
+                        ],
+            "tags":  [
+                        "creature",
+                        "dominion",
+                        "mage",
+                        "Medium"
+                    ]
+        },
     {
   "count": 1,
   "color": "#065f46",
