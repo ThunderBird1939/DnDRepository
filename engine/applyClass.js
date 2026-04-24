@@ -319,19 +319,27 @@ if (classData.id === "warlock") {
 // =========================
 if (classData.id === "wizard") {
   const sc = character.spellcasting;
+  const targetLevel = Math.max(1, Number(level) || 1);
 
   sc.available ??= new Set();
   sc.prepared ??= new Set();
+  sc.spellsToLearn = Math.max(0, Number(sc.spellsToLearn) || 0);
+  const priorProgressLevel = Math.max(0, Number(sc._wizardProgressLevel) || 0);
 
   // First time wizard
   if (!sc._wizardInitialized) {
-    sc.spellsToLearn = 6;
     sc._wizardInitialized = true;
-  } else {
-    sc.spellsToLearn += 2;
+    if (sc.spellsToLearn === 0) sc.spellsToLearn = 6;
+    sc._wizardProgressLevel = Math.max(1, priorProgressLevel || 1);
+  } else if (targetLevel > priorProgressLevel) {
+    // Award 2 spells per wizard level gained.
+    sc.spellsToLearn += 2 * (targetLevel - Math.max(1, priorProgressLevel));
+    sc._wizardProgressLevel = targetLevel;
+  } else if (priorProgressLevel < 1) {
+    sc._wizardProgressLevel = targetLevel;
   }
 
-  // 🔑 PENDING CHOICE
+  // Pending choice
   if (sc.spellsToLearn > 0) {
     character.pendingChoices ??= {};
     character.pendingChoices.spells = {
@@ -340,6 +348,12 @@ if (classData.id === "wizard") {
 
     character.resolvedChoices ??= {};
     character.resolvedChoices.spells = false;
+  } else {
+    if (character.pendingChoices?.spells && !character.pendingChoices.spells.source) {
+      delete character.pendingChoices.spells;
+    }
+    character.resolvedChoices ??= {};
+    character.resolvedChoices.spells = true;
   }
 } else {
   character.spellcasting.spellsToLearn = 0;
@@ -600,3 +614,4 @@ if (classData.levels && typeof classData.levels === "object") {
 
   console.log("applyClass complete:", character);
 }
+

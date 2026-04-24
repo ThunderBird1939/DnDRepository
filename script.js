@@ -845,6 +845,7 @@ function normalizeNumberArray(value) {
 }
 
 function normalizeCharacterState(state) {
+  state.level = Math.max(1, Number(state.level ?? 1) || 1);
   state.race ??= { id: null, name: null };
   state.background ??= { id: null, name: null, source: null };
   state.abilities ??= { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 };
@@ -901,6 +902,39 @@ function normalizeCharacterState(state) {
   state.spellcasting.bardSpellReplacement.usedLevels = normalizeNumberArray(
     state.spellcasting.bardSpellReplacement.usedLevels
   );
+  state.spellcasting.spellsToLearn = Math.max(0, Number(state.spellcasting.spellsToLearn) || 0);
+
+  if (state.class?.id === "wizard") {
+    const learnedCount = state.spellcasting.available.size;
+    const minimumLearnedByLevel = 6 + Math.max(0, state.level - 1) * 2;
+
+    if (state.level > 1 && !state.spellcasting._wizardInitialized) {
+      // Imported/high-level wizard sheets should not replay earlier level spell picks.
+      state.spellcasting._wizardInitialized = true;
+      state.spellcasting._wizardProgressLevel = state.level;
+      state.spellcasting.spellsToLearn = 0;
+      delete state.pendingChoices?.spells;
+      state.resolvedChoices.spells = true;
+    }
+
+    if (state.spellcasting._wizardInitialized) {
+      state.spellcasting._wizardProgressLevel = Math.max(
+        1,
+        Number(state.spellcasting._wizardProgressLevel ?? state.level) || state.level
+      );
+    }
+
+    if (
+      state.level > 1 &&
+      state.spellcasting.spellsToLearn > 0 &&
+      learnedCount >= minimumLearnedByLevel
+    ) {
+      // Clear stale pending spell picks from older saves when spellbook is already complete.
+      state.spellcasting.spellsToLearn = 0;
+      delete state.pendingChoices?.spells;
+      state.resolvedChoices.spells = true;
+    }
+  }
 
   state.infusions ??= {};
   state.infusions.known = toSet(state.infusions.known);
