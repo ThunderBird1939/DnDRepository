@@ -3863,8 +3863,7 @@ function applyRaceToCharacter(race) {
 function runPendingChoiceFlow() {
 
   if (
-    canChooseFeat() &&
-    !character.pendingChoices?.spells
+    canChooseFeat()
   ) {
     character.pendingChoices.feat = true;
     openFeatChoiceModal();
