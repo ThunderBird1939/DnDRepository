@@ -568,6 +568,39 @@
     ]
   },
   {
+  "count": 1,
+  "color": "#4a6898",
+  "title": "Dispel Magic",
+  "icon": "magic-swirl",
+  "icon_back": "magic-swirl",
+  "contents": [
+    "subtitle | 3rd-level abjuration",
+    "rule",
+    "property | Casting Time | 1 action",
+    "property | Range | 120 feet",
+    "property | Components | V, S",
+    "property | Duration | Instantaneous",
+    "rule",
+    "text | Choose one creature, object, or magical effect within range. Any spell of 3rd level or lower on the target ends.",
+    "text | For each spell of 4th level or higher on the target, make an ability check using your spellcasting ability. The DC equals 10 + the spell's level. On a successful check, the spell ends.",
+    "text | At Higher Levels. When you cast this spell using a spell slot of 4th level or higher, you automatically end the effects of a spell on the target if the spell's level is equal to or less than the level of the spell slot you used."
+  ],
+  "tags": [
+    "spell",
+    "PHB'14",
+    "3rd level",
+    "Abjuration",
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Paladin",
+    "Sorcerer",
+    "Warlock",
+    "Wizard",
+    "Artificer"
+  ]
+},
+  {
     "count": 1,
     "color": "#4a6898",
     "title": "Augury",
